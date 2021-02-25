@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+h2{
+margin:10px 5px;
+}
+
+input{
+margin:10px 5px;
+font-size:12px;
+
+}
+div{
+display:inline-block;
+margin: 5px;
+font-weight:bold;
+font-size:15px;
+}
+.texts{
+font-weight:bold;
+font-size:15px;
+}
+
+.datebox{
+	width:140px;
+	height:40px;
+	padding-left:30px;
+	font-size:14px; 
+}
+.selectdate{
+	font-weight:bold;
+	font-size:13px;
+	vertical-align:-1px;
+	width:60px;
+	height:40px;
+}
+.datbox{
+border: 1px solid;
+width: 700px;
+padding: 10px;
+margin: 0px , 30px, 15px, 10px;
+border-radius:5px;
+}
+.workerbox{
+display:flex;
+align-items:center;
+margin-left:10px;
+}
+.worker{
+display:flex;
+align-items:center;
+margin-left:10px;
+}
+
+.workertime{
+
+margin-left:60px;
+}
+.workertime2{
+display:block;
+
+align-items:center;
+
+}
+.starttime{
+margin-left:60px;
+
+}
+.checktime{
+margin-left:80px;
+}
+.endtime{
+margin-left:100px;
+}

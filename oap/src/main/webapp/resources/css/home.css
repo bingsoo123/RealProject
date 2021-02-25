@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap');
+body{
+font-family: 'Noto Sans KR', sans-serif;
+	margin: 0;
+}
+
+header{
+	text-align: center;
+}
+
+.main{
+	margin: 100px 50px 50px 195px;
+	
+}
+
+
+.container{
+	width:100%;
+	position: relative;
+}
+
+.nav-container{
+	display: flex;
+	flex-direction: row;
+	margin: 30px 0px 60px 40px;
+	padding: 0;
+	list-style-type: none;
+	
+}
+
+.nav-item{
+	padding: 15px;
+	cursor: pointer;
+	margin-left: 60px;
+	margin-top: 5px;
+}
+
+.nav-item-regist{
+	margin-top:10px;
+	right: 360px;
+	position: absolute;
+}
+
+.test1{
+}
+
+.nav-item a{
+	
+	text-align: center;
+	text-decoration: none;
+	color: #000;
+	font-size: 21px;
+	
+}
+
+.main_image{
+}
+
+
+
+.main_title1{
+	margin-top:50px;
+}
+.main_title2{
+	margin-top: -412px;
+    margin-left: 700px;
+	
+}
+
+
+.main_btn{
+	display: flex;
+}
+
+.login_btn{
+	margin-right: 35px;
+	display: inline-block;
+}
+.alba_btn{
+	margin-right: 35px;
+}
+
+.regiser_btn{
+
+	
+}
+
+
+.main_title{
+	font-size: 40px;
+	font-weight: bold;
+		
+}
+.main_title_contents1{
+	font-size: 30px;
+
+	
+}
+
+
+
+
+
+
+
+
+
+

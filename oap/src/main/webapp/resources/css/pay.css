@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+.bone {
+	width: 100%;
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+
+.bone_top {
+	border-bottom: 1px solid black;
+	font-weight: bold;
+}
+
+.bone_bottom {
+	border-bottom: 1px solid black;
+	width: 100%;
+}
+
+.top_1 {
+	width: 20%;
+	display: inline-block;
+	border-right: 1px solid black;
+	text-align: center;
+	padding: 5px 10px 5px 10px;
+}
+
+.title {
+	width: 18%;
+	display: inline-block;
+	text-align: center;
+}
+
+.content {
+	width: 18%;
+	display: inline-block;
+	text-align: center;
+}

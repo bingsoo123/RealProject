@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+.large {
+	border-top:1px solid gray;
+	border-bottom:1px solid gray;
+	width:600px;
+}
+
+.space {
+	border-top:1px solid gray;
+	border-bottom:1px solid gray;
+	display:flex;
+	width:600px;
+}
+
+.title {
+	margin-right:10px;
+	border-right:2px solid gray;
+	padding:20px;
+	font-size: 25px;
+	width:150px;
+	background-color: #CED4DA;
+}
+
+.spaceright {
+	font-size: 25px;
+	padding:20px;
+}
+
+img {
+	width:30px;
+	weight:30px;
+}

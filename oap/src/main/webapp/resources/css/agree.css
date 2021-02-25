@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+body{
+
+text-align:center;
+max-width:2000px;
+margin:10%;
+}
+
+.wrap{
+max-width:2000px;
+
+
+}
+
+img{
+	max-width:1024px;
+text-align:center;
+	margin-bottom:4%;
+}
+textarea{
+	width:500px;
+	height:200px;
+	font-size:7pt;
+	font-weight:bold;
+	font-family:굴림,돋움,verdana;
+	line-height:150%;
+	resize:none;
+	border-color:#C6C6C5;
+	color:#6D6D6D;
+	}
+
+.userpromise{
+	display:block;
+	font-size:20px;
+	font-weight:bold;
+	margin-right:40px;
+		text-align:left;
+}
+.promisebox{
+	font-size:25px;
+	padding: 10px 0px;
+	color:#6D6D6D;
+	border-bottom:10px solid;
+	border-color:yellow;
+}
+.promisebox2{
+	font-size:25px;
+		padding: 10px 0px;
+		color:#6D6D6D;
+	border-bottom:10px solid;
+	border-color:green;
+}
+.userprivate{
+	font-size:20px;
+	font-weight:bold;
+		text-align:left;
+	display:block;
+}
+.userbox{
+	display:flex;
+	justify-content:center;
+width:1550px;
+	margin-bottom:20px;
+}
+.agree{
+		font-size:12px;
+	color:#6D6D6D;
+	text-align:left;
+	    margin-left: 20px
+}
+.allcheck{
+	padding:10px 0px;
+	width:500px;
+	height:20px;
+	border:1px solid;
+		font-size:13px;
+	border-color:#C6C6C5;
+	text-align:center;
+	margin-left:800px;
+
+
+}
+.gobox{
+	margin-left:143px;
+	margin-top:20px;
+	display:inline-block;
+width:1550px;
+	
+}
+.gomain{
+
+height:30px;
+margin-right:10px;
+	width:110px;
+	border:1px solid #6D6D6D;
+	background-color:#6D6D6D;
+		border-radius:4px;
+	color:white;	
+	
+}
+
+.gomain:hover{
+	border:1px solid #6D6D6D;
+	background-color:#6D6D6D;
+	color:white;
+}
+
+.gonext{
+
+height:30px;
+margin-right:10px;
+	margin-bottom:5%;
+	width:100px;
+	border:1px solid #6D6D6D;
+	border-radius:4px;
+	background-color:#6D6D6D;
+	color:white;
+}
+.gonext:hover{
+	border:1px solid #6D6D6D;
+	background-color:#6D6D6D;
+	color:white;
+}

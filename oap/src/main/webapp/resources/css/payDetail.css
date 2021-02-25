@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+body{
+	
+	width: 100%;
+	
+}
+
+.pay_top {
+	
+	border-bottom: 1px solid black;
+}
+
+
+.detail_title {
+	width : 33.3%;
+	display: inline-block;
+	margin : -3px;
+	border-right: 1px solid black;
+	text-align: center;
+	font-weight: bold;
+}
+
+
+.pay_middle {
+	padding : 15px 0px 15px 0px;
+}
+
+
+.detail_content {
+	
+	width : 50%;
+	display: inline-block;
+	margin : -3px;
+	text-align: center;
+}
+
+.pay_bottom {
+	
+	border-top : 1px solid black;
+	border-bottom : 1px solid black;
+}
+
+
+.detail_pay {
+	
+	width: 50%;
+	margin: -2.5px;
+	display: inline-block;
+	text-align: center;
+	border-right: 1px solid black;
+	padding: 10px 0px 10px 0px;
+	
+}
+
+button{
+	
+	position: relative;
+	top : 65px;
+	left: 48.4%;
+	
+}
+
+
+
+
+

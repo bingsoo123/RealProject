@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+.regist_content{
+	margin: 30px;
+	padding: 30px;
+}
+.regist_title{
+	display: block;
+	margin: 19px 0px 10px 0px;
+	width: 243px;
+	font-weight: 700;
+	
+}
+
+.regist_info{
+	width: 300px;
+	height: 35px;
+}
+
+.regist_info:focus{
+	outline: none !important;
+    border:1px solid #FEE300;
+}
+
+.regist_info_birth{
+	width: 97px;
+	height: 35px;
+}
+
+.regist_info_birth_select{
+	width:97px;
+	height:41px;
+}
+.regist_info_gender{
+	width: 318px;
+	height:41px;
+}
+
+.regist_info_account{
+	width: 100px;
+	height:47px;
+
+}
+.regist_info_account_input{
+	width: 210px;
+	height:41px;
+	margin: -7px;
+}
+
+.regist_info_account:focus{
+	outline: none !important;
+    border:1px solid #FEE300;
+}
+
+.regist_info_account_input:focus{
+	outline: none !important;
+    border:1px solid #FEE300;
+}
+
+.regist_info_birth_select:focus{
+	outline: none !important;
+    border:1px solid #FEE300;
+}
+
+.regist_info_gender:focus{
+	outline: none !important;
+    border:1px solid #FEE300;
+}
+
+.regist_info_birth:focus{
+	outline: none !important;
+    border:1px solid #FEE300;
+}

@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+.cal_top {
+	text-align: center;
+	font-size: 30px;
+}
+
+.cal {
+	text-align: center;
+}
+
+.cal-day{
+	
+	cursor: pointer;
+	
+}
+
+.cal-test{
+	
+	cursor: pointer;
+	
+}
+
+table.calendar {
+	border: 1px solid black;
+	display: inline-table;
+	text-align: left;
+}
+
+table.calendar td {
+	vertical-align: top;
+	border: 1px solid skyblue;
+	width: 100px;
+}

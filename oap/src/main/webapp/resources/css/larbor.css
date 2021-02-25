@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+
+/* --------------------------------------------------------------------------------------------------- */
+
+.ssain{
+	border:1px solid;
+	width:500px;
+	height:140px;
+	position:relative;
+	background-color:#EEEEEE;
+}
+
+.saimg{
+	position:absolute;
+	top:0;
+	left:25px;
+}
+
+.ssain h1{
+	position:absolute;
+	top:10px;
+	left:45%;
+	margin:0;
+}
+
+.ssain h4{
+	position:absolute;
+	bottom:10px;
+	left:45%;
+	margin:0;
+}
+
+
+.sa{
+	position:absolute;
+	bottom:35%;
+	left:45%;
+	margin:0;
+}
+
+

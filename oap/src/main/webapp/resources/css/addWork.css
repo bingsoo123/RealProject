@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+/* --------------------------------------------------------------------------------------------------- */
+
+.field1{
+	width:500px;
+	height:330px;
+	text-align: center;	
+}
+
+.field2{
+	text-align: left;	
+	width:450px;
+	height:200px;
+	margin-left:11px;
+}
+
+#select1{
+	width:180px;
+}
+

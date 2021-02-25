@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+
+/* --------------------------------------------------------------------------------------------------- */
+
+.officer{
+	border:1px solid;
+	width:500px;
+	height:140px;
+	position:relative;
+}
+
+.officer h2 {
+	position:absolute;
+	left:45%;
+	top:2%;
+	margin:0;
+}
+
+.offimg{
+	border:none;
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+
+.oname {
+	position:absolute;
+	left:45%;
+	top:45%;
+	margin:0;
+}
+
+.omember {
+	position:absolute;
+	left:45%;
+	bottom:2%;
+	margin:0;
+}
+

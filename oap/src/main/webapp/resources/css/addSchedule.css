@@ -1,0 +1,180 @@
+@charset "UTF-8";
+
+/* --------------------------------------------------------------------------------------------------- */
+
+.big{
+	border-top: 2px solid #DDDDDD;
+	border-bottom: 2px solid #DDDDDD;
+	width:820px;
+	height:270px;
+	position:relative;
+}
+
+.middle1{
+	border:none;
+	width:160px;
+	height:130px;
+	position:absolute;
+	top:8%;
+	left:3%;
+}
+
+.table-big{
+	border-top:1px solid black;
+	border-left:1px solid black;
+	display:table;
+	width:162px;
+	height:80px;
+}
+
+.table-middle1{
+	border:none;
+	display:table-row;
+	width:160px;
+	height:40px;
+}
+
+
+.table-small{
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	display:table-cell;
+	width:40px;
+	height:40px;
+	vertical-align:middle;
+	text-align:center;
+	background-color:white;
+}
+
+
+.table-small1{
+	border-bottom:1px solid black;
+	border-right:1px solid black;
+	display:table-cell;
+	width:40px;
+	height:40px;
+	background-color:#EEEEEE;
+	vertical-align:middle;
+	text-align:center;
+}
+
+.table-small3{
+	border-right:1px solid black;
+	border-bottom:1px solid black;
+	display:table-cell;
+	width:40px;
+	height:40px;
+	vertical-align:middle;
+	text-align:center;
+	background-color:white;
+}
+
+.table-small4{
+	border-bottom:1px solid black;
+	border-right:1px solid black;
+	display:table-cell;
+	width:40px;
+	height:40px;
+	background-color:#EEEEEE;
+	vertical-align:middle;
+	text-align:center;
+}
+
+.clicked{
+	background:#FFFF66;
+}
+
+.clicked1{
+	background:#FFFF66;
+}
+
+.middle1-h6{
+	position:absolute;
+	bottom:0;
+	right:0;
+	margin:0;
+	color:#CCCCCC;
+}
+
+.selectclass{
+	border:none;
+	width:180px;
+	height:60px;
+	position:relative;
+}
+
+#nameSelect{
+	border: 2px solid #DDDDDD;
+	width:180px;
+	height:44px;
+	font-weight:700;
+	text-align-last:center;
+}
+
+.nameSelect-h6{
+	margin:0;
+	color:#CCCCCC;
+	position:absolute;
+	bottom:0;
+	right:0;
+}
+
+.optionname:hover{
+	background-color:#FFFF00;
+}
+
+
+
+
+.middle2{
+	border:none;
+	width:520px;
+	height:130px;
+	position:absolute;
+	top:8%;
+	right:3%;
+}
+
+.table-big2{
+	border-top:1px solid black;
+	border-left:1px solid black;
+	display:table;
+	width:520px;
+	height:80px;
+}
+
+.table-middle2{
+	border:none;
+	display:table-row;
+	width:522px;
+	height:40px;
+}
+
+
+.middle2-h6{
+	position:absolute;
+	bottom:0;
+	right:0;
+	margin:0;
+	color:#CCCCCC;
+}
+
+.mi-date{
+	border: 2px solid #DDDDDD;
+	width:180px;
+	height:40px;
+	font-weight:700;
+	text-align-last:center;
+}
+
+.mi-button{
+	border: 2px solid #EEEEEE;
+	width:90px;
+	height:44px;
+	font-weight:700;
+	text-align:center;
+	background-color:#FFFF66;
+	position:absolute;
+	right:0;
+}
+

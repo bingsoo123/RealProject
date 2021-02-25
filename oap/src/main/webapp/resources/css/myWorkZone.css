@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+
+.workzone{
+	border:1px solid;
+	width:500px;
+	height:140px;
+	position:relative;
+}
+
+.workzone h2 {
+	position:absolute;
+	left:40%;
+	top:2%;
+	margin:0;
+}
+
+.workimg{
+	border:none;
+	width:100px;
+	height:100px;
+	position:absolute;
+}
+
+.kname {
+	position:absolute;
+	left:40%;
+	top:45%;
+	margin:0;
+}
+
+.kmember {
+	position:absolute;
+	left:40%;
+	bottom:2%;
+	margin:0;
+}
+
+
+.know {
+	position:absolute;
+	left:72%;
+	top:45%;
+	margin:0;
+}
+
+.kafter {
+	position:absolute;
+	left:72%;
+	bottom:2%;
+	margin:0;
+}

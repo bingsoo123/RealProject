@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+.large {
+	border-top:1px solid gray;
+	border-bottom:1px solid gray;
+	width:700px;
+}
+
+.space {
+	border-top:1px solid gray;
+	border-bottom:1px solid gray;
+	display:flex;
+	width:700px;
+}
+
+.title {
+	margin-right:10px;
+	border-right:2px solid gray;
+	padding:20px;
+	font-size: 20px;
+	width:150px;
+	background-color: #CED4DA;
+}
+
+.spaceright {
+	font-size: 20px;
+	padding:20px;
+}
+
+.buttonlocation {
+	padding:10px;
+	margin-left:560px;
+}
+
+.button1 {
+	width:80px;
+	background-color: white;
+	border-radius:5px;
+	
+}
+
+#passwordEdit , #nameEdit , #accountEdit{
+	display:none;
+}

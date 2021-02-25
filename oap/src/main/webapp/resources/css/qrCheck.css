@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+body {
+	text-align: center;
+}
+
+.wrap {
+	max-width: 1024px;
+	min-width: 500px;
+}
+
+.home {
+	cursor: pointer;
+	position: relative;
+	top: 20%;
+	left: 25%;
+	width: 40%;
+	height: 20%;
+}
+
+.icon {
+	width: 20%;
+	height: 20%;
+	padding-top: 50px;
+	padding-right: 70px;
+}
+
+.workIn {
+	display: inline-block;
+	cursor: pointer;
+	position: relative;
+	top: 30%;
+	left: 20%;
+}
+
+.workOut {
+	margin-left: 50px;
+}
