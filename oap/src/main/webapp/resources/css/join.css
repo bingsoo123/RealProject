@@ -1,2 +1,147 @@
 @charset "UTF-8";
 
+.all{
+	width:1500px;
+	height:800px;
+	position:relative;
+}
+
+.imgbox{
+	width:100px;
+	height:100px;
+	position:absolute;
+	left:24.5%;
+	top:10%;
+}
+
+.table{
+	display:table;
+	border: 1px solid #DDDDDD;
+	width:1200px;
+	height:200px;
+	position:absolute;
+	top:50%;
+	left:25%;
+	
+}
+
+.table-row1{
+	display:table-row;
+	border:none;
+}
+
+.table-row2{
+	display:table-row;
+	border:none;
+}
+
+.table-cell1{
+	display:table-cell;
+	border-bottom:1px solid #DDDDDD;
+	border-right:1px solid #DDDDDD;
+	background-color:yellow;
+	width:400px;
+	height:8px;
+}
+
+.table-cell2{
+	display:table-cell;
+	border-bottom:1px solid #DDDDDD;
+	background-color:green;
+	width:400px;
+	height:8px;
+}
+
+.table-cell3{
+	display:table-cell;
+	border-right:1px solid #DDDDDD;
+	width:400px;
+	height:110px;
+}
+
+.table-cell4{
+	display:table-cell;
+	width:400px;
+	height:110px;
+}
+
+.text{
+	position:absolute;
+	width:850px;
+	bottom:18%;
+	left:26%;
+}
+
+.text h4{
+	margin:0;
+	color:#BBBBBB;
+}
+
+.inputbox{
+	width:130px;
+	height:38px;
+	position:absolute;
+	right:0;
+	bottom:-10px;
+	background-color:white;
+	border-radius: 5px 5px 5px 5px;
+	border:1px solid #BBBBBB;
+}
+
+.box1{
+	width:430px;
+	height:80px;
+	position:absolute;
+	left:6%;
+	top:33%;
+}
+
+.box1 h3{
+	margin:0;
+	color:#DDDDDD;
+}
+
+.alba{
+	margin:0;
+}
+
+.albainput{
+	background-color:#FFFF99;
+	width:90px;
+	height:45px;
+	border:1px solid #AAAAAA;
+	position:absolute;
+	right:-3%;
+	bottom:-3px;
+	border-radius: 8px 8px 8px 8px;
+}
+
+.box2{
+	width:430px;
+	height:80px;
+	position:absolute;
+	right:6%;
+	top:33%;
+}
+
+.box2 h3{
+	margin:0;
+	color:#DDDDDD;
+}
+
+.manager{
+	margin:0;
+}
+
+.managerinput{
+	background-color:green;
+	width:90px;
+	height:45px;
+	border:1px solid #AAAAAA;
+	position:absolute;
+	right:-3%;
+	bottom:-3px;
+	border-radius: 8px 8px 8px 8px;
+	color:white;
+}
+

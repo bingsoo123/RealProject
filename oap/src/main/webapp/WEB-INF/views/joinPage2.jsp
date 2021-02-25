@@ -1,15 +1,20 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page session="false" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page session="false"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원등록 페이지입니다 !</title>
+<title>Insert title here</title>
 <link href="/resources/css/joinPage2.css" rel="stylesheet"/> 
 </head>
 <body>
-<div class="regist_content">
 
+<div class="regist_content">
+<div class="imgclass">
+<img src="/resources/images/regist_step3.png" style="width:1500px;">
+</div>
+<br/><br/><br/>
+	<div class="sp">
 	<span class="regist_title"> 
 		<label for="Id">아이디</label> 
 	</span>
@@ -67,6 +72,11 @@
 	             <option value="female">여자</option>
 	    </select>
 	</div>
+	
+	<span class="regist_title"> 
+		<label for="phone">휴대폰 번호</label>
+	</span>
+		<input type="text" class="regist_info" name="aInfo" minlength="11" maxlength="11" title="휴대폰번호" required>
 	 
 	<div class="account">
 		<span class="regist_title"> 
@@ -82,7 +92,12 @@
 	    </select>
 	    <input class="regist_info_account_input" type="text" id="account">
 	</div>
+	
+	<input type="button" value="가입하기" class="join">
+	</div>
 </div>
+
+
 </body>
 <script>
 	

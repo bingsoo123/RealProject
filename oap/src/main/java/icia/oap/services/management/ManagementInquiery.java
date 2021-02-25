@@ -177,7 +177,7 @@ public class ManagementInquiery {
 		return mapperM.logDetailSelect(mBean);
 	}
 	
-	private ModelAndView labor(ManageBean mBean) {
+	private ModelAndView laborListCtl(ManageBean mBean) {
 		
 		mav = new ModelAndView();
 		

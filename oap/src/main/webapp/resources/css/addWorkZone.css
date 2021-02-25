@@ -1,0 +1,58 @@
+@charset "UTF-8";
+div{
+	display: inline-block;
+	margin: 5px 10px;
+}
+input{
+	border:0px;
+	border-bottom:1px solid;
+}
+select{
+	margin:0px 10px;
+}
+.searchStore{
+	margin:5px 10px;
+	border-color:#6D6D6D;
+	border:1px solid;
+}
+.shopbox{
+	border: 1px solid;
+	width:700px;
+	padding: 10px;
+	border-radius:5px;
+	
+}
+.shopaddr{
+		margin:0px 15px;
+	
+}
+.shopName2{
+		margin:0px 15px;
+}
+.shopNumber2{
+		margin:0px 15px;
+}
+.shopPhone2{
+		margin:0px 15px;
+}
+.shopResult{
+			margin:0px 15px;
+	width:300px;
+}
+.shopPhone{
+	display:block;
+	
+}
+.shopPhone2{
+		margin:0px 15px;
+	width:250px;
+}
+
+.shopNumber2{
+	width:250px;
+	
+}
+
+.kindshop{
+	display:block;
+}

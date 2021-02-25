@@ -1,0 +1,141 @@
+@charset "UTF-8";
+
+.regist_contain{
+	margin:0 auto;
+	padding:0 auto;
+	max-width:768px;
+	min-width:320px;
+}
+
+.regist_content{
+	width:320px;
+	margin: 0 auto;
+
+}
+.regist_title{
+	display: block;
+	margin: 19px 0px 10px 0px;
+	width: 243px;
+	font-weight: 700;
+	
+}
+
+.regist_info{
+	width: 320px;
+	height: 35px;
+}
+
+.regist_info:focus{
+	outline: none !important;
+    border:1px solid #FEE300;
+}
+
+
+
+.regist_info_gender{
+	width: 320px;
+	height:41px;
+}
+
+
+
+
+.regist_store{
+	border-bottom:1px solid;
+	padding-top:3px;
+	text-align:center;
+	width: 320px;
+	height:28px;
+	font-weight: 700;
+	
+}
+.addstore{
+margin-top:1px;
+margin-right:2px;
+ float:right;
+}
+.removestore{
+margin-top:1px;
+margin-right:2px;
+float:right;
+
+}
+.regist_storemanage{
+	border:1px solid;
+	width:320px;
+	height:200px;
+}
+
+.regist_storelist{
+	border:1px solid;
+	margin:20px auto;
+	padding : 5px 10px;
+	width:500px;
+	height:400px;
+}
+.regist_info_account:focus{
+	outline: none !important;
+    border:1px solid #FEE300;
+}
+
+.regist_info_account_input:focus{
+	outline: none !important;
+    border:1px solid #FEE300;
+}
+
+.regist_info_birth_select:focus{
+	outline: none !important;
+    border:1px solid #FEE300;
+}
+
+.regist_info_gender:focus{
+	outline: none !important;
+    border:1px solid #FEE300;
+}
+
+.regist_info_birth:focus{
+	outline: none !important;
+    border:1px solid #FEE300;
+}
+
+.regist_info_btn{
+	margin: 10px 0px;
+	width: 320px;
+	height: 35px;
+}
+
+.regist_title_pop{
+	margin-left:25px;
+	display: block;
+
+	width: 243px;
+	font-weight: 700;
+}
+.regist_info_list{
+	margin-left:25px;
+	margin-top:20px;
+	width: 400px;
+	height: 35px;
+}
+.regist_info_detail{
+	margin-left:25px;
+	margin-top:20px;
+	width: 500px;
+	height: 35px;
+}
+.searchstore{
+	width:100px;
+	height:35px;
+}
+.regist_info_btn2{
+	display:block;
+	margin: 5px auto;
+	width: 100px;
+	height: 40px;
+	text-align:center
+}
+
+.list{
+	font-size:12pt;
+	margin:3px 10px;
+}

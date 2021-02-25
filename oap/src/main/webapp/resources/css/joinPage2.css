@@ -3,17 +3,43 @@
 .regist_content{
 	margin: 30px;
 	padding: 30px;
+	position:relative;
+	height:1200px;
+	width:1500px;
 }
+
+.sp{
+	position:absolute;
+	left:50%;
+	top:28%;
+	
+}
+
+.imgclass{
+	width:100px;
+	height:100px;
+	position:absolute;
+	left:11%;
+}
+
+.join{
+	position:absolute;
+	bottom:-15%;
+	left:30%;
+	width:130px;
+	height:35px;
+	background-color:#FEE300;
+}
+
 .regist_title{
 	display: block;
 	margin: 19px 0px 10px 0px;
 	width: 243px;
 	font-weight: 700;
-	
 }
 
 .regist_info{
-	width: 300px;
+	width: 350px;
 	height: 35px;
 }
 
@@ -23,16 +49,16 @@
 }
 
 .regist_info_birth{
-	width: 97px;
+	width: 110px;
 	height: 35px;
 }
 
 .regist_info_birth_select{
-	width:97px;
+	width:110px;
 	height:41px;
 }
 .regist_info_gender{
-	width: 318px;
+	width: 360px;
 	height:41px;
 }
 
@@ -42,7 +68,7 @@
 
 }
 .regist_info_account_input{
-	width: 210px;
+	width: 250px;
 	height:41px;
 	margin: -7px;
 }

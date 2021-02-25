@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+.all{
+	position:absolute;
+	width:500px;
+	height:150px;
+	margin:140px 110px;
+}
+
+.store{
+	BORDER-BOTTOM: #333333 1px solid; 
+	BORDER-LEFT: #ffffff 1px solid;
+	BORDER-RIGHT: #ffffff 1px solid; 
+	BORDER-TOP: #ffffff 1px solid;
+	height:29px;
+}
+
+.albaid{
+	BORDER-BOTTOM: #333333 1px solid; 
+	BORDER-LEFT: #ffffff 1px solid;
+	BORDER-RIGHT: #ffffff 1px solid; 
+	BORDER-TOP: #ffffff 1px solid;
+	height:29px;
+}
+
+.select{
+	width:110px;
+	height:29px;
+}
+
+.file_input_textbox{
+	height:29px;
+	BORDER-BOTTOM: #333333 1px solid; 
+	BORDER-LEFT: #ffffff 1px solid;
+	BORDER-RIGHT: #ffffff 1px solid; 
+	BORDER-TOP: #ffffff 1px solid;
+}
+
+.file_input_div{
+	position:absolute;
+	right:33%;
+	bottom:-105px;
+	width:80px;
+	height:36px;
+	overflow:hidden;
+}
+
+.file_input_img_btn{
+	padding:0 0 0 5px;
+}
+
+.file_input_hidden{
+	font-size:29px;
+	position:absolute;
+	right:0px;
+	top:0px;
+	opacity:0;
+	cursor:pointer;
+}
