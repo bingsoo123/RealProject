@@ -2,11 +2,15 @@ package icia.oap.controller;
 
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,7 +33,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home() {
 		mv = new ModelAndView();
-		mv.setViewName("qrCode");
+		mv.setViewName("home");
 		return mv;
 	}
 	
@@ -37,7 +41,8 @@ public class HomeController {
 	
 	// 메인화면에서 회원가입 버튼을 눌럿을 때  스텝1단게로 이동하는 단계    sCode = 1
 	@RequestMapping(value = "/JoinForm", method = RequestMethod.GET)
-	public ModelAndView joinForm(@ModelAttribute AuthBean authBean) {
+	public ModelAndView joinForm(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
+		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return auth.entrance(authBean);
 	}
 	
@@ -50,6 +55,8 @@ public class HomeController {
 	// 회원가입 하면서 필요한 정보를 입력하는 단계 ( 스텝 3 )    sCode = 3
 	@RequestMapping(value = "/JoinPage", method = RequestMethod.GET)
 	public ModelAndView joinPage(@ModelAttribute AuthBean authBean) {
+		
+		System.out.println("도착");
 		return auth.entrance(authBean);
 	}
 	

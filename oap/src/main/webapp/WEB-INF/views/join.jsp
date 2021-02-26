@@ -12,7 +12,7 @@
 <div class="all">
 
 	<div class="imgbox">
-		<img src="/resources/images/regist_step3.png" style="width:1200px; height:200px;">
+		<img src="/resources/img/regist_step1.png" style="width:1200px; height:200px;">
 	</div>
 	
 	<div class="table">
@@ -25,14 +25,14 @@
 				<div class="box1">
 					<h2 class="alba">알바생</h2><br/>
 					<h3>알바생 가입을 원하시면 선택해주세요.</h3>
-					<input type="button" value="회원가입" class="albainput">
+					<input type="button" value="회원가입" class="albainput" onClick="location.href='/Agree?sCode=agree'">
 				</div>
 			</div>
 			<div class="table-cell4">
 				<div class="box2">
 					<h2 class="manager">사장님</h2><br>
 					<h3>사장님 가입을 원하시면 선택해주세요.</h3>
-					<input type="button" value="회원가입" class="managerinput">
+					<input type="button" value="회원가입" class="managerinput" onClick="location.href='/Agree?sCode=agree'">
 				</div>
 			</div>
 		</div>

@@ -24,13 +24,33 @@ public class Authentication {
 		
 		ModelAndView mav = null;
 		
-		
-		if(authBean.getMCode()==null && authBean.getWCode()==null) {
+		if(authBean.getSCode()!=null) {
 			
+			switch(authBean.getSCode()) {
+				
+				case "JoinForm" :
+					mav = this.joinForm(authBean);
+					break;
+				case "agree" :
+					mav = this.joinTypeSelect(authBean);
+					break;
+				case "JoinPage" :
+					mav = this.joinAgree(authBean);
+					break;
+			
+			}
+			
+		}else {
+			
+			switch(authBean.getAction()) {
+		
+				case "JoinForm" :
+					mav = this.joinForm(authBean);
+					break;
+			
+			}
 			
 		}
-		
-		
 		
 		return mav;
 	}
@@ -38,6 +58,10 @@ public class Authentication {
 	private ModelAndView joinForm(AuthBean auBean) {
 		
 		ModelAndView mav = new ModelAndView();
+		
+		System.out.println("회원선택 이동합니다");
+		
+		mav.setViewName("join");
 		
 		return mav;
 	}
@@ -47,6 +71,9 @@ public class Authentication {
 		
 		ModelAndView mav = new ModelAndView();
 		
+		System.out.println("약관동의 페이지로 이동합니다");
+		
+		mav.setViewName("agree");
 		
 		return mav;
 	}
@@ -55,6 +82,8 @@ public class Authentication {
 	private ModelAndView joinAgree(AuthBean auBean) {
 		
 		ModelAndView mav = new ModelAndView();
+		
+		System.out.println("회원 정보 입력페이지로 이동합니다.");
 		
 		return mav;
 	}

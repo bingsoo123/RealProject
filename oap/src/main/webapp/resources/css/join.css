@@ -1,7 +1,11 @@
 @charset "UTF-8";
 
+body{
+
+}
+
 .all{
-	width:1500px;
+	width:628px;
 	height:800px;
 	position:relative;
 }
@@ -114,6 +118,7 @@
 	right:-3%;
 	bottom:-3px;
 	border-radius: 8px 8px 8px 8px;
+	cursor: pointer;
 }
 
 .box2{
@@ -143,5 +148,13 @@
 	bottom:-3px;
 	border-radius: 8px 8px 8px 8px;
 	color:white;
+	cursor: pointer;
 }
+
+
+
+
+
+
+
 

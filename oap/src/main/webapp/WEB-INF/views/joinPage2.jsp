@@ -11,7 +11,7 @@
 
 <div class="regist_content">
 <div class="imgclass">
-<img src="/resources/images/regist_step3.png" style="width:1500px;">
+<img src="/resources/img/regist_step3.png" style="width:1200px; height:200px;">
 </div>
 <br/><br/><br/>
 	<div class="sp">

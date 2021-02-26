@@ -9,14 +9,18 @@
 <link href="/resources/css/joinSuccess.css" rel="stylesheet" />
 </head>
 <body>
+<div class="all">
+
 <div class="wrap">
-<img class="" src="/resources/img/regist_step4.png">
-<img class="complete" src="/resources/img/regist_complete_onwer.png">
-</div>
-<div class="gobox">
-<input class="gomain"type="button" value="메인으로 이동">
-<input class="goLogin" type="button" value="로그인하기">
+	<img class="" src="/resources/img/regist_step4.png" style="width:1200px; height:200px;">
+	<img class="complete" src="/resources/img/regist_complete_onwer.png">
 </div>
 
+<div class="gobox">
+	<input class="gomain"type="button" value="메인으로 이동">
+	<input class="goLogin" type="button" value="로그인하기">
+</div>
+
+</div>
 </body>
 </html>
