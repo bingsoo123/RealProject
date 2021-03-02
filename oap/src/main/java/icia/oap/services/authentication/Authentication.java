@@ -1,165 +1,241 @@
 package icia.oap.services.authentication;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.ModelAndView;
 
 import icia.oap.beans.AuthBean;
+import icia.oap.beans.Money;
 import icia.oap.mapper.AuthMapper;
 
 @Service
 public class Authentication {
-	
+
 	@Autowired
 	private AuthMapper mapperA;
 	@Autowired
 	private PlatformTransactionManager tran;
-	
+
 	public Authentication() {
-		
+
 	}
-	
+
 	public ModelAndView entrance(AuthBean authBean) {
-		
+
 		ModelAndView mav = null;
-		
-		if(authBean.getSCode()!=null) {
-			
-			switch(authBean.getSCode()) {
-				
-				case "JoinForm" :
-					mav = this.joinForm(authBean);
-					break;
-				case "agree" :
-					mav = this.joinTypeSelect(authBean);
-					break;
-				case "JoinPage" :
-					mav = this.joinAgree(authBean);
-					break;
-			
+
+		if (authBean.getlCode() == null) {
+
+			switch (authBean.getAction()) {
+
+			case "JoinForm":
+				System.out.println("1");
+				mav = this.joinForm(authBean);
+				break;
+			case "Agree":
+				System.out.println("2");
+				mav = this.joinTypeSelect(authBean);
+				break;
+			case "JoinPage":
+				mav = this.joinAgree(authBean);
+				break;
+			case "LogInForm":
+				mav = this.loginForm(authBean);
+
 			}
-			
-		}else {
-			
-			switch(authBean.getAction()) {
-		
-				case "JoinForm" :
-					mav = this.joinForm(authBean);
-					break;
-			
+
+		} else {
+
+			switch (authBean.getAction()) {
+
+			case "LogInForm":
+				mav = this.loginForm(authBean);
+				break;
+			case "LogIn":
+				mav = this.logInCtl(authBean);
+				break;
+			case "TestWork":
+				mav = this.startWorkCtl(authBean);
 			}
-			
+
 		}
-		
+
 		return mav;
 	}
-	
-	private ModelAndView joinForm(AuthBean auBean) {
+
+	private ModelAndView startWorkCtl(AuthBean authBean) {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		System.out.println("회원선택 이동합니다");
+		System.out.println("10원 ?" + MoneyList().get(0).getMCount());
+		System.out.println("50원 ?" +MoneyList().get(1).getMCount());
+		System.out.println("100원 ?" +MoneyList().get(2).getMCount());
+		System.out.println("500원 ?" +MoneyList().get(3).getMCount());
+		System.out.println("1000원 ?" +MoneyList().get(4).getMCount());
+		System.out.println("5000원 ?" +MoneyList().get(5).getMCount());
+		System.out.println("10000원 ?" +MoneyList().get(6).getMCount());
+		System.out.println("50000원 ?" +MoneyList().get(7).getMCount());
 		
-		mav.setViewName("join");
+		mav.addObject("sip",  MoneyList().get(0).getMCount());
+		mav.addObject("osip", MoneyList().get(1).getMCount());
+		mav.addObject("baek", MoneyList().get(2).getMCount());
+		mav.addObject("obaek", MoneyList().get(3).getMCount());
+		mav.addObject("chun", MoneyList().get(4).getMCount());
+		mav.addObject("ochun", MoneyList().get(5).getMCount());
+		mav.addObject("man", MoneyList().get(6).getMCount());
+		mav.addObject("oman", MoneyList().get(7).getMCount());
 		
-		return mav;
-	}
-	
-	
-	private ModelAndView joinTypeSelect(AuthBean aubBean) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		System.out.println("약관동의 페이지로 이동합니다");
-		
-		mav.setViewName("agree");
-		
-		return mav;
-	}
-	
-	
-	private ModelAndView joinAgree(AuthBean auBean) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		System.out.println("회원 정보 입력페이지로 이동합니다.");
-		
-		return mav;
-	}
-	
-	
-	private ModelAndView join(AuthBean auBean) {
-		
-		ModelAndView mav = new ModelAndView();
-		
+		mav.setViewName("alternation");
 		
 		return mav;
 	}
 
-	
-	private boolean converToBoolean(int data) {
-		
-		return (data==1)? true : false;
+	private ArrayList<Money> MoneyList() {
+		return this.mapperA.getMoneyList();
 	}
-	
-	
+
+	private Money startWork() {
+		return mapperA.getStartWork();
+	}
+
+	private ModelAndView loginForm(AuthBean auBean) {
+
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("lCode", auBean.getlCode());
+
+		mav.setViewName("login");
+
+		return mav;
+	}
+
+	private ModelAndView joinForm(AuthBean auBean) {
+
+		ModelAndView mav = new ModelAndView();
+
+		System.out.println("회원선택 이동합니다");
+
+		mav.setViewName("join");
+
+		return mav;
+	}
+
+	private ModelAndView joinTypeSelect(AuthBean auBean) {
+
+		ModelAndView mav = new ModelAndView();
+
+		System.out.println("약관동의 페이지로 이동합니다");
+		System.out.println("서비스 코드 =" + auBean.getsCode());
+
+		mav.addObject("sCode", auBean.getsCode());
+
+		mav.setViewName("agree");
+
+		return mav;
+	}
+
+	private ModelAndView joinAgree(AuthBean auBean) {
+
+		ModelAndView mav = new ModelAndView();
+
+		System.out.println("회원 정보 입력페이지로 이동합니다.");
+
+		mav.setViewName((auBean.getsCode().equals("alba")) ? "joinPage" : "joinPage2");
+
+		return mav;
+	}
+
+	private ModelAndView join(AuthBean auBean) {
+
+		ModelAndView mav = new ModelAndView();
+
+		return mav;
+	}
+
+	private boolean converToBoolean(int data) {
+
+		return (data == 1) ? true : false;
+	}
+
 	private boolean joinCheck(AuthBean auBean) {
 		return this.converToBoolean(mapperA.joinCheck(auBean));
 	}
-	
+
 	private boolean joinInsert(AuthBean auBean) {
 		return this.converToBoolean(mapperA.joinInsert(auBean));
 	}
-	
+
 	private ModelAndView logInCtl(AuthBean auBean) {
-		
+
 		ModelAndView mav = new ModelAndView();
-		
+
+		String message = "아이디 또는 비밀번호가 잘못되었습니다";
+		String page = "login";
+
+		// 관리자의 로그인인지 알바생 (직원) 의 로그인인지 판단
+		if (auBean.getlCode().equals("alba")) {
+			if (this.isMemberAlba(auBean)) {
+					System.out.println("ID OK");
+				if (this.isPasswordAlba(auBean)) {
+					// Insert 는 Qr 코드메소드에 의해 T/F를 결정후 그쪽에서 진행
+					System.out.println("PW OK");
+					message = null;
+					page = "workMan";
+				}
+			}
+		} else if (auBean.getlCode().equals("manage")) {
+
+			if (this.isMemberManage(auBean)) {
+				if (this.isPasswordManage(auBean)) {
+					message = null;
+					page = "manage";
+				}
+			}
+		}
+
+		mav.addObject("lCode" , auBean.getlCode());
+		mav.addObject("message", message);
+		mav.setViewName(page);
+
 		return mav;
 	}
-	
-	private boolean isMember(AuthBean auBean) {
-		return this.converToBoolean(mapperA.isMember(auBean));
+
+	private boolean isMemberManage(AuthBean auBean) {
+		return this.converToBoolean(mapperA.isMemberManage(auBean));
 	}
-	
-	private boolean isPassword(AuthBean auBean) {
-		return this.converToBoolean(mapperA.isPassword(auBean));
+
+	private boolean isMemberAlba(AuthBean auBean) {
+		return this.converToBoolean(mapperA.isMemberAlba(auBean));
 	}
-	
+
+	private boolean isPasswordManage(AuthBean auBean) {
+		return this.converToBoolean(mapperA.isPasswordManage(auBean));
+	}
+
+	private boolean isPasswordAlba(AuthBean auBean) {
+		return this.converToBoolean(mapperA.isPasswordAlba(auBean));
+	}
+
 	private boolean insertCommute(AuthBean auBean) {
 		return this.converToBoolean(mapperA.insertCommute(auBean));
 	}
-	
+
 	private ModelAndView logOutCtl(AuthBean auBean) {
-		
+
 		ModelAndView mav = new ModelAndView();
-		
+
 		return mav;
 	}
-	
+
 	private boolean logInQr(AuthBean auBean) {
 		return this.converToBoolean(mapperA.logInQr(auBean));
 	}
-	
+
 	private boolean leaveQr(AuthBean auBean) {
 		return this.converToBoolean(mapperA.leaveQr(auBean));
 	}
-	
-	
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

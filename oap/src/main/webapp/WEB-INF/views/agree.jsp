@@ -113,7 +113,7 @@
 	}
 	
 	function nextPage(){
-		location.href="/JoinPage";
+		location.href="/JoinPage?sCode=${sCode}";
 	}
 	
 </script>

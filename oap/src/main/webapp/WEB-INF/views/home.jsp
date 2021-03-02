@@ -30,8 +30,8 @@
 				</div>
 			</div>
 			<div class="main_btn">
-				<a class="login_btn" href="/LogInForm?sCode=1"><img src="/resources/img/admin_btn.png" width="120px" height="120px"></a>
-				<a class="alba_btn" href="/LogInForm?sCode=2"><img src="/resources/img/alba_btn.png" width="120px" height="120px"></a>
+				<a class="login_btn" href="/LogInForm?lCode=manage"><img src="/resources/img/admin_btn.png" width="120px" height="120px"></a>
+				<a class="alba_btn" href="/LogInForm?lCode=alba"><img src="/resources/img/alba_btn.png" width="120px" height="120px"></a>
 				<a class="register_btn" href="/JoinForm?sCode=JoinForm"><img src="/resources/img/register_btn2.png" width="120px" height="120px"></a>
 			</div>
 		</div>

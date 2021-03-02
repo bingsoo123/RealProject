@@ -1,6 +1,9 @@
 package icia.oap.mapper;
 
+import java.util.ArrayList;
+
 import icia.oap.beans.AuthBean;
+import icia.oap.beans.Money;
 
 public interface AuthMapper {
 
@@ -8,14 +11,22 @@ public interface AuthMapper {
 
 	public int joinInsert(AuthBean auBean);
 
-	public int isMember(AuthBean auBean);
+	public int isMemberManage(AuthBean auBean);
+	
+	public int isMemberAlba(AuthBean auBean);
 
-	public int isPassword(AuthBean auBean);
+	public int isPasswordManage(AuthBean auBean);
+	
+	public int isPasswordAlba(AuthBean auBean);
 
 	public int insertCommute(AuthBean auBean);
 
 	public int logInQr(AuthBean auBean);
 
 	public int leaveQr(AuthBean auBean);
+
+	public Money getStartWork();
+
+	public ArrayList<Money> getMoneyList();
 
 }

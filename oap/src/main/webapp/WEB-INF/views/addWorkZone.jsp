@@ -45,10 +45,6 @@
 		
 
 		window.open('searchMap.jsp','storem','top=10,left=10,width=600,height=600,status=no,menubar=no,toolbar=no,resizable=no');
-		
-
-	
-
 
 		 
 		 form.submit();

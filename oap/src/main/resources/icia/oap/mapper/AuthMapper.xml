@@ -3,6 +3,24 @@
 
 <mapper namespace="icia.oap.mapper.AuthMapper">
 
+	<select id="isMemberAlba" resultType="int">
+		SELECT COUNT(*) FROM AB WHERE AB_ID=#{sId}
+	</select>
+	
+	<select id="isPasswordAlba" resultType="int">
+		SELECT COUNT(*) FROM AB WHERE AB_ID=#{sId} AND AB_PW=#{sPw}	
+	</select>
+	
+	<select id="isMemberManage" resultType="int">
+		SELECT COUNT(*) FROM MN WHERE MN_CODE=#{sId}
+	</select>
 
+	<select id="isPasswordManage" resultType="int">
+		SELECT COUNT(*) FROM MN WHERE MN_CODE=${sId} AND MN_PW=#{sPw}
+	</select>
+		
+	<select id="getMoneyList" resultType="icia.oap.beans.Money">
+		SELECT MONEY , MCOUNT FROM WLCHECK WHERE RTTYPE='2' AND RTTIME = (SELECT MAX(RTTIME) FROM WLCHECK)
+	</select>
 		
 </mapper>	

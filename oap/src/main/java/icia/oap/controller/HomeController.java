@@ -48,15 +48,15 @@ public class HomeController {
 	
 	// 스텝 1에서 약관동의 (스텝 2) 로 넘어가는 과정   sCode = 2
 	@RequestMapping(value = "/Agree", method = RequestMethod.GET)
-	public ModelAndView agree(@ModelAttribute AuthBean authBean) {
+	public ModelAndView agree(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
+		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return auth.entrance(authBean);
 	}
 	
 	// 회원가입 하면서 필요한 정보를 입력하는 단계 ( 스텝 3 )    sCode = 3
 	@RequestMapping(value = "/JoinPage", method = RequestMethod.GET)
-	public ModelAndView joinPage(@ModelAttribute AuthBean authBean) {
-		
-		System.out.println("도착");
+	public ModelAndView joinPage(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
+		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return auth.entrance(authBean);
 	}
 	
@@ -70,18 +70,37 @@ public class HomeController {
 	
 	// 메인화면에서 로그인 화면으로 넘어 가는 과정  lCode = ? , sCode = 1
 	@RequestMapping(value = "/LogInForm", method = RequestMethod.GET)
-	public ModelAndView logInForm(@ModelAttribute AuthBean authBean) {
+	public ModelAndView logInForm(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
+		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return auth.entrance(authBean);
 	}
 	
 	//
-	@RequestMapping(value = "/LogIn", method = RequestMethod.GET)
-	public ModelAndView logIn(@ModelAttribute AuthBean authBean) {
+	@RequestMapping(value = "/LogIn", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView logIn(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
+		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		System.out.println("HI");
 		return auth.entrance(authBean);
 	}
 	
 	@RequestMapping(value = "/LogInQr", method = RequestMethod.GET)
-	public ModelAndView logInQr(@ModelAttribute AuthBean authBean) {
+	public ModelAndView logInQr(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
+		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		// 일하는 요일이 맞는지 ?  요일이맞다면 시간은 맞는지 ? 
+		return auth.entrance(authBean);
+	}
+	
+	@RequestMapping(value = "/TestWork", method = RequestMethod.GET)
+	public ModelAndView testWork(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
+		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		return auth.entrance(authBean);
+	}
+	
+	@RequestMapping(value = "/StartMoney", method ={RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView startMoney(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
+		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		System.out.println("도착");
+		System.out.println("50원은 ?" + authBean.getOsip());
 		return auth.entrance(authBean);
 	}
 	

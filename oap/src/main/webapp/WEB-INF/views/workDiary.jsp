@@ -118,23 +118,8 @@
 
 </body>
 <script>
-	function handOverStrongBox() {
-		// 0 ~ 6 arr index
-		let dataContents = document.getElementById("work_diary_sahang");
-		let dataMoney = document.getElementsByName("strongbox_data_money");
-		var form = document.createElement("form");
-		form.action = ""; // 갈 페이지 지정
-	    form.method = "post";
-	    form.appendChild(dataMoney);  // 지폐
-	    form.appendChild(dataContents) // 특이사항
-		document.body.appendChild(form);
-		///form.submit();
-	}
-	
-	
-	
 
-
+	
 </script>
 
 

@@ -25,14 +25,14 @@
 				<div class="box1">
 					<h2 class="alba">알바생</h2><br/>
 					<h3>알바생 가입을 원하시면 선택해주세요.</h3>
-					<input type="button" value="회원가입" class="albainput" onClick="location.href='/Agree?sCode=agree'">
+					<input type="button" value="회원가입" class="albainput" onClick="location.href='/Agree?sCode=alba'">
 				</div>
 			</div>
 			<div class="table-cell4">
 				<div class="box2">
 					<h2 class="manager">사장님</h2><br>
 					<h3>사장님 가입을 원하시면 선택해주세요.</h3>
-					<input type="button" value="회원가입" class="managerinput" onClick="location.href='/Agree?sCode=agree'">
+					<input type="button" value="회원가입" class="managerinput" onClick="location.href='/Agree?sCode=manage'">
 				</div>
 			</div>
 		</div>
