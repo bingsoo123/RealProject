@@ -36,9 +36,20 @@ public class ManageController {
 	// 나의 매장 관리
 	@RequestMapping(value = "/MyWorkZone", method = RequestMethod.GET)
 	public ModelAndView myWorkZone(@ModelAttribute ManageBean mBean) {
+		mBean.setSCode("myWorkZone");
+		
+		mBean.setShMnCode("10000000");
+		
 		return mInquiery.entrance(mBean);
 	}
 
+	//지도 조회
+	@RequestMapping(value = "/searchMap", method = RequestMethod.GET)
+	public ModelAndView searchMape(@ModelAttribute ManageBean mBean) {
+		mBean.setSCode("searchMap");
+		return mInquiery.entrance(mBean);
+	}
+	
 	// 알바생 관리
 	@RequestMapping(value = "/Info", method = RequestMethod.GET)
 	public ModelAndView info(@ModelAttribute ManageBean mBean) {
@@ -148,6 +159,16 @@ public class ManageController {
 	public ModelAndView addSchedule(@ModelAttribute ManageBean mBean) {
 		return mEnroll.entrance(mBean);
 	}
+	
+	// 매장 관리 - 매장 추가하기      sCode :: 1
+	@RequestMapping(value = "/AddWorkZone", method = {RequestMethod.GET , RequestMethod.POST})
+	public ModelAndView addWorkZone(@ModelAttribute ManageBean mBean) {
+	
+		mBean.setSCode("addWorkZone");
+	
+		return mEnroll.entrance(mBean);
+	}
+	
 	
 
 	

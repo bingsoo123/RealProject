@@ -27,7 +27,7 @@ public class Authentication {
 
 		ModelAndView mav = null;
 
-		if (authBean.getlCode() == null) {
+		if (authBean.getLCode() == null) {
 
 			switch (authBean.getAction()) {
 
@@ -42,9 +42,10 @@ public class Authentication {
 			case "JoinPage":
 				mav = this.joinAgree(authBean);
 				break;
-			case "LogInForm":
-				mav = this.loginForm(authBean);
-
+			case "Join":
+				mav = this.join(authBean);
+				break;
+				
 			}
 
 		} else {
@@ -105,7 +106,7 @@ public class Authentication {
 
 		ModelAndView mav = new ModelAndView();
 
-		mav.addObject("lCode", auBean.getlCode());
+		mav.addObject("lCode", auBean.getLCode());
 
 		mav.setViewName("login");
 
@@ -128,9 +129,9 @@ public class Authentication {
 		ModelAndView mav = new ModelAndView();
 
 		System.out.println("약관동의 페이지로 이동합니다");
-		System.out.println("서비스 코드 =" + auBean.getsCode());
+		System.out.println("서비스 코드 =" + auBean.getSCode());
 
-		mav.addObject("sCode", auBean.getsCode());
+		mav.addObject("sCode", auBean.getSCode());
 
 		mav.setViewName("agree");
 
@@ -142,15 +143,20 @@ public class Authentication {
 		ModelAndView mav = new ModelAndView();
 
 		System.out.println("회원 정보 입력페이지로 이동합니다.");
-
-		mav.setViewName((auBean.getsCode().equals("alba")) ? "joinPage" : "joinPage2");
+		
+		mav.addObject("sCode", auBean.getSCode());
+		mav.setViewName((auBean.getSCode().equals("alba")) ? "joinPage" : "joinPage2");
 
 		return mav;
 	}
 
 	private ModelAndView join(AuthBean auBean) {
 
+		System.out.println("회원정보 입력페이지 입니다");
+		
 		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("joinSuccess");
 
 		return mav;
 	}
@@ -176,7 +182,7 @@ public class Authentication {
 		String page = "login";
 
 		// 관리자의 로그인인지 알바생 (직원) 의 로그인인지 판단
-		if (auBean.getlCode().equals("alba")) {
+		if (auBean.getLCode().equals("alba")) {
 			if (this.isMemberAlba(auBean)) {
 					System.out.println("ID OK");
 				if (this.isPasswordAlba(auBean)) {
@@ -186,7 +192,7 @@ public class Authentication {
 					page = "workMan";
 				}
 			}
-		} else if (auBean.getlCode().equals("manage")) {
+		} else if (auBean.getLCode().equals("manage")) {
 
 			if (this.isMemberManage(auBean)) {
 				if (this.isPasswordManage(auBean)) {
@@ -196,7 +202,7 @@ public class Authentication {
 			}
 		}
 
-		mav.addObject("lCode" , auBean.getlCode());
+		mav.addObject("lCode" , auBean.getLCode());
 		mav.addObject("message", message);
 		mav.setViewName(page);
 

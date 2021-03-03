@@ -3,6 +3,16 @@
 
 <mapper namespace="icia.oap.mapper.ManageMapper">
 
+	<select id="getMyWorkZoneList"
+		resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+		SELECT sh_code as shcode,sh_name as shName,sh_type as shType, sh_addr as shaddr,sh_tel 
+		as shTel,
+		COUNT(SIA.sia_abcode) AS workman
+		FROM SH INNER JOIN SIA ON sia.sia_shcode = sh.sh_code 
+		where SH_MNCODE = '10000000'
+		group by sh.sh_code,sh.sh_addr,sh.sh_businessli,sh.sh_tel,sh.sh_type,sh.sh_name
+		]]>
+	</select>
 
-		
 </mapper>	

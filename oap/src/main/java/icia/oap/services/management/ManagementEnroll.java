@@ -26,6 +26,27 @@ public class ManagementEnroll {
 	public ModelAndView entrance(ManageBean mBean) {
 		
 		
+		switch(mBean.getSCode()) {
+		case "addWorkZone":
+			mav = this.addWorkZoneCtl(mBean);
+		break;
+		
+		}
+		
+		return mav;
+	}
+	
+	// 매장추가하기
+	private ModelAndView addWorkZoneCtl(ManageBean mBean) {
+	
+		ModelAndView mav = new ModelAndView();
+	
+	
+		mav.addObject("Road", mBean.getRoad());
+		mav.addObject("detail", mBean.getDetail());
+
+		
+		mav.setViewName("addWorkZone");
 		return mav;
 	}
 	

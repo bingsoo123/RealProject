@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+
 import icia.oap.beans.ManageBean;
 import icia.oap.mapper.ManageMapper;
 
@@ -14,6 +16,8 @@ public class ManagementInquiery {
 	
 	@Autowired
 	private ManageMapper mapperM;
+	@Autowired
+	private Gson gson;
 	
 	ModelAndView mav = null;
 	
@@ -23,7 +27,16 @@ public class ManagementInquiery {
 	
 	public ModelAndView entrance(ManageBean mBean) {
 		
+		switch(mBean.getSCode()) {
+		case "myWorkZone":
+			mav = this.workZoneManagementCtl(mBean);
+		break;
 		
+		case "searchMap":
+			mav = this.searchMapCtl(mBean);
+		break;
+		
+		}
 		
 		return mav;
 	}
@@ -33,8 +46,32 @@ public class ManagementInquiery {
 		
 		mav = new ModelAndView();
 		
+		String jsonData = gson.toJson(this.getMyWorkZoneList(mBean));
+		
+		ArrayList<ManageBean> mbTest = new ArrayList<ManageBean>();
+		
+		mbTest = this.getMyWorkZoneList(mBean);
+	
+		
+		
+		mav.addObject("WL", jsonData);
+		
+
+		
+		mav.setViewName("myWorkZone");
+		
 		return mav;
 	}
+	
+	// 주소찾아주는 창 띄우기
+	private ModelAndView searchMapCtl(ManageBean mBean) {
+		
+		ModelAndView mav = new ModelAndView();
+
+		mav.setViewName("searchMap");
+		return mav;
+	}
+	
 	// 나의 매장리스트 가져오기 - mapper
 	private ArrayList<ManageBean> getMyWorkZoneList(ManageBean mBean){
 		

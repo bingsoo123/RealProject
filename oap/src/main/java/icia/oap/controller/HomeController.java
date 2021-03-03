@@ -61,8 +61,13 @@ public class HomeController {
 	}
 	
 	// db 검사 후  회원가입 완료여부 결정 페이지   ( 스텝 4 )  sCode = 4
-	@RequestMapping(value = "/Join", method = RequestMethod.GET)
-	public ModelAndView join(@ModelAttribute AuthBean authBean) {
+	@RequestMapping(value = "/Join", method = RequestMethod.POST)
+	public ModelAndView join(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
+		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		System.out.println("회원 정보도착");
+		System.out.println("test >>" + authBean.getSBirth());
+		System.out.println("code >>" + authBean.getSCode());
+		System.out.println("아이디 ="  + authBean.getSId());
 		return auth.entrance(authBean);
 	}
 	

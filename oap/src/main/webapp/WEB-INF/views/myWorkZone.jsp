@@ -6,55 +6,83 @@
 <head>
    <title>myWorkZone</title>
    <link href="/resources/css/myWorkZone.css" rel="stylesheet"/> 
-</head>
-<body>
-   <div class="workzone">
-   	<div class="workimg">
-   		<img src="/resources/images/mac.jpg" style="width:140px; height:140px;">
-   	</div>
-   	<h2>매그도날드(구월점)</h2>
-   	<h4 class="kname">업종 : 프렌차이즈</h5>
-   	<h4 class="kmember">직원수 : 8명</h4>
-   	<h3 class="know">현재근무 : 4명</h3>
-   	<h3 class="kafter">다음근무 : 4명</h3>
-   </div>
-   <br/><br/>
-   
-   <div class="workzone">
-   	<div class="workimg">
-   		<img src="/resources/images/mac.jpg" style="width:140px; height:140px;">
-   	</div>
-   	<h2>매그도날드(간석점)</h2>
-   	<h4 class="kname">업종 : 프렌차이즈</h5>
-   	<h4 class="kmember">직원수 : 5명</h4>
-   	<h3 class="know">현재근무 : 2명</h3>
-   	<h3 class="kafter">다음근무 : 3명</h3>
-   </div>
-   <br/><br/>
-   
-   <div class="workzone">
-   	<div class="workimg">
-   		<img src="/resources/images/cu.jpg" style="width:140px; height:140px;">
-   	</div>
-   	<h2>싸유편의점(미추홀점)</h2>
-   	<h4 class="kname">업종 : 편의점</h5>
-   	<h4 class="kmember">직원수 : 3명</h4>
-   	<h3 class="know">현재근무 : 1명</h3>
-   	<h3 class="kafter">다음근무 : 2명</h3>
-   </div>
-   <br/><br/>
-   
-    <div class="workzone">
-   	<div class="workimg">
-   		<img src="/resources/images/7.jpg" style="width:140px; height:140px;">
-   	</div>
-   	<h2>기억일레븐(주안점)</h2>
-   	<h4 class="kname">업종 : 편의점</h5>
-   	<h4 class="kmember">직원수 : 5명</h4>
-   	<h3 class="know">현재근무 : 3명</h3>
-   	<h3 class="kafter">다음근무 : 2명</h3>
-   </div>
-   <br/><br/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+
+</head>
+<body onload="init()">
+	<div class="work_wrap"> 
+	<div class="buttons"> 
+	<i class="fas fa-store"></i>
+	<div class ="addwork_btn">
+	<i class="fas fa-store"></i><i class="fas fa-ad"></i><input type ="button"  class= "addstore" value="매장추가" onClick="addstore()"></div>
+   <div class ="deletework_btn">	<i class="fas fa-store"></i><input type ="button" value="매장삭제" onClick="deletestore()"> </div>
+
+
+    </div>
+	<section id= "workZone">
+	
+	<div id= "workInfo"></div>
+	</section>
+   
+
+
+  
+   
+ 
+   <br/><br/>
   </body>
+  <script>
+  function init() {
+	   let section = document.getElementById("workZone");
+	   let workInfo = document.getElementById("workInfo");
+		let log = '${WL}';
+		let workrep = log.replace(/\n/g,'\\n');
+		let work = JSON.parse(workrep);
+
+		
+		for(i = 0; i<work.length; i++){
+			let div = document.createElement('Div');
+			div.className = "workzone";
+			div.style.margin ="40px 0px";
+			section.appendChild(div)
+			let shName = document.createElement('h2');
+			shName.textContent = work[i].shName;
+			shName.className="workInfo";
+			let shtype = document.createElement('h4');
+			shtype.textContent = "업종 : " +work[i].shType;
+			shtype.className="kname";
+			let workman = document.createElement('h4');
+			workman.textContent = "직원수 : " +work[i].workman +"명";
+			workman.style.margin ="10px 0px";
+			workman.className="kmember";
+// 			let workimg = document.createElement('Div');
+// 			workimg.style.backgroundImage = "url(/resources/image/" +work[i].workimg + ")";
+// 			workimg.style.backgroundSize = "contain";
+// 			workimg.className="workimg";
+			
+// 			div.appendChild(workimg);
+			div.appendChild(workman);
+			div.appendChild(shtype);
+			div.appendChild(shName);
+			
+		}
+}
+	function addstore(){
+		let form = document.createElement("form");
+		form.setAttribute("method","get");
+		form.setAttribute("action",'AddWorkZone');
+		form.setAttribute("target","매장등록");
+		
+		document.body.appendChild(form);
+			
+			
+			  window.open('addWorkZone.jsp','매장등록','top=10,left=10,width=800,height=600,status=no,menubar=no,toolbar=no,resizable=no');
+			
+			 
+			 form.submit();
+	
+		}
+
+  </script>
 </html>

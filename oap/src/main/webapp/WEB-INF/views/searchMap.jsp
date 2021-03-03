@@ -24,9 +24,10 @@
 <input type="button" class="regist_info_btn2" value="확인" onClick="submitAddr()">
 
 </body>
-
+<!-- 지도,주소api를 불러오기 위한 다음페이지 제공 소스  -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c12ddaa519ac1f1f821e84ef032ac15d&libraries=services"></script>
+<!-- 지도 api값을 불러오기 위한 api코드(자바스크립트키 사용) -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	c12ddaa519ac1f1f821e84ef032ac15d&libraries=services"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = {
@@ -98,10 +99,14 @@ function submitAddr(){
 	
 	let form = document.createElement("form");
 	form.method="post";
-	form.action="shop?detail="+list;
+	form.action="addWorkZone";
 	form.target="shopResult";
 	form.appendChild(div);
 	document.body.appendChild(form);
+	  opener.document.getElementById("shopResult").value = list;
+
+	
+	
 	form.submit();
 	
 	

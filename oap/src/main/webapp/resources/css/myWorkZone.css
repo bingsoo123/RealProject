@@ -1,11 +1,20 @@
 @charset "UTF-8";
 
 
+.work_wrap{
+	width:800px;
+	margin: 10px 20px;
+	display:inline-block;
+	
+}
+
 .workzone{
 	border:1px solid;
 	width:500px;
 	height:140px;
 	position:relative;
+	margin:0px 20px;
+	top:20px;
 }
 
 .workzone h2 {
@@ -49,4 +58,40 @@
 	left:72%;
 	bottom:2%;
 	margin:0;
+}
+.addwork_btn{
+	display:flex;
+	position:absolute;
+		background-color:#FEE300; 
+	 border-radius: 5px;
+	
+	color:black;
+		left: 500px;
+	
+}
+.deletework_btn{
+	display:flex;
+	position:absolute;
+		left: 600px;
+
+}
+
+.buttons{
+	display:inline-block;
+}
+
+.addstore{
+	border :0px;
+	background-color:#FEE300;
+	font-size:15px;
+		border-radius:5px;
+}
+.addstore:hover{
+	border :0px;
+	background-color:#C6C6C5;
+	font-size:15px;
+	border-radius:5px;
+}
+i{
+	color:black;
 }

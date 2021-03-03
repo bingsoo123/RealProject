@@ -5,6 +5,7 @@ body{
 text-align:center;
 max-width:2000px;
 }
+
 .all{
 	width:1500px;
 	height:800px;
@@ -16,7 +17,7 @@ max-width:2000px;
 	width:100px;
 	height:100px;
 	position:absolute;
-	left:24.5%;
+	left:10.2%;
 	top:10%;
 }
 
