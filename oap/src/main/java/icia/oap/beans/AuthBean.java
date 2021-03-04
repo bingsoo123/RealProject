@@ -16,6 +16,7 @@ public class AuthBean {
 	private String sName;
 	private String sBirth;
 	private String sGender;
+	private String sPhone;
 	private String bankName;
 	private String sAccount;
 	private String oman;
@@ -26,9 +27,9 @@ public class AuthBean {
 	private String baek;
 	private String osip;
 	private String sip;
-	private String[] aInfo;
-	
-	
-	
+	private String sAddr;
+	private String sEmail;
+	private String road;
+	private String detail;
 	
 }

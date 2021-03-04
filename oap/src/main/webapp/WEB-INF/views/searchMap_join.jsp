@@ -12,7 +12,7 @@
 	<span class="regist_title_pop"> 
 		<label for="reg_store">매장등록하기</label> 
 	</span>
-<input type="text" class="regist_info_list" id="storeName" name="road" minlength="2" maxlength="30" title="매장명" placeholder="매장이름을 입력하세요">
+<input type="text" class="regist_info_list" id="storeName" name="road" minlength="2" maxlength="30" title="매장명" placeholder="매장이름을 입력하세요" readOnly>
 
 <button type="button" onClick="sample5_address()" class="searchstore">매장찾기</button>
 <input type="text" class="regist_info_detail"  id="detailAddress" name="detail" placeholder="상세주소">
@@ -88,7 +88,7 @@ function submitAddr(){
 	//최종 부모
 	let list=road+detail;
 	
-	
+	 
  	let ref_str = document.createElement("div");
 	ref_str.append(list);
 
@@ -99,11 +99,11 @@ function submitAddr(){
 	
 	let form = document.createElement("form");
 	form.method="post";
-	form.action="addWorkZone";
-	form.target="shopResult";
+	form.action="Join";
+	form.target="regist_info_addr";
 	form.appendChild(div);
 	document.body.appendChild(form);
-	  opener.document.getElementById("shopResult").value = list;
+	  opener.document.getElementById("regist_info_addr").value = list;
 
 	
 	

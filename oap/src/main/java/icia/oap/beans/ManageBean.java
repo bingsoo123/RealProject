@@ -13,6 +13,7 @@ public class ManageBean {
 	public String shType;
 	public String shAddr;
 	public String shTel;
+	public String shImage;
 	public int workman;
 	public String road;
 	public String detail;

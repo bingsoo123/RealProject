@@ -41,11 +41,9 @@ public class ManagementEnroll {
 	
 		ModelAndView mav = new ModelAndView();
 	
-	
 		mav.addObject("Road", mBean.getRoad());
 		mav.addObject("detail", mBean.getDetail());
 
-		
 		mav.setViewName("addWorkZone");
 		return mav;
 	}

@@ -4,23 +4,35 @@
 <mapper namespace="icia.oap.mapper.AuthMapper">
 
 	<select id="isMemberAlba" resultType="int">
-		SELECT COUNT(*) FROM AB WHERE AB_ID=#{sId}
+		SELECT COUNT(*) FROM AB
+		WHERE AB_ID=#{sId}
 	</select>
-	
+
 	<select id="isPasswordAlba" resultType="int">
-		SELECT COUNT(*) FROM AB WHERE AB_ID=#{sId} AND AB_PW=#{sPw}	
+		SELECT COUNT(*) FROM AB
+		WHERE AB_ID=#{sId} AND AB_PW=#{sPw}
 	</select>
-	
+
 	<select id="isMemberManage" resultType="int">
-		SELECT COUNT(*) FROM MN WHERE MN_CODE=#{sId}
+		SELECT COUNT(*) FROM MN
+		WHERE MN_ID=#{sId}
 	</select>
 
 	<select id="isPasswordManage" resultType="int">
-		SELECT COUNT(*) FROM MN WHERE MN_CODE=${sId} AND MN_PW=#{sPw}
+		SELECT COUNT(*) FROM MN
+		WHERE MN_ID=#{sId} AND MN_PW=#{sPw}
 	</select>
-		
+
 	<select id="getMoneyList" resultType="icia.oap.beans.Money">
-		SELECT MONEY , MCOUNT FROM WLCHECK WHERE RTTYPE='2' AND RTTIME = (SELECT MAX(RTTIME) FROM WLCHECK)
+		SELECT MONEY , MCOUNT FROM
+		WLCHECK WHERE RTTYPE='2' AND RTTIME = (SELECT MAX(RTTIME) FROM
+		WLCHECK)
 	</select>
-		
+
+	<insert id="joinInsert">
+		INSERT INTO AB (AB_CODE, AB_ID, AB_PW, AB_NAME,
+		AB_PHONE, AB_BIRTH, AB_ADDR, AB_EMAIL)
+		VALUES('100000000', 'ALBA1', '1234', '채알바', '01012341234', '19950224', #{sAddr}, 'ALBA1@NAVER.COM')
+	</insert>
+
 </mapper>	

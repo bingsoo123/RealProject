@@ -35,6 +35,9 @@ public class ManagementInquiery {
 		case "searchMap":
 			mav = this.searchMapCtl(mBean);
 		break;
+		case "searchMapJoin":
+			mav = this.searchMapJoinCtl(mBean);
+		break;
 		
 		}
 		
@@ -63,12 +66,23 @@ public class ManagementInquiery {
 		return mav;
 	}
 	
-	// 주소찾아주는 창 띄우기
+	// 주소찾아주는 창 띄우기 - 매장
 	private ModelAndView searchMapCtl(ManageBean mBean) {
 		
 		ModelAndView mav = new ModelAndView();
 
 		mav.setViewName("searchMap");
+		return mav;
+	}
+	
+	// 주소찾아주는 창 띄우기 - 회원가입
+	private ModelAndView searchMapJoinCtl(ManageBean mBean) {
+		
+		ModelAndView mav = new ModelAndView();
+
+		
+		
+		mav.setViewName("searchMap_join");
 		return mav;
 	}
 	

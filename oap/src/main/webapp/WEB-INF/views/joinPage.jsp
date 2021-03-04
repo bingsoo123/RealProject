@@ -41,9 +41,20 @@
 	</span>
 		<input type="text" class="regist_info" name="sName" minlength="2" maxlength="6" title="이름" required>
 
+	<span class="regist_title"> 
+		<label for="email">이메일</label>
+	</span>
+		<input type="text" class="regist_info_email" name="email"  title="이메일계정" required>@
+		<input type="text" class="regist_info_email" name="email"  title="이메일주소" required>
+		
+	<span class="regist_title"> 
+		<label for="email">주소</label>
+	</span>
+		<input type="text" maxlength="30" id= "regist_info_addr" name="sAddr" class="regist_info_addr" name="shAddr" value="${ Road}${detail}" />
+		<input type="button" value="주소찾기" onClick="search_store()" class="regist_info_addr_btn">
 	 
 	<div class="birthday">
-		<span class="regist_title"> 
+		<span class="regist_title">
 			<label for="birthday">생년월일</label>
 		</span>
 		<input type="text" class="regist_info_birth" name="aInfo" maxlength="4" placeholder="년(4자)">
@@ -81,6 +92,8 @@
 	</span>
 		<input type="text" class="regist_info" name="sPhone" minlength="11" maxlength="11" title="휴대폰번호" required>
 	 
+	 
+	 
 	<div class="account">
 		<span class="regist_title"> 
 			<label for="account">계좌번호</label>
@@ -116,6 +129,25 @@
 			pwd.focus();
 		}
 	}
+	
+	
+	function search_store(){
+
+		let form = document.createElement("form");
+		form.setAttribute("method","get");
+		form.setAttribute("action",'searchMapJoin');
+		form.setAttribute("target","regist_info_addr");
+		
+
+		document.body.appendChild(form);
+			
+
+		window.open('searchMap_join.jsp','regist_info_addr','top=10,left=10,width=600,height=600,status=no,menubar=no,toolbar=no,resizable=no');
+
+		form.submit();
+				
+		}
+	
 	
 	function sub(){
 		var data = document.getElementsByName("aInfo");

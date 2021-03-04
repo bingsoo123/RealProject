@@ -67,7 +67,7 @@ public class HomeController {
 		System.out.println("회원 정보도착");
 		System.out.println("test >>" + authBean.getSBirth());
 		System.out.println("code >>" + authBean.getSCode());
-		System.out.println("아이디 ="  + authBean.getSId());
+		System.out.println("은행이름 ="  + authBean.getBankName());
 		return auth.entrance(authBean);
 	}
 	

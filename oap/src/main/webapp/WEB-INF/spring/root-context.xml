@@ -21,6 +21,7 @@
 		<property name="jdbcUrl" value="jdbc:oracle:thin:@db.abtp.hoonzzang.com:7011:xe"></property>
 		<property name="username" value="BSBS"></property>
 		<property name="password" value="7160"></property>
+		<property name="maximumPoolSize" value="10"></property>
 	</bean>
 
 	<!-- DBCP 정보 -->
@@ -45,5 +46,13 @@
    </bean>
    
    <mybatis-spring:scan base-package="icia.oap.mapper"/>
+   
+   	<!-- multipartResolver -->
+	<bean name="multipartResolver"
+	      class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <property name="defaultEncoding" value="utf-8"/>
+	    <property name="maxUploadSize" value="104857600"></property>
+	</bean>
+   
 		
 </beans>

@@ -145,6 +145,9 @@ public class Authentication {
 		System.out.println("회원 정보 입력페이지로 이동합니다.");
 		
 		mav.addObject("sCode", auBean.getSCode());
+		mav.addObject("Road", auBean.getRoad());
+		mav.addObject("detail", auBean.getDetail());
+		
 		mav.setViewName((auBean.getSCode().equals("alba")) ? "joinPage" : "joinPage2");
 
 		return mav;
@@ -156,7 +159,37 @@ public class Authentication {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("joinSuccess");
+		String message = "알수없는 도류가 발생하였습니다 . 다시시도 해주세요";
+		String page = (auBean.getSCode().equals("alba"))? "joinPage" : "joinPage2";
+		
+		System.out.println(auBean.getSId());
+		System.out.println(auBean.getSPw());
+		System.out.println(auBean.getSName());
+		System.out.println(auBean.getSBirth());
+		System.out.println(auBean.getSGender());
+		System.out.println(auBean.getSPhone());
+		System.out.println(auBean.getBankName());
+		System.out.println(auBean.getSAccount());
+		
+		if(auBean.getSCode().equals("alba")) {
+			
+			if(this.isMemberAlba(auBean)) {
+				
+				if(this.joinInsert(auBean)) {
+					
+					
+				}
+				
+			}
+			
+		}else if(auBean.getSCode().equals("manage")) {
+			
+			
+			
+		}
+		
+		mav.addObject("message", message);
+		mav.setViewName(page);
 
 		return mav;
 	}
@@ -166,9 +199,7 @@ public class Authentication {
 		return (data == 1) ? true : false;
 	}
 
-	private boolean joinCheck(AuthBean auBean) {
-		return this.converToBoolean(mapperA.joinCheck(auBean));
-	}
+
 
 	private boolean joinInsert(AuthBean auBean) {
 		return this.converToBoolean(mapperA.joinInsert(auBean));
@@ -195,9 +226,12 @@ public class Authentication {
 		} else if (auBean.getLCode().equals("manage")) {
 
 			if (this.isMemberManage(auBean)) {
+				
 				if (this.isPasswordManage(auBean)) {
+					
 					message = null;
 					page = "manage";
+					
 				}
 			}
 		}

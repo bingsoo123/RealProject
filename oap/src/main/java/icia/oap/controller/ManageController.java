@@ -43,10 +43,17 @@ public class ManageController {
 		return mInquiery.entrance(mBean);
 	}
 
-	//지도 조회
+	//지도 조회 - 매장
 	@RequestMapping(value = "/searchMap", method = RequestMethod.GET)
 	public ModelAndView searchMape(@ModelAttribute ManageBean mBean) {
 		mBean.setSCode("searchMap");
+		return mInquiery.entrance(mBean);
+	}
+	
+	//지도 조회 - 회원가입
+	@RequestMapping(value = "/searchMapJoin", method = RequestMethod.GET)
+	public ModelAndView searchMapJoin(@ModelAttribute ManageBean mBean) {
+		mBean.setSCode("searchMapJoin");
 		return mInquiery.entrance(mBean);
 	}
 	
@@ -165,6 +172,7 @@ public class ManageController {
 	public ModelAndView addWorkZone(@ModelAttribute ManageBean mBean) {
 	
 		mBean.setSCode("addWorkZone");
+		System.out.println("작동");
 	
 		return mEnroll.entrance(mBean);
 	}

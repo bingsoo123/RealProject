@@ -9,6 +9,12 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
+	<!-- @Autowired 지원 속성 : 내가 선언한 Controller보다 앞서 설정되야 함-->
+	<context:annotation-config/>
+
+
+	
+	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
@@ -41,6 +47,11 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
+	
+
+	
+
+	
 	
 	
 	<context:component-scan base-package="icia.oap.controller"/>
