@@ -16,7 +16,7 @@ public class AlbaEnroll {
 	
 	public ModelAndView entrance(AlbaBean aBean) {
 		
-	
+		
 		
 		return mav;
 	}
