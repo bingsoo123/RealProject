@@ -28,5 +28,11 @@ public interface AuthMapper {
 	public Money getStartWork();
 
 	public ArrayList<Money> getMoneyList();
+	
+	public String maxNote();
+	
+	public String maxCode();
+
+	public int accountInsert(AuthBean auBean);
 
 }

@@ -14,6 +14,7 @@ public class AuthBean {
 	private String sId;
 	private String sPw;
 	private String sName;
+	private String abCode;
 	private String sBirth;
 	private String sGender;
 	private String sPhone;

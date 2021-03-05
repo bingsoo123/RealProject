@@ -56,6 +56,14 @@
     color: #FEE300;
 }
 
+.work_diary_update{
+	height: 200px;
+    margin-top: 15px;
+    margin-right: 23px;
+    float: right;
+    color: #C6C6C5;
+}
+
 button{
 	border: none;
 	width: 100px;
@@ -63,7 +71,14 @@ button{
 	border-radius:10px;
 	background-color: #FEE300;
 	font-weight: 700;
-	
+}
+
+.button_color1{
+	background-color: #FEE300;
+}
+
+.button_color2{
+	background-color: #d5d5d5;
 }
 
 .work_diary_contents_matters_test{

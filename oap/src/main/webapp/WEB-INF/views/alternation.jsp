@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="/resources/css/workDiary.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <body>
 
@@ -110,12 +111,15 @@
 				</div>
 				<div class="work_diary_contents_matters">
 					<textarea class="work_diary_contents_matters_sahang"
-						id="work_diary_sahang" disabled></textarea>
+						id="work_diary_sahang" readOnly>${note}</textarea>
 
 				</div>
 				<br>
 				<div class="work_diary_submit">
-					<button type="submit" onClick="handOverStrongBox();">전송</button>
+					<button class="button_color1" type="submit" onClick="handOverStrongBox();">전송</button>
+				</div>
+				<div class="work_diary_update">
+					<button class="button_color2" type="submit" onClick="update();">수정</button>
 				</div>
 			</div>
 
@@ -152,6 +156,18 @@
 		document.body.appendChild(form);
 		
 		form.submit();
+		
+	}
+	function update(){
+		
+		var test = document.getElementsByName("money");
+		var note = document.getElementById("work_diary_sahang");
+		
+		for(i=0 ; i<test.length ; i++){
+			test[i].disabled = false;
+		}
+		
+		note.readOnly = false;
 		
 	}
 </script>

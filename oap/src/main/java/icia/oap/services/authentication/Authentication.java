@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 
 import icia.oap.beans.AuthBean;
@@ -88,12 +90,17 @@ public class Authentication {
 		mav.addObject("ochun", MoneyList().get(5).getMCount());
 		mav.addObject("man", MoneyList().get(6).getMCount());
 		mav.addObject("oman", MoneyList().get(7).getMCount());
+		mav.addObject("note", getNote());
 		
 		mav.setViewName("alternation");
 		
 		return mav;
 	}
 
+	private String getNote() {
+		return this.mapperA.maxNote();
+	}
+	
 	private ArrayList<Money> MoneyList() {
 		return this.mapperA.getMoneyList();
 	}
@@ -162,29 +169,29 @@ public class Authentication {
 		String message = "알수없는 도류가 발생하였습니다 . 다시시도 해주세요";
 		String page = (auBean.getSCode().equals("alba"))? "joinPage" : "joinPage2";
 		
-		System.out.println(auBean.getSId());
-		System.out.println(auBean.getSPw());
-		System.out.println(auBean.getSName());
-		System.out.println(auBean.getSBirth());
-		System.out.println(auBean.getSGender());
-		System.out.println(auBean.getSPhone());
-		System.out.println(auBean.getBankName());
-		System.out.println(auBean.getSAccount());
+		TransactionStatus status = tran.getTransaction(new DefaultTransactionDefinition());
+		
+		auBean.setAbCode(mapperA.maxCode());
 		
 		if(auBean.getSCode().equals("alba")) {
 			
-			if(this.isMemberAlba(auBean)) {
-				
+			if(!this.isMemberAlba(auBean)) {
+				System.out.println("ID없음 >> 회원가입 진행");
 				if(this.joinInsert(auBean)) {
-					
-					
+					System.out.println("회원정보 들어감");
+					if(this.accountInsert(auBean)) {
+						
+						System.out.println("계좌까지 인서트 성공 .... 확인바람");
+						tran.commit(status);
+						page = "joinSuccess";
+						message = null;
+						
+					}
 				}
 				
 			}
 			
 		}else if(auBean.getSCode().equals("manage")) {
-			
-			
 			
 		}
 		
@@ -192,6 +199,10 @@ public class Authentication {
 		mav.setViewName(page);
 
 		return mav;
+	}
+
+	private boolean accountInsert(AuthBean auBean) {
+		return this.converToBoolean(mapperA.accountInsert(auBean));
 	}
 
 	private boolean converToBoolean(int data) {

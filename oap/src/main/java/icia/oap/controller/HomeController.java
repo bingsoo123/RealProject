@@ -65,9 +65,6 @@ public class HomeController {
 	public ModelAndView join(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
 		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		System.out.println("회원 정보도착");
-		System.out.println("test >>" + authBean.getSBirth());
-		System.out.println("code >>" + authBean.getSCode());
-		System.out.println("은행이름 ="  + authBean.getBankName());
 		return auth.entrance(authBean);
 	}
 	

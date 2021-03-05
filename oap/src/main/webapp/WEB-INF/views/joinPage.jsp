@@ -152,6 +152,7 @@
 	function sub(){
 		var data = document.getElementsByName("aInfo");
 		var account = document.getElementsByName("account");
+		var mail = document.getElementsByName("email");
 		var tt = document.getElementById("joinInfo");
 		
 		var input = document.createElement("input");
@@ -165,6 +166,12 @@
 		input2.name="sCode";
 		input2.value="${sCode}";
 		tt.appendChild(input2);
+		
+		var input3 = document.createElement("input");
+		input3.type="type";
+		input3.name="sEmail";
+		input3.value=mail[0].value + "@" + mail[1].value;
+		tt.appendChild(input3);
 		
 		document.joinInfo.submit();
 	}

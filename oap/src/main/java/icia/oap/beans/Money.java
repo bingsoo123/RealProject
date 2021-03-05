@@ -15,5 +15,6 @@ public class Money {
 	private String sip;
 	private String money;
 	private String mCount;
+	private String note;
 	
 }

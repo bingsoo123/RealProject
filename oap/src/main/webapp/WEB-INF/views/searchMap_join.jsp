@@ -86,7 +86,7 @@ function submitAddr(){
 	
 
 	//최종 부모
-	let list=road+detail;
+	let list=road + " " + detail;
 	
 	 
  	let ref_str = document.createElement("div");

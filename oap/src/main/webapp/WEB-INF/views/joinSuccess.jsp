@@ -13,7 +13,7 @@
 
 <div class="wrap">
 	<img class="" src="/resources/img/regist_step4.png" style="width:1200px; height:200px;">
-	<img class="complete" src="/resources/img/regist_complete_onwer.png">
+	<img class="complete" src="/resources/img/regist_complete_alba.png">
 </div>
 
 <div class="gobox">
