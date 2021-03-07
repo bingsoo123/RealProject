@@ -1,5 +1,7 @@
 package icia.oap.services.management;
 
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -25,10 +27,61 @@ public class ManagementModify {
 
 	public ModelAndView entrance(ManageBean mBean) {
 		
+		switch (mBean.getSCode()) {
+		case "laborDelete":
+			mav = this.laborDeleteCtl(mBean);
+			break;
+		default:
+			break;
+		}
 		
 		return mav;
 	}
 	
+	private ModelAndView laborDeleteCtl(ManageBean mBean) {
+		mav = new ModelAndView();
+		
+		// laborDelete(mBean); // 배열에 abCode
+		String [] abCodeArr = mBean.getAbCode().split(",");
+		
+		for(int i = 0; i< abCodeArr.length; i++) {
+			System.out.println("SHCODE:"+ mBean.getShCode() );
+			System.out.println("ABCODE: " + abCodeArr[i]);
+			mBean.setAbCode(abCodeArr[i]);
+			
+			mBean = this.getDeleteLaborLcRoot(mBean);
+			
+			System.out.println("mBean.getLcRoot() :: " + mBean.getLcRoot());
+			
+			File file = new File(mBean.getLcRoot());
+			if( file.exists() ){
+				if(file.delete()){
+					System.out.println("shCode :" + mBean.getShCode() + "  abCode :" + mBean.getAbCode() + "의 경로 " + mBean.getLcRoot());
+					System.out.println("삭제 완료!");
+				}else{
+					System.out.println("파일삭제 실패"); 
+				} 
+			}else{
+				System.out.println("파일이 존재하지 않습니다.");
+			}
+
+			
+			System.out.println("mBean.getAbCode()::" + mBean.getAbCode());
+			this.laborDelete(mBean); // 삭제
+			System.out.println("삭제 " + i+1 + "스택");
+		}
+		
+		return mav;
+	}
+	
+	// [근로계약서] 삭제 눌렀을때 매장코드, 알바 코드로 그 삭제 누른 사람의 근로계약서 이미지 경로 (lcRoot)
+	private ManageBean getDeleteLaborLcRoot(ManageBean mBean) {
+		return mapperM.getDeleteLaborLcRoot(mBean);
+	}
+	// [근로계약서] 삭제
+	private boolean laborDelete(ManageBean mBean){
+		return convertToBoolean(mapperM.laborDelete(mBean));
+	}
 	
 	private ModelAndView changeCtl(ManageBean mBean) {
 		

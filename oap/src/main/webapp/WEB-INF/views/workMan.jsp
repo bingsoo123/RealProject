@@ -5,11 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="/resources/css/manage.css" rel="stylesheet" />
 </head>
 <body onLoad="workDiary()">
 
-	알바생 페이지입니다.
-	
 
 </body>
 
@@ -27,7 +26,7 @@
 		// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
 		
 		
-		window.open("/TestWork?lCode=${lCode}","근무일지",'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+		window.open("/TestWork?lCode=${lCode}&tCode=start","근무일지",'status=no , height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 		
 	}
 

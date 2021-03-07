@@ -3,6 +3,27 @@
 
 <mapper namespace="icia.oap.mapper.AlbaMapper">
 
-
+	<select id="getMoneyList" resultType="icia.oap.beans.Money">
+		SELECT MONEY , MCOUNT FROM
+		WLCHECK WHERE RTTYPE='2' AND RTTIME = (SELECT MAX(RTTIME) FROM
+		WLCHECK WHERE RTTYPE='2')
+	</select>
+	
+	<select id="maxNote" resultType="String">
+		SELECT WL_SPECIALNOTE FROM WL WHERE WL_TIME = (SELECT MAX(WL_TIME) FROM WL)
+	</select>	
+	
+	<select id="maxTime" resultType="String">
+		SELECT MAX(TO_CHAR((RT_TIME),'YYYYMMDDHH24MISS')) AS MAXTIME FROM RT WHERE RT_SIASHCODE=#{shCode}
+	</select>	
+	
+	<insert id="insertRt">
+		INSERT INTO RT(RT_SIASHCODE,RT_SIAABCODE,RT_TYPE) VALUES(#{shCode},#{abCode},#{rtType})
+	</insert>
+	
+	<insert id="insertRd">
+		INSERT INTO RD(RD_RTSHCODE,RD_RTABCODE,RD_RTTIME,RD_MONEYTYPE,RD_MONEYCOUNT)
+		VALUES(#{shCode},#{abCode},TO_DATE(#{maxTime},'YYYYMMDDHH24MISS'),#{mType},#{mCount})
+	</insert>
 		
 </mapper>	

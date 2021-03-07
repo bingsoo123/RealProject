@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="icia.oap.mapper.ManageMapper">
-
+	
+	<!--  원진   -->
+	
 	<select id="getMyWorkZoneList"
 		resultType="icia.oap.beans.ManageBean">
 	<![CDATA[
@@ -14,5 +16,122 @@
 		group by sh.sh_code,sh.sh_addr,sh.sh_businessli,sh.sh_tel,sh.sh_type,sh.sh_name
 		]]>
 	</select>
+
+	<!--  진주  -->
+
+	<!-- 근로계약서 탭 눌렀을때 그 매장의 근로계약서를 작성한 모두 -->
+	<select id="laborList" resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+		SELECT AB_NAME AS "ABNAME",
+		       LC_SIAABCODE AS "ABCODE",
+		       LC_SIASHCODE AS "SHCODE",
+		       LC_ROOT AS "LC_ROOT"
+		FROM LC INNER JOIN AB ON LC.LC_SIAABCODE = AB_CODE
+		WHERE LC_SIASHCODE = #{shCode}
+	]]>
+	</select>
+
+	<!-- 근로계약서 상세 조회 -->
+	<select id="laborDetailSelect"
+		resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+	SELECT LC_SIASHCODE AS "SHCODE", 
+	       LC_SIAABCODE AS "ABCODE",
+	       LC_ROOT AS "LCROOT"
+	FROM LC 
+	where (LC_SIASHCODE = #{shCode}) AND (LC_SIAABCODE= #{abCode})
+	]]>
+	</select>
+
+	<!-- 근로계약서 추가 -->
+	<insert id="laborAdd">
+		INSERT INTO LC(LC_SIASHCODE, LC_SIAABCODE, LC_ROOT) VALUES(#{shCode},
+		#{abCode}, #{lcRoot})
+	</insert>
+
+	<!-- 선택한 근로계약서 삭제 -->
+	<delete id="laborDelete">
+		DELETE FROM LC WHERE (LC_SIASHCODE = #{shCode}) AND (LC_SIAABCODE =
+		#{abCode})
+	</delete>
+
+
+	<!-- 특정 매장의 알바 정보 (이름,코드) -->
+	<select id="getAlbaList1" resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+	SELECT SIA_SHCODE AS "SHCODE",
+	       SIA_ABCODE AS "ABCODE",
+	       AB_NAME AS "ABNAME"
+	FROM SIA INNER JOIN AB ON SIA.SIA_ABCODE = AB.AB_CODE
+	WHERE SIA_SHCODE = #{shCode}
+	]]>
+	</select>
+
+
+	<!--썬택한날짜사이의 출퇴근 정보 조회 -->
+	<select id="getCommuteList"
+		resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+	SELECT AB_NAME AS "ABNAME",
+	       CM_SCSHCODE AS "SHCODE",
+	       CM_SCABCODE AS "ABCODE",
+	       CM_SCSTARTTIME AS "STARTTIME",
+	       SC_ENDTIME AS "ENDTIME",
+	       TO_CHAR(CM_TIME,'YYYY-MM-DD_HH24:MI') AS "CMTIME",
+	       CM_TYPE AS "CMTYPE",
+	       CM_ROUND AS "CMROUND"
+	FROM CM INNER JOIN SC ON (CM.CM_SCSHCODE = SC.SC_SIASHCODE) AND 
+	   					 (CM.CM_SCABCODE = SC.SC_SIAABCODE) AND
+	   					 (CM.CM_SCSTARTTIME = SC.SC_STARTTIME)
+	       INNER JOIN AB ON CM.CM_SCABCODE = AB.AB_CODE
+	WHERE (CM.CM_SCSHCODE = #{shCode}) AND (CM.CM_SCABCODE = #{abCode}) AND (CM.CM_TIME BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD')
+		                           								  AND TO_DATE(#{endDate}, 'YYYY-MM-DD'))
+	]]>
+	</select>
+
+	<!-- 매장코드의 관리자 이름과 매장 정보, 또 그 매장에 있는 알바생 코드까지 -->
+	<select id="shopInfoAndAlbaList"
+		resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+		SELECT SH_CODE AS "SHCODE",
+		       SH_NAME AS "SHNAME",
+		       SH_ADDR AS "SHADDR",
+		       SH_TEL AS "SHTEL",
+		       MN_NAME AS "MNNAME",
+		       SIA_ABCODE AS "ABCODE",
+		       AB_NAME AS "ABNAME"
+		FROM SH INNER JOIN MN ON SH.SH_MNCODE = MN.MN_CODE
+		        INNER JOIN SIA ON SH.SH_CODE = SIA.SIA_SHCODE
+		        INNER JOIN AB ON SIA.SIA_ABCODE = AB.AB_CODE
+		WHERE SH_CODE = #{shCode}
+	]]>
+	</select>
+
+	<!-- 근로 계약서 [추가] 버튼누른후 알바생 select 박스 눌렀을때 알바생 정보 띄움 -->
+	<select id="getLaborAlbaInfoList"
+		resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+		SELECT AB_CODE AS "ABCODE",
+		       AB_NAME AS "ABNAME",
+		       AB_PHONE AS "ABPHONE",
+		       AB_ADDR AS "ABADDR"
+		FROM SIA INNER JOIN AB ON SIA.SIA_ABCODE = AB.AB_CODE
+		WHERE SIA_SHCODE = #{shCode} AND SIA_ABCODE = #{abCode}
+	]]>
+	</select>
+
+	<!-- 근로계약서 삭제 하면서 그 경로에 있는 파일삭제도 같이 하려고 lcRoot 가져오는것 -->
+	<select id="getDeleteLaborLcRoot"
+		resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+		SELECT LC_SIASHCODE AS "SHCODE",
+		       LC_SIAABCODE AS "ABCODE",
+		       LC_ROOT AS "LCROOT"
+		FROM LC
+		WHERE LC_SIASHCODE = #{shCode} AND LC_SIAABCODE = #{abCode}
+	]]>
+	</select>
+
+
 
 </mapper>	

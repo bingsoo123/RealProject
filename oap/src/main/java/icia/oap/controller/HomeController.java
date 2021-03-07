@@ -92,19 +92,9 @@ public class HomeController {
 		return auth.entrance(authBean);
 	}
 	
-	@RequestMapping(value = "/TestWork", method = RequestMethod.GET)
-	public ModelAndView testWork(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
-		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
-		return auth.entrance(authBean);
-	}
+
 	
-	@RequestMapping(value = "/StartMoney", method ={RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView startMoney(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
-		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
-		System.out.println("도착");
-		System.out.println("50원은 ?" + authBean.getOsip());
-		return auth.entrance(authBean);
-	}
+
 	
 	
 	/* ----------------------- 로그아웃 ----------------------*/

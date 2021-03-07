@@ -60,49 +60,12 @@ public class Authentication {
 			case "LogIn":
 				mav = this.logInCtl(authBean);
 				break;
-			case "TestWork":
-				mav = this.startWorkCtl(authBean);
+
 			}
 
 		}
 
 		return mav;
-	}
-
-	private ModelAndView startWorkCtl(AuthBean authBean) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		System.out.println("10원 ?" + MoneyList().get(0).getMCount());
-		System.out.println("50원 ?" +MoneyList().get(1).getMCount());
-		System.out.println("100원 ?" +MoneyList().get(2).getMCount());
-		System.out.println("500원 ?" +MoneyList().get(3).getMCount());
-		System.out.println("1000원 ?" +MoneyList().get(4).getMCount());
-		System.out.println("5000원 ?" +MoneyList().get(5).getMCount());
-		System.out.println("10000원 ?" +MoneyList().get(6).getMCount());
-		System.out.println("50000원 ?" +MoneyList().get(7).getMCount());
-		
-		mav.addObject("sip",  MoneyList().get(0).getMCount());
-		mav.addObject("osip", MoneyList().get(1).getMCount());
-		mav.addObject("baek", MoneyList().get(2).getMCount());
-		mav.addObject("obaek", MoneyList().get(3).getMCount());
-		mav.addObject("chun", MoneyList().get(4).getMCount());
-		mav.addObject("ochun", MoneyList().get(5).getMCount());
-		mav.addObject("man", MoneyList().get(6).getMCount());
-		mav.addObject("oman", MoneyList().get(7).getMCount());
-		mav.addObject("note", getNote());
-		
-		mav.setViewName("alternation");
-		
-		return mav;
-	}
-
-	private String getNote() {
-		return this.mapperA.maxNote();
-	}
-	
-	private ArrayList<Money> MoneyList() {
-		return this.mapperA.getMoneyList();
 	}
 
 	private Money startWork() {

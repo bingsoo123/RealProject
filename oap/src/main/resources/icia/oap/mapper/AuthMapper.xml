@@ -22,16 +22,6 @@
 		SELECT COUNT(*) FROM MN
 		WHERE MN_ID=#{sId} AND MN_PW=#{sPw}
 	</select>
-
-	<select id="getMoneyList" resultType="icia.oap.beans.Money">
-		SELECT MONEY , MCOUNT FROM
-		WLCHECK WHERE RTTYPE='2' AND RTTIME = (SELECT MAX(RTTIME) FROM
-		WLCHECK)
-	</select>
-	
-	<select id="maxNote" resultType="String">
-		SELECT WL_SPECIALNOTE FROM WL WHERE WL_TIME = (SELECT MAX(WL_TIME) FROM WL)
-	</select>
 	
 	<select id="maxCode" resultType="String">
 		SELECT MAX(AB_CODE)+1 FROM AB
@@ -46,5 +36,5 @@
 	<insert id="accountInsert">
 		INSERT INTO AC(AC_ABCODE , AC_BANKNAME , AC_ACCOUNT) VALUES(#{abCode} , #{bankName} , #{sAccount})
 	</insert>
-
+	
 </mapper>

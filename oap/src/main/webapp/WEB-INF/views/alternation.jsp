@@ -8,7 +8,7 @@
 <link href="/resources/css/workDiary.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
-<body>
+<body onLoad="init()">
 
 	<h1 style="text-align: center">근무일지</h1>
 	<div id="work_diary_contents">
@@ -119,7 +119,7 @@
 					<button class="button_color1" type="submit" onClick="handOverStrongBox();">전송</button>
 				</div>
 				<div class="work_diary_update">
-					<button class="button_color2" type="submit" onClick="update();">수정</button>
+					<button class="button_color2" id="modify" type="submit" onClick="update();">수정</button>
 				</div>
 			</div>
 
@@ -130,44 +130,87 @@
 
 </body>
 <script>
-	function handOverStrongBox() {
-		alert("ok");
-		var str = ["sip","osip","baek","obaek","chun","ochun","man","oman"];
+	
+	function init(){
 		
+		var msg = "${message}";
+		
+		if(msg!=""){
+			alert(msg);
+			self.close();
+		}
+		
+	}
+
+	function handOverStrongBox() {
+		var str = ["sip","osip","baek","obaek","chun","ochun","man","oman"];
+		var btn = document.getElementById("modify");
 		let data = document.getElementsByName("money");
 		let form = document.createElement("form");
 		
-		form.method="post";
-		form.action="StartMoney";
-		
-		
-		for(i=0 ; i<data.length ; i++){
-			alert(data[i].value);	
-			if(data[i].value != 0){
-				//data[i].name=str[i]
-				//form.appendChild(data[i]);
-				let input = document.createElement("input");
-				input.name = str[i];
-				input.value = data[i].value;
-				form.appendChild(input);
+		if(btn.innerText!="수정"){
+			
+			alert("수정완료를 클릭해주세요");
+			
+		}else{
+			
+			form.method="post";
+			form.action="StartMoney";
+			
+			let tcode = document.createElement("input");
+			tcode.name = "tCode";
+			tcode.value = "start";
+			form.appendChild(tcode);
+			
+			for(i=0 ; i<data.length ; i++){
+				if(data[i].value != 0){
+					//data[i].name=str[i]
+					//form.appendChild(data[i]);
+					let input = document.createElement("input");
+					input.name = str[i];
+					input.value = data[i].value;
+					form.appendChild(input);
+				}
 			}
+			
+			document.body.appendChild(form);
+			
+			form.submit();
+
+			// ajax 처리로 바꾸어라 
+			
 		}
 		
-		document.body.appendChild(form);
 		
-		form.submit();
 		
 	}
 	function update(){
 		
 		var test = document.getElementsByName("money");
 		var note = document.getElementById("work_diary_sahang");
+		var btn = document.getElementById("modify");
 		
-		for(i=0 ; i<test.length ; i++){
-			test[i].disabled = false;
+		if(btn.innerText=="수정"){
+			
+			for(i=0 ; i<test.length ; i++){
+				test[i].disabled = false;
+				
+			}
+			btn.innerText = "수정완료";
+			note.readOnly = false;
+			
+		}else{
+			
+			for(i=0 ; i<test.length ; i++){
+				test[i].disabled = true;
+				
+			}
+			btn.innerText = "수정";
+			note.readOnly = true;
+			
 		}
 		
-		note.readOnly = false;
+
 		
 	}
 </script>

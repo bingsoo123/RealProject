@@ -26,10 +26,6 @@ public interface AuthMapper {
 	public int leaveQr(AuthBean auBean);
 
 	public Money getStartWork();
-
-	public ArrayList<Money> getMoneyList();
-	
-	public String maxNote();
 	
 	public String maxCode();
 

@@ -36,9 +36,15 @@ public interface ManageMapper {
 
 	public ModelAndView logDetailSelect(ManageBean mBean);
 
-	public ArrayList<ManageBean> larborList(ManageBean mBean);
+	public ArrayList<ManageBean> laborList(ManageBean mBean);
 
-	public ModelAndView larborDetailSelect(ManageBean mBean);
+	public ManageBean laborDetailSelect(ManageBean mBean);
+	
+	public ArrayList<ManageBean> shopInfoAndAlbaList(ManageBean mBean);
+	
+	public ArrayList<ManageBean> getLaborAlbaInfoList(ManageBean mBean);
+	
+	public ArrayList<ManageBean> getAlbaList1(ManageBean mBean);
 	
 	
 	
@@ -50,6 +56,8 @@ public interface ManageMapper {
 
 	public int addSchedule(ManageBean mBean);
 	
+	public int laborAdd(ManageBean mBean);
+	
 	
 	
 	//  Modify   ( 수정 )
@@ -59,6 +67,18 @@ public interface ManageMapper {
 	public int drop(ManageBean mBean);
 
 	public int deleteSchedule(ManageBean mBean);
+
+	public ManageBean getDeleteLaborLcRoot(ManageBean mBean);
+
+	public int laborDelete(ManageBean mBean);
+
+	
+
+	
+
+	
+
+
 
 
 }

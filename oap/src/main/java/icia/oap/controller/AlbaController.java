@@ -1,6 +1,8 @@
 package icia.oap.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import icia.oap.beans.AlbaBean;
+import icia.oap.beans.AuthBean;
 import icia.oap.services.alba.AlbaEnroll;
 import icia.oap.services.alba.AlbaInquiery;
 import icia.oap.services.alba.AlbaModify;
@@ -70,6 +73,22 @@ public class AlbaController {
 	public ModelAndView albaAddSchedule(@ModelAttribute AlbaBean aBean) {
 		return aEnroll.entrance(aBean);
 	}
+	
+	
+	@RequestMapping(value = "/TestWork", method = RequestMethod.GET)
+	public ModelAndView testWork(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		return aEnroll.entrance(aBean);
+	}
+	
+	 //알바생이 출근하자마자 시제값을 전송한 데이터를 db에 전송
+	@RequestMapping(value = "/StartMoney", method ={RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView startMoney(@ModelAttribute AlbaBean aBean ,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		System.out.println("근무일지 등록 도착");
+		return aEnroll.entrance(aBean);
+	}
+	
 	
 	
 	

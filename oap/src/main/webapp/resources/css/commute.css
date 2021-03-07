@@ -1,73 +1,101 @@
 @charset "UTF-8";
-
-h2{
-margin:10px 5px;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap');
+body{
+font-family: 'Noto Sans KR', sans-serif;
 }
 
-input{
-margin:10px 5px;
-font-size:12px;
-
-}
-div{
-display:inline-block;
-margin: 5px;
-font-weight:bold;
-font-size:15px;
-}
-.texts{
-font-weight:bold;
-font-size:15px;
+.alba_select_box{
+    width: 200px;
+    height: 50px;
+    font-size: 25px;
+    text-align: center;
+    margin-right: 15px;
 }
 
 .datebox{
-	width:140px;
-	height:40px;
-	padding-left:30px;
-	font-size:14px; 
+    width: 330px;
+    height: 50px;
+    font-size: 25px;
+    text-align: center;
 }
-.selectdate{
-	font-weight:bold;
-	font-size:13px;
-	vertical-align:-1px;
-	width:60px;
-	height:40px;
+.dateText1{
+	display: inline-block;
+    font-size: 30px;
+    padding: 10px;
 }
-.datbox{
-border: 1px solid;
-width: 700px;
-padding: 10px;
-margin: 0px , 30px, 15px, 10px;
-border-radius:5px;
+.dateText2{
+	width:100%;
+	display: inline-block;
+	float:left;
+    font-size: 25px;
+    font-weight: 700;
+    padding: 10px;
+    margin-left: 50px;
 }
-.workerbox{
-display:flex;
-align-items:center;
-margin-left:10px;
-}
-.worker{
-display:flex;
-align-items:center;
-margin-left:10px;
+.dateText3{
+	display: inline-block;
+    font-size: 18px;
+    margin: 0px 10px 0px 10px;
 }
 
-.workertime{
-
-margin-left:60px;
+.commute_row{
+	border: 1px solid #6D6D6D;
+	width: 685px;
+	display: inline-block;
+	float: left;
+	border-radius:5px;
+	padding: 20px;
+	margin-left: 50px;
+	margin-bottom: 20px;
 }
-.workertime2{
-display:block;
-
-align-items:center;
-
+.commute_row_left{
+	display: inline-block;
+	float: left;
+	font-size: 25px;
 }
-.starttime{
-margin-left:60px;
 
+.commute_row_right{
+	display: inline-block;
+	float: left;
+	font-size: 25px;
+	margin-left: 60px;
 }
-.checktime{
-margin-left:80px;
+.commute_worker{
+	margin: 50px;
 }
-.endtime{
-margin-left:100px;
+.commute_row_right_content{
+}
+.commute_time_text{
+	display:inline-block;
+}
+
+.commute_time{
+	display:inline-block;
+	margin:15px 20px 20px 15px
+}
+
+
+
+.commute_select_dateText{
+	font-weight: 700;
+	font-size: 25px;
+	padding-bottom: 20px;
+}
+.date_contents{
+	display: inline-block;
+	width: 100%;
+	padding: 50px
+}
+
+.datebox:focus{
+   outline: none !important;
+    border:1px solid #FEE300;
+}
+
+.commuteInquiryBtn{
+	width: 61px;
+	height: 55px;
+	background-color: 6D6D6D;
+	
+	
 }
