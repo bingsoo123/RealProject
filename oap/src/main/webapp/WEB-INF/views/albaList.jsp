@@ -7,49 +7,70 @@
    <title>Home</title>
    <link href="/resources/css/albaList.css" rel="stylesheet"/> 
 </head>
-<body>
-	<body>
+<body onLoad="init()">
+
+	<div id="pos" class="position">
 	
-	<div class="officer">
-   	<div class="offimg">
-   		<img src="/resources/images/mac.jpg" style="width:140px; height:140px;">
-   	</div>
-   	<h2>매그도날드(구월점)</h2>
-   	<h4 class="oname">업종 : 프렌차이즈</h5>
-   	<h4 class="omember">근무시간 : 12:00 ~ 14:00</h4>
-   </div>
-   <br/><br/>
-   
-   <div class="officer">
-   	<div class="offimg">
-   		<img src="/resources/images/mac.jpg" style="width:140px; height:140px;">
-   	</div>
-   	<h2>매그도날드(간석점)</h2>
-   	<h4 class="oname">업종 : 프렌차이즈</h5>
-   	<h4 class="omember">근무시간 : 14:00 ~ 18:00</h4>
-   </div>
-   <br/><br/>
-   
-   <div class="officer">
-   	<div class="offimg">
-   		<img src="/resources/images/cu.jpg" style="width:140px; height:140px;">
-   	</div>
-   	<h2>싸유편의점(미추홀점)</h2>
-   	<h4 class="oname">업종 : 편의점</h5>
-   	<h4 class="omember">근무시간 : 09:00 ~ 12:00</h4>
-   </div>
-   <br/><br/>
-   
-    <div class="officer">
-   	<div class="offimg">
-   		<img src="/resources/images/7.jpg" style="width:140px; height:140px;">
-   	</div>
-   	<h2>기억일레븐(주안점)</h2>
-   	<h4 class="oname">업종 : 편의점</h5>
-   	<h4 class="omember">근무시간 : 00:00 ~ 07:00</h4>
-   </div>
-   <br/><br/>
+	</div>
 	
 </body>
 
+<script>
+
+	function init(){
+		
+		var list = JSON.parse('${myAlbaList}');
+		
+		var md = document.getElementById("pos");
+		
+		md.innerHTML="";
+		
+		for(i=0 ; i<list.length ; i++){
+			
+			var mainDiv = document.createElement('Div');
+			
+			mainDiv.className = "officer";
+			
+			var serDiv = document.createElement('Div');
+			var img = document.createElement('img');
+			var h1 = document.createElement('h2');
+			var text = document.createTextNode(list[i].shName);
+			h1.appendChild(text);
+			var h2 = document.createElement('h4');
+			var text2 = document.createTextNode("업종 :" + list[i].shType);
+			h2.className="oname";
+			h2.appendChild(text2);
+			var h3 = document.createElement('h4');
+			var text3 = document.createTextNode("근무시간 :" + list[i].startTime + "~" + list[i].endTime);
+			h3.className="omember";
+			h3.appendChild(text3);
+			
+			
+			img.src="/resources/img/mac.jpg";
+			img.style.cursor = "pointer";
+			img.style.width = "140px";
+			serDiv.appendChild(img);
+			serDiv.className="offimg";
+						
+			var br = document.createElement("br");
+			
+			mainDiv.appendChild(serDiv);
+			mainDiv.appendChild(h1);
+			mainDiv.appendChild(h2);
+			mainDiv.appendChild(h3);
+			md.appendChild(mainDiv);
+			//document.body.appendChild(mainDiv);
+			document.body.appendChild(br);
+			
+		}
+		
+		//document.body.appendChild(div);
+		
+	}
+
+</script>
+
 </html>
+
+
+

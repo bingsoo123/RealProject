@@ -37,31 +37,36 @@ public class AlbaController {
 	
 	// 알바생이 일하고잇는 알바 ( 매장 ) 리스트 조회
 	@RequestMapping(value = "/AlbaList", method = RequestMethod.GET)
-	public ModelAndView albaList(@ModelAttribute AlbaBean aBean) {
+	public ModelAndView albaList(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return aInquiery.entrance(aBean);
 	}
 	
-	// 알바생 급여 조화
+	// 알바생 급여 조회
 	@RequestMapping(value = "/payCheck", method = RequestMethod.GET)
-	public ModelAndView payCheck(@ModelAttribute AlbaBean aBean) {
+	public ModelAndView payCheck(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return aInquiery.entrance(aBean);
 	}
 	
 	// 알바생 일정 관리  -  알바생이 자신이 일하는 알바에대한 일정을 관리
 	@RequestMapping(value = "/Diary", method = RequestMethod.GET)
-	public ModelAndView diary(@ModelAttribute AlbaBean aBean) {
+	public ModelAndView diary(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return aInquiery.entrance(aBean);
 	}
 	
 	// 알바생 이력서  - 자신이 등록해놓은 이력서 리스트 조회
 	@RequestMapping(value = "/Resume", method = RequestMethod.GET)
-	public ModelAndView resume(@ModelAttribute AlbaBean aBean) {
+	public ModelAndView resume(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return aInquiery.entrance(aBean);
 	}
 	
 	// 알바생 이력서  - 자신이 등록해놓은 이력서 리스트 상세조회
 	@RequestMapping(value = "/ResumeDetail", method = RequestMethod.GET)
-	public ModelAndView resumeDetail(@ModelAttribute AlbaBean aBean) {
+	public ModelAndView resumeDetail(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return aInquiery.entrance(aBean);
 	}
 	
@@ -85,7 +90,17 @@ public class AlbaController {
 	@RequestMapping(value = "/StartMoney", method ={RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView startMoney(@ModelAttribute AlbaBean aBean ,HttpServletRequest req) {
 		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		System.out.println(aBean.getTCode());
 		System.out.println("근무일지 등록 도착");
+		return aEnroll.entrance(aBean);
+	}
+	
+	
+	 // 알바생이 퇴근하면서 작성하는 정산 and 특이사항
+	@RequestMapping(value = "/LeaveWork", method ={RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView endData(@ModelAttribute AlbaBean aBean ,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		System.out.println("퇴근하러왓어요");
 		return aEnroll.entrance(aBean);
 	}
 	
@@ -116,7 +131,5 @@ public class AlbaController {
 	
 	
 }
-
-
 
 

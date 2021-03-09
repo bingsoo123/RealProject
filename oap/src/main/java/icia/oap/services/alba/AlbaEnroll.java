@@ -32,10 +32,14 @@ public class AlbaEnroll {
 		switch (aBean.getAction()) {
 
 		case "StartMoney":
-			mav = this.startMoney(aBean);
+			mav = this.startMoney(aBean);   // 시제 작성 후 전송하기 버튼 클릭
 			break;
 		case "TestWork":
-			mav = this.startWorkCtl(aBean);
+			mav = this.startWorkCtl(aBean);  // 시제정산 내역 보여주기
+			break;
+		case "LeaveWork":
+			mav=this.startWorkCtl(aBean);
+			break;
 
 		}
 
@@ -50,10 +54,15 @@ public class AlbaEnroll {
 
 		String[] obName = { "sip", "osip", "baek", "obaek", "chun", "ochun", "man", "oman" };
 		String[] mType = { "10", "50", "100", "500", "1000", "5000", "10000", "50000" };
+		
+		aBean.setRtType((aBean.getTCode().equals("start")) ? 2 : 1);
 
-		for (int index = 0; index < this.MoneyList().size(); index++) {
+		System.out.println("what !!! > "  + aBean.getTCode());
+		
+		
+		for (int index = 0; index < this.MoneyList(aBean).size(); index++) {
 
-			if (this.MoneyList().get(0) == null) {
+			if (this.MoneyList(aBean).get(0) == null) {
 
 				mav.addObject("sip", "0");
 				mav.addObject("osip", "0");
@@ -66,9 +75,9 @@ public class AlbaEnroll {
 
 			} else {
 				for (int x = 0; x < mType.length; x++) {
-					if (this.MoneyList().get(index).getMoney().equals(mType[x])) {
-						mav.addObject(obName[x], this.MoneyList().get(index).getMCount());
-						System.out.println(obName[x] + "::" + this.MoneyList().get(index).getMCount());
+					if (this.MoneyList(aBean).get(index).getMoney().equals(mType[x])) {
+						mav.addObject(obName[x], this.MoneyList(aBean).get(index).getMCount());
+						System.out.println(obName[x] + "::" + this.MoneyList(aBean).get(index).getMCount());
 						number += x + ":";
 					}
 				}
@@ -76,7 +85,7 @@ public class AlbaEnroll {
 		}
 
 		String[] num = number.split(":");
-
+		
 		for (int cnt = 0; cnt < obName.length; cnt++) {
 			int count = 0;
 			for (int t = 0; t < num.length; t++) {
@@ -84,14 +93,15 @@ public class AlbaEnroll {
 					count++;
 				}
 			}
-			if (count == 6) {
+			if (count == num.length) {
 				mav.addObject(obName[cnt], "0");
 			}
 		}
 
 		mav.addObject("note", getNote());
+		mav.addObject("tCode", aBean.getTCode());
 
-		mav.setViewName("alternation");
+		mav.setViewName((aBean.getTCode().equals("start")) ?  "alternation" : "endAlternation");
 
 		return mav;
 	}
@@ -100,11 +110,13 @@ public class AlbaEnroll {
 		return this.mapperAB.maxNote();
 	}
 
-	private ArrayList<Money> MoneyList() {
-		return this.mapperAB.getMoneyList();
+	private ArrayList<Money> MoneyList(AlbaBean aBean) {
+		return this.mapperAB.getMoneyList(aBean);
 	}
 
 	private ModelAndView startMoney(AlbaBean aBean) {
+		
+		System.out.println("whatEnroll !!! > "  + aBean.getTCode());
 
 		mav = new ModelAndView();
 
@@ -116,7 +128,7 @@ public class AlbaEnroll {
 
 		aBean.setAbCode("100000000");
 		aBean.setShCode("100000000");
-		aBean.setRtType((aBean.getTCode().equals("start")) ? "1" : "2");
+		aBean.setRtType((aBean.getTCode().equals("start")) ? 1 : 2);
 
 		// insert 는 시제테이블에만 특이사항은 그저 무슨일이 있엇는지 확인용
 

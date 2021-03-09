@@ -9,55 +9,147 @@
 <link href="/resources/css/labor.css" rel="stylesheet" />
 <link href="/resources/css/laborContents.css" rel="stylesheet" />
 <link href="/resources/css/commute.css" rel="stylesheet" />
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-
-
+<script  src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <!--  캔버스 라이브러리  -->
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 </head>
-<body>
+<body onLoad="zoneList()">
 
-	<div>
+    <div class="two">
+        <div class="test2">
+        	<div class="head2"><img alt="알바어때 ?" src="/resources/img/Main_logo.png"></div>
+        	<div class="serve">
+            	<div class="list" onclick="www();"><img alt="매장 관리" src="/resources/img/nav1.png"></div>
+            	<div class="list"><img alt="알바생 관리" src="/resources/img/nav2.png"></div>
+            	<div class="list" onClick="CommutingManagement()"><img alt="출퇴근 관리" src="/resources/img/nav3.png"></div>
+            	<div class="list"><img alt="업무 관리" src="/resources/img/nav4.png"></div>
+            </div>	
+       </div> 
+       <div class="test2">
+       <div class="head"><img alt="알바어때 ?" src="/resources/img/Main_logo.png"></div>
+            <div class="serve2">
+            	<div class="list" onClick="pay()"><img alt="급여 관리" src="/resources/img/nav5.png"></div>
+            	<div class="list"><img alt="일정 관리" src="/resources/img/nav6.png"></div>
+            	<div class="list"><img alt="근무일지" src="/resources/img/nav7.png"></div>
+            	<div class="list" onClick="laborContract()"><img alt="근로계약서" src="/resources/img/nav8.png"></div>
+            </div>
+       </div>
+        
+        <div class="info">
+        		<div class="detail_info_img"><img alt="detail_logo" src="/resources/img/manager_logo.png"></div>
+        		<div class="detail_if">서알바 사장님&nbsp&nbsp<img src="/resources/img/work_check.png" width="25px" height="25px"/></div>
+        		<div class="detail_if">ICIA 인천일보 &nbsp&nbsp ▼</div>
+        		<div class="detail_logOut">로그아웃</div>
+        		<div id="mangerName"></div>
+                <div class="shopSelect" id="shopSelect"></div>
+                <input type="hidden" id="shopCode" value="0">
+        </div>
+        
+        <div id="test3" class="test3">
+        	
+        </div>
+        
+        
 
-		<div class="test1">
-
-			<ul class="nav-container">
-
-				<li><a href="#"><img src="/resources/img/logo_1.png"
-						width="100px" height="100px"></a></li>
-				<li class="nav-item"><a href="/Manage">관리</a></li>
-				<li class="nav-item"><a href="/Regist">등록</a></li>
-
-			</ul>
-
-		</div>
+        
+    </div>
 
 
-		<div class="two">
-
-			<div class="test2">
-				<div class="list" onclick= "www();">매장 관리</div>	
-				<div class="list">알바생 관리</div>
-				<div class="list" onClick="CommutingManagement()">출퇴근 관리</div>
-				<div class="list">급여 관리</div>
-				<div class="list">일정 관리</div>
-				<div class="list">근무 일지</div>
-				<div class="list" onClick="laborContract()">근로 계약서</div>
-
-			</div>
-
-			<div id="test3" class="test3">
-
-			</div>
-
-		</div>
-	</div>
 </body>
-<!-- ajax를 오류로 인해 jquery문 스크립트 사용 -->
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
 <script type = "text/javascript">
+
+
+	function zoomIn(event) {
+		event.target.style.transform = "scale(1.2)";
+		event.target.style.zIndex = 1;
+		event.target.style.transition = "all 0.5s";
+	}
+
+	function zoomOut(event) {
+		event.target.style.transform = "scale(1)";
+		event.target.style.zIndex = 0;
+		event.target.style.transition = "all 0.5s";
+	}
+
+	function zoneList() {
+		managerInfo();
+	}
+
+	function managerInfo() {
+		let request = new XMLHttpRequest();
+		request.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				let jsonData = decodeURIComponent(request.response);
+				let manageDataParam = JSON.parse(jsonData);
+				shopSelect(manageDataParam);
+			}
+		};
+		let mnCode = '10000000'; // 로그인한 정보 (아마 세션에있는거) 임의로 넣음
+		request.open("POST", "managerInfo", true);
+		request.setRequestHeader("Content-Type",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		request.send("sCode=managerInfo&" + "mnCode=" + mnCode);
+	}
+
+	function shopSelect(manageData) {
+		// 로그인하고나서 선택을 해야하나..? 암튼 기본 선택값 (input hidden 에다가 넣어서 그걸 받아올거임.)	
+		let shopHiddenInput = document.getElementById('shopCode');
+		let mangerName = document.getElementById('mangerName');
+
+		// let shCode = '100000000';
+
+		mangerName.innerHTML = manageData[0].mnName + "사장님 어서오세요";
+
+		let shopSelectContents = document.getElementById('shopSelect');
+		let shopSelectBox = document.createElement('select');
+		shopSelectBox.id = "shop_select_box"
+		shopSelectBox.className = "shop_select_box";
+
+		shopSelectBox.addEventListener('change', function() {
+			manaOnchangeTest(this);
+		});
+
+		//	 	let shopSelectOption = document.createElement("option");
+		//	 	shopSelectOption.value = " "; //
+		//	 	shopSelectOption.text = "매장 선택"; //
+		//	 	shopSelectBox.appendChild(shopSelectOption);
+
+		// 서버에서 로그인 한사람의 shop 코드를 가져온다. (사장님의 매장이 여러개 일 수 있으니..)
+
+		for (index = 0; index < manageData.length; index++) {
+			let shopOptionIn = document.createElement("option");
+			shopOptionIn.className = "shop_select_option1";
+			shopOptionIn.value = manageData[index].shCode;
+			shopOptionIn.text = manageData[index].shName;
+			shopSelectBox.appendChild(shopOptionIn);
+		}
+		shopSelectContents.appendChild(shopSelectBox);
+
+		if (shopHiddenInput.value == "0") {
+			shopHiddenInput.value = manageData[0].shCode;
+		}
+
+	}
+
+	function manaOnchangeTest(obj) {
+		let shopHiddenInput = document.getElementById('shopCode');
+		shopHiddenInput.value = obj.value;
+		alert("shCode HiddenInput :: " + obj.value);
+	}
+
+	function pay() {
+		$.ajax({
+			type : "POST",
+			url : "/pay",
+			dataType : "html",
+			success : function(data) {
+				$(".test3").html(data);
+				init();
+			}
+		});
+	}
 
 	function www() {
 		$.ajax({
@@ -177,10 +269,8 @@
 		var ab = tt.split("\\");
 		fname.value += ab[2];
 	}
-	
-	
+
 	// 근로 계약서 
-	
 
 	//출퇴근 관리 눌렀을때. 현재 매장에 있는 알바생 이름들 가져와야함
 	function CommutingManagement() {
@@ -301,12 +391,14 @@
 		let cmTemp;
 		let cmType; // 출퇴근이 쌍인지?
 		let dateTemp;
-
-		for (index = 0; index < commuteData.length; index++) { // 같은날짜일떄는 하나로 묶으려고 만듬.
+		let indexTemp;
+		for (index = 0; index < commuteData.length - 1; index++) { // 같은날짜일떄는 하나로 묶으려고 만듬.
 			cmTemp = commuteData[index].cmTime.split('_'); // 20210304 10:30 cmTemp[0] 은 20210304 (날짜) cmTemp[1]은 cmTime
 			cmStartWorkTime = cmTemp[1];
+			console.log(commuteData[index + 1].cmTime);
 			cmTemp1 = commuteData[index + 1].cmTime.split('_');
 			cmTempLeaveWorkTime = cmTemp1[1];
+
 			cmType = 0;
 			cmType = parseInt(commuteData[index].cmType)
 					+ parseInt(commuteData[index + 1].cmType);
@@ -374,12 +466,11 @@
 				dateTextThree2.className = "dateText3";
 				commuteTimeEnd2.className = "commute_time";
 				commuteTimeText2.textContent = "출퇴근 시간";
-				commuteTimeStart2.textContent = cmStartWorkTime + "( "
-						+ commuteData[index].cmType + " )"; // 출근
+				//commuteTimeStart2.textContent = cmStartWorkTime + "( "+commuteData[index].cmType + " )"; // 출근
+				commuteTimeStart2.textContent = cmStartWorkTime; // 출근
 				dateTextThree2.textContent = "~";
-				commuteTimeEnd2.textContent = cmTempLeaveWorkTime + "( "
-						+ commuteData[index + 1].cmType + " )"; // 퇴근
-
+				// commuteTimeEnd2.textContent = cmTempLeaveWorkTime + "( "+commuteData[index+1].cmType + " )"; // 퇴근
+				commuteTimeEnd2.textContent = cmTempLeaveWorkTime; // 퇴근
 				commuteRowRight.appendChild(commuteRowRightContent2);
 				commuteRowRightContent2.appendChild(commuteTimeText2);
 				commuteRowRightContent2.appendChild(commuteTimeStart2);
@@ -475,7 +566,6 @@
 				laborRow.className = "labor_contract_contents_row";
 
 				let abCodeParam = laborData[index].abCode;
-
 				let laborCheck = document.createElement('input');
 				laborCheck.setAttribute("type", "checkbox");
 				laborCheck.setAttribute("value", laborData[index].abCode);
@@ -545,16 +635,22 @@
 	// 근로계약서 선택한거 삭제 ...
 	function laborContractDelete(shCode, index) {
 		let laborArr = laborSelectCheck();
+		alert(laborArr);
 		// alert("shCode:: " + shCode + "   abCodeArr" + laborArr);
 		// [삭제] 버튼 누르고 check 한 값들만 가져왔음. (laborArr)
-
 		let request = new XMLHttpRequest();
 		request.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
-				let jsonData = decodeURIComponent(request.response);
-				let laborDataParam = JSON.parse(jsonData);
-				laborDetailInfo(laborDataParam);
+				let deleteState = decodeURIComponent(request.response);
+				if (deleteState == 1) {
+					alert("선택하신 계약서를 정상적으로 삭제 완료 하였습니다.");
+				} else if (deleteState == 0) {
+					alert("계약서 삭제 실패");
+				} else {
+					alert("서버가 불안정 합니다.");
+				}
 			}
+
 		};
 		request.open("POST", "laborDelete", true);
 		request.setRequestHeader("Content-Type",
@@ -592,7 +688,9 @@
 		request.open("POST", "laborDetail", true);
 		request.setRequestHeader("Content-Type",
 				"application/x-www-form-urlencoded;charset=UTF-8");
-		request.send("sCode=laborDetail&shCode=" + shCode + "&abCode=" + abCode);
+		request
+				.send("sCode=laborDetail&shCode=" + shCode + "&abCode="
+						+ abCode);
 	}
 
 	function laborDetailInfo(laborDataParam) {
@@ -854,7 +952,6 @@
 			});
 
 	function sreenShot(target, shCode, abCode) {
-
 		alert("laborComplete" + target + shCode + abCode);
 		if (target != null && target.length > 0) {
 			var t = target[0];
@@ -873,9 +970,9 @@
 					url : "laborAdd",
 					success : function(data) {
 						console.log(data);
-						$('#test3').empty();
+						laborContract();
 					},
-					error : function(a, b, c) {
+					error : function(a) {
 						console.log("error labor");
 					}
 				});

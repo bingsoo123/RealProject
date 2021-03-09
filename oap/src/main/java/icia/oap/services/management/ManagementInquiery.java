@@ -64,10 +64,39 @@ public class ManagementInquiery {
 		case "laborAlbaInfo":
 			mav = this.getLaborAlbaInfoCtl(mBean);
 			break;
+        case "pay":
+            mav = this.payCtl(mBean);
+            break;	
+        case "payDetail":
+			mav = this.payDetailCtl(mBean);
+			break; 
+			   
+        case "payInsert":
+			mav = this.payInsertCtl(mBean);
+			break;
+			
+        case "PaySelect":
+			mav = this.paySelectCtl(mBean);
+			break; 		
+		case "managerInfo":
+			mav = this.managerInfoCtl(mBean);
+			break;
 			
 		}
 		
 		return mav;
+	}
+	
+	private ModelAndView managerInfoCtl(ManageBean mBean) {
+		mav = new ModelAndView();
+		String jsonShopList = gson.toJson(this.getSelectShopList(mBean));
+		System.out.println("getSelectShopList:: " + jsonShopList);
+		mav.addObject("shopInfoList",jsonShopList);
+		return mav;
+	}
+	
+	private ArrayList<ManageBean> getSelectShopList(ManageBean mBean){
+		return mapperM.getSelectShopList(mBean);
 	}
 	
 	private ModelAndView getLaborAlbaInfoCtl(ManageBean mBean) {
@@ -235,8 +264,12 @@ public class ManagementInquiery {
 	}
 	
 	private ModelAndView payCtl(ManageBean mBean){
-		
 		mav = new ModelAndView();
+		
+		String jsonData = gson.toJson(this.getPayList(mBean));
+		System.out.println("넘어온 json =" + jsonData );
+		
+		mav.addObject("jsonData", jsonData);
 		
 		return mav;
 	}
@@ -248,24 +281,94 @@ public class ManagementInquiery {
 	private ModelAndView payDetailCtl(ManageBean mBean) {
 		
 		mav = new ModelAndView();
+		System.out.println(mBean.getPaName());
+		System.out.println("this.getPayInfo(mBean):: " + this.getPayInfo(mBean));
+		
+		String detailinfo = gson.toJson(this.getPayInfo(mBean));
+		mav.addObject("detailinfo", detailinfo);
+	    System.out.println(detailinfo);
 		
 		return mav;
 	}
 	
-	private ManageBean getPayInfo(ManageBean mBean) {
+	private ArrayList<ManageBean> getPayInfo(ManageBean mBean) {
 		return mapperM.getPayInfo(mBean);
+	}
+	
+	private ModelAndView payInsertCtl(ManageBean mBean) {
+		
+		mav = new ModelAndView();
+		System.out.println("this.getPayInsert(mBean):: " + this.getPayInsert(mBean));
+		
+		String payInsert = gson.toJson(this.getPayInsert(mBean));
+		mav.addObject("payInsert", payInsert);
+	    System.out.println(payInsert);
+		
+		return mav;
+	}
+	
+	private ArrayList<ManageBean> getPayInsert(ManageBean mBean) {
+		return mapperM.getPayInsert(mBean);
 	}
 	
 	private ModelAndView paySelectCtl(ManageBean mBean) {
 		
 		mav = new ModelAndView();
+		int sum = 0;
+		int start1 = 0;
+		int start2 = 0;
+		int end1 = 0;
+		int end2 = 0;
+		int rest = 0;
+		int pay = 0;
+		int total = 0;
+		int total1 = 0;
+		int test = 0;
+		
+		String[] dat = mBean.getSDate().split("-");
+		
+		for(int i=0; i<dat.length; i++) {
+			mBean.setSDate(dat[i]);
+			if(mapperM.getPaySelect(mBean)==null) {
+				 start1 = 0;
+				 start2 = 0;
+				 end1 = 0;
+				 end2 = 0;
+				 rest = 0;
+				 pay = 0;
+			}else {
+				 start1 = Integer.parseInt(mapperM.getPaySelect(mBean).substring(0,2));
+				 start2 = Integer.parseInt(mapperM.getPaySelect(mBean).substring(2,4));
+				 end1 = Integer.parseInt(mapperM.getPaySelect1(mBean).substring(0,2));
+				 end2 = Integer.parseInt(mapperM.getPaySelect1(mBean).substring(2,4));
+				 rest = mBean.getRestTime();
+			}
+			
+			sum += (((end1*60)+end2) - ((start1*60)+start2))-rest;
+			
+		}
+		pay = mBean.getAPay();
+		
+		
+		
+		if((sum%60)>30) {
+			total = ((sum/60)*pay) + pay;
+		}else {
+			total = ((sum/60)*pay);
+		}
+		
+		mBean.setTimeTotal(sum);
+		mBean.setPayTotal(total);
+		
+		
+		String gab = gson.toJson(sum) + "-" +gson.toJson(total);
+		mav.addObject("gab",gab);
 		
 		return mav;
 	}
 	
-	private ArrayList<ManageBean> getPayDate(ManageBean mBean){
-		return mapperM.getPayDate(mBean);
-	}
+	
+
 	
 	private ModelAndView scheduleCtl(ManageBean mBean) {
 		

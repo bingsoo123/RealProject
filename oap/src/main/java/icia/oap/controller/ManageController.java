@@ -36,6 +36,16 @@ public class ManageController {
 	ModelAndView mav = null;
 
 	/* ------------------------- 관리자 - 조회 ------------------------- */
+	
+	// 로그인 하고나서 사장님 이름과 가지고있는 매장 리스트 가져옴.
+	@RequestMapping(value = "/managerInfo", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String managerInfo(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException{
+		mav = mInquiery.entrance(mBean); //
+		return URLEncoder.encode(mav.getModel().get("shopInfoList").toString(),"UTF-8");
+	}
+	
+	
 	// 나의 매장 관리
 	@RequestMapping(value = "/MyWorkZone", method = RequestMethod.GET)
 	public ModelAndView myWorkZone(@ModelAttribute ManageBean mBean) {
@@ -96,22 +106,52 @@ public class ManageController {
 		return mInquiery.entrance(mBean);
 	}
 
-	// 급여 관리 - 나의 매장 식구들의 급여리스트를 보여줌
-	@RequestMapping(value = "/Pay", method = RequestMethod.GET)
+	// 급여 관리 - 나의 매장 식구들의 급여리스트를 보여줌 
+	@RequestMapping(value = "/pay", method = {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView pay(@ModelAttribute ManageBean mBean) {
+		mav = new ModelAndView();
+		System.out.println("접근");
+		mBean.setShCode("100000000");
+		mBean.setAbCode("100000000");
+		mBean.setSCode("pay");
+		mav.setViewName("pay");
+		
 		return mInquiery.entrance(mBean);
 	}
 
 	// 급여 관리 - 나의 매장 식구들의 급여리스트중 한명의 내역을 상세하게 보여줌
-	@RequestMapping(value = "/PayDetail", method = RequestMethod.GET)
+	@RequestMapping(value = "/payDetail", method = RequestMethod.POST)
 	public ModelAndView payDetail(@ModelAttribute ManageBean mBean) {
+		mav = new ModelAndView();
+		System.out.println("접근");
+		System.out.println("명세서 :: "+mBean.getPaName());
+		System.out.println("매장코드 : :" + mBean.getShCode());
+		System.out.println("알바코드 : :" + mBean.getAbCode());
+		mBean.setSCode("payDetail");
+		mav.setViewName("payDetail");
+		return mInquiery.entrance(mBean);
+	}
+	
+	// 급여관리 - 추가하기 버튼
+	@RequestMapping(value = "/payInsert", method = RequestMethod.GET)
+	public ModelAndView payInsert(@ModelAttribute ManageBean mBean) {
+		mav = new ModelAndView();
+		System.out.println("접근");
+		mBean.setShCode("100000000");
+		mBean.setSCode("payInsert");
+		mav.setViewName("payInsert");
+		
 		return mInquiery.entrance(mBean);
 	}
 
-	// 급여 관리 - 급여리스트를 날자값에 의해 보여주기위해 날자를 선택 후 조회를 클릭
-	@RequestMapping(value = "/PaySelect", method = RequestMethod.GET)
-	public ModelAndView paySelect(@ModelAttribute ManageBean mBean) {
-		return mInquiery.entrance(mBean);
+	// 급여 관리 - 급여리스트를 날자값에 의해 보여주기위해 날자를 선택 후 조회를 클릭 
+	@RequestMapping(value = "/PaySelect", method = RequestMethod.POST)
+	@ResponseBody
+	public String PaySelect(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
+		System.out.println("이것은:" + mBean);
+		mav =  mInquiery.entrance(mBean);
+		mBean.setSCode("PaySelect");
+		return URLEncoder.encode(mav.getModel().get("gab").toString(),"UTF-8");
 	}
 
 	// 일정 관리 - 일정 표를 보여줌 ( 알바생들이 몇시에 누가 일 하는지 )
@@ -173,12 +213,12 @@ public class ManageController {
 	}
 
 	// [근로계약서] 추가에서 근로계약서를 모두 작성하고 확인 눌렀을때 파일저장 및 DB 삽입 (mEnroll)
-	@RequestMapping(value = "/laborAdd", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/laborAdd", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public ModelAndView laborAdd(@ModelAttribute ManageBean mBean) {
+	public String laborAdd(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException{
 		System.out.println("laborADD 컨트롤러 진입 " + mBean.getSCode());
-		mav = mEnroll.entrance(mBean); // sCode = B
-		return mav;
+		mav =  mEnroll.entrance(mBean); // sCode = B 
+		return URLEncoder.encode(mav.getModel().get("laborRoot").toString(),"UTF-8");
 	}
 
 	// 근로 계약서 - 근로계약서를 상세하게 보기위해 클릭할때 요청
@@ -190,13 +230,14 @@ public class ManageController {
 		return URLEncoder.encode(mav.getModel().get("laborDetailData").toString(), "UTF-8");
 	}
 
-	// 근로계약서 선택한거 모두 삭제. 체크박스에서 선택한 value값 모두가져옴. (arr형태) (mModify)
-	@RequestMapping(value = "/laborDelete", method = { RequestMethod.GET, RequestMethod.POST })
+	// 근로계약서 선택한거 모두 삭제. 체크박스에서 선택한 value값 모두가져옴. (arr형태)  (mModify)
+	@RequestMapping(value = "/laborDelete", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public ModelAndView laborDelete(@ModelAttribute ManageBean mBean) {
+	public String laborDelete(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException{
 		System.out.println("laborDelete 컨트롤러 진입 " + mBean.getSCode());
-		return mav = mModify.entrance(mBean); // sCode = D
-	}
+		mav =  mModify.entrance(mBean);
+		return URLEncoder.encode(mav.getModel().get("deleteStateText").toString(),"UTF-8"); 
+	} 
 
 	// 근로 계약서 [추가] 버튼 눌렀을때 매장코드로 매장정보와 그 매장 관리자 이름 그 매장에 있는 알바생 이름
 	@RequestMapping(value = "/ShopInfoAndAlba", method = { RequestMethod.GET, RequestMethod.POST })

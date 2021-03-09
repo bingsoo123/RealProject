@@ -16,7 +16,7 @@
 	<div class ="login">
 		<p> <b style="font-size: 20px">알바어때?</b></p>
 		<div><input type="text" name="sId" class="login_input" placeholder="아이디"></div>
-		<div><input type="text" name="sPw" class="login_input" placeholder="비밀번호"></div>
+		<div><input type="password" name="sPw" class="login_input" placeholder="비밀번호"></div>
 		<div onClick="goLogIn()"><input type="button" class="login_btn" value="로그인"></div>
 		<div onClick="goMain()"><input type="button" class="main_btn" value="메인으로"></div>
 	</div>

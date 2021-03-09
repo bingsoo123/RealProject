@@ -123,7 +123,6 @@
 				</div>
 			</div>
 
-
 		</div>
 
 	</div>
@@ -134,11 +133,14 @@
 	function init(){
 		
 		var msg = "${message}";
+		var check = "${tCode}";
 		
 		if(msg!=""){
 			alert(msg);
 			self.close();
 		}
+		
+		
 		
 	}
 
@@ -159,7 +161,7 @@
 			
 			let tcode = document.createElement("input");
 			tcode.name = "tCode";
-			tcode.value = "start";
+			tcode.value = "${tCode}";
 			form.appendChild(tcode);
 			
 			for(i=0 ; i<data.length ; i++){

@@ -7,58 +7,69 @@
 <title>Insert title here</title>
 <link href="/resources/css/payDetail.css" rel="stylesheet" />
 </head>
-<body>
+<body onLoad="pDetail()">
 
-	<div style="width: 100%;">
-
-		<div class="pay_top">
-
-			<div class="detail_title">성명 : 홍길동</div>
-
-			<div class="detail_title">직책 : 아르바이트</div>
-
-			<div class="detail_title">기간 :2021-02-01~2021-02-10</div>
-
-		</div>
-
-
-
-		<div class="pay_middle">
-
-			<div>
-				<div class="detail_content">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp시급 : 8720원</div>
-				<div class="detail_content">&nbsp휴게시간 : 30분</div>
-			</div>
-
-			<div>
-				<div class="detail_content">근무시간 : 460분</div>
-				<div class="detail_content">식대 : 10000원</div>
-			</div>
-		</div>
-
-
-
-		<div class="pay_bottom">
-
-			<div class="detail_pay">시급x(근무시간-휴게시간)(시) + 주휴수당 - 식대</div>
-			<div class="detail_pay">880000원</div>
-
-		</div>
-
-
-	</div>
-	
-	<button onClick="check()">닫기</button>
-
+	<div id="tttt"></div>
 </body>
 
 <script>
-
-	function check(){
-		
-		alert("ok");
-		
+function pDetail(){
+	let tttt = document.getElementById('tttt');
+	let pdinfo = JSON.parse('${detailinfo}');
+	
+	for(i=0;i<pdinfo.length;i++){
+	let pdname = document.createElement('Div');
+	pdname.className = "pdname";
+	tttt.appendChild(pdname);
+	
+	let pdbox1 = document.createElement('Div');
+	pdbox1.className = "pdbox1";
+	pdname.appendChild(pdbox1);
+	
+	let pdname1 = document.createElement('h1');
+	pdname1.textContent = pdinfo[i].paName;
+	pdbox1.appendChild(pdname1);
+	
+	let abName = document.createElement('h4');
+	abName.textContent = "이름 : " + pdinfo[i].abName;
+	pdbox1.appendChild(abName);
+	
+	let pdbox2 = document.createElement('Div');
+	pdbox2.className = "pdbox2";
+	pdname.appendChild(pdbox2);
+	
+	let shType = document.createElement('p');
+	shType.className = "pdbox2-p";
+	shType.textContent = "직종 : " + pdinfo[i].shType;
+	pdbox2.appendChild(shType);
+	
+	let aPay = document.createElement('p');
+	aPay.className = "pdbox2-p";
+	aPay.textContent = "시급 : " + pdinfo[0].aPay + "원" ;
+	pdbox2.appendChild(aPay);
+	
+	let timeTotal = document.createElement('p');
+	timeTotal.className = "pdbox2-p";
+	timeTotal.textContent = "총 근무시간 : " + pdinfo[i].timeTotal + "시간";
+	pdbox2.appendChild(timeTotal);
+	
+	let restTime = document.createElement('p');
+	restTime.className = "pdbox2-p";
+	restTime.textContent = "휴게시간 : " + pdinfo[i].restTime + "분";
+	pdbox2.appendChild(restTime);
+	
+	let sanso = document.createElement('p');
+	sanso.className = "pdbox2-p";
+	sanso.textContent = "계산식 : " + pdinfo[i].restTime;
+	pdbox2.appendChild(sanso);
+	
+	let payTotal = document.createElement('h3');
+	payTotal.className = "pdbox2-h3";
+	payTotal.textContent = "총금액 : " + pdinfo[i].payTotal + "원";
+	pdbox2.appendChild(payTotal);
 	}
+}
+	
 
 </script>
 
@@ -70,3 +81,5 @@
 
 
 
+
+	

@@ -43,7 +43,7 @@ public class ManagementModify {
 		
 		// laborDelete(mBean); // 배열에 abCode
 		String [] abCodeArr = mBean.getAbCode().split(",");
-		
+		int deleteStateText;
 		for(int i = 0; i< abCodeArr.length; i++) {
 			System.out.println("SHCODE:"+ mBean.getShCode() );
 			System.out.println("ABCODE: " + abCodeArr[i]);
@@ -57,18 +57,21 @@ public class ManagementModify {
 			if( file.exists() ){
 				if(file.delete()){
 					System.out.println("shCode :" + mBean.getShCode() + "  abCode :" + mBean.getAbCode() + "의 경로 " + mBean.getLcRoot());
-					System.out.println("삭제 완료!");
+					System.out.println("mBean.getAbCode()::" + mBean.getAbCode());
+					this.laborDelete(mBean); // 삭제
+					System.out.println("삭제 " + i+1 + "스택");
+					// deleteStateText = "선택하신 계약서를 삭제 하였습니다.";
+					deleteStateText = 1;
 				}else{
-					System.out.println("파일삭제 실패"); 
+					// deleteStateText = "계약서 삭제 실패";
+					deleteStateText = -1;
 				} 
 			}else{
-				System.out.println("파일이 존재하지 않습니다.");
+				// deleteStateText = "파일이 존재하지 않습니다.";
+				deleteStateText = 0;
 			}
-
+			mav.addObject("deleteStateText",deleteStateText);
 			
-			System.out.println("mBean.getAbCode()::" + mBean.getAbCode());
-			this.laborDelete(mBean); // 삭제
-			System.out.println("삭제 " + i+1 + "스택");
 		}
 		
 		return mav;

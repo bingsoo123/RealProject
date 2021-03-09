@@ -191,7 +191,6 @@ public class Authentication {
 			if (this.isMemberAlba(auBean)) {
 					System.out.println("ID OK");
 				if (this.isPasswordAlba(auBean)) {
-					// Insert 는 Qr 코드메소드에 의해 T/F를 결정후 그쪽에서 진행
 					System.out.println("PW OK");
 					message = null;
 					page = "workMan";

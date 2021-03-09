@@ -35,5 +35,21 @@ public class ManageBean {
     private String abAddr;
 	// 매장에 관한 정보
     private String mnName; // 관리자 이름
+    private String mnCode; // 관리자 코드
+    
+    
+    
+    /////////
+
+	private String nnn;
+	private String paName;
+	private String sTime;
+	private String eTime;
+	private String aPhone;
+	private int aPay;
+	private int restTime;
+	private int timeTotal;
+	private int payTotal;
+	private String sDate;
 		
 }

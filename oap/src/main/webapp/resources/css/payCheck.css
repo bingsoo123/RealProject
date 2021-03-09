@@ -4,6 +4,7 @@
 /* --------------------------------------------------------------------------------------------------- */
 
 
+
 .jb-table {
         display: table;
         width: 600px;
@@ -26,11 +27,15 @@
 .jb-table-cell2 {
         display: table-cell;
         width:150px;
+        border-right : 1px solid black;
+        border-bottom: 1px solid black;        
 }
 
 .jb-table-cell {
         display: table-cell;
         width:150px;
+        border-right : 1px solid black;
+        border-bottom: 1px solid black;
 }
 
 .jb-table-cell1 {
@@ -49,7 +54,7 @@
 
 .jb-table-cell3 {
         display: table-cell;
-        width:298px;
+        width : 50.5%;
         background:#EEEEEE;
         line-height:40px;
 }
@@ -57,7 +62,6 @@
 .jb-table-cell3 h3{
      text-align:center;
 }
-
 
 .jb-table-cell h3{
      text-align:center;
@@ -74,5 +78,19 @@
 .jb-table-cell1 h3{
      text-align:center;
 }
+
+
+/* --------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
 
 

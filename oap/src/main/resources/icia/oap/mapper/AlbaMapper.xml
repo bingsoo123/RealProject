@@ -5,8 +5,8 @@
 
 	<select id="getMoneyList" resultType="icia.oap.beans.Money">
 		SELECT MONEY , MCOUNT FROM
-		WLCHECK WHERE RTTYPE='2' AND RTTIME = (SELECT MAX(RTTIME) FROM
-		WLCHECK WHERE RTTYPE='2')
+		WLCHECK WHERE RTTYPE=#{rtType} AND RTTIME = (SELECT MAX(RTTIME) FROM
+		WLCHECK WHERE RTTYPE=#{rtType})
 	</select>
 	
 	<select id="maxNote" resultType="String">
@@ -25,5 +25,27 @@
 		INSERT INTO RD(RD_RTSHCODE,RD_RTABCODE,RD_RTTIME,RD_MONEYTYPE,RD_MONEYCOUNT)
 		VALUES(#{shCode},#{abCode},TO_DATE(#{maxTime},'YYYYMMDDHH24MISS'),#{mType},#{mCount})
 	</insert>
+	
+	<select id="myAlbaZone" resultType="icia.oap.beans.AlbaBean">
+		SELECT  SIA_SHCODE AS SHCODE,
+        SH_NAME AS SHNAME,
+        SH_TYPE AS SHTYPE,
+        SIA_ABCODE AS ABCODE,
+        AB_NAME AS ABNAME,
+        SC_STARTTIME AS STARTTIME,
+        SC_ENDTIME AS ENDTIME
+		FROM SIA INNER JOIN SH ON SIA_SHCODE = SH_CODE
+         INNER JOIN AB ON SIA_ABCODE = AB_CODE
+         INNER JOIN SC ON SIA_ABCODE = SC_SIAABCODE AND SIA_SHCODE = SC_SIASHCODE
+		WHERE SIA_ABCODE = #{abCode}
+	</select>	
+	
+	
+	
+		
 		
 </mapper>	
+
+
+
+

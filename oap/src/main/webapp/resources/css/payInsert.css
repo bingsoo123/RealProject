@@ -1,0 +1,204 @@
+@charset "UTF-8";
+
+.all{
+	border:1px solid #888888;
+	width:600px;
+	height:460px;
+	margin:8%;
+	position:relative;
+}
+
+.imgdiv{
+	position:absolute;
+	top:13px;
+	left:25px;
+	width:120px;
+	height:120px;
+}
+
+.one{
+	width:500px;
+	height:130px;
+	margin-top:3%;
+	margin-left:30%;
+}
+
+.select1{
+	width:168px;
+	height:40px;
+	border:1px solid #BBBBBB;
+}
+
+.select1:hover{
+	border:1px solid #FFFF66;
+}
+
+.select2{
+	width:110px;
+	height:40px;
+	border:1px solid #BBBBBB;
+}
+
+.select2:hover{
+	border:1px solid #FFFF66;
+}
+
+
+.select3{
+	width:110px;
+	height:40px;
+	border:1px solid #BBBBBB;
+}
+
+.select3:hover{
+	border:1px solid #FFFF66;
+}
+
+
+.clickimg{
+	width:50px;
+	height:50px;
+	margint:5px;
+	position:relative;
+	top:16.5px;
+}
+
+.two{
+	height:80px;
+	background-color:#EEEEEE;
+	line-height:80px;
+}
+
+.a1{
+	font-size:17px;
+	font-weight:600;
+	margin-left:7%;
+	vertical-align:middle;
+}
+
+.a2{
+	font-size:17px;
+	font-weight:600;
+	margin-left:1%;
+	vertical-align:middle;
+}
+
+.text1{
+	border-bottom:1px solid #CCCCCC;
+	border-top:none;
+	border-right:none;
+	border-left:none;
+	width:120px;
+	height:25px;
+	margin-left:10px;	
+}
+
+.text1:hover{
+	border-bottom:1px solid yellow;
+}
+
+
+.three{
+	height:80px;
+	line-height:80px;
+}
+
+.text2{
+	border-bottom:1px solid #CCCCCC;
+	border-top:none;
+	border-right:none;
+	border-left:none;
+	width:120px;
+	height:25px;
+	margin-left:10px;	
+}
+
+.text2:hover{
+	border-bottom:1px solid yellow;
+}
+
+.four{
+	height:80px;
+	background-color:#EEEEEE;
+	line-height:80px;
+}
+
+.text3{
+	border-bottom:1px solid #CCCCCC;
+	border-top:none;
+	border-right:none;
+	border-left:none;
+	width:120px;
+	height:25px;
+	margin-left:10px;	
+}
+
+.text3:hover{
+	border-bottom:1px solid yellow;
+}
+
+.five{
+	height:80px;
+	line-height:80px;
+	text-align:right;
+}
+
+.text4{
+	border-bottom:1px solid #CCCCCC;
+	border-top:none;
+	border-right:none;
+	border-left:none;
+	width:120px;
+	height:25px;
+	margin-left:10px;	
+}
+
+.text4:hover{
+	border-bottom:1px solid yellow;
+}
+
+.a3{
+	font-size:17px;
+	font-weight:600;
+	vertical-align:middle;
+	margin-right:3%;
+	margin-left:1%;
+}
+
+#da1{
+	width:168px;
+	height:40px;
+	border:1px solid #BBBBBB;
+}
+
+#da1:hover{
+	border:1px solid #FFFF66;
+}
+
+#da2{
+	width:168px;
+	height:40px;
+	border:1px solid #BBBBBB;
+}
+
+#da2:hover{
+	border:1px solid #FFFF66;
+}
+
+.addClick{
+	width:80px;
+	height:40px;
+	position:absolute;
+	right:0;
+	background-color:yellow;
+	border: 1px solid #BBBBBB;
+	font-size:14px;
+	font-weight:600;
+}
+
+.addClick:hover{
+	border:1px solid white;
+	background-color:#333333;
+	color:white;
+}
+

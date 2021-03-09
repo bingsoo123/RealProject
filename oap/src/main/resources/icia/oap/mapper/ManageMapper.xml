@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="icia.oap.mapper.ManageMapper">
-	
-	<!--  원진   -->
-	
+
+	<!-- 원진 -->
+
 	<select id="getMyWorkZoneList"
 		resultType="icia.oap.beans.ManageBean">
 	<![CDATA[
@@ -17,7 +17,7 @@
 		]]>
 	</select>
 
-	<!--  진주  -->
+	<!-- 진주 -->
 
 	<!-- 근로계약서 탭 눌렀을때 그 매장의 근로계약서를 작성한 모두 -->
 	<select id="laborList" resultType="icia.oap.beans.ManageBean">
@@ -45,13 +45,15 @@
 
 	<!-- 근로계약서 추가 -->
 	<insert id="laborAdd">
-		INSERT INTO LC(LC_SIASHCODE, LC_SIAABCODE, LC_ROOT) VALUES(#{shCode},
+		INSERT INTO LC(LC_SIASHCODE, LC_SIAABCODE, LC_ROOT)
+		VALUES(#{shCode},
 		#{abCode}, #{lcRoot})
 	</insert>
 
 	<!-- 선택한 근로계약서 삭제 -->
 	<delete id="laborDelete">
-		DELETE FROM LC WHERE (LC_SIASHCODE = #{shCode}) AND (LC_SIAABCODE =
+		DELETE FROM LC WHERE (LC_SIASHCODE = #{shCode}) AND
+		(LC_SIAABCODE =
 		#{abCode})
 	</delete>
 
@@ -131,7 +133,85 @@
 		WHERE LC_SIASHCODE = #{shCode} AND LC_SIAABCODE = #{abCode}
 	]]>
 	</select>
+	
+	<!-- 사장님 로그인하고 나서 사장님의 이름 및  매장 선택  -->
+	<select id="getSelectShopList" resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+		SELECT SH_CODE AS "SHCODE",
+		       SH_MNCODE AS "MNCODE",
+		       SH_NAME AS "SHNAME",
+		       MN_NAME AS "MNNAME"
+		FROM SH INNER JOIN MN ON SH.SH_MNCODE = MN.MN_CODE
+		WHERE MN_CODE= #{mnCode}
+	]]>
+	</select>
+	
+	
+	
 
+	<!-- 급여관리 클릭시 급여정보에대한 전체 리스트 출력 -->
+	<select id="getPayList" resultType="icia.oap.beans.ManageBean">
+ 	   <![CDATA[
+        SELECT AB_CODE AS "ABCODE",
+       		   SH_CODE AS "SHCODE",
+       		   SH_NAME AS "SHNAME",
+        	   AB_NAME AS "ABNAME",
+        	   PA_NAME AS "PANAME"
+		FROM   PA INNER JOIN AB ON PA.PA_SIAABCODE = AB.AB_CODE
+			      INNER JOIN SH ON PA.PA_SIASHCODE = SH.SH_CODE
+	    WHERE  PA_SIASHCODE=#{shCode}
+      ]]>
+	</select>
+	
+	<!-- 급여 상세정보 가져오는것 -->
+	<select id="getPayInfo" resultType="icia.oap.beans.ManageBean">
+ 	<![CDATA[
+       SELECT AB_CODE AS "ABCODE",
+       		  SH_CODE AS "SHCODE",
+              AB_NAME AS "ABNAME",
+      		  SH_TYPE AS "SHTYPE",
+      		  PD_PANAME AS "PANAME",
+      		  PD_SIAPAY AS "APAY",
+     		  PD_SIARESTTIME AS "RESTTIME",
+     		  PD_TIMETOTAL AS "TIMETOTAL",
+      		  PD_PAYTOTAL AS "PAYTOTAL"
+	   FROM   PD INNER JOIN AB ON PD.PD_PAABCODE = AB.AB_CODE
+                 INNER JOIN SH ON PD.PD_PASHCODE = SH.SH_CODE
+	   WHERE  PD_PASHCODE=#{shCode} AND PD_PAABCODE=#{abCode} AND PD_PANAME=#{paName}
+      ]]>
+	</select>
+
+	<!-- 급여추가 버튼 클릭시 정보 가져옴 -->
+	<select id="getPayInsert" resultType="icia.oap.beans.ManageBean">
+ 	<![CDATA[
+       SELECT  SIA_SHCODE AS SHCODE, 
+         	   SIA_ABCODE AS ABCODE, 
+               AB_NAME AS ABNAME,
+               SIA_PAY AS APAY,      
+        	   SIA_RESTTIME AS RESTTIME
+ 	  FROM    SIA INNER JOIN AB ON SIA.SIA_ABCODE = AB.AB_CODE 
+ 	  WHERE   SIA_SHCODE=#{shCode}
+       ]]>
+	</select>	
+
+	
+	<!--  출근시간  -->
+	<select id="getPaySelect" resultType="String">
+		SELECT
+		TO_CHAR(CM_TIME,'HH24MI') FROM CM WHERE CM_TYPE = '1' AND
+		TO_CHAR(CM_TIME,'YYYYMMDD')=#{sDate} AND CM_SCABCODE=#{abCode}
+	</select>
+	
+	
+	<!--  퇴근시간 -->
+	<select id="getPaySelect1" resultType="String">
+		SELECT
+		TO_CHAR(CM_TIME,'HH24MI') FROM CM WHERE CM_TYPE = '-1' AND
+		TO_CHAR(CM_TIME,'YYYYMMDD')=#{sDate} AND CM_SCABCODE=#{abCode}
+	</select>
 
 
 </mapper>	
+
+
+

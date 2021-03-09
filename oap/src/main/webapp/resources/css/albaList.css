@@ -3,11 +3,20 @@
 
 /* --------------------------------------------------------------------------------------------------- */
 
+.position{
+	
+	position: relative;
+}
+
 .officer{
 	border:1px solid;
 	width:500px;
 	height:140px;
+	top : 23px;
+	left : 23px;
+	margin-bottom : 30px;
 	position:relative;
+	
 }
 
 .officer h2 {

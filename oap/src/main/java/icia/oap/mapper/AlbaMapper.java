@@ -8,7 +8,7 @@ import icia.oap.beans.Money;
 public interface AlbaMapper {
 
 	
-	public ArrayList<Money> getMoneyList();
+	public ArrayList<Money> getMoneyList(AlbaBean aBean);
 	
 	public String maxNote();
 	
@@ -17,5 +17,6 @@ public interface AlbaMapper {
 	public int insertRt(AlbaBean aBean);
 
 	public int insertRd(AlbaBean aBean);
-	
+
+	public ArrayList<AlbaBean> myAlbaZone(AlbaBean aBean);
 }

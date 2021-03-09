@@ -26,9 +26,9 @@ public interface ManageMapper {
 
 	public ArrayList<ManageBean> getPayList(ManageBean mBean);
 
-	public ManageBean getPayInfo(ManageBean mBean);
-
-	public ArrayList<ManageBean> getPayDate(ManageBean mBean);
+	public ArrayList<ManageBean> getPayInfo(ManageBean mBean);
+	
+	public ArrayList<ManageBean> getPayInsert(ManageBean mBean);
 
 	public ArrayList<ManageBean> getScheduleList(ManageBean mBean);
 
@@ -46,6 +46,11 @@ public interface ManageMapper {
 	
 	public ArrayList<ManageBean> getAlbaList1(ManageBean mBean);
 	
+	public String getPaySelect(ManageBean mBean);
+	
+	public String getPaySelect1(ManageBean mBean);
+	
+	public ArrayList<ManageBean> getSelectShopList(ManageBean mBean);
 	
 	
 	//   Enroll       ( 등록 )

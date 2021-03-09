@@ -74,6 +74,7 @@ public class ManagementEnroll {
 			
 			if(laborAdd(mBean)) {
 				System.out.println("정상적으로 DB에 삽입 완료");
+				mav.addObject("laborRoot", mBean.getLcRoot());
 			}
 		}catch(Exception e){
 			e.printStackTrace();

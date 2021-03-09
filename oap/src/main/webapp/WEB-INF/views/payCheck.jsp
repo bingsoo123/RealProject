@@ -6,11 +6,6 @@
 <head>
    <title>표</title>
    <link href="/resources/css/payCheck.css" rel="stylesheet"/> 
-   <style>
-      div {
-        border: 1px solid #bcbcbc;
-	  }
-    </style>
 </head>
 <body>
 	   

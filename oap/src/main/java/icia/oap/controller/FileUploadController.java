@@ -1,6 +1,9 @@
 package icia.oap.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 
 import javax.servlet.ServletContext;
 
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import icia.oap.vo.PhotoVo;
+import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.Thumbnails;
 
 
 @Controller
@@ -34,10 +39,10 @@ public class FileUploadController {
 	public String upload3(String title, @RequestParam("photo") MultipartFile[] photo_array, Model model)
 			throws Exception {
 
-		String web_path = "D:\\Spring\\IMG";
+		String web_path = "/resources/workZoneImg";
 		// 상대경로 -> 절대경로
 		//String abs_path = application.getRealPath(web_path);
-		String abs_path = application.getRealPath(web_path);
+		String abs_path = application.getRealPath(web_path); 
 		System.out.println(abs_path);
 
 		String filename1 = "no_file";
@@ -52,7 +57,14 @@ public class FileUploadController {
 			if (photo.isEmpty() == false) {
 				// 엄르도된 파일명
 				filename = photo.getOriginalFilename();
+				
+			
+				
 				File f = new File(abs_path, filename);
+				
+				System.out.println("파일명 = " + filename);
+		        System.out.println("파일 이름 : " + photo.getOriginalFilename());
+		        System.out.println("파일 크기 : " + photo.getSize());
 				
 				// 동일파일이 있는지 검사, 동일 파일이 없을 때 까지
 				while (f.exists()) {
@@ -65,6 +77,20 @@ public class FileUploadController {
 
 				// 임시 업로드된 파일 -> 지정된 위치로 복사
 				photo.transferTo(f);
+				
+
+				
+				// checking 및 썸네일 이미지 생성
+//				if(this.checkImageType(f)) {
+//					
+//					FileOutputStream thumbnail = new FileOutputStream(new File(abs_path , "s_" + filename));
+//					
+//					Thumbnailator.createThumbnail(photo.getInputStream(), thumbnail, 100 , 100);
+//					
+//					thumbnail.close();
+//					
+//				}
+
 			}
 
 			if (i == 0)
@@ -77,7 +103,7 @@ public class FileUploadController {
 		model.addAttribute("filename1", filename1);
 		model.addAttribute("filename2", filename2);
 
-		return "result_upload1";
+		return "home";
 	}
 
 	// 객체로 받기
@@ -99,7 +125,8 @@ public class FileUploadController {
 				// 업로드된 화일명
 				filename = photo.getOriginalFilename();
 				File f = new File(abs_path, filename);
-
+				
+				
 				// 동일화일이 있는지 검사
 				if (f.exists()) {
 					// 현재 시스템 시간(milisecond)
@@ -110,6 +137,7 @@ public class FileUploadController {
 				}
 				// 임시업로된 화일 -> 지정된 위치로 복사
 				photo.transferTo(f);
+				
 				if (i == 0)
 					vo.setFilename1(filename);
 				else
@@ -123,4 +151,34 @@ public class FileUploadController {
 		return "result_upload2";
 
 	}
+	
+	private boolean checkImageType(File file) {
+		
+		try {
+			String contentType = Files.probeContentType(file.toPath());
+			
+			System.out.println("이미지입니다");
+			
+			return contentType.startsWith("image");
+			
+		}catch(IOException e) {
+			System.out.println("이미지가 아닙니다");
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+

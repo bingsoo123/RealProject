@@ -6,7 +6,9 @@ import lombok.Data;
 public class AlbaBean {
 
 	private String abCode;
+	private String abName;
 	private String shCode;
+	private String shName;
 	private String sCode;
 	private String tCode;
 	private String action;
@@ -23,9 +25,13 @@ public class AlbaBean {
 	private int mCount;
 	private String detail;
 	private String note;
-	private String rtType;
+	private int rtType;
+	private String shType;
 	private String maxTime;
-	private String[] money;
+	private String startTime;
+	private String endTime;
+	
+	
 	
 	
 }
