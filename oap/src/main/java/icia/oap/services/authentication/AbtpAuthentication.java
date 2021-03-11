@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import icia.oap.beans.AuthBean;
 import icia.oap.beans.Money;
 import icia.oap.mapper.AuthMapper;
+import icia.oap.utils.Encryption;
 
 @Service
 public class AbtpAuthentication {
@@ -20,7 +21,9 @@ public class AbtpAuthentication {
 	private AuthMapper mapperA;
 	@Autowired
 	private PlatformTransactionManager tran;
-
+	@Autowired
+	private Encryption enc;
+	
 	public AbtpAuthentication() {
 
 	}

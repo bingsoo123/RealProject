@@ -1,111 +1,195 @@
 @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap');
-body{
-font-family: 'Noto Sans KR', sans-serif;
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap')
+	;
+
+body {
+	font-family: 'Noto Sans KR', sans-serif;
 	margin: 0;
 }
 
-header{
+header {
 	text-align: center;
 }
 
-.main{
+.main {
 	margin: 100px 50px 50px 195px;
-	
 }
 
-
-.container{
-	width:100%;
+.container {
+	width: 100%;
 	position: relative;
 }
 
-.nav-container{
+.nav-container {
 	display: flex;
 	flex-direction: row;
 	margin: 30px 0px 60px 40px;
 	padding: 0;
 	list-style-type: none;
-	
 }
 
-.nav-item{
+.nav-item {
 	padding: 15px;
 	cursor: pointer;
 	margin-left: 60px;
 	margin-top: 5px;
 }
 
-.nav-item-regist{
-	margin-top:10px;
+.nav-item-regist {
+	margin-top: 10px;
 	right: 360px;
 	position: absolute;
 }
 
-.test1{
+.test1 {
+	
 }
 
-.nav-item a{
-	
+.nav-item a {
 	text-align: center;
 	text-decoration: none;
 	color: #000;
 	font-size: 21px;
+}
+
+.main_image {
 	
 }
 
-.main_image{
+.main_title1 {
+	margin-top: 50px;
 }
 
-
-
-.main_title1{
-	margin-top:50px;
-	margin-bottom: 20px;
-}
-.main_title2{
+.main_title2 {
 	margin-top: -412px;
-    margin-left: 700px;
-	
+	margin-left: 700px;
 }
 
-
-.main_btn{
+.main_btn {
 	display: flex;
 }
 
-.login_btn{
+.login_btn {
 	margin-right: 35px;
 	display: inline-block;
 }
-.alba_btn{
+
+.alba_btn {
 	margin-right: 35px;
 }
 
-.regiser_btn{
-
+.regiser_btn {
 	
 }
 
-
-.main_title{
+.main_title {
 	font-size: 40px;
 	font-weight: bold;
-		
 }
-.main_title_contents1{
+
+.main_title_contents1 {
 	font-size: 30px;
-
-	
 }
 
+/* ----------------------------------------------------------------------- */
+input {
+	margin-left: 20px;
+	margin-top: 5px;
+	border: 0px;
+}
 
+.nav-item2 {
+	padding: 15px;
+	margin-left: 200px;
+	margin-top: 5px;
+}
 
+.show {
+	text-align: center;
+	text-decoration: none;
+	color: #000;
+	font-size: 21px;
+}
+/* -오시는 길---------------------------------------------------------------------- */
+#comment {
+	border-bottom: 10px solid #FEE300;
+	width: 1400px;
+	margin-left: 200px;
+	margin-bottom: 20px;
+	margin-left: 200px;
+}
 
+#howTo {
+	margin-top: 10px;
+}
 
+.btn_Yellow {
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	left: 1450px;
+	border: 1px solid #989898;
+	padding: 0px 5px;
+	border-radius: 7px;
+	color: black;
+	line-height: 35px;
+	background-color: #FEE300;
+	width: 120px;
+	font-size: 17px;
+	font-weight: bold;
+	border-radius: 7px;
+	color: black;
+	line-height: 35px;
+	background-color: #FEE300;
+	width: 120px;
+	font-size: 17px;
+	font-weight: bold;
+	margin: 20px 0px;
+}
 
+.come {
+	display: flex;
+	font-size: 30px;
+	margin-left: 180px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
 
+ul {
+	
+	font-size: 20px;
+}
 
+dd {
+	margin-left: 50px;
+	font-size: 17px;
+	font-weight:bold;
+}
+dt {
+	margin-left: 50px;
+	color:#6D6D6D;
+	font-size: 14px;
+}
+html {
+	scroll-behavior: smooth;
+}
 
+.bus {
+	display: inline-block;
+	position: relative;
+	left: 200px;
 
+}
+
+.train {
+	display: inline-block;
+	position: relative;
+	top:-3px;
+	left: 550px;
+}
+
+.traffic {
+	display: inline-block;
+}

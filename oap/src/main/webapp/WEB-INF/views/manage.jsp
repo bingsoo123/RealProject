@@ -27,7 +27,7 @@
             </div>
             <div class="serve2">
                 <div class="list" onClick="pay()"><img alt="급여 관리" src="/resources/img/nav5.png"></div>
-                <div class="list"><img alt="일정 관리" src="/resources/img/nav6.png"></div>
+                <div class="list" onClick="Schedule()"><img alt="일정 관리" src="/resources/img/nav6.png"></div>
                 <div class="list"><img alt="근무일지" src="/resources/img/nav7.png"></div>
                 <div class="list" onClick="laborContract()"><img alt="근로계약서" src="/resources/img/nav8.png"></div>
             </div>
