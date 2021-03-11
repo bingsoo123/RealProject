@@ -47,12 +47,20 @@ public class AlbaInquiery {
 		
 		mav = new ModelAndView();
 		
+		System.out.println("payCheck 도착");
 		
+		String pay = gson.toJson(this.getPayCheck(aBean));
 		
+		System.out.println(pay);
 		
+		mav.addObject("pay", pay);
 		mav.setViewName("payCheck");
 		
 		return mav;
+	}
+
+	private ArrayList<AlbaBean> getPayCheck(AlbaBean aBean) {
+		return mapperW.getPayCheck(aBean);
 	}
 
 	private ModelAndView albaListCtl(AlbaBean aBean) {

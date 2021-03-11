@@ -49,15 +49,9 @@
 	</beans:bean>
 	
 
-	
 
-	
-	
-	
 	<context:component-scan base-package="icia.oap.controller"/>
-	<context:component-scan base-package="icia.oap.services.alba"/>
-	<context:component-scan base-package="icia.oap.services.authentication"/>
-	<context:component-scan base-package="icia.oap.services.management"/>
+	<context:component-scan base-package="icia.oap.services.*"/>
 	
 	
 	

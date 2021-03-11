@@ -81,6 +81,8 @@ public class ManagementInquiery {
 		case "managerInfo":
 			mav = this.managerInfoCtl(mBean);
 			break;
+		case "Schedule" :
+			mav = this.scheduleCtl(mBean);
 			
 		}
 		
@@ -373,6 +375,10 @@ public class ManagementInquiery {
 	private ModelAndView scheduleCtl(ManageBean mBean) {
 		
 		mav = new ModelAndView();
+		
+		System.out.println("스케쥴 보여주세요");
+		
+		mav.setViewName("schedule");
 		
 		return mav;
 	}

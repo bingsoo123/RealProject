@@ -30,6 +30,10 @@ public class AlbaBean {
 	private String maxTime;
 	private String startTime;
 	private String endTime;
+	private String startDate;
+	private String endDate;
+	private String payTotal;
+	private String paName;
 	
 	
 	

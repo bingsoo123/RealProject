@@ -36,35 +36,36 @@ public class AlbaController {
 	/* ---------------------------------- 알바생 - 조회 ---------------------------------- */
 	
 	// 알바생이 일하고잇는 알바 ( 매장 ) 리스트 조회
-	@RequestMapping(value = "/AlbaList", method = RequestMethod.GET)
+	@RequestMapping(value = "/AlbaList", method = RequestMethod.POST)
 	public ModelAndView albaList(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
 		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return aInquiery.entrance(aBean);
 	}
 	
 	// 알바생 급여 조회
-	@RequestMapping(value = "/payCheck", method = RequestMethod.GET)
+	@RequestMapping(value = "/payCheck", method ={RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView payCheck(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
 		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		System.out.println("abcode =>" + aBean.getAbCode());
 		return aInquiery.entrance(aBean);
 	}
 	
 	// 알바생 일정 관리  -  알바생이 자신이 일하는 알바에대한 일정을 관리
-	@RequestMapping(value = "/Diary", method = RequestMethod.GET)
+	@RequestMapping(value = "/Diary", method = RequestMethod.POST)
 	public ModelAndView diary(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
 		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return aInquiery.entrance(aBean);
 	}
 	
 	// 알바생 이력서  - 자신이 등록해놓은 이력서 리스트 조회
-	@RequestMapping(value = "/Resume", method = RequestMethod.GET)
+	@RequestMapping(value = "/Resume", method = RequestMethod.POST)
 	public ModelAndView resume(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
 		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return aInquiery.entrance(aBean);
 	}
 	
 	// 알바생 이력서  - 자신이 등록해놓은 이력서 리스트 상세조회
-	@RequestMapping(value = "/ResumeDetail", method = RequestMethod.GET)
+	@RequestMapping(value = "/ResumeDetail", method = RequestMethod.POST)
 	public ModelAndView resumeDetail(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
 		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return aInquiery.entrance(aBean);

@@ -72,7 +72,7 @@
 	function ajax(action){
 		
 	    $.ajax({
-	        type:"GET",
+	        type:"POST",
 	        url:action,
 	        dataType : "html",
 	        success: function(data){
@@ -92,8 +92,7 @@
 	}
 	
 	function pay(){
-		
-		ajax("/payCheck");
+		ajax("/payCheck?abCode=${abCode}");
 	}
 	
 	

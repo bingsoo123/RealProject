@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import icia.oap.beans.AuthBean;
-import icia.oap.services.authentication.Authentication;
+import icia.oap.services.authentication.AbtpAuthentication;
 
 
 @Controller
@@ -25,7 +25,7 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@Autowired
-	private Authentication auth;
+	private AbtpAuthentication auth;
 	
 	ModelAndView mv = null;
 
@@ -92,9 +92,25 @@ public class HomeController {
 		return auth.entrance(authBean);
 	}
 	
-
+	
+	// 로그인 ? 매니저 :: 페이지이동
+	@RequestMapping(value = "/admin", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView admin(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
+		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		mv = new ModelAndView();
+		mv.setViewName("manage");
+		return auth.entrance(authBean);
+	}
 	
 
+	@RequestMapping(value = "/member", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView member(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
+		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		mv = new ModelAndView();
+		mv.setViewName("workMan");
+		return auth.entrance(authBean);
+	}
+	
 	
 	
 	/* ----------------------- 로그아웃 ----------------------*/

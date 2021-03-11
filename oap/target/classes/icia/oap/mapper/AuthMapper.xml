@@ -37,4 +37,12 @@
 		INSERT INTO AC(AC_ABCODE , AC_BANKNAME , AC_ACCOUNT) VALUES(#{abCode} , #{bankName} , #{sAccount})
 	</insert>
 	
+	<select id="getAlbaCode" resultType="String">
+		SELECT AB_CODE FROM AB WHERE AB_ID=#{sId}
+	</select>
+	
+	<select id="getManageCode" resultType="String">
+		SELECT MN_CODE FROM MN WHERE MN_ID=#{sId}
+	</select>
+	
 </mapper>

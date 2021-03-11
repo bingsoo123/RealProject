@@ -31,4 +31,8 @@ public interface AuthMapper {
 
 	public int accountInsert(AuthBean auBean);
 
+	public String getAlbaCode(AuthBean auBean);
+
+	public String getManageCode(AuthBean auBean);
+
 }

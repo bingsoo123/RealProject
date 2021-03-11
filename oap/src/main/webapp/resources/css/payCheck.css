@@ -4,12 +4,12 @@
 /* --------------------------------------------------------------------------------------------------- */
 
 
-
 .jb-table {
         display: table;
-        width: 600px;
-        height: 280px;
+        width: 1300px;
+        height: 150px;
         border:1px solid #DDDDDD;
+        margin:30px;
 }
 
 .jb-table-row {
@@ -22,75 +22,45 @@
         display: table-row;
         height:40px;
         line-height:40px;
+        background-color:#EEEEEE;
 }
 
 .jb-table-cell2 {
         display: table-cell;
-        width:150px;
-        border-right : 1px solid black;
-        border-bottom: 1px solid black;        
+        width:100px;
+        vertical-align:middle;
 }
 
 .jb-table-cell {
         display: table-cell;
-        width:150px;
-        border-right : 1px solid black;
-        border-bottom: 1px solid black;
+        width:100px;
+        vertical-align:middle;
 }
 
 .jb-table-cell1 {
-        display: table-cell;
-        width:298px;
-        background:#EEEEEE;
+       display: table-cell;
+       width:70px;
+       vertical-align:middle;
 }
 
-
-.jb-table-row3 {
-        display: table-row;
-        height:80px;
-        line-height:80px;
-        border:1px solid #DDDDDD;
-}
-
-.jb-table-cell3 {
-        display: table-cell;
-        width : 50.5%;
-        background:#EEEEEE;
-        line-height:40px;
-}
-
-.jb-table-cell3 h3{
-     text-align:center;
-}
-
-.jb-table-cell h3{
-     text-align:center;
-}
-
-.jb-table-cell2 h3{
+.jb-table-cell1 h3{
+	margin:0;
      text-align:center;
 }
 
 .jb-table-cell h4{
      text-align:center;
+     margin:0;
 }
 
-.jb-table-cell1 h3{
+.jb-table-cell2 h3{
+	margin:0;
      text-align:center;
 }
 
-
-/* --------------------------------------------------------------------------------------------------- */
-
-
-
-
-
-
-
-
-
-
-
+.jb-table-cell h4{
+	margin:0;
+     text-align:center;
+}
 
 

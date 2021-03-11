@@ -18,60 +18,46 @@
 
     <div class="two">
         <div class="test2">
-        	<div class="head2"><img alt="알바어때 ?" src="/resources/img/Main_logo.png"></div>
-        	<div class="serve">
-            	<div class="list" onclick="www();"><img alt="매장 관리" src="/resources/img/nav1.png"></div>
-            	<div class="list"><img alt="알바생 관리" src="/resources/img/nav2.png"></div>
-            	<div class="list" onClick="CommutingManagement()"><img alt="출퇴근 관리" src="/resources/img/nav3.png"></div>
-            	<div class="list"><img alt="업무 관리" src="/resources/img/nav4.png"></div>
-            </div>	
-       </div> 
-       <div class="test2">
-       <div class="head"><img alt="알바어때 ?" src="/resources/img/Main_logo.png"></div>
-            <div class="serve2">
-            	<div class="list" onClick="pay()"><img alt="급여 관리" src="/resources/img/nav5.png"></div>
-            	<div class="list"><img alt="일정 관리" src="/resources/img/nav6.png"></div>
-            	<div class="list"><img alt="근무일지" src="/resources/img/nav7.png"></div>
-            	<div class="list" onClick="laborContract()"><img alt="근로계약서" src="/resources/img/nav8.png"></div>
+            <div class="head"><img alt="알바어때 ?" src="/resources/img/Main_logo.png"></div>
+            <div class="serve">
+                <div class="list" onclick="www();"><img alt="매장 관리" src="/resources/img/nav1.png"></div>
+                <div class="list"><img alt="알바생 관리" src="/resources/img/nav2.png"></div>
+                <div class="list" onClick="CommutingManagement()"><img alt="출퇴근 관리" src="/resources/img/nav3.png"></div>
+                <div class="list"><img alt="업무 관리" src="/resources/img/nav4.png"></div>
             </div>
-       </div>
-        
+            <div class="serve2">
+                <div class="list" onClick="pay()"><img alt="급여 관리" src="/resources/img/nav5.png"></div>
+                <div class="list"><img alt="일정 관리" src="/resources/img/nav6.png"></div>
+                <div class="list"><img alt="근무일지" src="/resources/img/nav7.png"></div>
+                <div class="list" onClick="laborContract()"><img alt="근로계약서" src="/resources/img/nav8.png"></div>
+            </div>
+        </div>
+
         <div class="info">
-        		<div class="detail_info_img"><img alt="detail_logo" src="/resources/img/manager_logo.png"></div>
-        		<div class="detail_if">서알바 사장님&nbsp&nbsp<img src="/resources/img/work_check.png" width="25px" height="25px"/></div>
-        		<div class="detail_if">ICIA 인천일보 &nbsp&nbsp ▼</div>
-        		<div class="detail_logOut">로그아웃</div>
-        		<div id="mangerName"></div>
+                <div class="detail_info_img"><img alt="detail_logo" src="/resources/img/manager_logo.png"></div>
+                <div class="detail_if">서알바 사장님&nbsp&nbsp<img src="/resources/img/work_check.png" width="25px" height="25px"/></div>
+                <div class="detail_if">ICIA 인천일보 &nbsp&nbsp ▼</div>
+                <div class="detail_logOut">로그아웃</div>
+                <div id="mangerName"></div>
                 <div class="shopSelect" id="shopSelect"></div>
                 <input type="hidden" id="shopCode" value="0">
         </div>
-        
-        <div id="test3" class="test3">
-        	
-        </div>
-        
-        
 
-        
+        <div id="test3" class="test3">
+
+
+
+        </div>
+
+
+
+
     </div>
 
 
 </body>
 
 <script type = "text/javascript">
-
-
-	function zoomIn(event) {
-		event.target.style.transform = "scale(1.2)";
-		event.target.style.zIndex = 1;
-		event.target.style.transition = "all 0.5s";
-	}
-
-	function zoomOut(event) {
-		event.target.style.transform = "scale(1)";
-		event.target.style.zIndex = 0;
-		event.target.style.transition = "all 0.5s";
-	}
 
 	function zoneList() {
 		managerInfo();
@@ -91,6 +77,18 @@
 		request.setRequestHeader("Content-Type",
 				"application/x-www-form-urlencoded;charset=UTF-8");
 		request.send("sCode=managerInfo&" + "mnCode=" + mnCode);
+	}
+	
+	function Schedule(){
+		
+		$.ajax({
+			type : "POST",
+			url : "/Schedule",
+			dataType : "html",
+			success : function(data) {
+				$(".test3").html(data);
+			}
+		});
 	}
 
 	function shopSelect(manageData) {

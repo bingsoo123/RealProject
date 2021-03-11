@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -155,8 +157,9 @@ public class ManageController {
 	}
 
 	// 일정 관리 - 일정 표를 보여줌 ( 알바생들이 몇시에 누가 일 하는지 )
-	@RequestMapping(value = "/Schedule", method = RequestMethod.GET)
+	@RequestMapping(value = "/Schedule", method = RequestMethod.POST)
 	public ModelAndView schedule(@ModelAttribute ManageBean mBean) {
+		mBean.setSCode("Schedule");
 		return mInquiery.entrance(mBean);
 	}
 

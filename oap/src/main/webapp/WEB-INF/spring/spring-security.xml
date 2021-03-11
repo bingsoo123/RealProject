@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+	
+	<bean id="LoginSuccess" class="icia.oap.security.LoginSuccessHandler"></bean>
+	<bean id="AccessDenied" class="icia.oap.security.AbtpAccessDeniedHandler"></bean>
+  	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+	<bean id="customUserDetailsService" class="icia.oap.services.authentication.CustomUserDetailsService"></bean>
+	
+	
+	<sec:http>
+		<sec:intercept-url pattern="/AlbaList" access="hasRole('ROLE_MEMBER')" />
+		<sec:intercept-url pattern="/payCheck" access="hasRole('ROLE_MEMBER')" />
+		<sec:intercept-url pattern="/Diary" access="hasRole('ROLE_MEMBER')" />
+		<sec:intercept-url pattern="/Resume" access="hasRole('ROLE_MEMBER')" />
+		<sec:intercept-url pattern="/ResumeDetail" access="hasRole('ROLE_MEMBER')" />
+		<sec:intercept-url pattern="/AlbaAddSchedule" access="hasRole('ROLE_MEMBER')" />
+		<sec:intercept-url pattern="/TestWork" access="hasRole('ROLE_MEMBER')" />
+		<sec:intercept-url pattern="/StartMoney" access="hasRole('ROLE_MEMBER')" />
+		<sec:intercept-url pattern="/LeaveWork" access="hasRole('ROLE_MEMBER')" />
+		<sec:intercept-url pattern="/AlbaDeleteSchedule" access="hasRole('ROLE_MEMBER')" />
+		<sec:intercept-url pattern="/Modify" access="hasRole('ROLE_MEMBER')" />
+		<sec:intercept-url pattern="/ModifyInfomation" access="hasRole('ROLE_MEMBER')" />
+		<sec:intercept-url pattern="/member" access="hasRole('ROLE_MEMBER')" />
+		
+		<sec:intercept-url pattern="/managerInfo" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/MyWorkZone" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/searchMap" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/searchMapJoin" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/Info" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/AlbaInfoSearch" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/AlbaInfoDetail" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/Inquiery" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/Work" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/SelectTime" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/pay" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/payDetail" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/payInsert" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/PaySelect" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/Schedule" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/WorkLog" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/Log" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/Larbor" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/LarborDetail" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/albaList1" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/Commute" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/labor" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/laborAdd" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/laborDetail" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/laborDelete" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/ShopInfoAndAlba" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/laborAlbaInfo" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/AddWork" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/WorkAdd" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/AddSchedule" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/AddWorkZone" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/Change" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/Drop" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/DeleteSchedule" access="hasRole('ROLE_ADMIN')" />
+		<sec:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
+		
+
+		<sec:access-denied-handler ref="AccessDenied"/>
+		<sec:form-login login-page="/LogInForm" authentication-success-handler-ref="LoginSuccess"/>
+		
+	</sec:http>
+	<sec:authentication-manager>
+		<sec:authentication-provider user-service-ref="customUserDetailsService">
+			
+			<sec:password-encoder ref="passwordEncoder"/>
+			
+		</sec:authentication-provider>
+	</sec:authentication-manager> 
+</beans>
+
+

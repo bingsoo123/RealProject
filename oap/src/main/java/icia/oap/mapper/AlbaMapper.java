@@ -19,4 +19,6 @@ public interface AlbaMapper {
 	public int insertRd(AlbaBean aBean);
 
 	public ArrayList<AlbaBean> myAlbaZone(AlbaBean aBean);
+
+	public ArrayList<AlbaBean> getPayCheck(AlbaBean aBean);
 }

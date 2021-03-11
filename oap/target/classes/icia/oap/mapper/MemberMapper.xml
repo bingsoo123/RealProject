@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="icia.oap.mapper.MemberMapper">
+
+	<resultMap type="icia.oap.beans.MemberVO" id="memberMap">
+	
+		<id property="userid" column="userid"/>
+		<result property="userid" column="userid"/>
+		<result property="userpw" column="userpw"/>
+		<result property="userName" column="userName"/>
+		<result property="regDate" column="regDate"/>
+		<result property="updateDate" column="updateDate"/>
+		<collection property="authList" resultMap="authMap"></collection>
+	</resultMap>
+
+	<resultMap type="icia.oap.beans.AuthVO" id="authMap">
+		<result property="userid" column="userid"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+	
+	<select id="read" resultMap="memberMap">
+	
+		SELECT  AB_ID AS USERID,
+        AB_PW AS USERPW,
+        AB_NAME AS USERNAME,
+        PRIV_NAME AS AUTH
+		FROM AB INNER JOIN UV ON AB_ID = USER_ID
+		WHERE AB_ID=#{userid}
+	
+	</select>
+	
+</mapper>
