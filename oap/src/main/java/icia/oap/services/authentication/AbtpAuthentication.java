@@ -13,6 +13,7 @@ import icia.oap.beans.AuthBean;
 import icia.oap.beans.Money;
 import icia.oap.mapper.AuthMapper;
 import icia.oap.utils.Encryption;
+import icia.oap.utils.ProjectUtils;
 
 @Service
 public class AbtpAuthentication {
@@ -23,6 +24,9 @@ public class AbtpAuthentication {
 	private PlatformTransactionManager tran;
 	@Autowired
 	private Encryption enc;
+	@Autowired
+	private ProjectUtils pu;
+
 	
 	public AbtpAuthentication() {
 
@@ -130,6 +134,8 @@ public class AbtpAuthentication {
 
 		System.out.println("회원정보 입력페이지 입니다");
 		
+		auBean.setSPw(enc.encode(auBean.getSPw()));
+		
 		ModelAndView mav = new ModelAndView();
 		
 		String message = "알수없는 도류가 발생하였습니다 . 다시시도 해주세요";
@@ -192,10 +198,9 @@ public class AbtpAuthentication {
 		// 관리자의 로그인인지 알바생 (직원) 의 로그인인지 판단
 		if (auBean.getLCode().equals("alba")) {
 			if (this.isMemberAlba(auBean)) {
-					System.out.println("ID OK");
-				if (this.isPasswordAlba(auBean)) {
+					auBean.setDbPw(this.getDbPw(auBean));
+				if (enc.matches(auBean.getSPw(),auBean.getDbPw())) {
 					auBean.setAbCode(this.getAbCode(auBean));
-					System.out.println("넘겨주는 알바생코드 >" + auBean.getAbCode());
 					mav.addObject("abCode", auBean.getAbCode());
 					message = null;
 					page = "workMan";
@@ -207,7 +212,6 @@ public class AbtpAuthentication {
 				
 				if (this.isPasswordManage(auBean)) {
 					auBean.setMnCode(this.getMnCode(auBean));
-					System.out.println("넘겨주는 관리자코드 >" + auBean.getMnCode());
 					mav.addObject("mnCode", auBean.getMnCode());
 					message = null;
 					page = "manage";
@@ -221,6 +225,10 @@ public class AbtpAuthentication {
 		mav.setViewName(page);
 
 		return mav;
+	}
+
+	private String getDbPw(AuthBean auBean) {
+		return mapperA.getDbPw(auBean);
 	}
 
 	private String getMnCode(AuthBean auBean) {

@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-   <title>업무추가</title>
+   <title>업무수정</title>
    <link href="/resources/css/addWork.css" rel="stylesheet"/> 
    <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
@@ -14,7 +14,7 @@
 	
 	
    <fieldset class="field1">
-   	<legend>업무 추가</legend><br/>
+   	<legend>업무 수정</legend><br/>
    	
 	<div class="selectName">
    	 	 
@@ -35,23 +35,41 @@
    	
 	<fieldset class="field2">
    	 	<legend>내용</legend>
-   	 	<textarea id="mtDetail" style="width: 450px;height: 175px;" placeholder="할 일을 입력해주세요. Let's write to do list"></textarea>
+   	 	<textarea id=editMtDetail style="width: 450px;height: 175px;" placeholder="할 일을 입력해주세요. Let's write to do list"></textarea>
    	 	</fieldset>
     
 	</fieldset>
-    <input type="button" value="추가하기" style="position:absolute; left:469px; margin:10px 0 0 0;
+    <input type="button" value="수정하기" style="position:absolute; left:469px; margin:10px 0 0 0;
     											background-color: #FFCC99; color:white; border-radius: 3px;
     											width:70px;	height:35px; border:1px solid #CCCCCC;"
-												onclick="goAdd()"/>
-    
+												onclick="goEdit()"/>
+    	
 
 </body>
 
 <script>
 	function selectName() {
 		
+		
+		// 매장리스트 가져오려고 2번 사용
 		let nameData = JSON.parse('${nameData}');
+		
+		// tlnumber 업무타입 가져오려고 2번 사용
 		let commentData = JSON.parse('${commentData}');
+		
+		// mtDatail 사용하려고 2번 사용
+		// 수정하기 전 데이터
+		let allTaskList = JSON.parse('${allTaskList}');
+		
+		/* 수정전 서버 데이터와 현재 클라이언트의 출력된 정보가 같으면 을 WHERE 절에 넣을거
+		let mtDetail = document.getElementById("mtDetail").value;
+		for(i = 0; i < allTaskList.length; i++){
+			if(allTaskList[i].mtDetail == mtDetail){
+				
+			}
+		}
+		*/
+		
 		for(i = 0; i < nameData.length; i++) {
 			
 			// 알바생 이름
@@ -67,6 +85,7 @@
 		}
 		
 		for(i = 0; i < commentData.length; i++){
+			// 수정한 후 보낼 데이터
 			let tlComment = document.getElementById('tlComment');
 			
 				let comment = document.createElement("option");
@@ -77,21 +96,26 @@
 		}
 	}
 	
-function goAdd() {
+function goEdit() {
+	
 	let shCode = document.getElementById("name").value;
 	let tlComment = document.getElementById("tlComment").value;
-	let mtDetail = document.getElementById("mtDetail").value;
+	let editMtDetail = document.getElementById("editMtDetail").value; // 클라이언트가 수정을 요청한 값 (변경할 값)
+	let mtDetail = "${mtDetail}"; // 클라이언트에서 보이는 값 (기존 값)
+	
+	
+	alert(shCode + "-" + tlComment + "-" + mtDetail + "-" + editMtDetail);
 	     
      let request = new XMLHttpRequest();
      request.onreadystatechange = function(){
-        if(this.readyState == 4 || this.status == 200){
-           alert("업무 추가가 완료 되었습니다.");
-           window.close();
+        if(this.readyState == 4 && this.status == 200){
+           let jsonData = decodeURIComponent(request.response);
+           alert("업무 수정이 완료 되었습니다.");
            }
 	   };
-	request.open("POST", "WorkAddComplete", true);
+	request.open("POST", "ChangeComplete", true);
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-	request.send("sCode=WorkAddComplete" + "&shCode=" + shCode + "&tlNumber=" + tlComment + "&mtDetail=" + mtDetail);
+	request.send("sCode=ChangeComplete" + "&shCode=" + shCode + "&tlNumber=" + tlComment + "&mtDetail=" + mtDetail + "&editMtDetail=" + editMtDetail);
 
 }
 	

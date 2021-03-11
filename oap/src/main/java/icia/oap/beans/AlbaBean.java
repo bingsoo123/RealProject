@@ -34,7 +34,9 @@ public class AlbaBean {
 	private String endDate;
 	private String payTotal;
 	private String paName;
-	
+	private int tlNumber;
+	private String tlComment;
+	private String mtDetail;
 	
 	
 	

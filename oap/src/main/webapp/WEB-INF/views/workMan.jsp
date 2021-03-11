@@ -34,7 +34,7 @@
 				<div class="list" onClick="pay()">급여조회</div>
 				<div class="list">일정조회 * 등록</div>
 				<div class="list">이력서 관리</div>
-				<div class="list">업무 리스트</div>
+				<div class="list" onClick="loadAlbaTaskList()">업무 리스트</div>
 				<div class="list">정보수정</div>
 
 			</div>
@@ -70,7 +70,6 @@
 	}
 	
 	function ajax(action){
-		
 	    $.ajax({
 	        type:"POST",
 	        url:action,
@@ -80,9 +79,6 @@
 	            init();
 	        }
 	    });      
-
-		
-		
 	}
 	
 	function inquiery(){
@@ -93,6 +89,14 @@
 	
 	function pay(){
 		ajax("/payCheck?abCode=${abCode}");
+	}
+	
+	
+	// 업무리스트 클릭했을 때 알바가 일하는 매장의 전체 업무리스트 가져오기
+	function loadAlbaTaskList() {
+		
+		ajax("/AlbaTaskList");
+		
 	}
 	
 	

@@ -93,25 +93,6 @@ public class HomeController {
 	}
 	
 	
-	// 로그인 ? 매니저 :: 페이지이동
-	@RequestMapping(value = "/admin", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView admin(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
-		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
-		mv = new ModelAndView();
-		mv.setViewName("manage");
-		return auth.entrance(authBean);
-	}
-	
-
-	@RequestMapping(value = "/member", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView member(@ModelAttribute AuthBean authBean,HttpServletRequest req) {
-		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
-		mv = new ModelAndView();
-		mv.setViewName("workMan");
-		return auth.entrance(authBean);
-	}
-	
-	
 	
 	/* ----------------------- 로그아웃 ----------------------*/
 	

@@ -4,8 +4,26 @@
 	border:1px solid #888888;
 	width:600px;
 	height:460px;
-	margin:8%;
+	margin:15%;
 	position:relative;
+}
+
+.fff{
+	position:relative;	
+	width:700px;
+	height:500px;
+}
+
+.sel{
+	width:250px;
+	height:40px;
+	border:1px solid;
+	position:absolute;
+	right:-1%;
+	top:-13%;
+}
+.sel:hover{
+	border:1px solid yellow;
 }
 
 .imgdiv{
@@ -201,4 +219,6 @@
 	background-color:#333333;
 	color:white;
 }
+
+
 

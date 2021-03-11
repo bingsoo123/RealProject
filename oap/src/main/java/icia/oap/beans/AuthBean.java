@@ -13,6 +13,7 @@ public class AuthBean {
 	private String lCode;
 	private String sId;
 	private String sPw;
+	private String dbPw;
 	private String sName;
 	private String abCode;
 	private String mnCode;

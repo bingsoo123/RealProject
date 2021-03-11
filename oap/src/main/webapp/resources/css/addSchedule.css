@@ -2,21 +2,20 @@
 
 /* --------------------------------------------------------------------------------------------------- */
 
+
 .big{
-	border-top: 2px solid #DDDDDD;
-	border-bottom: 2px solid #DDDDDD;
 	width:820px;
 	height:270px;
 	position:relative;
 }
 
 .middle1{
-	border:none;
-	width:160px;
-	height:130px;
-	position:absolute;
-	top:8%;
-	left:3%;
+    border: none;
+    width: 172px;
+    height: 130px;
+    position: absolute;
+    top: 28%;
+    left: 8%;
 }
 
 .table-big{
@@ -34,6 +33,13 @@
 	height:40px;
 }
 
+.sc_lable{
+	font-weight: 600;
+	
+}
+
+
+
 
 .table-small{
 	border-right:1px solid black;
@@ -46,6 +52,9 @@
 	background-color:white;
 }
 
+.table-small:hover{
+	background :#FEE300;
+}
 
 .table-small1{
 	border-bottom:1px solid black;
@@ -58,6 +67,9 @@
 	text-align:center;
 }
 
+.table-small3:hover{
+	background :#FEE300;
+}
 .table-small3{
 	border-right:1px solid black;
 	border-bottom:1px solid black;
@@ -81,11 +93,15 @@
 }
 
 .clicked{
-	background:#FFFF66;
+	background:#FEE300;
 }
 
 .clicked1{
-	background:#FFFF66;
+	background:#FEE300;
+}
+
+.clicked2{
+	background:#FEE300;
 }
 
 .middle1-h6{
@@ -93,7 +109,8 @@
 	bottom:0;
 	right:0;
 	margin:0;
-	color:#CCCCCC;
+	color:#6D6D6D;
+	font-size: 11px;
 }
 
 .selectclass{
@@ -103,12 +120,20 @@
 	position:relative;
 }
 
+#nameSelect:hover{
+	border : 3px solid #FEE300;
+}
+
 #nameSelect{
-	border: 2px solid #DDDDDD;
-	width:180px;
+	border: 2px solid #6D6D6D;
+	width:163px;
 	height:44px;
 	font-weight:700;
 	text-align-last:center;
+	position: absolute;
+    left: 8%;
+    top: 7%;
+	
 }
 
 .nameSelect-h6{
@@ -131,7 +156,7 @@
 	width:520px;
 	height:130px;
 	position:absolute;
-	top:8%;
+    top: 28%;
 	right:3%;
 }
 
@@ -168,13 +193,14 @@
 }
 
 .mi-button{
-	border: 2px solid #EEEEEE;
+	border: 0px solid #EEEEEE;
 	width:90px;
 	height:44px;
 	font-weight:700;
 	text-align:center;
-	background-color:#FFFF66;
+	background-color:#FEE300;
 	position:absolute;
 	right:0;
+	bottom: -69px;
 }
 

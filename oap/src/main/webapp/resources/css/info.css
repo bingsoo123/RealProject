@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 .profile-one {
 	width: 370px;
 	height: 170px;
@@ -7,6 +8,11 @@
 	border-radius: 20px;
 	padding: 10px;
 	margin: 30px 0px 30px 30px;
+	display:inline-block;
+}
+
+.profile-one:hover{
+	border:1px solid yellow;
 }
 
 .profile-pic {
@@ -23,9 +29,8 @@
 	float: left;
 }
 
-.two {
-	display: flex;
-	margin-top: 50px;
+.ttt {
+	display: inline-block;
 }
 
 .search {
@@ -41,4 +46,27 @@ input{
 	background-size: 20px;
 	width: 200px;
 	height: 30px;
+}
+
+.div2{
+	margin-top:35px;
+}
+
+.absel{
+	width: 200px;
+	height: 30px;
+}
+
+.absel:hover{
+	border:1px solid yellow;
+}
+
+.div-absel{
+	position:relative;
+	left:650px;
+}
+
+.al{
+	display:inline-block;
+	width:1200px;
 }

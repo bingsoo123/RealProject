@@ -48,11 +48,11 @@
 		</beans:property>
 	</beans:bean>
 	
-
+	<beans:bean id="enc" class="icia.oap.utils.Encryption"></beans:bean>
+	<beans:bean id="pu" class="icia.oap.utils.ProjectUtils"></beans:bean>
 
 	<context:component-scan base-package="icia.oap.controller"/>
 	<context:component-scan base-package="icia.oap.services.*"/>
-	<context:component-scan base-package="icia.oap.utils.*"/>
 	
 	
 </beans:beans>

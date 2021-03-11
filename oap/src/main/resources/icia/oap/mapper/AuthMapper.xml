@@ -44,5 +44,9 @@
 	<select id="getManageCode" resultType="String">
 		SELECT MN_CODE FROM MN WHERE MN_ID=#{sId}
 	</select>
+
+	<select id="getDbPw" resultType="String">
+		SELECT AB_PW FROM AB WHERE AB_ID=#{sId}
+	</select>
 	
 </mapper>

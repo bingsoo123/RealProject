@@ -20,6 +20,7 @@ font-family: 'Noto Sans KR', sans-serif;
 	border : 3px solid #b02b2b;
 	margin-top: 30px;
     margin-left: 90px;
+    
 }
 
 labor_contract_contents_row_select:hover{
@@ -57,24 +58,28 @@ labor_contract_contents_row_select:hover{
 }
 
 .labor_add_btn{
+	border : 0px;
 	width: 100px;
     height: 50px;
 	background: #FEE300;
 }
 
 .labor_delete_btn{
+	border : 0px;
 	width: 100px;
     height: 50px;
     background: #C6C6C5;
 }
 
 .labor_delete_complete{
+		border : 0px;
 	width: 100px;
     height: 50px;
     background: #989898;
 }
 
 .labor_contract_name{
+		border : 0px;
 	color:#6D6D6D;
 	font-weight: bold;
 	font-size: 25px;

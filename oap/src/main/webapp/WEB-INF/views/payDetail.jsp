@@ -58,10 +58,6 @@ function pDetail(){
 	restTime.textContent = "휴게시간 : " + pdinfo[i].restTime + "분";
 	pdbox2.appendChild(restTime);
 	
-	let sanso = document.createElement('p');
-	sanso.className = "pdbox2-p";
-	sanso.textContent = "계산식 : " + pdinfo[i].restTime;
-	pdbox2.appendChild(sanso);
 	
 	let payTotal = document.createElement('h3');
 	payTotal.className = "pdbox2-h3";

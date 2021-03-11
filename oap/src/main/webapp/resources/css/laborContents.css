@@ -3,9 +3,34 @@
 body{
 font-family: 'Noto Sans KR', sans-serif;
 }
+
+
+.labor_alba_select_box{
+    width: 200px;
+    height: 40px;
+    font-size: 16px;
+    text-align: center;
+    margin-right: 15px;
+    border :2px solid #6D6D6D;
+    margin-left: 50px;
+}
+
+.labor_alba_select_box:focus{
+   outline: none !important;
+    border:3px solid #FEE300;
+}
+
+.labor_alba_select_box:hover{
+	border : 3px solid #FEE300;
+}
+
+
+
+
+
 .laborDiv{
 	padding : 50px;
-	margin: 50px;
+	margin: 20px 50px;
 	border: 1px solid #6D6D6D;
 	
 }
@@ -18,7 +43,9 @@ font-family: 'Noto Sans KR', sans-serif;
 }
 
 .day_contents{
-	 margin: 30px 0px 30px 200px;
+	text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 .labor_contract_title{
 	font-size: 40px;
@@ -30,9 +57,10 @@ font-family: 'Noto Sans KR', sans-serif;
 }
 
 .labor_complete_btn{
+	border: 0px;
 	width: 100px;
-    height: 50px;
-    background: #C6C6C5;
+    height: 41px;
+    background: #FEE300;
 }
 .labor_clear_btn{
 	background: white;
@@ -49,6 +77,11 @@ font-family: 'Noto Sans KR', sans-serif;
 	text-align: center;
 }
 
+.labor_contents:disabled{
+	border: 0px;
+	background: white;
+} 
+
 .labor_contents:focus{
    outline: none !important;
     border:1px solid #FEE300;
@@ -62,8 +95,37 @@ font-family: 'Noto Sans KR', sans-serif;
 	text-align: center;
 }
 
+.labor_year {
+    width: 57px;
+    font-weight: bold;
+    font-size: 17px;
+    height: 22px;
+    text-align: center;
+}
+.labor_year:disabled{
+	border: 0px;
+	background: white;
+} 
+
+.labor_contents_style1:disabled{
+	border: 0px;
+	background: white;
+} 
+
+.labor_contents_style2:disabled{
+	border: 0px;
+	background: white;
+} 
+.labor_contents_style3:disabled{
+	border: 0px;
+	background: white;
+} 
+.labor_contents_style4:disabled{
+	background: white;
+	border: 0px;
+} 
 .labor_contents_style2{
-	width: 300px;
+	width: 729px;
 	font-weight: bold;
 	font-size : 17px;
 	height: 22px;
@@ -78,8 +140,8 @@ font-family: 'Noto Sans KR', sans-serif;
 	text-align: center;
 }
 
-labor_contents_style4{
-	width: 150px;
+.labor_contents_style4{
+	width: 110px;
 	font-weight: bold;
 	font-size : 17px;
 	height: 22px;

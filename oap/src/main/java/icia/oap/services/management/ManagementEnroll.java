@@ -2,13 +2,18 @@ package icia.oap.services.management;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.google.gson.Gson;
 
 import icia.oap.beans.ManageBean;
 import icia.oap.mapper.ManageMapper;
@@ -20,6 +25,8 @@ public class ManagementEnroll {
 	private ManageMapper mapperM;
 	@Autowired
 	private PlatformTransactionManager tran;
+	@Autowired
+	private Gson gson;
 	
 	ModelAndView mav = null;
 	
@@ -39,11 +46,65 @@ public class ManagementEnroll {
 			// [추가] -> [계약서 작성] 후 완료버튼 눌렀을때.
 			mav = this.laborAddCtl(mBean);
 			break;
-		
+		case "WorkAdd":
+			mav = workAddCtl(mBean);
+			break;
+			
+		case "WorkAddComplete":
+			mav = workAddCompleteCtl(mBean);
+			break;
+        case "insPay":
+				mav = this.insPayCtl(mBean);
+				break; 	
+		case "AddSchedule":
+			mav = this.addScheduleCtl(mBean);
+			break;		
 		
 		}
 		
 		return mav;
+	}
+	
+	private ModelAndView insPayCtl(ManageBean mBean) {
+
+		TransactionStatus status = tran.getTransaction(new DefaultTransactionDefinition());
+
+		mav = new ModelAndView();
+
+		
+		if(this.inspaylist1(mBean)) {
+			System.out.println("pa성공");
+			if(this.inspaylist2(mBean)) {
+				System.out.println("pd성공");
+				tran.commit(status);
+			}else {
+				System.out.println("pd불가능");
+			}
+		}else {
+			System.out.println("pa불가능");
+		}
+		
+		String payInsert = gson.toJson(this.getShname(mBean));
+		mav.addObject("mnCode", mBean.getMnCode());
+		mav.addObject("payInsert", payInsert);
+		
+		String sh = gson.toJson(this.getShname(mBean));
+		System.out.println(">>>>나왓당" + sh);
+		mav.addObject("sh", sh);
+		mav.setViewName("payInsert");
+		return mav;
+	}
+	
+	private boolean inspaylist1(ManageBean mBean) {
+		return convertToBoolean(mapperM.inspaylist1(mBean));
+	}
+	
+	private boolean inspaylist2(ManageBean mBean) {
+		return convertToBoolean(mapperM.inspaylist2(mBean));
+	}
+	
+	private ArrayList<ManageBean> getShname(ManageBean mBean) {
+		return mapperM.getShname(mBean);
 	}
 	
 	private ModelAndView laborAddCtl(ManageBean mBean) {
@@ -108,41 +169,83 @@ public class ManagementEnroll {
 		return mav;
 	}
 	
+	// 업무 추가 버튼 누르면 작동하는 메소드
 	private ModelAndView workAddCtl(ManageBean mBean) {
 		
 		mav = new ModelAndView();
 		
+		/* Work Info & Convert to JSON */
+		String nameData = gson.toJson(this.selectName(mBean));
+		System.out.println(nameData);
+		mav.addObject("nameData", nameData);
+		
+		String tlComment = gson.toJson(this.selectComment(mBean));
+		System.out.println(tlComment);
+		mav.addObject("commentData", tlComment);
+		
+		mav.setViewName("addWork");
 		return mav;
 	}
 	
-	// 업무추가하기 >>>>
-	private boolean workAdd(ManageBean mBean) {
-		return this.convertToBoolean(mapperM.workAdd(mBean));
+	private ArrayList<ManageBean> selectName(ManageBean mBean) {
+		return mapperM.getNameData(mBean);
+	}
+	
+	private ArrayList<ManageBean> selectComment(ManageBean mBean) {
+		return mapperM.getCommentData(mBean);
 	}
 	
 	private boolean convertToBoolean(int data) {
 		return (data==1)?true : false;
 	}
 	
-	private ModelAndView addWorkCtl(ManageBean mBean) {
+	private ModelAndView workAddCompleteCtl(ManageBean mBean) {
 		
 		mav = new ModelAndView();
-		
+		mav.addObject("test",this.workAddComplete(mBean));
 		return mav;
 	}
+	
 	// 업무추가 입력후  추가하기 버튼 
-	private boolean addWork(ManageBean mBean) {
+	private boolean workAddComplete(ManageBean mBean) {
 		
-		return this.convertToBoolean(mapperM.addWork(mBean));
+		return this.convertToBoolean(mapperM.workAddComplete(mBean));
 	}
+	
 	
 	private ModelAndView addScheduleCtl(ManageBean mBean) {
-		
 		mav = new ModelAndView();
+		System.out.println("addScheduleCtl:: " + mBean);
 		
+		String stCodeArr [] = mBean.getStCode().split(",");
+		String insertState = "0"; 
+		
+		for(int i = 0; i < stCodeArr.length; i++) { // 요일코드에 따라 insert 갯수.
+			mBean.setStCode(stCodeArr[i]);
+			if(this.isSchedule(mBean)) {
+				insertState  = "-1";
+				System.out.println("이미 있는 데이터");
+			}else {
+				if(this.addSchedule(mBean)) {
+					System.out.println(mBean.getStCode() + "에 관한 insert " + i + "번째" );
+					insertState = "1"; 
+				}else {
+					System.out.println(mBean.getStCode() + "에 관해 insert를 실패하였습니다");
+					insertState = "0";
+				}
+				
+			}
+		}
+		System.out.println(insertState);
+		mav.addObject("insertState", insertState);
 		return mav;
 	}
+	// 일정 관리 INSERT를 하기 위한 원래 있는 데이터냐 검사 .. 조회쪽에 넣어야하나? 잘모르겠음.
+	private boolean isSchedule(ManageBean mBean) {
+		return this.convertToBoolean(mapperM.isSchedule(mBean));
+	}
 	
+	// 일정추가하기 버튼 >> INSERT
 	private boolean addSchedule(ManageBean mBean) {
 		return this.convertToBoolean(mapperM.addSchedule(mBean));
 	}

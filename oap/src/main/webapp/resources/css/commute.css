@@ -6,18 +6,34 @@ font-family: 'Noto Sans KR', sans-serif;
 
 .alba_select_box{
     width: 200px;
-    height: 50px;
-    font-size: 25px;
+    height: 40px;
+    font-size: 16px;
     text-align: center;
     margin-right: 15px;
+    border :2px solid #6D6D6D;
 }
 
+.alba_select_box:focus{
+   outline: none !important;
+    border:3px solid #FEE300;
+}
+
+.alba_select_box:hover{
+	border : 3px solid #FEE300;
+}
+
+
 .datebox{
+	border : 2px solid #6D6D6D;
     width: 330px;
-    height: 50px;
-    font-size: 25px;
+    height: 36px;
+    font-size: 16px;
     text-align: center;
 }
+.datebox:hover{
+	border : 3px solid #FEE300;
+}
+
 .dateText1{
 	display: inline-block;
     font-size: 30px;
@@ -27,7 +43,7 @@ font-family: 'Noto Sans KR', sans-serif;
 	width:100%;
 	display: inline-block;
 	float:left;
-    font-size: 25px;
+    font-size: 16px;
     font-weight: 700;
     padding: 10px;
     margin-left: 50px;
@@ -57,11 +73,14 @@ font-family: 'Noto Sans KR', sans-serif;
 .commute_row_right{
 	display: inline-block;
 	float: left;
-	font-size: 25px;
+	font-size: 16px;
 	margin-left: 60px;
 }
 .commute_worker{
-	margin: 50px;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    font-size: 27px;
+    font-weight: 700;
 }
 .commute_row_right_content{
 }
@@ -89,13 +108,15 @@ font-family: 'Noto Sans KR', sans-serif;
 
 .datebox:focus{
    outline: none !important;
-    border:1px solid #FEE300;
+    border:3px solid #FEE300;
 }
 
 .commuteInquiryBtn{
-	width: 61px;
-	height: 55px;
-	background-color: 6D6D6D;
+	border:0px;
+	width: 62px;
+	height: 40px;
+	background-color: #FEE300;
+	margin-left:20px;
 	
 	
 }

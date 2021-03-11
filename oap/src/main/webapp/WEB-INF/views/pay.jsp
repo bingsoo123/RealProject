@@ -6,25 +6,24 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="/resources/css/pay.css" rel="stylesheet">
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body onLoad="init()">
 	<div class="another">
 	<br/>
 	<div class="date">
-		<select id="box1"  class="option1">
+		<select id="box1" class="option1">
 			<option>선택하세요.</option>
-			<option value="2020년">2020년</option>
-			<option value="2">2021년</option>
-			<option value="3">2022년</option>
-			<option value="4">2023년</option>
-			<option value="5">2024년</option>
-			<option value="6">2025년</option>
+			<option>2020년</option>
+			<option>2021년</option>
+			<option>2022년</option>
+			<option>2023년</option>
+			<option>2024년</option>
+			<option>2025년</option>
 		</select>
 		
-		<select id="box2"  class="option2">
+		<select id="box2" class="option2">
 			<option>선택하세요.</option>
-			<option value="01월명세서">01월명세서</option>
+			<option>01월명세서</option>
 			<option>02월명세서</option>
 			<option>03월명세서</option>
 			<option>04월명세서</option>
@@ -38,8 +37,8 @@
 			<option>12월명세서</option>
 		</select>
 		&nbsp;
-		<input type="button" value="조회" class="input1" onClick="init1()">
-		<a href="http://localhost//payInsert" class="adder">add</a>
+		<input type="button" value="조회" class="input1" onClick="init1()"/>
+		<input type="button" value="추가" class="adder" onClick="add()"/>
 	</div>
 	
 	<br/><br/>
@@ -66,16 +65,23 @@
 	
 	</div>
 	
-	<div id="payZone"></div>
-
+	<div id="test5"></div>
+	
 	</div>
 </body>
 
 <script>
 
-	function init() {
+	function add(){
+		window.open("http://localhost//manageStore","급여추가","width=800,height=700,left=550,top=150,toolbar=no,status=no,resizable=no");
+	}
 
-		let paylist = document.getElementById("payZone");
+
+	function init() {
+		var x = document.getElementById("box1").value;
+		var y = document.getElementById("box2").value;
+		var z = x + y;
+		let paylist = document.getElementById("test5");
 		let pay = JSON.parse('${jsonData}');
 
 		for (i = 0; i < pay.length; i++) {
@@ -112,13 +118,12 @@
 
 	function init1() {
 
-		document.getElementById("payZone").innerHTML = "";
-		
-		alert("ok");
-		var x = $('#box1').val();
-		var y = $('#box2').val();
+		document.getElementById("test5").innerHTML = "";
+
+		var x = document.getElementById("box1").value;
+		var y = document.getElementById("box2").value;
 		var z = x + y;
-		let paylist = document.getElementById("payZone");
+		let paylist = document.getElementById("test5");
 		let pay = JSON.parse('${jsonData}');
 
 		for (i = 0; i < pay.length; i++) {
@@ -158,32 +163,34 @@
 	
 	function gopayDetail(pay, test1) {
 		
+		window.open("","pop","width=550,height=450,left=690,top=250,toolbar=no,status=no,resizable=no");
+
 		var form = document.createElement('form');
 		form.action = "/payDetail";
 		form.method = "post";
-		
+		form.target = "pop"; 
 		
 		var input1 = document.createElement('input');
-		input1.type = "text";
+		input1.type = "hidden";
 		input1.name = "shCode";
 		input1.value = pay[test1].shCode;
 		form.appendChild(input1);
 		
 		var input2 = document.createElement('input');
-		input2.type = "text";
+		input2.type = "hidden";
 		input2.name = "abCode";
 		input2.value = pay[test1].abCode;
 		form.appendChild(input2);
 		
 		var input3 = document.createElement('input');
-		input3.type = "text";
+		input3.type = "hidden";
 		input3.name = "paName";
 		input3.value = pay[test1].paName;
 		form.appendChild(input3);
 		
 		document.body.appendChild(form);
 		form.submit();
+		
 	}
 </script>
-
 </html>

@@ -10,7 +10,7 @@
 	vertical-align:middle;
 	font-size:20px;
 	margin-left:20px;
-	margin-top: 30px;
+	margin-top:30px;
 }
 
 .alldiv{
@@ -23,7 +23,6 @@
 	font-size:18px;
 	margin-left:20px;
 	margin:20px;
-	padding-bottom: 20px;
 }
 
 .shName{
@@ -45,12 +44,14 @@
 
 .storename{
 	display:table-cell;
+	border-right:1px solid;
 	height:30px;
 	vertical-align:middle;
 }
 
 .abname{
 	display:table-cell;
+	border-right:1px solid;
 	height:30px;
 	vertical-align:middle;
 }
@@ -92,6 +93,7 @@
 	background-color:#666666;
 	color:white;
 	font-size:15px;
+	
 }
 .input1:hover{
 	background-color:#222222;
@@ -99,11 +101,11 @@
 
 .adder{
 	border: 1px solid #EEEEEE; 
-	width:100px;
-	height:40px;
-	margin:10px;
+	width:60px;
+	height:30px;
 	background-color:#666666;
 	color:white;
+	font-size:15px;
 }
 
 .adder:hover{
@@ -111,8 +113,6 @@
 }
 
 .another{
-	
-	position: relative;
-	width: 870px;
+	position:relative;
+	width:870px;
 }
-

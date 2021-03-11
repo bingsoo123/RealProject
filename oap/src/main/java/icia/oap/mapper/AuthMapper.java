@@ -35,4 +35,6 @@ public interface AuthMapper {
 
 	public String getManageCode(AuthBean auBean);
 
+	public String getDbPw(AuthBean auBean);
+
 }

@@ -146,23 +146,6 @@
 	]]>
 	</select>
 	
-	
-	
-
-	<!-- 급여관리 클릭시 급여정보에대한 전체 리스트 출력 -->
-	<select id="getPayList" resultType="icia.oap.beans.ManageBean">
- 	   <![CDATA[
-        SELECT AB_CODE AS "ABCODE",
-       		   SH_CODE AS "SHCODE",
-       		   SH_NAME AS "SHNAME",
-        	   AB_NAME AS "ABNAME",
-        	   PA_NAME AS "PANAME"
-		FROM   PA INNER JOIN AB ON PA.PA_SIAABCODE = AB.AB_CODE
-			      INNER JOIN SH ON PA.PA_SIASHCODE = SH.SH_CODE
-	    WHERE  PA_SIASHCODE=#{shCode}
-      ]]>
-	</select>
-	
 	<!-- 급여 상세정보 가져오는것 -->
 	<select id="getPayInfo" resultType="icia.oap.beans.ManageBean">
  	<![CDATA[
@@ -210,6 +193,186 @@
 		TO_CHAR(CM_TIME,'YYYYMMDD')=#{sDate} AND CM_SCABCODE=#{abCode}
 	</select>
 
+
+
+	<!-- 	근무일지 특정 날짜의 근무자,데이터 출력  -->
+	<select id="getLogList" resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+ 	select rd_rtshcode as SHCODE, rd_rtabcode as abCode, AB_NAME AS ABNAME, wl_scstarttime as workTime,
+ 	rt_type as rtType,wl.wl_specialnote AS NOTE,
+ 	rd_rttime as rtTime , rd_moneytype as moneyt,
+ 	rd_moneycount as mCount FROM RD
+ 	INNER JOIN rt ON rt.rt_siaabcode = rd.rd_rtabcode AND rt.rt_siashcode = rd.rd_rtshcode
+ 	AND rt.rt_time = RD.RD_RTTIME
+ 	INNER JOIN AB ON ab.ab_code = RD.RD_RTABCODE
+ 	INNER JOIN WL ON rd.rd_rtshcode = WL.WL_scshcode AND RD.RD_RTABCODE = wl.wl_scabcode
+ 	WHERE rt.rt_type ='2' AND TO_CHAR(RD.RD_RTTIME, 'YYYYMMDD') = '20210304'
+ 	GROUP BY RD.RD_RTSHCODE,rd.rd_rtabcode,ab.ab_name,
+ 	rt.rt_type,rd.rd_rttime,rd.rd_moneytype,rd.rd_moneycount,WL.WL_SPECIALNOTE,wl.wl_scstarttime
+ 	ORDER BY wl.wl_specialnote,to_number(rd_moneytype)  desc
+	]]>
+	</select>
+
+
+	<!-- 매장의 업무리스트 가져오기 -->
+	<select id="getAllTaskList" resultType="icia.oap.beans.ManageBean">
+		<![CDATA[
+			SELECT  MT_SHCODE AS SHCODE,
+			        MT_TLNUMBER AS "TLNUMBER",
+			        TL_COMMENT AS "TLCOMMENT",
+			        MT_DETAIL AS "MTDETAIL"
+			FROM MT INNER JOIN TL ON MT.MT_TLNUMBER = TL.TL_NUMBER
+			WHERE MT_SHCODE = #{shCode}
+		]]> 
+	</select>
+	
+	<!-- work 페이지에서 업무타입별  select 해오기 -->
+	<select id="getTlCommentData" resultType="icia.oap.beans.ManageBean">
+		<![CDATA[
+			SELECT  MT_SHCODE AS SHCODE,
+			        MT_TLNUMBER AS "TLNUMBER",
+			        TL_COMMENT AS "TLCOMMENT",
+			        MT_DETAIL AS "MTDETAIL"
+			FROM MT INNER JOIN TL ON MT.MT_TLNUMBER = TL.TL_NUMBER
+			WHERE MT_SHCODE = #{shCode} AND MT_TLNUMBER = #{tlNumber}
+		]]> 
+	</select>
+	
+	<!-- 매장의 업무 카운트하기 -->
+	<select id="getCountTask" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*)
+			FROM MT
+			WHERE MT_SHCODE = #{shCode}
+		]]> 
+	</select>
+	
+	<!-- 매장 리스트 가져오기 -->
+	<select id="getNameData" resultType="icia.oap.beans.ManageBean">
+		<![CDATA[
+			SELECT  SH_CODE AS SHCODE,
+			        SH_NAME AS SHNAME
+			FROM SH
+			WHERE SH_MNCODE = #{mnCode}
+		]]> 
+	</select>
+	
+	<!-- 업무 번호, 업무 내용 가져오기 상세 아님 -->
+	<select id="getCommentData" resultType="icia.oap.beans.ManageBean">
+		<![CDATA[
+			SELECT  TL_NUMBER AS TLNUMBER,
+			        TL_COMMENT AS TLCOMMENT
+			FROM TL
+		]]> 
+	</select>
+	
+	<!-- 업무추가 최종 insert 하기 -->
+	<insert id="workAddComplete">
+		<![CDATA[
+			INSERT INTO MT (MT_SHCODE, MT_TLNUMBER, MT_DETAIL)
+			VALUES(#{shCode}, #{tlNumber}, #{mtDetail})
+		]]> 
+	</insert>
+	
+	<!-- 업무수정 최종 update 하기 -->
+	<update id="change">
+		<![CDATA[
+			UPDATE MT
+			SET MT_DETAIL = #{editMtDetail}
+			WHERE MT_SHCODE = #{shCode} AND MT_TLNUMBER = #{tlNumber} AND MT_DETAIL = #{mtDetail}
+		]]> 
+	</update>
+	
+	<!-- work 페이지에서 delete 하기 -->
+	<delete id="drop">
+		<![CDATA[
+			DELETE FROM MT
+			WHERE MT_SHCODE = #{shCode} AND MT_TLNUMBER = #{tlNumber} AND MT_DETAIL = #{mtDetail}
+		]]> 
+	</delete>
+	
+	
+	<select id="getAlbaDetailSearch" resultType="icia.oap.beans.ManageBean">
+		SELECT AB_ID AS ABID,
+			   AB_CODE AS ABCODE,
+			   SIA_SHCODE AS SHCODE, 
+      		   AB_NAME AS ABNAME,
+       		   AB_BIRTH AS ABBIRTH,
+       		   AB_GENDER AS ABGENDER,
+       		   AC_ACCOUNT AS ACCOUNT,
+       		   AC_BANKNAME AS BNAME,
+       		   RS_NAME AS RSNAME
+		FROM AB INNER JOIN AC ON AB.AB_CODE = AC.AC_ABCODE
+        		INNER JOIN RS ON AB.AB_CODE = RS.RS_ABCODE
+       		   	INNER JOIN SIA ON AB.AB_CODE = SIA.SIA_ABCODE
+		WHERE AB_CODE=#{abCode} AND SIA_SHCODE=#{shCode}
+	</select>
+
+	<select id="getAlbaList" resultType="icia.oap.beans.ManageBean">
+		SELECT SIA_SHCODE AS SHCODE,
+			SIA_ABCODE AS ABCODE,
+			SIA_PAY AS APAY,
+			AB_GENDER AS ABGENDER,
+			AB_PHONE AS APHONE,
+			AB_NAME AS ABNAME,
+			SH_NAME AS SHNAME,
+			SC_STARTTIME AS STIME,
+			SC_ENDTIME AS ETIME,
+			ST_CODE AS STCODE,
+			ST_COMMENT AS STCOMMENT
+		FROM SIA INNER JOIN AB ON SIA.SIA_ABCODE = AB.AB_CODE
+			INNER JOIN SH ON SIA.SIA_SHCODE = SH.SH_CODE
+			INNER JOIN SC ON SIA.SIA_ABCODE = SC.SC_SIAABCODE AND SIA.SIA_SHCODE =
+			SC.SC_SIASHCODE
+			INNER JOIN ST ON SC.SC_STCODE = ST.ST_CODE
+		WHERE SIA_SHCODE=#{shCode}
+	</select>
+	
+	<insert id="inspaylist1">
+		INSERT INTO PA(PA_SIASHCODE, PA_SIAABCODE, PA_NAME)
+		VALUES(#{shCode}, #{abCode}, #{paName})
+	</insert>
+	
+	<insert id="inspaylist2">
+		INSERT INTO PD (PD_PASHCODE, PD_PAABCODE, PD_PANAME, PD_SIAPAY, PD_SIARESTTIME, PD_TIMETOTAL, PD_PAYTOTAL, PD_STARTDATE, PD_ENDDATE)
+		VALUES(#{shCode}, #{abCode}, #{paName}, #{aPay} , #{restTime} , #{timeTotal}, #{payTotal}, #{sTime}, #{eTime})
+	</insert>
+
+	<select id="getShname" resultType="icia.oap.beans.ManageBean">
+	SELECT SH_CODE AS SHCODE,
+       	   SH_NAME AS SHNAME
+	FROM SH
+	WHERE SH_MNCODE=#{mnCode}
+	</select>
+	
+		<!-- 급여관리 클릭시 급여정보에대한 전체 리스트 출력 -->
+	<select id="getPayList" resultType="icia.oap.beans.ManageBean">
+ 	<![CDATA[
+        SELECT AB_CODE AS "ABCODE",
+       		   SH_CODE AS "SHCODE",
+       		   SH_NAME AS "SHNAME",
+        	   AB_NAME AS "ABNAME",
+        	   PA_NAME AS "PANAME"
+		FROM   PA INNER JOIN AB ON PA.PA_SIAABCODE = AB.AB_CODE
+			      INNER JOIN SH ON PA.PA_SIASHCODE = SH.SH_CODE
+	    WHERE  PA_SIASHCODE=#{shCode}
+      ]]>
+	</select>
+
+
+	<!-- 일정 관리 INSERT를 하기 위한 원래 있는 데이터냐 검사 -->
+	<select id="isSchedule" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*) FROM SC WHERE SC_SIASHCODE=#{shCode} AND SC_SIAABCODE=#{abCode}
+	                AND SC_STARTTIME = #{startTime} AND SC_STCODE = #{stCode}
+		]]>
+	</select>
+
+	<!-- 일정 관리 INSERT -->
+	<insert id="addSchedule">
+		INSERT INTO SC(SC_SIASHCODE, SC_SIAABCODE, SC_STARTTIME, SC_ENDTIME, SC_STCODE)
+	    VALUES(#{shCode}, #{abCode}, #{startTime}, #{endTime}, #{stCode})
+	</insert>	
 
 </mapper>	
 

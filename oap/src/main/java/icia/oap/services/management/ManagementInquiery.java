@@ -83,7 +83,33 @@ public class ManagementInquiery {
 			break;
 		case "Schedule" :
 			mav = this.scheduleCtl(mBean);
-			
+			break;
+		case "WorkLog" :
+			mav = this.logCtl(mBean);
+			break;
+		case "Log" :
+			mav = this.logDetailCtl(mBean);
+			break;
+		case "Work":
+			mav = this.workCtl(mBean);
+			break;
+		case "WorkType":
+			mav = this.WorkTypeCtl(mBean);
+			break;	
+        case "info":
+	        mav = this.albaManagementCtl(mBean);
+	        break;
+	        
+        case "accessDetail":
+		    mav = this.albaInfoDetail(mBean);
+		    break;
+        case "goManageCode":
+		    mav = this.goManageCodeCtl(mBean);
+			break; 
+        case "manageStore":
+			mav = this.manageStore(mBean);
+			break; 	
+			   
 		}
 		
 		return mav;
@@ -183,6 +209,32 @@ public class ManagementInquiery {
 		return mav;
 	}
 	
+	private ModelAndView goManageCodeCtl(ManageBean mBean) {
+		
+		mav = new ModelAndView();
+		
+		String ab = gson.toJson(this.getShname(mBean));
+		System.out.println(">>>>나왓당" + ab);
+		mav.addObject("ab", ab);
+		
+		return mav;
+	}
+	
+	private ModelAndView manageStore(ManageBean mBean) {
+		
+		mav = new ModelAndView();
+		
+		String sh = gson.toJson(this.getShname(mBean));
+		System.out.println(">>>>나왓당" + sh);
+		mav.addObject("sh", sh);
+		
+		return mav;
+	}	
+	
+	private ArrayList<ManageBean> getShname(ManageBean mBean) {
+		return mapperM.getShname(mBean);
+	}
+	
 	// 나의 매장리스트 가져오기 - mapper
 	private ArrayList<ManageBean> getMyWorkZoneList(ManageBean mBean){
 		
@@ -193,6 +245,12 @@ public class ManagementInquiery {
 	private ModelAndView albaManagementCtl(ManageBean mBean) {
 		
 		mav = new ModelAndView();
+		
+		System.out.println("this.getAlbaList(mBean):: " + this.getAlbaList(mBean));
+		
+		String Data = gson.toJson(this.getAlbaList(mBean));
+		mav.addObject("Data1", Data);
+	    System.out.println(Data);
 		
 		return mav;
 	}
@@ -218,6 +276,12 @@ public class ManagementInquiery {
 		
 		mav = new ModelAndView();
 		
+		System.out.println("이것은 상제정보값이다 :: " + this.getAlbaDetailSearch(mBean));
+		
+		String abDetail = gson.toJson(this.getAlbaDetailSearch(mBean));
+		System.out.println(abDetail);
+		mav.addObject("abDetail",abDetail);
+		
 		return mav;
 	}
 	
@@ -242,27 +306,59 @@ public class ManagementInquiery {
 		return mapperM.getCommuteList(mBean);
 	}
 	
+	// 매장에 등록된 업무리스트 조회
 	private ModelAndView workCtl(ManageBean mBean) {
-		
 		mav = new ModelAndView();
+		
+		/* Work Info & Convert to JSON */
+		
+		// 전체 업무리스트 조회
+		String allTaskList = gson.toJson(this.getAllTaskList(mBean));
+		System.out.println(allTaskList);
+		mav.addObject("allTaskList", allTaskList);
+		
+		// 총 업무는 n개 입니다. 조회
+		System.out.println(this.getCountTask(mBean));
+		mav.addObject("countTask", this.getCountTask(mBean));
+		
+		String selectTaskList = gson.toJson(this.getTlCommentData(mBean));
+		mav.addObject("tlCommentData", selectTaskList);
+		
+		/* View */
+		mav.setViewName("work");
+		return mav;
+	}
+	
+	private ModelAndView WorkTypeCtl(ManageBean mBean) {
+		mav = new ModelAndView();
+		
+		/* Work Info & Convert to JSON */
+		
+		// 부분 업무리스트 조회
+		
+		String selectTaskList = gson.toJson(this.getTlCommentData(mBean));
+		System.out.println(selectTaskList);
+		mav.addObject("tlCommentData", selectTaskList);
 		
 		return mav;
 	}
 	
-	private ArrayList<ManageBean> getzCode(ManageBean mBean){
+	// 어디 매장 업무리스트 조회
+	private ArrayList<ManageBean> getAllTaskList(ManageBean mBean) {
 		
-		return mapperM.getzCode(mBean);
+		return mapperM.getAllTaskList(mBean);
 	}
 	
-	private ModelAndView selectTimeCtl(ManageBean mBean) {
+	private ArrayList<ManageBean> getTlCommentData(ManageBean mBean) {
 		
-		mav = new ModelAndView();
-		
-		return mav;
+		return mapperM.getTlCommentData(mBean);
+	
 	}
 	
-	private ArrayList<ManageBean> getTypeCode(ManageBean mBean){
-		return mapperM.getTypeCode(mBean);
+	// 어디 매장 알바생 업무리스트 개수(카운트) 조회
+	private int getCountTask(ManageBean mBean) {
+		
+		return mapperM.getCountTask(mBean);
 	}
 	
 	private ModelAndView payCtl(ManageBean mBean){
@@ -387,9 +483,12 @@ public class ManagementInquiery {
 		return mapperM.getScheduleList(mBean);
 	}
 	
+	// 근무일지
 	private ModelAndView logCtl(ManageBean mBean) {
 		
 		mav = new ModelAndView();
+		
+		
 		
 		return mav;
 	}
@@ -400,8 +499,18 @@ public class ManagementInquiery {
 	
 	private ModelAndView logDetailCtl(ManageBean mBean) {
 		
-		mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView();
+		String jsonData = gson.toJson(this.getLogList(mBean));
 		
+		
+		ArrayList<ManageBean> mbTest = new ArrayList<ManageBean>();
+		mbTest = this.getLogList(mBean);
+		mav.addObject("Log", jsonData);
+		
+		System.out.println(jsonData);
+		
+		
+		mav.setViewName("workDiary");
 		return mav;
 	}
 	

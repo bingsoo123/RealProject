@@ -8,16 +8,20 @@
 <link href="/resources/css/payInsert.css" rel="stylesheet">
 </head>
 <body onLoad="view()">
-	
+<div class="fff">	
+	<div>
+		<select id="sel" class="sel" onChange="te()">
+			<option>-- 매장을 선택해주세요 --</option>
+		</select>	
+	</div>
 	<div class="all" id="all">
 	
 		<div class="imgdiv">
-			<img src="/resources/img/Main_logo.png" style="width:115px;height:115px;">
+			<img src="/resources/img/main.png" style="width:115px;height:115px;">
 		</div>
 		
 		<div class="one">
 			<select class="select1" id="se1">
-			
 			</select>
 			
 			<select class="select2" id="se2">
@@ -65,34 +69,105 @@
 			<a class="a1">지급액 : </a> <input type="text" class="text4" id="text4" readonly> <a class="a3">원</a>
 		</div>
 		
-		<input type="button" value="등록하기" class="addClick" onClick="addPay()">
+		<input type="button" value="등록하기" class="addClick" onClick="addPay(twogab)">
 		
 	</div>
+</div>
 </body>
 <script>
 
-	function addPay(){
+	function addPay(twogab){
+		let x = document.getElementById('se1').value;
+		let y = document.getElementById('se2').value;
+		let z = document.getElementById('se3').value;
+		let q = document.getElementById('da1').value;
+		let w = document.getElementById('da2').value;
+		let yz = y+z;
+		let tesinfo = allData;
+		
+		
+		for(i=0; i<tesinfo.length; i++){
+			if(x==tesinfo[i].abName){
+				
+				paName = yz;
+				shCode = tesinfo[i].shCode;
+				abCode = tesinfo[i].abCode;
+				aPay = tesinfo[i].aPay;
+				restTime = tesinfo[i].restTime;
+				sTime = q;
+				eTime = w;
+				timeTotal = twogab[0];
+				payTotal = twogab[1];
+				
+				
+			}
+		
+		}
+		
+		var form = document.createElement("form");
+		form.action = "insPay?sCode=insPay" + "&paName=" + paName + "&shCode=" + shCode + "&abCode=" + abCode
+					  + "&aPay=" + aPay + "&restTime=" + restTime + "&sTime=" + sTime + "&eTime=" + eTime
+					  + "&timeTotal=" + timeTotal + "&payTotal=" + payTotal + "&mnCode=${mnCode}";
+		form.method = "POST";
+		
+		document.body.appendChild(form);
+		
+		form.submit();
+				
 		
 	}
+	var allData;
+	
+	function te(){
+		shCode = sel.value;
 
+		let request = new XMLHttpRequest();
+	    request.onreadystatechange = function() {
+	       if (this.readyState == 4 && this.status == 200) {
+	    	   let jsondata = decodeURIComponent(request.response);
+	    	   
+			   let test = JSON.parse(jsondata);
+			   allData = test;
+			   shopNameInfo(test);
+	       }
+		}
+		 	request.open("POST","payInsert",true);
+   		 	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+    		request.send("sCode=payInsert&shCode=" + shCode);
+	}
+	
+	function shopNameInfo(test){
+		document.getElementById("se1").innerHTML = "";
+		for(i=0; i<test.length; i++){
+			let select1 = document.getElementById('se1');
+			let option1 = document.createElement('option');
+		
+			option1.value = test[i].abName;
+			option1.text = test[i].abName;
+		
+			select1.appendChild(option1);
+		
+		}
+	}
+	
+	
 	function view(){
 		let x = document.getElementById('se1').value;
 		let y = document.getElementById('se2').value;
 		let z = document.getElementById('se3').value;
 		let q = document.getElementById('da1').value;
 		let w = document.getElementById('da2').value;
-		let tesinfo = JSON.parse('${payInsert}');
-		
-		for(i=0; i<tesinfo.length; i++){
-			let select1 = document.getElementById('se1');
+		let sh = JSON.parse('${sh}');
+		let sel = document.getElementById('sel');
+		for(i=0; i<sh.length; i++){
+			let opt = document.createElement('option');
 			
-			let option1 = document.createElement('option');
-			option1.value = tesinfo[i].abName;
-			option1.text = tesinfo[i].abName;
+			opt.value = sh[i].shCode;
+			opt.text = sh[i].shName;
 			
-			select1.appendChild(option1);
-			
+			sel.appendChild(opt);
 		}
+
 	}
 
 	function search(){
@@ -108,7 +183,7 @@
 		
 		let data="";
 		
-		let tesinfo = JSON.parse('${payInsert}');
+		let tesinfo = allData;
 		
 		for(i=0; i<tesinfo.length; i++){
 			if(x==tesinfo[i].abName){
@@ -172,6 +247,7 @@
 			   let text4 = document.getElementById('text4');
 			   text4.value = twogab[1];
 			   
+			   
 	       }
 		}
 	    
@@ -185,3 +261,4 @@
 	
 </script>
 </html>
+

@@ -1,6 +1,9 @@
 package icia.oap.controller;
 
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import icia.oap.beans.AlbaBean;
@@ -34,6 +38,25 @@ public class AlbaController {
 	ModelAndView mav = null;
 	
 	/* ---------------------------------- 알바생 - 조회 ---------------------------------- */
+	
+	// 알바생이 일하고 있는 매장의 전체 업무리스트
+	@RequestMapping(value = "/AlbaTaskList", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView albaTaskList(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		aBean.setAbCode("100000001");
+		return aInquiery.entrance(aBean);
+	}
+	
+	// 알바가 선택한 매장의 업무리스트 조회
+	@RequestMapping(value = "/AlbaTaskListSelect", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String albaTaskListSelect(@ModelAttribute AlbaBean aBean) throws UnsupportedEncodingException {
+		System.out.println("aBean.getAbCode()::"+aBean.getAbCode());
+		System.out.println("aBean.getShCode()::"+aBean.getShCode());
+		mav = aInquiery.entrance(aBean);
+		return URLEncoder.encode(mav.getModel().get("albaTaskListSelect").toString(),"UTF-8");
+	}
+	
 	
 	// 알바생이 일하고잇는 알바 ( 매장 ) 리스트 조회
 	@RequestMapping(value = "/AlbaList", method = RequestMethod.POST)

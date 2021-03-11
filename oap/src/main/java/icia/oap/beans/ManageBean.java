@@ -29,6 +29,7 @@ public class ManageBean {
 	private String endTime;
 	private String cmTime; // sysdate로 받을 내 실직적인 출퇴근시간
 	private String cmType; // -1 퇴근 1 출근
+	private String stCode;
 	// 알바생 정보
 	private String abName;
 	private String abPhone;
@@ -37,10 +38,7 @@ public class ManageBean {
     private String mnName; // 관리자 이름
     private String mnCode; // 관리자 코드
     
-    
-    
-    /////////
-
+    // 급여
 	private String nnn;
 	private String paName;
 	private String sTime;
@@ -52,4 +50,41 @@ public class ManageBean {
 	private int payTotal;
 	private String sDate;
 		
+	//근무일지
+	public String wltime;
+	public String workTime;
+	public String moneyt;
+	public String mCount;
+	public String rtTime;
+	public String rtType;
+	public String note;
+	
+	
+	// 업무관리
+	public String zCode;
+	public int tlNumber;
+	public String tlComment;
+	public String mtDetail;
+	private String editMtDetail;
+	
+	// 알바생관리
+	private String abGender;
+	private String abId;
+	private String abBirth;
+	private String Account;
+	private String rsName;
+	private String bName;
+	
+	
+	
+	//일정 추가 쪽에서 쓰는 컬럼
+	private String startDay;
+
+	
+	
+	
+	
+	
+	
+
 }
