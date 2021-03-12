@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+#taskList {
+	padding: 100px;
+}
+
 .title{
 	padding: 10px;
 }

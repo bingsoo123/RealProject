@@ -99,32 +99,38 @@
 function goEdit() {
 	
 	let shCode = document.getElementById("name").value;
-	let tlComment = document.getElementById("tlComment").value;
-	let editMtDetail = document.getElementById("editMtDetail").value; // 클라이언트가 수정을 요청한 값 (변경할 값)
-	let mtDetail = "${mtDetail}"; // 클라이언트에서 보이는 값 (기존 값)
+	let editTlNumber = document.getElementById("tlComment").value; // 클라이언트가 수정을 요청한 값 (변경할 값) -업무 타입
+	let editMtDetail = document.getElementById("editMtDetail").value; // 클라이언트가 수정을 요청한 값 (변경할 값) - 업무상세내용
+	
+	let mtDetail = "${mtDetail}"; // 클라이언트에서 보이는 값 (기존 값) - 업무상세내용
+	let tlNumber = "${tlNumber}"; // 클라이언트에서 보이는 값 (기존 값) - 업무 타입
 	
 	
-	alert(shCode + "-" + tlComment + "-" + mtDetail + "-" + editMtDetail);
+	alert("shCode::"+shCode + "-" + "tlNumber::" + tlNumber + "-" + "editTlNumber::" + editTlNumber + "-" + "mtDetail::" + mtDetail + "-" + "editMtDetail::" + editMtDetail );
 	     
-     let request = new XMLHttpRequest();
-     request.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-           let jsonData = decodeURIComponent(request.response);
-           alert("업무 수정이 완료 되었습니다.");
-           }
-	   };
-	request.open("POST", "ChangeComplete", true);
-	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-	request.send("sCode=ChangeComplete" + "&shCode=" + shCode + "&tlNumber=" + tlComment + "&mtDetail=" + mtDetail + "&editMtDetail=" + editMtDetail);
+     
+	let request = new XMLHttpRequest();
+		request.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				let jsonData = decodeURIComponent(request.response);
+				alert("업무 수정이 완료 되었습니다.");
+				opener.document.location.reload();
+				self.close();
+			}
+		};
+		request.open("POST", "ChangeComplete", true);
+		request.setRequestHeader("Content-Type",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		request.send("sCode=ChangeComplete" + "&shCode=" + shCode
+				+ "&tlNumber=" + tlNumber + "&mtDetail=" + mtDetail
+				+ "&editMtDetail=" + editMtDetail + "&editTlNumber=" + editTlNumber);
 
-}
-	
-	
+	}
+
 	//function textBoxChange() {
-		//$(".field2").css("display", "none"); //값을 보여주지 않음
-		//$(".field2").css("display", "block"); // 값을 보여줌
+	//$(".field2").css("display", "none"); //값을 보여주지 않음
+	//$(".field2").css("display", "block"); // 값을 보여줌
 	//}
-	
 </script>
 
 

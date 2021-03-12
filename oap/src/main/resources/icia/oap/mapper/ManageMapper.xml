@@ -278,7 +278,8 @@
 	<update id="change">
 		<![CDATA[
 			UPDATE MT
-			SET MT_DETAIL = #{editMtDetail}
+			SET MT_DETAIL = #{editMtDetail},
+				MT_TLNUMBER = #{editTlNumber}
 			WHERE MT_SHCODE = #{shCode} AND MT_TLNUMBER = #{tlNumber} AND MT_DETAIL = #{mtDetail}
 		]]> 
 	</update>

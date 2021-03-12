@@ -21,9 +21,10 @@
 				<div class="todo-wrap">
 					<div class="todo-title">Todo List</div>
 					<div class="input-wrap">
-						<input type="text" placeholder="please write here!!"
+						<input type="hidden" placeholder="please write here!!"
 							id="input-box" class="input-box">
-						<button type="button" id="input-data" class="input-data">INPUT</button>
+						<input type="hidden" id="input-data" class="input-data" value="INPUT">
+						<!-- <button type="button" id="input-data" class="input-data">INPUT</button> --> 
 						<div id="input-list" class="input-list"></div>
 					</div>
 				</div>
@@ -290,6 +291,7 @@
 	    }
 
 	}
+	
 	var inputBox = document.getElementById('input-box');
 	var inputDate = document.getElementById('input-data');
 	var inputList = document.getElementById('input-list');
@@ -321,6 +323,7 @@
 	    }
 	}
 	console.log(keyValue);
+	
 	function checkList(e){
 	    e.currentTarget.classList.add('checked');
 	}

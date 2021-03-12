@@ -345,6 +345,8 @@ public class ManagementInquiery {
 		System.out.println(this.getCountTask(mBean));
 		mav.addObject("countTask", this.getCountTask(mBean));
 		
+		mav.addObject("shCode", mBean.getShCode());
+		
 		String selectTaskList = gson.toJson(this.getTlCommentData(mBean));
 		mav.addObject("tlCommentData", selectTaskList);
 		
@@ -360,8 +362,11 @@ public class ManagementInquiery {
 		
 		// 부분 업무리스트 조회
 		
+		// 총 업무는 n개 입니다. 조회
+		System.out.println(this.getCountTask(mBean));
+		
+		
 		String selectTaskList = gson.toJson(this.getTlCommentData(mBean));
-		System.out.println(selectTaskList);
 		mav.addObject("tlCommentData", selectTaskList);
 		
 		return mav;

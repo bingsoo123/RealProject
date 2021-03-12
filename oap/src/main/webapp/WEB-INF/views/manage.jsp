@@ -20,26 +20,24 @@
         <div class="test2">
             <div class="head"><img alt="알바어때 ?" src="/resources/img/Main_logo.png"></div>
             <div class="serve">
-                <div class="list" onclick="www();"><img alt="매장 관리" src="/resources/img/nav1.png"></div>
-                <div class="list" onClick="alba()"><img alt="알바생 관리" src="/resources/img/nav2.png"></div>
-                <div class="list" onClick="CommutingManagement()"><img alt="출퇴근 관리" src="/resources/img/nav3.png"></div>
-                <div class="list" onClick="work()"><img alt="업무 관리" src="/resources/img/nav4.png"></div>
+                <div class="list" onclick="www();"><img alt="매장 관리" src="/resources/img/nav1.png"><img alt="매장 관리" src="/resources/img/nav1_hover.png"></div>
+                <div class="list" onClick="alba()"><img alt="알바생 관리" src="/resources/img/nav2.png"><img alt="알바생 관리" src="/resources/img/nav2_hover.png"></div>
+                <div class="list" onClick="CommutingManagement()"><img alt="출퇴근 관리" src="/resources/img/nav3.png"><img alt="출퇴근 관리" src="/resources/img/nav3_hover.png"></div>
+                <div class="list" onClick="work()"><img alt="업무 관리" src="/resources/img/nav4.png"><img alt="업무 관리" src="/resources/img/nav4_hover.png"></div>
             </div>
             <div class="serve2">
-                <div class="list" onClick="pay()"><img alt="급여 관리" src="/resources/img/nav5.png"></div>
-                <div class="list" onClick="Schedule()"><img alt="일정 관리" src="/resources/img/nav6.png"></div>
-                <div class="list" onClick="workLog()"><img alt="근무일지" src="/resources/img/nav7.png"></div>
-                <div class="list" onClick="laborContract()"><img alt="근로계약서" src="/resources/img/nav8.png"></div>
+                <div class="list" onClick="pay()"><img alt="급여 관리" src="/resources/img/nav5.png"><img alt="급여 관리" src="/resources/img/nav5_hover.png"></div>
+                <div class="list" onClick="Schedule()"><img alt="일정 관리" src="/resources/img/nav6.png"><img alt="일정 관리" src="/resources/img/nav6_hover.png"></div>
+                <div class="list" onClick="workLog()"><img alt="근무일지" src="/resources/img/nav7.png"><img alt="근무일지" src="/resources/img/nav7_hover.png"></div>
+                <div class="list" onClick="laborContract()"><img alt="근로계약서" src="/resources/img/nav8.png"><img alt="근로계약서" src="/resources/img/nav8_hover.png"></div>
             </div>
         </div>
 
         <div class="info">
                 <div class="detail_info_img"><img alt="detail_logo" src="/resources/img/manager_logo.png"></div>
-                <div class="detail_if">서알바 사장님&nbsp&nbsp<img src="/resources/img/work_check.png" width="25px" height="25px"/></div>
-                <div class="detail_if">ICIA 인천일보 &nbsp&nbsp ▼</div>
+                <div class="detail_if" id="mangerName"></div>
+                <div id="shopSelect"></div>
                 <div class="detail_logOut">로그아웃</div>
-                <div id="mangerName"></div>
-                <div class="shopSelect" id="shopSelect"></div>
                 <input type="hidden" id="shopCode" value="0">
         </div>
 
@@ -48,6 +46,7 @@
 
 
         </div>
+
 
 	
 
@@ -89,6 +88,7 @@
 		
 	}
 
+	// ${mncode}
 	function managerInfo() {
 		let request = new XMLHttpRequest();
 		request.onreadystatechange = function() {
@@ -344,9 +344,10 @@
 	}	
 	
 	function work(){
+		var shn = $("#shopSelect option:selected").val();
 		$.ajax({
 			type:"POST",
-			url:"/Work",
+			url:"/Work?shCode="+shn,
 			dataType:"html",
 			success: function(data){
 				$(".test3").html(data);
@@ -357,24 +358,24 @@
 
 
 	function shopSelect(manageData) {
-		
-		// 로그인하고나서 선택을 해야하나..? 암튼 기본 선택값 (input hidden 에다가 넣어서 그걸 받아올거임.)	
-		let shopHiddenInput = document.getElementById('shopCode');
-		let mangerName = document.getElementById('mangerName');
-		
-		// let shCode = '100000000';
-		
-		mangerName.innerHTML = manageData[0].mnName + "사장님 어서오세요";
-		
-		
-		let shopSelectContents = document.getElementById('shopSelect');
-		let shopSelectBox = document.createElement('select');
-		shopSelectBox.id = "shop_select_box"
-		shopSelectBox.className = "shop_select_box";
-		
-		shopSelectBox.addEventListener('change', function() {
-			manaOnchangeTest(this);
-		});
+	      
+	      // 로그인하고나서 선택을 해야하나..? 암튼 기본 선택값 (input hidden 에다가 넣어서 그걸 받아올거임.)   
+	      let shopHiddenInput = document.getElementById('shopCode');
+	      let mangerName = document.getElementById('mangerName');
+	      
+	      // let shCode = '100000000';
+	      
+	      mangerName.innerHTML = manageData[0].mnName + " 사장님        <img src='/resources/img/work_check.png' width='25px' height='25px'/>";
+	      
+	      
+	      let shopSelectContents = document.getElementById('shopSelect');
+	      let shopSelectBox = document.createElement('select');
+	      shopSelectBox.id = "shop_select_box"
+	      shopSelectBox.className = "detail_if_select_box";
+	      
+	      shopSelectBox.addEventListener('change', function() {
+	         manaOnchangeTest(this);
+	      });
 		
 //	 	let shopSelectOption = document.createElement("option");
 //	 	shopSelectOption.value = " "; //

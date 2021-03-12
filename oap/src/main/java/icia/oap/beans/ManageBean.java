@@ -66,6 +66,7 @@ public class ManageBean {
 	public String tlComment;
 	public String mtDetail;
 	private String editMtDetail;
+	private String editTlNumber;
 	
 	// 알바생관리
 	private String abGender;
@@ -79,6 +80,7 @@ public class ManageBean {
 	
 	//일정 추가 쪽에서 쓰는 컬럼
 	private String startDay;
+	
 
 	
 	

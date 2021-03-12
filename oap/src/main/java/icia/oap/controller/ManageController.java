@@ -127,8 +127,6 @@ public class ManageController {
 	@RequestMapping(value = "/Work", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView work(@ModelAttribute ManageBean mBean) {
 		mBean.setSCode("Work");
-		mBean.setAbCode("100000000");
-		mBean.setShCode("100000000");
 		return mInquiery.entrance(mBean);
 	}
 	
@@ -137,7 +135,6 @@ public class ManageController {
 	@ResponseBody
 	public String tlCommentData(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
 		mBean.setSCode("WorkType");
-		mBean.setShCode("100000000");
 		mav = mInquiery.entrance(mBean);
 		return URLEncoder.encode(mav.getModel().get("tlCommentData").toString(),"UTF-8");
 	}

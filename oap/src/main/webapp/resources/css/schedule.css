@@ -49,7 +49,6 @@ html, body{
   width: 50%;
   margin-right: 20px;
   height: auto; 
-  background: #0b0809;
   color: #ddaf35;
   line-height : normal;
   padding: .8em .5em 0 0; 
@@ -165,14 +164,15 @@ html, body{
     padding: 0 0 0 40px;
   }
   .todo-title{
+  	position : relative;
+  	left : 31%;
     font-size: 20px;
-    font-weight: 100;
+    font-weight: 800;
     margin: 0 0 10px 0;
   }
   .input-box{
     width: 70%;
     height: auto; 
-    background: #0b0809;
     color: #ddaf35;
     line-height : normal;
     padding: .8em .5em 0 0; 
