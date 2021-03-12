@@ -108,48 +108,55 @@ public class ManagementEnroll {
 	}
 	
 	private ModelAndView laborAddCtl(ManageBean mBean) {
-		mav = new ModelAndView();
-		FileOutputStream stream = null;
-		String binaryData = mBean.getLcName();
-		System.out.println("ImgSaveTest 메서드 실행");
-		// mBean.setAbCode("100000003"); // 임의로 넣은것, 근로계약서는 어떻게 abCode를 넣을지 구상..
-		// 적을때 id를 적게해서.. abcode를 불러올까?
-		try{
-			System.out.println("mBean.getLcName() "  + binaryData);
-			if(binaryData == null || binaryData.trim().equals("")) {
-			    throw new Exception();
-			}
-			binaryData = binaryData.replaceAll("data:image/png;base64,", "");
-			byte[] file = Base64.decodeBase64(binaryData);
-			String fileNameUUID =  UUID.randomUUID().toString();
-			String laborfileName = "_" + mBean.getShCode() + "_" + mBean.getAbCode();
-			// String laborPath =  request.getSession().getServletContext().getRealPath("/resources/laborContract/");
-			// String laborPath = "C:/Users/Gaon/git/repository/oap/src/main/webapp/resources/laborContract/";
-			//String laborPath = "C:/Users/sacri/git/ALBATAPA/oap/src/main/webapp/resources/laborContract/";
-			String laborPath = "C:/Users/CHAE BIN SU/git/repository/oap/src/main/webapp/resources/laborContract/";
-			mBean.setLcRoot(laborPath +fileNameUUID+ laborfileName +".png");
-			//파일 씀
-			stream = new FileOutputStream(mBean.getLcRoot());
-			stream.write(file);
-			stream.close();
-			
-			if(laborAdd(mBean)) {
-				System.out.println("정상적으로 DB에 삽입 완료");
-				mav.addObject("laborRoot", mBean.getLcRoot());
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			System.out.println("에러 발생");
-		}finally{
-			if(stream != null) {
-				try {
-					stream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+		if(!this.isLabor(mBean)) {
+			mav = new ModelAndView();
+			FileOutputStream stream = null;
+			String binaryData = mBean.getLcName();
+			System.out.println("ImgSaveTest 메서드 실행");
+			try{
+				System.out.println("mBean.getLcName() "  + binaryData);
+				if(binaryData == null || binaryData.trim().equals("")) {
+				    throw new Exception();
+				}
+				binaryData = binaryData.replaceAll("data:image/png;base64,", "");
+				byte[] file = Base64.decodeBase64(binaryData);
+				String fileNameUUID =  UUID.randomUUID().toString();
+				String laborfileName = "_" + mBean.getShCode() + "_" + mBean.getAbCode();
+				//String laborPath = "C:/Users/sacri/git/ALBATAPA/oap/src/main/webapp/resources/laborContract/";
+				String laborPath = "C:/Users/CHAE BIN SU/git/repository/oap/src/main/webapp/resources/laborContract/";
+				mBean.setLcRoot(laborPath +fileNameUUID+ laborfileName +".png");
+				//파일 씀
+				stream = new FileOutputStream(mBean.getLcRoot());
+				stream.write(file);
+				stream.close();
+				
+				if(laborAdd(mBean)) {
+					System.out.println("정상적으로 DB에 삽입 완료");
+					mav.addObject("laborRoot", mBean.getLcRoot());
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+				System.out.println("에러 발생");
+			}finally{
+				if(stream != null) {
+					try {
+						stream.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
+		}else {
+			mBean.setLcRoot("-1");
+			mav.addObject("laborRoot", mBean.getLcRoot()); // lcroot가 -1 이면 이미 있는것 처리 .... (jsp단에서)
+			
 		}
 		return mav;
+	}
+	
+	//
+	private boolean isLabor(ManageBean mBean) {
+		return convertToBoolean(mapperM.isLabor(mBean));
 	}
 	
 	private boolean laborAdd(ManageBean mBean){

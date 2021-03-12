@@ -32,7 +32,7 @@ public class AbtpAuthentication {
 
 	}
 
-	public ModelAndView entrance(AuthBean authBean) {
+	public ModelAndView entrance(AuthBean authBean) throws Exception {
 
 		ModelAndView mav = null;
 
@@ -66,6 +66,9 @@ public class AbtpAuthentication {
 				break;
 			case "LogIn":
 				mav = this.logInCtl(authBean);
+				break;
+			case "LogOut" :
+				mav = this.logOutCtl(authBean);
 				break;
 
 			}
@@ -134,7 +137,11 @@ public class AbtpAuthentication {
 
 		System.out.println("회원정보 입력페이지 입니다");
 		
+		System.out.println("입력한 비밀번호 >>" + auBean.getSPw());
+		
 		auBean.setSPw(enc.encode(auBean.getSPw()));
+		
+		System.out.println("암호환시킨 비밀번호 >>" + auBean.getSPw());
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -188,7 +195,7 @@ public class AbtpAuthentication {
 		return this.converToBoolean(mapperA.joinInsert(auBean));
 	}
 
-	private ModelAndView logInCtl(AuthBean auBean) {
+	private ModelAndView logInCtl(AuthBean auBean) throws Exception {
 
 		ModelAndView mav = new ModelAndView();
 
@@ -202,6 +209,11 @@ public class AbtpAuthentication {
 				if (enc.matches(auBean.getSPw(),auBean.getDbPw())) {
 					auBean.setAbCode(this.getAbCode(auBean));
 					mav.addObject("abCode", auBean.getAbCode());
+					
+					pu.setAttribute("idCode", auBean.getAbCode());
+					
+					System.out.println("세션값 >>>" + pu.getAttribute("idCode"));
+					
 					message = null;
 					page = "workMan";
 				}
@@ -213,6 +225,11 @@ public class AbtpAuthentication {
 				if (this.isPasswordManage(auBean)) {
 					auBean.setMnCode(this.getMnCode(auBean));
 					mav.addObject("mnCode", auBean.getMnCode());
+					
+					pu.setAttribute("idCode", auBean.getMnCode());
+					
+					System.out.println("세션값 >>>" + pu.getAttribute("idCode"));
+					
 					message = null;
 					page = "manage";
 					
@@ -262,6 +279,18 @@ public class AbtpAuthentication {
 	private ModelAndView logOutCtl(AuthBean auBean) {
 
 		ModelAndView mav = new ModelAndView();
+		
+		try {
+			if(pu.getAttribute("idCode")!=null) {
+				
+				pu.removeAttribute("idCode");
+				
+				mav.setViewName("home");
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return mav;
 	}

@@ -68,27 +68,29 @@ public class ManagementModify {
 			
 			System.out.println("mBean.getLcRoot() :: " + mBean.getLcRoot());
 			
-			File file = new File(mBean.getLcRoot());
-			if( file.exists() ){
-				if(file.delete()){
-					System.out.println("shCode :" + mBean.getShCode() + "  abCode :" + mBean.getAbCode() + "의 경로 " + mBean.getLcRoot());
-					System.out.println("mBean.getAbCode()::" + mBean.getAbCode());
-					this.laborDelete(mBean); // 삭제
-					System.out.println("삭제 " + i+1 + "스택");
-					// deleteStateText = "선택하신 계약서를 삭제 하였습니다.";
-					deleteStateText = 1;
-				}else{
-					// deleteStateText = "계약서 삭제 실패";
-					deleteStateText = -1;
-				} 
-			}else{
-				// deleteStateText = "파일이 존재하지 않습니다.";
-				deleteStateText = 0;
+			System.out.println("shCode :" + mBean.getShCode() + "  abCode :" + mBean.getAbCode() + "의 경로 " + mBean.getLcRoot());
+			System.out.println("mBean.getAbCode()::" + mBean.getAbCode());
+			if(this.laborDelete(mBean)) { // DB에서의 삭제. 아래에 파일관련된건 파일이 있으면 삭제하고. 없으면 출력문 띄우게 해놨음.
+				System.out.println("삭제 " + i+1 + "스택");
+				// deleteStateText = "선택하신 계약서를 삭제 하였습니다.";
+				deleteStateText = 1;
+			}else {
+				deleteStateText = -1; // 삭제 실패
 			}
-			mav.addObject("deleteStateText",deleteStateText);
 			
+			File file = new File(mBean.getLcRoot());
+			if( file.exists() ){ 
+				if(file.delete()){
+					System.out.println(mBean.getLcRoot() + "경로의 파일 삭제 완료.");
+				}
+			}else {
+				System.out.println(mBean.getLcRoot() + "는 존재하지 않음.");
+				// deleteStateText = "파일이 존재하지 않습니다.";
+	//			 deleteStateText = 0;
+			}
+			
+			mav.addObject("deleteStateText",deleteStateText);
 		}
-		
 		return mav;
 	}
 	

@@ -1232,6 +1232,9 @@
 	                dataType : "text",
 	                url : "laborAdd",
 	                success : function(data) {
+	                	if(data == -1){
+	                		alert("이미 존재하는 근로 계약서 입니다.");
+	                	}
 	                    console.log(data);
 	                    laborContract();
 	                },

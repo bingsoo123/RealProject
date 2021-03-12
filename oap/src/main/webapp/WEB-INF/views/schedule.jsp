@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <title>이쁜 달력</title>
-<link rel="stylesheet" href="resources/css/test.css">
+<link rel="stylesheet" href="resources/css/schedule.css">
 </head>
 
 <body>

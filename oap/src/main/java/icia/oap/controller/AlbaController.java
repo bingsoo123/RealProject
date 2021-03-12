@@ -21,6 +21,7 @@ import icia.oap.beans.AuthBean;
 import icia.oap.services.alba.AlbaEnroll;
 import icia.oap.services.alba.AlbaInquiery;
 import icia.oap.services.alba.AlbaModify;
+import icia.oap.utils.ProjectUtils;
 
 
 @Controller
@@ -34,8 +35,29 @@ public class AlbaController {
 	private AlbaModify aModify;
 	@Autowired
 	private AlbaInquiery aInquiery;
+	@Autowired
+	private ProjectUtils pu;
 	
 	ModelAndView mav = null;
+	
+	
+	/*------------- 세션체크 ------------*/
+	
+	private String SessionCheck() throws Exception {
+		
+		String result = null;
+		
+		if(pu.getAttribute("idCode")==null) {
+			
+			System.out.println("세션이 존재합니다");
+			System.out.println("세션 값 ::" + pu.getAttribute("idCode"));
+		}else {
+			
+			System.out.println("세션이 존재하지 않습니다.");
+		}
+		
+		return result;
+	}
 	
 	/* ---------------------------------- 알바생 - 조회 ---------------------------------- */
 	

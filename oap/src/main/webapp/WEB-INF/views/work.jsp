@@ -31,11 +31,7 @@
 
 		let countTask = document.createElement('div');
 		countTask.className = "countTask";
-		countTask.textContent = "총 " + $
-		{
-			countTask
-		}
-		+"개의 업무가 있습니다.";
+		countTask.textContent = "총  ${countTask} 개의 업무가 있습니다.";
 
 		let addTask = document.createElement('input');
 		addTask.type = "button";

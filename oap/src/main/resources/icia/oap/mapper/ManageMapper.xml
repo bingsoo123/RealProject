@@ -373,6 +373,15 @@
 		INSERT INTO SC(SC_SIASHCODE, SC_SIAABCODE, SC_STARTTIME, SC_ENDTIME, SC_STCODE)
 	    VALUES(#{shCode}, #{abCode}, #{startTime}, #{endTime}, #{stCode})
 	</insert>	
+	
+   <!-- 근로계약서 삭제, 추가 전 있는지 없는지 확인-->
+   <select id="isLabor" resultType="int">
+   <![CDATA[
+      SELECT count(*)
+      FROM LC
+      WHERE (LC_SIASHCODE = #{shCode}) AND (LC_SIAABCODE= #{abCode})
+   ]]>
+   </select>	
 
 </mapper>	
 

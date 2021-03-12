@@ -10,6 +10,8 @@ public interface ManageMapper {
 
 	//    Inquiery
 	
+	public int isLabor(ManageBean mBean);
+	
 	public ArrayList<ManageBean> getMyWorkZoneList(ManageBean mBean);
 
 	public ArrayList<ManageBean> getAlbaList(ManageBean mBean);

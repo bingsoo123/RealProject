@@ -5,46 +5,42 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/resources/css/workMan.css" rel="stylesheet" />
+<link href="/resources/css/workmanTest.css" rel="stylesheet" />
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body onLoad="workDiary()">
-	
-	<div>
-
-		<div class="test1">
-
-			<ul class="nav-container">
-
-				<li><a href="#"><img src="/resources/img/logo_1.png"
-						width="100px" height="100px"></a></li>
-				<li class="nav-item"><a href="/Manage">관리</a></li>
-				<li class="nav-item"><a href="/Regist">등록</a></li>
-				<li class="nav-item"><a href="javascript:leave();">퇴근하기</a></li>
-
-			</ul>
-
-		</div>
 
 
-		<div class="two">
+    <div class="two">
+        <div class="test2">
+            <div class="head"><img alt="알바어때 ?" src="/resources/img/Main_logo.png"></div>
+            <div class="serve">
+                <div class="list" onclick="inquiery()"><img alt="알바 조회" src="/resources/img/alba_nav1.png"></div>
+                <div class="list" onClick="pay()"><img alt="급여 조회" src="/resources/img/alba_nav2.png"></div>
+                <div class="list" onClick=""><img alt="일정조회등록" src="/resources/img/alba_nav3.png"></div>
+            </div>
+            <div class="serve2">
+                <div class="list" onClick="loadAlbaTaskList()"><img alt="업무리스트" src="/resources/img/alba_nav4.png"></div>
+                <div class="list" onClick=""><img alt="이력서 관리" src="/resources/img/alba_nav5.png"></div>
+                <div class="list" onClick=""><img alt="정보 수정" src="/resources/img/alba_nav6.png"></div>
+            </div>
+        </div>
 
-			<div class="test2">
-				<div class="list" onClick="inquiery()">알바조회</div>
-				<div class="list" onClick="pay()">급여조회</div>
-				<div class="list">일정조회 * 등록</div>
-				<div class="list">이력서 관리</div>
-				<div class="list" onClick="loadAlbaTaskList()">업무 리스트</div>
-				<div class="list">정보수정</div>
+        <div class="info">
+                <div class="detail_info_img"><img alt="detail_logo" src="/resources/img/manager_logo.png"></div>
+                <div class="detail_if">서알바 알바생님&nbsp&nbsp<img src="/resources/img/work_check.png" width="25px" height="25px"/></div>
+                <div class="detail_if">ICIA 인천일보 &nbsp&nbsp ▼</div>
+                <div class="detail_logOut">로그아웃</div>
+                <div id="mangerName"></div>
+                <div class="shopSelect" id="shopSelect"></div>
+                <input type="hidden" id="shopCode" value="0">
+        </div>
 
-			</div>
+        <div id="test3" class="test3">
 
-			<div id="test3" class="test3" style="position: relative;">
+        </div>
 
-			</div>
-
-		</div>
-	</div>
+    </div>
 
 </body>
 

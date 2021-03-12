@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 
 import icia.oap.beans.ManageBean;
 import icia.oap.mapper.ManageMapper;
+import icia.oap.utils.ProjectUtils;
 
 @Service
 public class ManagementInquiery {
@@ -18,6 +19,8 @@ public class ManagementInquiery {
 	private ManageMapper mapperM;
 	@Autowired
 	private Gson gson;
+	@Autowired
+	private ProjectUtils pu;
 	
 	ModelAndView mav = null;
 	
@@ -27,90 +30,111 @@ public class ManagementInquiery {
 	
 	public ModelAndView entrance(ManageBean mBean) {
 		
-		switch(mBean.getSCode()) {
-		case "myWorkZone":
-			mav = this.workZoneManagementCtl(mBean);
-			break;
-		
-		case "searchMap":
-			mav = this.searchMapCtl(mBean);
-			break;
-		
-		case "searchMapJoin":
-			mav = this.searchMapJoinCtl(mBean);
-			break;
+		try {
 			
-		case "labor":
-			// [근로계약서] 탭을 눌렀을때
-			mav = this.laborListCtl(mBean);
-			break;
-		case "laborDetail":
-			// 근로계약서 눌러서 상세 정보 볼때.
-			mav = this.laborDetailCtl(mBean);
-			break;
-		case "Commute":
-			mav = this.commuteManagementCtl(mBean);
-			break;
+			if(pu.getAttribute("idCode")!=null) {
+					
+				System.out.println("세션이 존재합니다 :: " + pu.getAttribute("idCode") );
+				
+				switch(mBean.getSCode()) {
+				case "myWorkZone":
+					mav = this.workZoneManagementCtl(mBean);
+					break;
+				
+				case "searchMap":
+					mav = this.searchMapCtl(mBean);
+					break;
+				
+				case "searchMapJoin":
+					mav = this.searchMapJoinCtl(mBean);
+					break;
+					
+				case "labor":
+					// [근로계약서] 탭을 눌렀을때
+					mav = this.laborListCtl(mBean);
+					break;
+				case "laborDetail":
+					// 근로계약서 눌러서 상세 정보 볼때.
+					mav = this.laborDetailCtl(mBean);
+					break;
+				case "Commute":
+					mav = this.commuteManagementCtl(mBean);
+					break;
+					
+				case "albaList1":
+					// 특정 알바리스트 이름 출력
+					mav = this.getAlbaList1Ctl(mBean);
+					break;
+					
+				case "ShopInfoAndAlba":
+					// 매장코드의 관리자 이름과 매장 정보, 또 그 매장에 있는 알바생 코드까지
+					mav = this.getShopInfoAndAlbaCtl(mBean);
+					break;
+				case "laborAlbaInfo":
+					mav = this.getLaborAlbaInfoCtl(mBean);
+					break;
+		        case "pay":
+		            mav = this.payCtl(mBean);
+		            break;	
+		        case "payDetail":
+					mav = this.payDetailCtl(mBean);
+					break; 
+					   
+		        case "payInsert":
+					mav = this.payInsertCtl(mBean);
+					break;
+					
+		        case "PaySelect":
+					mav = this.paySelectCtl(mBean);
+					break; 		
+				case "managerInfo":
+					mav = this.managerInfoCtl(mBean);
+					break;
+				case "Schedule" :
+					mav = this.scheduleCtl(mBean);
+					break;
+				case "WorkLog" :
+					mav = this.logCtl(mBean);
+					break;
+				case "Log" :
+					mav = this.logDetailCtl(mBean);
+					break;
+				case "Work":
+					mav = this.workCtl(mBean);
+					break;
+				case "WorkType":
+					mav = this.WorkTypeCtl(mBean);
+					break;	
+		        case "info":
+			        mav = this.albaManagementCtl(mBean);
+			        break;
+			        
+		        case "accessDetail":
+				    mav = this.albaInfoDetail(mBean);
+				    break;
+		        case "goManageCode":
+				    mav = this.goManageCodeCtl(mBean);
+					break; 
+		        case "manageStore":
+					mav = this.manageStore(mBean);
+					break; 	
+					   
+				}
+				
+			}
 			
-		case "albaList1":
-			// 특정 알바리스트 이름 출력
-			mav = this.getAlbaList1Ctl(mBean);
-			break;
+		} catch (Exception e) {
 			
-		case "ShopInfoAndAlba":
-			// 매장코드의 관리자 이름과 매장 정보, 또 그 매장에 있는 알바생 코드까지
-			mav = this.getShopInfoAndAlbaCtl(mBean);
-			break;
-		case "laborAlbaInfo":
-			mav = this.getLaborAlbaInfoCtl(mBean);
-			break;
-        case "pay":
-            mav = this.payCtl(mBean);
-            break;	
-        case "payDetail":
-			mav = this.payDetailCtl(mBean);
-			break; 
-			   
-        case "payInsert":
-			mav = this.payInsertCtl(mBean);
-			break;
+			System.out.println("세션이 존재하지않아요");
 			
-        case "PaySelect":
-			mav = this.paySelectCtl(mBean);
-			break; 		
-		case "managerInfo":
-			mav = this.managerInfoCtl(mBean);
-			break;
-		case "Schedule" :
-			mav = this.scheduleCtl(mBean);
-			break;
-		case "WorkLog" :
-			mav = this.logCtl(mBean);
-			break;
-		case "Log" :
-			mav = this.logDetailCtl(mBean);
-			break;
-		case "Work":
-			mav = this.workCtl(mBean);
-			break;
-		case "WorkType":
-			mav = this.WorkTypeCtl(mBean);
-			break;	
-        case "info":
-	        mav = this.albaManagementCtl(mBean);
-	        break;
-	        
-        case "accessDetail":
-		    mav = this.albaInfoDetail(mBean);
-		    break;
-        case "goManageCode":
-		    mav = this.goManageCodeCtl(mBean);
-			break; 
-        case "manageStore":
-			mav = this.manageStore(mBean);
-			break; 	
-			   
+			mav = new ModelAndView();
+			
+			mav.setViewName("/LogInForm?lCode=manage");
+			
+			e.printStackTrace();
 		}
+	   			
+		
 		
 		return mav;
 	}
