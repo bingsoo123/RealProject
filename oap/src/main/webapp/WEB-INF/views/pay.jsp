@@ -80,10 +80,8 @@
 	function init() {
 		var x = document.getElementById("box1").value;
 		var y = document.getElementById("box2").value;
-		var z = x + y;
 		let paylist = document.getElementById("test5");
 		let pay = JSON.parse('${jsonData}');
-
 		for (i = 0; i < pay.length; i++) {
 			let test1 = i;
 			let alldiv = document.createElement('Div');
@@ -94,76 +92,120 @@
 				gopayDetail(pay,test1);
 			});
 			paylist.appendChild(alldiv);
-
+			
 			let shName = document.createElement('Div');
 			shName.textContent = pay[i].shName;
 			shName.className = "shName";
 			shName.style.display = "inline-block";
 			alldiv.appendChild(shName);
-
+			
 			let abName = document.createElement('Div');
 			abName.textContent = pay[i].abName;
 			abName.className = "aName";
 			abName.style.display = "inline-block";
 			alldiv.appendChild(abName);
-
+			
 			let paName = document.createElement('Div');
 			paName.textContent = pay[i].paName;
 			paName.className = "paName";
 			paName.style.display = "inline-block";
 			alldiv.appendChild(paName);
-			
 		}
 	}
 
-	function init1() {
-
-		document.getElementById("test5").innerHTML = "";
-
-		var x = document.getElementById("box1").value;
-		var y = document.getElementById("box2").value;
-		var z = x + y;
-		let paylist = document.getElementById("test5");
+	function init1(){
+		var year = document.getElementById("box1").value;
+		var month = document.getElementById("box2").value;
 		let pay = JSON.parse('${jsonData}');
-
-		for (i = 0; i < pay.length; i++) {
-				let test1 = i;
-			if (z == pay[i].paName) {
-				let alldiv = document.createElement('Div');
-				alldiv.type = "button";
-				alldiv.className = "alldiv";
-				alldiv.style.cursor = "pointer";
-				alldiv.addEventListener('click', function() {
-					gopayDetail(pay,test1);
-				});
-				paylist.appendChild(alldiv);
-
-				let shName = document.createElement('Div');
-				shName.textContent = pay[i].shName;
-				shName.className = "shName";
-				shName.style.display = "inline-block";
-				alldiv.appendChild(shName);
-
-				let abName = document.createElement('Div');
-				abName.textContent = pay[i].abName;
-				abName.className = "aName";
-				abName.style.display = "inline-block";
-				alldiv.appendChild(abName);
-
-				let paName = document.createElement('Div');
-				paName.textContent = pay[i].paName;
-				paName.className = "paName";
-				paName.style.display = "inline-block";
-				alldiv.appendChild(paName);
-
-			}
-
+		paName = year+month;
+		shCode = pay[0].shCode;
+		let request = new XMLHttpRequest();
+	    request.onreadystatechange = function() {
+	       if (this.readyState == 4 && this.status == 200) {
+	    	   let paySearch = decodeURIComponent(request.response);
+	    	   	
+	    	   let sPay = JSON.parse(paySearch);
+	    	   sView(sPay);
+	    	   
+	       }
 		}
+		 	request.open("POST","paySearch",true);
+   		 	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+    		request.send("sCode=paySearch" + "&shCode=" + shCode + "&paName=" + paName);
+		}
+	
+	function sView(sPay){
+		document.getElementById("test5").innerHTML = "";
+		let paylist = document.getElementById("test5");
+		for (i = 0; i < sPay.length; i++) {
+			let test1 = i;
+			let alldiv = document.createElement('Div');
+			alldiv.type = "button";
+			alldiv.className = "alldiv";
+			alldiv.style.cursor = "pointer";
+			alldiv.addEventListener('click', function() {
+				gopayDetail1(sPay,test1);
+			});
+			paylist.appendChild(alldiv);
+			
+			let shName = document.createElement('Div');
+			shName.textContent = sPay[i].shName;
+			shName.className = "shName";
+			shName.style.display = "inline-block";
+			alldiv.appendChild(shName);
+			
+			let abName = document.createElement('Div');
+			abName.textContent = sPay[i].abName;
+			abName.className = "aName";
+			abName.style.display = "inline-block";
+			alldiv.appendChild(abName);
+			
+			let paName = document.createElement('Div');
+			paName.textContent = sPay[i].paName;
+			paName.className = "paName";
+			paName.style.display = "inline-block";
+			alldiv.appendChild(paName);
+		}
+		
+		
 	}
+	
+function gopayDetail1(sPay, test1) {
+		
+		window.open("","pop","width=550,height=530,left=690,top=250,toolbar=no,status=no,resizable=no");
+
+		var form = document.createElement('form');
+		form.action = "/payDetail";
+		form.method = "post";
+		form.target = "pop"; 
+		
+		var input1 = document.createElement('input');
+		input1.type = "hidden";
+		input1.name = "shCode";
+		input1.value = sPay[test1].shCode;
+		form.appendChild(input1);
+		
+		var input2 = document.createElement('input');
+		input2.type = "hidden";
+		input2.name = "abCode";
+		input2.value = sPay[test1].abCode;
+		form.appendChild(input2);
+		
+		var input3 = document.createElement('input');
+		input3.type = "hidden";
+		input3.name = "paName";
+		input3.value = sPay[test1].paName;
+		form.appendChild(input3);
+		
+		document.body.appendChild(form);
+		form.submit();
+		
+	}
+	
 	
 	function gopayDetail(pay, test1) {
 		
-		window.open("","pop","width=550,height=450,left=690,top=250,toolbar=no,status=no,resizable=no");
+		window.open("","pop","width=550,height=530,left=690,top=250,toolbar=no,status=no,resizable=no");
 
 		var form = document.createElement('form');
 		form.action = "/payDetail";

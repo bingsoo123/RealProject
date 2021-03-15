@@ -370,11 +370,12 @@
 	      
 	      let shopSelectContents = document.getElementById('shopSelect');
 	      let shopSelectBox = document.createElement('select');
-	      shopSelectBox.id = "shop_select_box"
+	      shopSelectBox.id = "shop_select_box";
 	      shopSelectBox.className = "detail_if_select_box";
 	      
 	      shopSelectBox.addEventListener('change', function() {
 	         manaOnchangeTest(this);
+	         
 	      });
 		
 //	 	let shopSelectOption = document.createElement("option");
@@ -399,15 +400,8 @@
 
 	}
 
-	function manaOnchangeTest(obj) {
-		let shopHiddenInput = document.getElementById('shopCode');
-	    let shopName = obj.options[obj.selectedIndex].text;
-		shopHiddenInput.value = obj.value;
-		alert("shCode HiddenInput :: " + shopName + "("+ obj.value +")로 매장 변경 및 test3 영역 초기화. manaOnchageTest 부분");
-		$('#test3').empty();
-		
-		
-	}
+	
+	//
 
 	function pay() {
 		$.ajax({

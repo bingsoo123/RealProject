@@ -38,7 +38,7 @@ html, body{
   margin: 20px 0;
 }
 .todo-wrap{
-  padding: 0 0 0 40px;
+  /*padding: 0 0 0 40px;*/
 }
 .todo-title{
   font-size: 20px;
@@ -83,7 +83,7 @@ html, body{
 }
 .input-list > .checked{
   color: #FFFFFF;
-  text-decoration:line-through
+  text-decoration:line-through;
 }
 .del-data{
   display: block;
@@ -119,6 +119,41 @@ html, body{
   background: #0b0809;
   border-radius: 50%;
   color: #ffffff;
+}
+
+.test-data{
+	
+	margin-left: 12px;
+	margin-bottom : 7px;
+	font-weight: bold;
+	
+}
+
+.input-wrap{
+	
+	width : 100%;
+	display: flex;
+	flex-wrap: wrap;
+	
+	
+}
+
+.todo-list{
+	width : 100%;	
+	display: flex;	
+	justify-content : space-between;
+	padding: 10px 0px 10px 0px;
+	margin-left : 10px;
+	border: 1px solid #C6C6C5;
+}
+
+
+
+.todo-detail{
+	margin-left: 23px;
+	margin-bottom : 7px;
+	font-weight: bold;
+	cursor: pointer;
 }
 
 @media(min-width: 850px){
@@ -161,7 +196,7 @@ html, body{
     margin: 20px 0;
   }
   .todo-wrap{
-    padding: 0 0 0 40px;
+   /* padding: 0 0 0 40px;*/
   }
   .todo-title{
   	position : relative;

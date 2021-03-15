@@ -126,6 +126,7 @@ public class ManageController {
 	// 업무 관리  - 등록되어있는 업무리스트 확인 ( 알바생이 해야할 일 )
 	@RequestMapping(value = "/Work", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView work(@ModelAttribute ManageBean mBean) {
+		System.out.println("매장코드 >" + mBean.getShCode());
 		mBean.setSCode("Work");
 		return mInquiery.entrance(mBean);
 	}
@@ -135,8 +136,9 @@ public class ManageController {
 	@ResponseBody
 	public String tlCommentData(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
 		mBean.setSCode("WorkType");
+		System.out.println("매장코드는 ?" + mBean.getShCode() + ":: tlNumber =?" + mBean.getTlNumber());
 		mav = mInquiery.entrance(mBean);
-		return URLEncoder.encode(mav.getModel().get("tlCommentData").toString(),"UTF-8");
+		return URLEncoder.encode(mav.getModel().get("typeDetail").toString(),"UTF-8");
 	}
 
 	// 급여 관리 - 나의 매장 식구들의 급여리스트를 보여줌 
@@ -164,13 +166,11 @@ public class ManageController {
 	@RequestMapping(value = "/manageStore", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView manageStore(@ModelAttribute ManageBean mBean) {
 		
-		mav = new ModelAndView();
+		System.out.println("manageStore22222222222222222222222");
 		mBean.setMnCode("10000000");
 		mBean.setSCode("manageStore");
-		mav = mInquiery.entrance(mBean);
-		mav.setViewName("payInsert");
 		
-		return mav;
+		return mInquiery.entrance(mBean);
 	}
 	
 	// 급여관리 - 추가하기 버튼
@@ -187,7 +187,7 @@ public class ManageController {
 	
 
 	// 급여 관리 - 급여리스트를 날자값에 의해 보여주기위해 날자를 선택 후 조회를 클릭 
-	@RequestMapping(value = "/PaySelect", method = RequestMethod.POST)
+	@RequestMapping(value = "/PaySelect", method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public String PaySelect(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
 		mav =  mInquiery.entrance(mBean);
@@ -298,6 +298,26 @@ public class ManageController {
 		mav = mInquiery.entrance(mBean);
 		return URLEncoder.encode(mav.getModel().get("laborAlbaInfo").toString(), "UTF-8");
 	}
+	
+	
+	// 근로 계약서 [추가] 버튼 누른후 그 매장의 알바생 정보(select) 박스 눌렀을때 그 알바생의 기본 정보값 가져옴
+	@RequestMapping(value = "/DayWork", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public String dayWork(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
+		System.out.println("shCode >" + mBean.getShCode() + "stCode =>" + mBean.getStCode() );
+		mav = mInquiery.entrance(mBean);
+		return URLEncoder.encode(mav.getModel().get("workList").toString(), "UTF-8");
+	}
+	
+	// 조회 버튼눌럿을때 실행
+	@RequestMapping(value = "/paySearch", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String paySearch(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
+		mBean.setSCode("paySearch");
+		mav = mInquiery.entrance(mBean);
+		return URLEncoder.encode(mav.getModel().get("paySearch").toString(),"UTF-8");
+	}
+	
 
 	/* ------------------------- 관리자 - 등록 ------------------------- */
 
@@ -338,13 +358,16 @@ public class ManageController {
 	}
 	
 	// DB에 데이터를 INSERT
-	@RequestMapping(value = "/insPay", method = RequestMethod.POST)
-	public ModelAndView insPay(@ModelAttribute ManageBean mBean) {
-		mBean.setSCode("insPay");
-		mBean.setMnCode("10000000");
-		System.out.println(mBean.getMnCode());
-		return mEnroll.entrance(mBean);
-	}
+	   @RequestMapping(value = "/insPay", method = RequestMethod.POST)
+	   @ResponseBody
+	   public String insPay(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
+	      mBean.setSCode("insPay");
+	      mBean.setMnCode("10000000");
+	      mav =  mEnroll.entrance(mBean);
+	      System.out.println("ins야 받았니이잉???>>>>  " + mBean);
+	      
+	      return URLEncoder.encode(mav.getModel().get("insPayState").toString(),"UTF-8");
+	   }
 
 	/* ------------------------- 관리자 - 수정 ------------------------- */
 

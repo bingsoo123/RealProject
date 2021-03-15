@@ -163,6 +163,12 @@
 	   WHERE  PD_PASHCODE=#{shCode} AND PD_PAABCODE=#{abCode} AND PD_PANAME=#{paName}
       ]]>
 	</select>
+	
+	<select id="payCount" resultType="int">
+      SELECT COUNT(*)
+      FROM PA
+      WHERE PA_SIASHCODE = #{shCode} AND PA_SIAABCODE=#{abCode} AND PA_NAME=#{paName}
+   </select>
 
 	<!-- 급여추가 버튼 클릭시 정보 가져옴 -->
 	<select id="getPayInsert" resultType="icia.oap.beans.ManageBean">
@@ -227,23 +233,25 @@
 	</select>
 	
 	<!-- work 페이지에서 업무타입별  select 해오기 -->
-	<select id="getTlCommentData" resultType="icia.oap.beans.ManageBean">
+	<select id="typeList" resultType="icia.oap.beans.ManageBean">
 		<![CDATA[
-			SELECT  MT_SHCODE AS SHCODE,
-			        MT_TLNUMBER AS "TLNUMBER",
-			        TL_COMMENT AS "TLCOMMENT",
-			        MT_DETAIL AS "MTDETAIL"
-			FROM MT INNER JOIN TL ON MT.MT_TLNUMBER = TL.TL_NUMBER
-			WHERE MT_SHCODE = #{shCode} AND MT_TLNUMBER = #{tlNumber}
+			SELECT  DISTINCT MTD.MTD_MTSHCODE AS SHCODE, 
+			        MTD.MTD_MTTLNUMBER AS TLNUMBER ,
+			        TL.TL_COMMENT AS TLCOMMENT,
+			        MTD.MTD_MTDETAIL AS MTDETAIL
+			FROM MTD INNER JOIN TL ON MTD_MTTLNUMBER = TL_NUMBER
+			WHERE MTD_MTSHCODE=#{shCode} AND MTD_MTTLNUMBER=#{tlNumber}
 		]]> 
 	</select>
 	
 	<!-- 매장의 업무 카운트하기 -->
-	<select id="getCountTask" resultType="int">
+	<select id="getCountTask" resultType="icia.oap.beans.ManageBean">
 		<![CDATA[
-			SELECT COUNT(*)
-			FROM MT
-			WHERE MT_SHCODE = #{shCode}
+			SELECT  DISTINCT MTD.MTD_MTSHCODE AS SHCODE, 
+       		 MTD.MTD_MTTLNUMBER AS TLNUMBER ,
+       		 TL.TL_COMMENT AS TLCOMMENT
+			FROM MTD INNER JOIN TL ON MTD_MTTLNUMBER = TL_NUMBER
+			WHERE MTD_MTSHCODE=#{shCode}
 		]]> 
 	</select>
 	
@@ -346,17 +354,31 @@
 	WHERE SH_MNCODE=#{mnCode}
 	</select>
 	
-		<!-- 급여관리 클릭시 급여정보에대한 전체 리스트 출력 -->
+	<!-- 급여관리 클릭시 급여정보에대한 전체 리스트 출력 -->
 	<select id="getPayList" resultType="icia.oap.beans.ManageBean">
  	<![CDATA[
-        SELECT AB_CODE AS "ABCODE",
-       		   SH_CODE AS "SHCODE",
-       		   SH_NAME AS "SHNAME",
-        	   AB_NAME AS "ABNAME",
-        	   PA_NAME AS "PANAME"
-		FROM   PA INNER JOIN AB ON PA.PA_SIAABCODE = AB.AB_CODE
-			      INNER JOIN SH ON PA.PA_SIASHCODE = SH.SH_CODE
-	    WHERE  PA_SIASHCODE=#{shCode}
+        SELECT SH_CODE AS SHCODE,
+      		   AB_CODE AS ABCODE,
+      		   SH_NAME AS SHNAME,
+      		   AB_NAME AS ABNAME,
+       		   MAX(PA_NAME) AS PANAME
+		FROM PA INNER JOIN AB ON PA.PA_SIAABCODE = AB.AB_CODE
+      		    INNER JOIN SH ON PA.PA_SIASHCODE = SH.SH_CODE
+		WHERE PA_SIASHCODE=#{shCode}
+		GROUP BY SH_CODE, AB_CODE, SH_NAME, AB_NAME
+      ]]>
+	</select>
+	
+	<select id="getPaySearch" resultType="icia.oap.beans.ManageBean">
+ 	<![CDATA[
+        SELECT SH_CODE AS SHCODE,
+       		   AB_CODE AS ABCODE,
+       		   SH_NAME AS SHNAME,
+       		   AB_NAME AS ABNAME,
+       		   PA_NAME AS PANAME
+		FROM PA INNER JOIN AB ON PA.PA_SIAABCODE = AB.AB_CODE
+        		INNER JOIN SH ON PA.PA_SIASHCODE = SH.SH_CODE
+		WHERE PA_SIASHCODE=#{shCode} AND PA_NAME =#{paName}
       ]]>
 	</select>
 
@@ -381,6 +403,20 @@
       SELECT count(*)
       FROM LC
       WHERE (LC_SIASHCODE = #{shCode}) AND (LC_SIAABCODE= #{abCode})
+   ]]>
+   </select>	
+   
+   
+      <!-- 날자 선택시 그 날자에 일하는 직원 리스트 출력-->
+   <select id="getDayWork" resultType="icia.oap.beans.ManageBean">
+   <![CDATA[
+	SELECT  SC_SIASHCODE AS SHCODE,
+        SC_SIAABCODE AS ABCODE,
+        AB_NAME AS ABNAME,
+        SC_STARTTIME AS STARTTIME,
+        SC_ENDTIME AS ENDTIME
+	FROM SC INNER JOIN AB ON SC_SIAABCODE = AB_CODE
+	WHERE SC_SIASHCODE=#{shCode} AND SC_STCODE=#{stCode}
    ]]>
    </select>	
 

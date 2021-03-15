@@ -69,31 +69,38 @@ public class ManagementEnroll {
 
 		TransactionStatus status = tran.getTransaction(new DefaultTransactionDefinition());
 
+		String insPayState;
 		mav = new ModelAndView();
 
-		
-		if(this.inspaylist1(mBean)) {
-			System.out.println("pa성공");
-			if(this.inspaylist2(mBean)) {
-				System.out.println("pd성공");
-				tran.commit(status);
-			}else {
-				System.out.println("pd불가능");
+		if (true != this.payCount(mBean)) {
+
+			if (this.inspaylist1(mBean)) {
+				System.out.println("pa성공");
+				if (this.inspaylist2(mBean)) {
+					System.out.println("pd성공");
+					tran.commit(status);
+					insPayState = "1";
+				} else {
+					System.out.println("pd불가능");
+					insPayState = "0";
+				}
+			} else {
+				System.out.println("pa불가능");
+				insPayState = "0";
 			}
-		}else {
-			System.out.println("pa불가능");
+		} else {
+			System.out.println("똑같은 값이 있단다.");
+			insPayState = "-1";
 		}
-		
-		String payInsert = gson.toJson(this.getShname(mBean));
-		mav.addObject("mnCode", mBean.getMnCode());
-		mav.addObject("payInsert", payInsert);
-		
-		String sh = gson.toJson(this.getShname(mBean));
-		System.out.println(">>>>나왓당" + sh);
-		mav.addObject("sh", sh);
-		mav.setViewName("payInsert");
+
+		mav.addObject("insPayState", insPayState);
+
 		return mav;
 	}
+	
+	private boolean payCount(ManageBean mBean) {
+	      return convertToBoolean(mapperM.payCount(mBean));
+	   }
 	
 	private boolean inspaylist1(ManageBean mBean) {
 		return convertToBoolean(mapperM.inspaylist1(mBean));

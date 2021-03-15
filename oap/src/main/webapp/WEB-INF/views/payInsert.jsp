@@ -10,8 +10,7 @@
 <body onLoad="view()">
 <div class="fff">	
 	<div>
-		<select id="sel" class="sel" onChange="te()">
-			<option>-- 매장을 선택해주세요 --</option>
+		<select id="sel" class="sel" onChange="shNameClick()">
 		</select>	
 	</div>
 	<div class="all" id="all">
@@ -20,6 +19,7 @@
 			<img src="/resources/img/main.png" style="width:115px;height:115px;">
 		</div>
 		
+		<input type="hidden" id="hiddenBox" value="0"/>
 		<div class="one">
 			<select class="select1" id="se1">
 			</select>
@@ -75,21 +75,20 @@
 </div>
 </body>
 <script>
-
+	
 	function addPay(twogab){
+		   
 		let x = document.getElementById('se1').value;
 		let y = document.getElementById('se2').value;
 		let z = document.getElementById('se3').value;
 		let q = document.getElementById('da1').value;
 		let w = document.getElementById('da2').value;
-		let yz = y+z;
+		let paName = y+z;
 		let tesinfo = allData;
-		
 		
 		for(i=0; i<tesinfo.length; i++){
 			if(x==tesinfo[i].abName){
-				
-				paName = yz;
+				paName = paName;
 				shCode = tesinfo[i].shCode;
 				abCode = tesinfo[i].abCode;
 				aPay = tesinfo[i].aPay;
@@ -98,29 +97,49 @@
 				eTime = w;
 				timeTotal = twogab[0];
 				payTotal = twogab[1];
-				
-				
 			}
-		
 		}
 		
-		var form = document.createElement("form");
-		form.action = "insPay?sCode=insPay" + "&paName=" + paName + "&shCode=" + shCode + "&abCode=" + abCode
+		
+		
+		let request = new XMLHttpRequest();
+	    request.onreadystatechange = function() {
+	       if (this.readyState == 4 && this.status == 200) {
+	    	   let insPayState = decodeURIComponent(request.response);
+	    	   console.log(insPayState);
+	    	   if(insPayState == "1"){
+	    		   alert("정상적으로 명세서를 등록하였습니다.");
+	    	   }else if(insPayState == "-1"){
+	    		   alert("해당 알바생의 명세서가 있습니다.");
+	    	   }else{
+	    		   alert("서버가 불안정합니다.");
+	    	   }
+	    	   
+	    	   let text1 = document.getElementById("text1");
+	    	   let text2 = document.getElementById("text2");
+	    	   let text3 = document.getElementById("text3");
+	    	   let text4 = document.getElementById("text4");
+	    	   text1.value = "";
+	    	   text2.value = "";
+	    	   text3.value = "";
+	    	   text4.value = "";
+	
+	       }
+		}
+		 	request.open("POST","insPay",true);
+   		 	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+    		request.send("inspay?sCode=insPay" + "&paName=" + paName + "&shCode=" + shCode + "&abCode=" + abCode
 					  + "&aPay=" + aPay + "&restTime=" + restTime + "&sTime=" + sTime + "&eTime=" + eTime
-					  + "&timeTotal=" + timeTotal + "&payTotal=" + payTotal + "&mnCode=${mnCode}";
-		form.method = "POST";
-		
-		document.body.appendChild(form);
-		
-		form.submit();
-				
-		
+					  + "&timeTotal=" + timeTotal + "&payTotal=" + payTotal + "&mnCode=${mnCode}");
+    		
+    		
 	}
+	
+	
 	var allData;
 	
-	function te(){
+	function shNameClick(){
 		shCode = sel.value;
-
 		let request = new XMLHttpRequest();
 	    request.onreadystatechange = function() {
 	       if (this.readyState == 4 && this.status == 200) {
@@ -129,6 +148,8 @@
 			   let test = JSON.parse(jsondata);
 			   allData = test;
 			   shopNameInfo(test);
+			   
+			  
 	       }
 		}
 		 	request.open("POST","payInsert",true);
@@ -136,22 +157,20 @@
     		request.send("sCode=payInsert&shCode=" + shCode);
 	}
 	
-	function shopNameInfo(test){
+	function shopNameInfo(test) {
 		document.getElementById("se1").innerHTML = "";
-		for(i=0; i<test.length; i++){
+
+		for (i = 0; i < test.length; i++) {
 			let select1 = document.getElementById('se1');
 			let option1 = document.createElement('option');
-		
 			option1.value = test[i].abName;
 			option1.text = test[i].abName;
-		
+
 			select1.appendChild(option1);
-		
 		}
 	}
-	
-	
-	function view(){
+
+	function view() {
 		let x = document.getElementById('se1').value;
 		let y = document.getElementById('se2').value;
 		let z = document.getElementById('se3').value;
@@ -159,106 +178,106 @@
 		let w = document.getElementById('da2').value;
 		let sh = JSON.parse('${sh}');
 		let sel = document.getElementById('sel');
-		for(i=0; i<sh.length; i++){
+		for (i = 0; i < sh.length; i++) {
 			let opt = document.createElement('option');
-			
+
 			opt.value = sh[i].shCode;
 			opt.text = sh[i].shName;
-			
+
 			sel.appendChild(opt);
 		}
-
+		
+		shNameClick();
+		
 	}
 
-	function search(){
+	function search() {
 		document.getElementById("text1").innerHTML = "";
-		
+		document.getElementById("text2").innerHTML = "";
+		document.getElementById("text3").innerHTML = "";
+		document.getElementById("text4").innerHTML = "";
+
 		let x = document.getElementById('se1').value;
 		let y = document.getElementById('se2').value;
 		let z = document.getElementById('se3').value;
-		let q = document.getElementById('da1').value.replace(/-/g,"");
-		let w = document.getElementById('da2').value.replace(/-/g,"");
-		let length = w.replace(/-/g,"")-q.replace(/-/g,"")+1;
-		
-		
-		let data="";
-		
+		let q = document.getElementById('da1').value.replace(/-/g, "");
+		let w = document.getElementById('da2').value.replace(/-/g, "");
+		let length = w.replace(/-/g, "") - q.replace(/-/g, "") + 1;
+
+		let data = "";
+
 		let tesinfo = allData;
-		
-		for(i=0; i<tesinfo.length; i++){
-			if(x==tesinfo[i].abName){
+
+		for (i = 0; i < tesinfo.length; i++) {
+			if (x == tesinfo[i].abName) {
 				let text1 = document.getElementById('text1');
 				text1.value = tesinfo[i].aPay;
-				
+
 				let text2 = document.getElementById('text2');
 				text2.value = tesinfo[i].restTime;
-				
+
 			}
-		
+
 		}
-		
-		for(i=q ; i<=w ; i++){
-			data += i + ((i==w) ? "" : "-");
+
+		for (i = q; i <= w; i++) {
+			data += i + ((i == w) ? "" : "-");
 		}
-		
-		for(i=0 ; i<tesinfo.length ; i++){
-			if(tesinfo[i].abName==x){
+
+		for (i = 0; i < tesinfo.length; i++) {
+			if (tesinfo[i].abName == x) {
 				code = tesinfo[i].abCode;
-				pay= tesinfo[i].aPay;
-				rest=tesinfo[i].restTime;
+				pay = tesinfo[i].aPay;
+				rest = tesinfo[i].restTime;
 			}
 		}
-		
-		
+
 		var input1 = document.createElement("input");
-		input1.type="text";
-		input1.name="sDate";
-		input1.value=data;
-		
+		input1.type = "text";
+		input1.name = "sDate";
+		input1.value = data;
+
 		var input2 = document.createElement("input");
-		input2.type="text";
-		input2.name="abCode";
-		input2.value=code;
-		
+		input2.type = "text";
+		input2.name = "abCode";
+		input2.value = code;
+
 		var input3 = document.createElement("input");
-		input3.type="text";
-		input3.name="aPay";
-		input3.value=pay;
-		
+		input3.type = "text";
+		input3.name = "aPay";
+		input3.value = pay;
+
 		var input4 = document.createElement("input");
-		input4.type="text";
-		input4.name="restTime";
-		input4.value=rest;
+		input4.type = "text";
+		input4.name = "restTime";
+		input4.value = rest;
 
 		send(data, code, pay, rest);
-		
+
 	}
-		
-		function send(data, code, pay, rest){
+
+	function send(data, code, pay, rest) {
 		let request = new XMLHttpRequest();
-	    request.onreadystatechange = function() {
-	       if (this.readyState == 4 && this.status == 200) {
-	    	   let jdats = decodeURIComponent(request.response);
-	    	   
-	    	   twogab=jdats.split("-");
-	    	   let text3 = document.getElementById('text3');
-			   text3.value = twogab[0];
-			   
-			   let text4 = document.getElementById('text4');
-			   text4.value = twogab[1];
-			   
-			   
-	       }
+		request.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				let jdats = decodeURIComponent(request.response);
+
+				twogab = jdats.split("-");
+				let text3 = document.getElementById('text3');
+				text3.value = twogab[0];
+
+				let text4 = document.getElementById('text4');
+				text4.value = twogab[1];
+
+			}
 		}
-	    
-	
-		 	request.open("POST","PaySelect",true);
-   		 	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
-    		request.send("sCode=PaySelect" + "&sDate=" + data + "&abCode=" + code + "&aPay=" + pay + "&restTime=" + rest);
-		}
-	
-	
-	
+
+		request.open("POST", "PaySelect", true);
+		request.setRequestHeader("Content-Type",
+				"application/x-www-form-urlencoded;charset=UTF-8");
+		request.send("sCode=PaySelect" + "&sDate=" + data + "&abCode=" + code
+				+ "&aPay=" + pay + "&restTime=" + rest);
+	}
 </script>
 </html>
 

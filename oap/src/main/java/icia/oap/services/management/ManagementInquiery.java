@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import icia.oap.beans.ManageBean;
 import icia.oap.mapper.ManageMapper;
@@ -76,6 +77,9 @@ public class ManagementInquiery {
 		        case "pay":
 		            mav = this.payCtl(mBean);
 		            break;	
+		        case "paySearch":
+		            mav = this.paySearchCtl(mBean);
+		            break; 
 		        case "payDetail":
 					mav = this.payDetailCtl(mBean);
 					break; 
@@ -116,9 +120,12 @@ public class ManagementInquiery {
 				    mav = this.goManageCodeCtl(mBean);
 					break; 
 		        case "manageStore":
+		        	System.out.println("case 도착");
 					mav = this.manageStore(mBean);
 					break; 	
-					   
+		        case "DayWork":
+		        	mav=this.dayWork(mBean);
+		        	break;
 				}
 				
 			}
@@ -139,6 +146,21 @@ public class ManagementInquiery {
 		return mav;
 	}
 	
+	private ModelAndView dayWork(ManageBean mBean) {
+		
+		mav = new ModelAndView();
+		
+		System.out.println("이 매장의 해달날자에 일하는 직원은 >" + gson.toJson(this.getDayWork(mBean)));
+
+		mav.addObject("workList", gson.toJson(this.getDayWork(mBean)));
+		
+		return mav;
+	}
+
+	private ArrayList<ManageBean> getDayWork(ManageBean mBean) {
+		return mapperM.getDayWork(mBean);
+	}
+
 	private ModelAndView managerInfoCtl(ManageBean mBean) {
 		mav = new ModelAndView();
 		String jsonShopList = gson.toJson(this.getSelectShopList(mBean));
@@ -247,10 +269,12 @@ public class ManagementInquiery {
 	private ModelAndView manageStore(ManageBean mBean) {
 		
 		mav = new ModelAndView();
-		
+		System.out.println("manage 222222222");
 		String sh = gson.toJson(this.getShname(mBean));
 		System.out.println(">>>>나왓당" + sh);
 		mav.addObject("sh", sh);
+		
+		mav.setViewName("payInsert");
 		
 		return mav;
 	}	
@@ -282,18 +306,6 @@ public class ManagementInquiery {
 	// 알바생 관리 ( 현재 매장의 알바생 리스트 가져오기 )
 	private ArrayList<ManageBean> getAlbaList(ManageBean mBean){
 		return mapperM.getAlbaList(mBean);
-	}
-	
-	
-	private ModelAndView albaInfoSearch(ManageBean mBean) {
-		
-		mav = new ModelAndView();
-		
-		return mav;
-	}
-	
-	private ArrayList<ManageBean> getAlbaSearch(ManageBean mBean){
-		return mapperM.getAlbaSearch(mBean);
 	}
 	
 	private ModelAndView albaInfoDetail(ManageBean mBean) {
@@ -334,22 +346,10 @@ public class ManagementInquiery {
 	private ModelAndView workCtl(ManageBean mBean) {
 		mav = new ModelAndView();
 		
-		/* Work Info & Convert to JSON */
-		
-		// 전체 업무리스트 조회
-		String allTaskList = gson.toJson(this.getAllTaskList(mBean));
-		System.out.println(allTaskList);
-		mav.addObject("allTaskList", allTaskList);
-		
 		// 총 업무는 n개 입니다. 조회
-		System.out.println(this.getCountTask(mBean));
-		mav.addObject("countTask", this.getCountTask(mBean));
 		
-		mav.addObject("shCode", mBean.getShCode());
-		
-		String selectTaskList = gson.toJson(this.getTlCommentData(mBean));
-		mav.addObject("tlCommentData", selectTaskList);
-		
+		mav.addObject("typeList", gson.toJson(this.getCountTask(mBean)));
+
 		/* View */
 		mav.setViewName("work");
 		return mav;
@@ -358,16 +358,13 @@ public class ManagementInquiery {
 	private ModelAndView WorkTypeCtl(ManageBean mBean) {
 		mav = new ModelAndView();
 		
-		/* Work Info & Convert to JSON */
-		
-		// 부분 업무리스트 조회
-		
-		// 총 업무는 n개 입니다. 조회
-		System.out.println(this.getCountTask(mBean));
 		
 		
-		String selectTaskList = gson.toJson(this.getTlCommentData(mBean));
-		mav.addObject("tlCommentData", selectTaskList);
+		String selectTaskList = gson.toJson(this.typeList(mBean));
+		
+		System.out.println(selectTaskList);
+		
+		mav.addObject("typeDetail", selectTaskList);
 		
 		return mav;
 	}
@@ -378,14 +375,14 @@ public class ManagementInquiery {
 		return mapperM.getAllTaskList(mBean);
 	}
 	
-	private ArrayList<ManageBean> getTlCommentData(ManageBean mBean) {
+	private ArrayList<ManageBean> typeList(ManageBean mBean) {
 		
-		return mapperM.getTlCommentData(mBean);
+		return mapperM.typeList(mBean);
 	
 	}
 	
 	// 어디 매장 알바생 업무리스트 개수(카운트) 조회
-	private int getCountTask(ManageBean mBean) {
+	private ArrayList<ManageBean> getCountTask(ManageBean mBean) {
 		
 		return mapperM.getCountTask(mBean);
 	}
@@ -422,6 +419,21 @@ public class ManagementInquiery {
 		return mapperM.getPayInfo(mBean);
 	}
 	
+	private ModelAndView paySearchCtl(ManageBean mBean){
+		mav = new ModelAndView();
+		
+		
+		String paySearch = gson.toJson(this.getPaySearch(mBean));
+		System.out.println("이건 페이리스트 조회야 :: " + this.getPaySearch(mBean));
+		
+		mav.addObject("paySearch", paySearch);
+		return mav;
+	}
+	
+	private ArrayList<ManageBean> getPaySearch(ManageBean mBean){
+		return mapperM.getPaySearch(mBean);
+	}
+	
 	private ModelAndView payInsertCtl(ManageBean mBean) {
 		
 		mav = new ModelAndView();
@@ -449,8 +461,6 @@ public class ManagementInquiery {
 		int rest = 0;
 		int pay = 0;
 		int total = 0;
-		int total1 = 0;
-		int test = 0;
 		
 		String[] dat = mBean.getSDate().split("-");
 		
@@ -508,10 +518,6 @@ public class ManagementInquiery {
 		return mav;
 	}
 	
-	private ArrayList<ManageBean> getScheduleList(ManageBean mBean){
-		return mapperM.getScheduleList(mBean);
-	}
-	
 	// 근무일지
 	private ModelAndView logCtl(ManageBean mBean) {
 		
@@ -541,10 +547,6 @@ public class ManagementInquiery {
 		
 		mav.setViewName("workDiary");
 		return mav;
-	}
-	
-	private ModelAndView logDetailSelect(ManageBean mBean) {
-		return mapperM.logDetailSelect(mBean);
 	}
 	
 	private ModelAndView laborListCtl(ManageBean mBean) {

@@ -56,17 +56,19 @@ public interface ManageMapper {
 	
 	public ArrayList<ManageBean> getAllTaskList(ManageBean mBean); // 클래스 없어서 추가 -> 어디 매장의 업무 리스트 전체 조회
 	
-	public int getCountTask(ManageBean mBean); // 클래스 설계 없어서 추가
+	public ArrayList<ManageBean> getCountTask(ManageBean mBean); // 클래스 설계 없어서 추가
 	
 	public ArrayList<ManageBean> getNameData(ManageBean mBean); // 클래스 설계 없어서 추가
 	
 	public ArrayList<ManageBean> getCommentData(ManageBean mBean); // 클래스 설계 없어서 추가
 	
-	public ArrayList<ManageBean> getTlCommentData(ManageBean mBean); // 클래스 설계 없어서 추가
+	public ArrayList<ManageBean> typeList(ManageBean mBean); // type 별로 클릭햇을때 그에대한 상세정보 출력
 
 	public ArrayList<ManageBean> getShname(ManageBean mBean);
 	
 	public int isSchedule(ManageBean mBean);
+	
+	public ArrayList<ManageBean> getPaySearch(ManageBean mBean);
 	
 	//   Enroll       ( 등록 )
 
@@ -95,6 +97,12 @@ public interface ManageMapper {
 	public ManageBean getDeleteLaborLcRoot(ManageBean mBean);
 
 	public int laborDelete(ManageBean mBean);
+
+	public ArrayList<ManageBean> getDayWork(ManageBean mBean);
+
+	public int payCount(ManageBean mBean);
+
+
 	
 	
 

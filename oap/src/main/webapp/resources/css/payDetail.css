@@ -1,12 +1,101 @@
 @charset "UTF-8";
 
+.all{
+	margin:8%;
+	border:none;
+	width:430px;
+	height:420px;
+}
 
+.two{
+	width:450px;
+	margin-top:10px;
+}
+
+.two a{
+	text-align:center;
+	font-size:35px;
+	font-weight:bolder;
+	position:relative;
+	bottom:17px;
+	left:10px;
+}
+
+.three h3{
+	text-align:right;
+	margin-right:7%;
+}
+
+.four{
+	background-color:#EEEEEE;
+	height:50px;
+}
+
+.four h4{
+	margin-top:0;
+	margin-bottom:0;
+	margin-right:0;
+	margin-left:7%;
+	vertical-align:middle;
+	line-height:50px;
+}
+
+
+.five h4{
+	margin-top:0;
+	margin-bottom:0;
+	margin-right:0;
+	margin-left:7%;
+	vertical-align:middle;
+	line-height:50px;
+}
+
+.six{
+	background-color:#EEEEEE;
+}
+
+.six h4{
+	margin-top:0;
+	margin-bottom:0;
+	margin-right:0;
+	margin-left:7%;
+	vertical-align:middle;
+	line-height:50px;
+}
+
+.seven h4{
+	margin-top:0;
+	margin-bottom:0;
+	margin-right:0;
+	margin-left:7%;
+	vertical-align:middle;
+	line-height:50px;
+}
+
+.eight{
+	background-color:#EEEEEE;	
+}
+
+.eight h4{
+	text-align:right;
+	margin-top:0;
+	margin-bottom:0;
+	margin-right:7%;
+	margin-left:0;
+	vertical-align:middle;
+	line-height:50px;
+}
+
+
+
+/* //////////////////////////////////////// */
 .pdname{
 	border:1px solid;
 	width:450px;
 	height:350px;
 	margin:8%;
 }
+
 
 .pdbox1{
 

@@ -122,6 +122,17 @@ html, body{
   color: #ffffff;
 }
 
+.todo-list{
+	display: flex;	
+}
+
+.input-wrap{
+	
+	display: flex;
+	flex-direction: column;
+	
+}
+
 @media(min-width: 850px){
   .main{
     display: flex;
@@ -241,4 +252,5 @@ html, body{
     border-radius: 50%;
     color: #ffffff;
   }
+
 }

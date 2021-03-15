@@ -20,12 +20,19 @@
 				</div>
 				<div class="todo-wrap">
 					<div class="todo-title">Todo List</div>
-					<div class="input-wrap">
+					<div class="input-wrap" id="input-wrap">
+						
+<!-- 					<div class="test-data">김알바 10:00 ~ 15:00</div>
+						<div class="test-data">서알바 15:00 ~ 20:00</div>
+						<div class="test-data">송알바 20:00 ~ 02:00</div> 		--> 
+						
 						<input type="hidden" placeholder="please write here!!"
 							id="input-box" class="input-box">
 						<input type="hidden" id="input-data" class="input-data" value="INPUT">
 						<!-- <button type="button" id="input-data" class="input-data">INPUT</button> --> 
 						<div id="input-list" class="input-list"></div>
+						
+						
 					</div>
 				</div>
 			</div>
@@ -224,7 +231,7 @@
 		keyValue = today.getFullYear() + '-' ;
 		keyValue += (today.getMonth()+1) >= 10 ? (today.getMonth()+1) : '0' + (today.getMonth()+1) + '-';
 		keyValue +=	today.getDate() >= 10 ? today.getDate() : '0' + today.getDate();
-		alert("keyValue= " + keyValue);
+		keyValue += "-" + today.getDay();
 		serverSubmit(keyValue);
 		reshowingList();
 	}
@@ -233,8 +240,51 @@
 	function serverSubmit(key){
 		
 		alert("서버로 전송 >" + key);
+		var data = key.split("-");
+		
+		var shn = $("#shopSelect option:selected").val();
+		
+		 let request = new XMLHttpRequest();
+		 request.onreadystatechange = function(){
+		    if(this.readyState == 4 && this.status == 200){
+		       let jsonData = decodeURIComponent(request.response);
+		       let workDay = JSON.parse(jsonData);
+		       workManList(workDay);
+		    }
+		    
+		 };
+		
+		 request.open("POST", "DayWork" , true);
+		 request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+		 request.send("shCode=" + shn + "&stCode=" + data[3] + "&sCode=DayWork");
+
 	}
 	
+	function workManList(list){
+		
+		$('#input-wrap').empty();
+		
+		var wrap = document.getElementById("input-wrap");
+		
+		for(index = 0 ; index<list.length ; index++){
+				
+				var dv1 = document.createElement("Div");
+				dv1.className="todo-detail";
+				var text1 = document.createTextNode(list[index].abName + " " + list[index].startTime + " ~ " + list[index].endTime);
+				dv1.appendChild(text1);
+				wrap.appendChild(dv1);
+			
+		}
+	}
+	
+	function manaOnchangeTest(obj) {
+		// obj에는 관리자 코드/이름  매장 코드/이름이 들어있음
+		let shopHiddenInput = document.getElementById('shopCode');
+	    let shopName = obj.options[obj.selectedIndex].text;
+		shopHiddenInput.value = obj.value;
+		alert("바꼇당!!");
+		
+	}
 	
 	function reshowingList(){
 	    keyValue = today.getFullYear() + '' + today.getMonth()+ '' + today.getDate();
