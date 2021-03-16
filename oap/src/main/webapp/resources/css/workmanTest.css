@@ -44,6 +44,18 @@ body {
 	width: 100%;
 }
 
+.detail_if_select_box{
+	color: #6D6D6D;
+    font-size: 20px;
+    width: 81%;
+    border: 1px solid #C6C6C5;
+    padding: 20px 0px 20px 0px;
+    margin-left: 0%;
+    margin-bottom: 3.5%;
+    text-align-last: center;
+    
+}
+
 .list {
 	text-align : center;
 	width : 100%;
@@ -53,11 +65,26 @@ body {
 }
 
 .list img{
-	border : 1px solid #C6C6C5;
 	position : relative;
 	width: 100%;
-	
 }
+
+.list img:last-child{
+	display:none;
+}
+.list:hover img:first-child{
+	display:none;
+} 	
+.list:hover img:last-child{
+	border : 1px solid #C6C6C5;
+	display:inline-block;
+}
+
+.list:focus img{
+	display:inline-block;
+}
+
+
 .list a {
 	text-align: center;
 	text-decoration: none;

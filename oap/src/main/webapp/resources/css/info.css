@@ -1,18 +1,30 @@
 @charset "UTF-8";
 
 
+.alba_manage_add_btn{
+	border: 0px;
+	width: 100px;
+   	height: 41px;
+    background: #FEE300;
+    margin:50px;
+}
+
+.alba_manage_content {
+	display: inline-block;
+}
+
 .profile-one {
 	width: 370px;
 	height: 170px;
-	border: 1px solid gray;
+	border: 1px solid #6D6D6D;
 	border-radius: 20px;
-	padding: 10px;
-	margin: 30px 0px 30px 30px;
+	padding: 20px 20px 30px 20px;
+	margin: 30px 0px 35px 30px;
 	display:inline-block;
 }
 
 .profile-one:hover{
-	border:1px solid yellow;
+	border:3px solid #FEE300;
 }
 
 .profile-pic {
@@ -29,24 +41,20 @@
 	float: left;
 }
 
-.ttt {
-	display: inline-block;
-}
-
 .search {
 	float: right;
 	margin-right: 50px;
 }
 
-input{
-	background-image: url('/resources/img/search.png');
-	background-repeat: no-repeat;
-	background-position: right;
-	background-color: #ffffff;
-	background-size: 20px;
-	width: 200px;
-	height: 30px;
-}
+/* input{ */
+/* 	background-image: url('/resources/img/search.png'); */
+/* 	background-repeat: no-repeat; */
+/* 	background-position: right; */
+/* 	background-color: #ffffff; */
+/* 	background-size: 20px; */
+/* 	width: 200px; */
+/* 	height: 30px; */
+/* } */
 
 .div2{
 	margin-top:35px;
@@ -58,7 +66,7 @@ input{
 }
 
 .absel:hover{
-	border:1px solid yellow;
+	border:3px solid #FEE300;
 }
 
 .div-absel{
@@ -69,4 +77,10 @@ input{
 .al{
 	display:inline-block;
 	width:1200px;
+}
+
+.alba_manage_abName{
+	font-weight: 700;
+    font-size: 18px;
+	
 }

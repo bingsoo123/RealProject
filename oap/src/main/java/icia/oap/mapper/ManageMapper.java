@@ -10,6 +10,18 @@ public interface ManageMapper {
 
 	//    Inquiery
 	
+	
+	// 해당 알바생의 계정에 등록된 계좌 정보 가져오기
+	public ArrayList<ManageBean> getAccountInfo(ManageBean mBean);
+	public int accountInfoUpdate(ManageBean mBean);
+	public ManageBean getCommuteTime(ManageBean mBean); // type은 cmType으로 설정.
+	public int albaManagementAddDelete(ManageBean mBean);
+	public int albaManagementAddComplete(ManageBean mBean);
+	public ArrayList<ManageBean> albaManagementAddList(ManageBean mBean);
+	public ManageBean albaManagementAddSelect(ManageBean mBean);
+	public ManageBean getAlbaDetailSearch(ManageBean mBean);
+	
+	
 	public int isLabor(ManageBean mBean);
 	
 	public ArrayList<ManageBean> getMyWorkZoneList(ManageBean mBean);
@@ -18,7 +30,6 @@ public interface ManageMapper {
 
 	public ArrayList<ManageBean> getAlbaSearch(ManageBean mBean);
 
-	public ArrayList<ManageBean> getAlbaDetailSearch(ManageBean mBean);
 
 	public ArrayList<ManageBean> getCommuteList(ManageBean mBean);
 
@@ -70,6 +81,8 @@ public interface ManageMapper {
 	
 	public ArrayList<ManageBean> getPaySearch(ManageBean mBean);
 	
+	public ArrayList<ManageBean> getWorkManList(ManageBean mBean);
+	
 	//   Enroll       ( 등록 )
 
 	public int inspaylist1(ManageBean mBean);
@@ -101,6 +114,19 @@ public interface ManageMapper {
 	public ArrayList<ManageBean> getDayWork(ManageBean mBean);
 
 	public int payCount(ManageBean mBean);
+
+	//delete 관련 메서드
+	public int rotationDetailDelete(ManageBean mBean); // RD 시제 상세
+	public int rotationDelete(ManageBean mBean); // RT 시제 테이블 
+	public int payDetailDelete(ManageBean mBean); // PD 지급 내역
+	public int workLogDelete(ManageBean mBean); // WL 근무 일지 
+	public int laborContractDelete(ManageBean mBean); // LC 근로 계약서  
+	public int payDelete(ManageBean mBean); // PA 급여 테이블
+	// 업무 관리테이블은 연관X 여서 안지움.
+	public int commuteDelete(ManageBean mBean); // CM 출퇴근 관리
+	public int scheduleDelete(ManageBean mBean); // SC 일정 관리 
+	public int shopIncludeAlbaDelete(ManageBean mBean); // SIA 매장에 있는 알바생 정보
+	public int managementDetailDelete(ManageBean mBean); // 업무 관리 디테일 정보
 
 
 	

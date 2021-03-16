@@ -30,6 +30,19 @@ public class ManageBean {
 	private String cmTime; // sysdate로 받을 내 실직적인 출퇴근시간
 	private String cmType; // -1 퇴근 1 출근
 	private String stCode;
+	// 2021-03-13 추가한것. 진주
+	private String siaPay; // sia테이블이 제일 최상위인 급여인거같아서 만듬.
+	private String siaDate; // 입사 날짜.
+	private String abEmail;
+	private String ssBankName;
+	private String ssAccount;
+	private String mrGrade; // 등급
+	private String workCmTime; // 출근 시간
+	private String leaveCmTime; // 퇴근 시간
+	private String acBankName;
+	private String acAccount;
+	// type은 cmType으로
+	
 	// 알바생 정보
 	private String abName;
 	private String abPhone;

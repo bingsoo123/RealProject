@@ -61,6 +61,7 @@ html,body{
 	font-size : 20px;
 	border-bottom: 1px solid #989898;
 	margin-bottom: 30px;
+	cursor: pointer;
 }
 
 .title{

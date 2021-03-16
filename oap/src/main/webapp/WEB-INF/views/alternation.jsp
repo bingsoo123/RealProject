@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/resources/css/workDiary.css" rel="stylesheet">
+<link href="/resources/css/alternation.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <body onLoad="init()">

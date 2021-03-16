@@ -73,7 +73,7 @@
 <script>
 
 	function add(){
-		window.open("http://localhost//manageStore","급여추가","width=800,height=700,left=550,top=150,toolbar=no,status=no,resizable=no");
+		window.open("/manageStore","급여추가","width=800,height=700,left=550,top=150,toolbar=no,status=no,resizable=no");
 	}
 
 

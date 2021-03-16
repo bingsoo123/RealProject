@@ -116,6 +116,15 @@ public class AlbaController {
 		return aInquiery.entrance(aBean);
 	}
 	
+	// 로그인했을때 알바생이 알바를 하고있는 매장들 select box에 담고, 자기 이름 정보 가져오기.
+	// 만약 알바를 하고 있지않다면 자기 정보만 가져와서 출력하게함.
+	@RequestMapping(value = "/albaInclueShopInfo", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String albaInclueShopInfo(@ModelAttribute AlbaBean aBean) throws UnsupportedEncodingException {
+		mav = aInquiery.entrance(aBean);
+		return URLEncoder.encode(mav.getModel().get("albaInclueShopInfo").toString(),"UTF-8");
+	}
+	
 	
 	/* ---------------------------------- 알바생 - 등록  ---------------------------------- */
 	

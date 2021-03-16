@@ -58,12 +58,48 @@ public class ManagementEnroll {
 				break; 	
 		case "AddSchedule":
 			mav = this.addScheduleCtl(mBean);
-			break;		
+			break;
+		case "albaManagementAddComplete":
+			mav = this.albaManagementAddCompleteCtl(mBean);
+			break;
 		
 		}
 		
 		return mav;
 	}
+	
+	private ModelAndView albaManagementAddCompleteCtl(ManageBean mBean) {
+		mav = new ModelAndView();
+		int insertState = -1;
+		System.out.println("-----------");
+		System.out.println(mBean.getAbCode());
+		System.out.println(mBean.getShCode());
+		System.out.println(mBean.getMrGrade());
+		System.out.println(mBean.getSiaPay());
+		System.out.println(mBean.getRestTime());
+		System.out.println(mBean.getSsAccount());
+		
+		if(this.albaManagementAddComplete(mBean)) {
+			insertState = 1;
+			// 등록을 완료했다면 SS 테이블에서 삭제.
+			if(this.albaManagementAddDelete(mBean)) {
+				System.out.println("알바 등록및 삭제 완료");
+			}
+		}else {
+			insertState = 0;
+		}
+		
+		mav.addObject("insertState",insertState);
+		return mav;
+	}
+	
+	private boolean albaManagementAddComplete(ManageBean mBean) {
+		return convertToBoolean(mapperM.albaManagementAddComplete(mBean));
+	}
+	private boolean albaManagementAddDelete(ManageBean mBean) {
+		return convertToBoolean(mapperM.albaManagementAddDelete(mBean));
+	}
+	
 	
 	private ModelAndView insPayCtl(ManageBean mBean) {
 

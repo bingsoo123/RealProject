@@ -34,7 +34,6 @@ public class ManagementInquiery {
 		try {
 			
 			if(pu.getAttribute("idCode")!=null) {
-					
 				System.out.println("세션이 존재합니다 :: " + pu.getAttribute("idCode") );
 				
 				switch(mBean.getSCode()) {
@@ -42,6 +41,28 @@ public class ManagementInquiery {
 					mav = this.workZoneManagementCtl(mBean);
 					break;
 				
+				//// 15일 추가
+				
+				case "albaManagementAdd" : // 알바 관리에서 등록 관련  
+					mav = this.albaManagementAddCtl(mBean);
+					break;
+				case "albaManagementAddSelect" :
+					mav = this.albaManagementAddSelectCtl(mBean);
+					break;
+					
+					
+				case "albaInfoDetailAccountList" : 
+					mav = this.albaInfoDetailAccountListCtl(mBean);
+					break;	
+		        case "albaManagementInfo": // info 였던것 변경.
+			        mav = this.albaManagementCtl(mBean);
+			        break;
+		        case "albaInfoDetail": // accessDetail 이였던걸 바꿈. 관련 메서드들도 삭제 요망
+				    mav = this.albaInfoDetail(mBean);
+				    break;
+					
+				///
+					
 				case "searchMap":
 					mav = this.searchMapCtl(mBean);
 					break;
@@ -109,13 +130,6 @@ public class ManagementInquiery {
 				case "WorkType":
 					mav = this.WorkTypeCtl(mBean);
 					break;	
-		        case "info":
-			        mav = this.albaManagementCtl(mBean);
-			        break;
-			        
-		        case "accessDetail":
-				    mav = this.albaInfoDetail(mBean);
-				    break;
 		        case "goManageCode":
 				    mav = this.goManageCodeCtl(mBean);
 					break; 
@@ -125,6 +139,9 @@ public class ManagementInquiery {
 					break; 	
 		        case "DayWork":
 		        	mav=this.dayWork(mBean);
+		        	break;
+		        case "WhoWork" :
+		        	mav=this.whoWork(mBean);
 		        	break;
 				}
 				
@@ -142,9 +159,124 @@ public class ManagementInquiery {
 		}
 	   			
 		
+		return mav;
+	}
+	
+	private ModelAndView whoWork(ManageBean mBean) {
+		
+		mav = new ModelAndView();
+		
+		System.out.println(mBean.getShCode() + " :: " + mBean.getTlNumber() + "::" + mBean.getMtDetail());
+		
+		
+		System.out.println("그 일을 해야하는 알바생은 ?" + gson.toJson(this.workManList(mBean)));
+		
+		mav.addObject("workList", gson.toJson(this.workManList(mBean)));
+		
+		mav.setViewName("whoseWorkList");
 		
 		return mav;
 	}
+
+	private ArrayList<ManageBean> workManList(ManageBean mBean) {
+		return mapperM.getWorkManList(mBean);
+	}
+
+	private ModelAndView albaManagementAddSelectCtl(ManageBean mBean) { // 알바생 관리에서 [등록] 버튼 누른 후 알바생을 선택 했을때.
+		
+		mav = new ModelAndView();
+		String jsonData = gson.toJson(this.albaManagementAddSelect(mBean));
+		mav.addObject("mAlbaList",jsonData);
+		return mav;
+		
+	}
+	private ManageBean albaManagementAddSelect(ManageBean mBean){
+		return mapperM.albaManagementAddSelect(mBean);
+	}
+	
+	// 알바생 관리에서 [등록] 버튼 눌렀을때 처음 뜨는 화면
+	private ModelAndView albaManagementAddCtl(ManageBean mBean) { // 알바생 관리에서 [등록] 버튼 눌렀을때.
+		mav = new ModelAndView();
+		String jsonData = gson.toJson(this.albaManagementAddList(mBean));
+		System.out.println("albaManagementAddList::" + jsonData);
+		mav.addObject("mAlbaList",jsonData);
+		return mav;
+	}
+	private ArrayList<ManageBean> albaManagementAddList(ManageBean mBean){
+		return mapperM.albaManagementAddList(mBean);
+	}
+	
+	
+	private ModelAndView albaInfoDetail(ManageBean mBean) {
+		mav = new ModelAndView();
+		
+		ManageBean mBeanTemp = this.getAlbaDetailSearch(mBean);
+		System.out.println("mBeanTemp::" + mBeanTemp);
+		
+		// 제일 마지막에 출근 시간.
+		try {
+		//출근
+		mBean.setCmType("1"); 
+		mBeanTemp.setWorkCmTime(this.getCommuteTime(mBean).getCmTime());
+		//퇴근 
+		mBean.setCmType("-1");
+		mBeanTemp.setLeaveCmTime(this.getCommuteTime(mBean).getCmTime());
+		// 제일 마지막에 퇴근 시간
+		System.out.println("제일 마지막 출근 시간 :"  + mBeanTemp.getWorkCmTime());
+		System.out.println("제일 마지막 퇴근 시간 :"  + mBeanTemp.getLeaveCmTime());
+		}catch (Exception e) {
+			System.out.println("출퇴근 시간이 존재 하지않음 (null)");
+			mBeanTemp.setWorkCmTime("0");
+			mBeanTemp.setLeaveCmTime("0");
+		}
+		
+		String albaInfo = gson.toJson(mBeanTemp);
+		System.out.println("albaInfoDetail :: 상세정보 :: " + albaInfo);
+		mav.addObject("albaInfo",albaInfo);
+		return mav;
+	}
+	
+	// 출퇴근 정보를 가져옴.
+	public ManageBean getCommuteTime(ManageBean mBean) {
+		return mapperM.getCommuteTime(mBean);
+	}
+	
+	
+	// ArrayList였던걸 ManageBean 타입으로 바꿈.
+	private ManageBean getAlbaDetailSearch(ManageBean mBean){
+		return mapperM.getAlbaDetailSearch(mBean);
+	}
+	
+	
+	
+	private ModelAndView albaInfoDetailAccountListCtl(ManageBean mBean) {
+		mav = new ModelAndView();
+		String jsonData = gson.toJson(this.getAccountInfo(mBean));
+		System.out.println("albaAccountList:: " + jsonData);
+		mav.addObject("albaAccountList",jsonData);
+		return mav;
+	}
+	
+	private ArrayList<ManageBean> getAccountInfo(ManageBean mBean){
+		return mapperM.getAccountInfo(mBean);
+	}
+	
+	
+	// 알바생 관리 ( 현재 매장의 알바생 리스트 가져오기 ) 
+	private ModelAndView albaManagementCtl(ManageBean mBean) {
+		mav = new ModelAndView();
+		System.out.println("this.getAlbaList(mBean):: " + this.getAlbaList(mBean));
+		String jsonData = gson.toJson(this.getAlbaList(mBean));
+		mav.addObject("albaData", jsonData);
+		return mav;
+	}
+	
+	// 알바생 관리 ( 현재 매장의 알바생 리스트 가져오기 )
+	private ArrayList<ManageBean> getAlbaList(ManageBean mBean){
+		return mapperM.getAlbaList(mBean);
+	}
+	
+	
 	
 	private ModelAndView dayWork(ManageBean mBean) {
 		
@@ -248,10 +380,9 @@ public class ManagementInquiery {
 	private ModelAndView searchMapJoinCtl(ManageBean mBean) {
 		
 		ModelAndView mav = new ModelAndView();
-
-		
 		
 		mav.setViewName("searchMap_join");
+		
 		return mav;
 	}
 	
@@ -289,41 +420,7 @@ public class ManagementInquiery {
 		return mapperM.getMyWorkZoneList(mBean);
 	}
 	
-	// 알바생 관리 ( 현재 매장의 알바생 리스트 가져오기 ) 
-	private ModelAndView albaManagementCtl(ManageBean mBean) {
-		
-		mav = new ModelAndView();
-		
-		System.out.println("this.getAlbaList(mBean):: " + this.getAlbaList(mBean));
-		
-		String Data = gson.toJson(this.getAlbaList(mBean));
-		mav.addObject("Data1", Data);
-	    System.out.println(Data);
-		
-		return mav;
-	}
 	
-	// 알바생 관리 ( 현재 매장의 알바생 리스트 가져오기 )
-	private ArrayList<ManageBean> getAlbaList(ManageBean mBean){
-		return mapperM.getAlbaList(mBean);
-	}
-	
-	private ModelAndView albaInfoDetail(ManageBean mBean) {
-		
-		mav = new ModelAndView();
-		
-		System.out.println("이것은 상제정보값이다 :: " + this.getAlbaDetailSearch(mBean));
-		
-		String abDetail = gson.toJson(this.getAlbaDetailSearch(mBean));
-		System.out.println(abDetail);
-		mav.addObject("abDetail",abDetail);
-		
-		return mav;
-	}
-	
-	private ArrayList<ManageBean> getAlbaDetailSearch(ManageBean mBean){
-		return mapperM.getAlbaDetailSearch(mBean);
-	}
 	
 	private ModelAndView commuteManagementCtl(ManageBean mBean) {
 		

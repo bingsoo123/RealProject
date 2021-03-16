@@ -19,6 +19,111 @@
 
 	<!-- 진주 -->
 
+	<select id="getAlbaDetailSearch" resultType="icia.oap.beans.ManageBean">
+	SELECT SIA_SHCODE AS "SHCODE",
+	       SIA_ABCODE AS "ABCODE",
+	       AB_GENDER AS "ABGENDER",
+	       AB_NAME AS "ABNAME",
+	       AB_BIRTH AS "ABBIRTH",
+	       AB_PHONE AS "ABPHONE",
+	       AB_EMAIL AS "ABEMAIL",
+	       AB_ADDR AS "ABADDR",
+	       SIA_ACCOUNT AS "SSACCOUNT",
+	       SIA_BANKNAME AS "SSBANKNAME",
+	       TO_CHAR(SIA_DATE,'YYYY-MM-DD') AS "SIADATE",
+	       SIA_PAY AS "SIAPAY"
+	    FROM SIA INNER JOIN AB ON SIA.SIA_ABCODE = AB.AB_CODE
+	    WHERE SIA_SHCODE = #{shCode} AND SIA_ABCODE = #{abCode}
+	</select>
+
+	<select id="getAlbaList" resultType="icia.oap.beans.ManageBean">
+		SELECT SIA_SHCODE AS "SHCODE",
+		       SIA_ABCODE AS "ABCODE",
+		       AB_NAME AS "ABNAME",
+		       AB_GENDER AS ABGENDER,
+		       AB_PHONE AS "ABPHONE",
+       		  TO_CHAR(SIA_DATE,'YYYY-MM-DD') AS "SIADATE",
+		       SIA_PAY AS "SIAPAY"
+		FROM SIA INNER JOIN AB ON SIA.SIA_ABCODE = AB.AB_CODE
+		WHERE SIA_SHCODE = #{shCode}
+	</select>
+
+
+	<!-- 알바생 관리에서 계좌 정보 변경 -->
+	<update id="accountInfoUpdate">
+		<![CDATA[
+			UPDATE SIA
+			SET SIA_BANKNAME= #{acBankName},  SIA_ACCOUNT = #{acAccount}
+			WHERE SIA_SHCODE = #{shCode} AND SIA_ABCODE = #{abCode}
+			
+		]]> 
+	</update>
+
+	<!--  해당 알바생의 계정에 등록된 계좌 정보 가져오기. -->
+    <select id="getAccountInfo" resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+		SELECT AC_ABCODE AS "ABCODE",
+	       AC_BANKNAME AS "ACBANKNAME",
+	       AC_ACCOUNT AS "ACACCOUNT"
+		FROM AC
+		WHERE AC_ABCODE = #{abCode}
+	]]>
+	</select>
+
+
+     <!-- 알바생 관리 에서 [등록]버튼 눌렀을때 내 매장에 지원한 알바생 정보 중에서 선택한것-->
+    <select id="getCommuteTime" resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+		SELECT TO_CHAR(MAX(CM_TIME),'YYYY-MM-DD_HH24:MI') AS "CMTIME"
+		FROM CM
+		WHERE CM_SCSHCODE = #{shCode} AND CM_SCABCODE = #{abCode} AND CM_TYPE = #{cmType}
+	]]>
+	</select>
+     
+     
+     <delete id="albaManagementAddDelete">
+     <![CDATA[
+		DELETE FROM SS WHERE SS_SHCODE = #{shCode} and SS_ABCODE = #{abCode}
+	]]>
+	</delete>
+     
+     <insert id="albaManagementAddComplete">
+		INSERT INTO SIA(SIA_SHCODE, SIA_ABCODE, SIA_MRGRADE, SIA_DATE, SIA_PAY, SIA_RESTTIME, SIA_ACCOUNT, SIA_BANKNAME)
+		VALUES(#{shCode},#{abCode},#{mrGrade}, DEFAULT , #{siaPay}, #{restTime}, #{ssAccount}, #{ssBankName})
+	</insert>
+     
+    <select id="albaManagementAddSelect" resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+		SELECT SS_SHCODE AS "SHCODE",
+		       SS_ABCODE AS "ABCODE",
+		       SS_BANKNAME AS "SSBANKNAME",
+		       SS_ACCOUNT AS "SSACCOUNT",
+		       AB_NAME AS "ABNAME",
+		       AB_BIRTH AS "ABBIRTH",
+		       AB_PHONE AS "ABPHONE",
+		       AB_ADDR AS "ABADDR",
+		       AB_GENDER AS "ABGENDER",
+		       AB_EMAIL AS "ABEMAIL"
+		FROM SS INNER JOIN AB ON SS.SS_ABCODE = AB.AB_CODE
+		WHERE SS_SHCODE = #{shCode} and SS_ABCODE = #{abCode}
+	]]>
+	</select>
+     <!-- 알바생 관리 에서 [등록]버튼 눌렀을때 내 매장에 지원한 알바생 정보 -->
+	<select id="albaManagementAddList" resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+		SELECT SS_SHCODE AS "SHCODE",
+		       SS_ABCODE AS "ABCODE",
+		       AB_NAME AS "ABNAME",
+		       AB_PHONE AS "ABPHONE",
+		       AB_ADDR AS "ABADDR",
+		       AB_GENDER AS "ABGENDER",
+		       TO_CHAR(TO_DATE(AB_BIRTH),'YYYY-MM-DD') AS "ABBIRTH"
+		FROM SS INNER JOIN AB ON SS.SS_ABCODE = AB.AB_CODE
+		WHERE SS_SHCODE = #{shCode}
+	]]>
+	</select>
+	
+
 	<!-- 근로계약서 탭 눌렀을때 그 매장의 근로계약서를 작성한 모두 -->
 	<select id="laborList" resultType="icia.oap.beans.ManageBean">
 	<![CDATA[
@@ -32,8 +137,7 @@
 	</select>
 
 	<!-- 근로계약서 상세 조회 -->
-	<select id="laborDetailSelect"
-		resultType="icia.oap.beans.ManageBean">
+	<select id="laborDetailSelect" resultType="icia.oap.beans.ManageBean">
 	<![CDATA[
 	SELECT LC_SIASHCODE AS "SHCODE", 
 	       LC_SIAABCODE AS "ABCODE",
@@ -300,43 +404,6 @@
 		]]> 
 	</delete>
 	
-	
-	<select id="getAlbaDetailSearch" resultType="icia.oap.beans.ManageBean">
-		SELECT AB_ID AS ABID,
-			   AB_CODE AS ABCODE,
-			   SIA_SHCODE AS SHCODE, 
-      		   AB_NAME AS ABNAME,
-       		   AB_BIRTH AS ABBIRTH,
-       		   AB_GENDER AS ABGENDER,
-       		   AC_ACCOUNT AS ACCOUNT,
-       		   AC_BANKNAME AS BNAME,
-       		   RS_NAME AS RSNAME
-		FROM AB INNER JOIN AC ON AB.AB_CODE = AC.AC_ABCODE
-        		INNER JOIN RS ON AB.AB_CODE = RS.RS_ABCODE
-       		   	INNER JOIN SIA ON AB.AB_CODE = SIA.SIA_ABCODE
-		WHERE AB_CODE=#{abCode} AND SIA_SHCODE=#{shCode}
-	</select>
-
-	<select id="getAlbaList" resultType="icia.oap.beans.ManageBean">
-		SELECT SIA_SHCODE AS SHCODE,
-			SIA_ABCODE AS ABCODE,
-			SIA_PAY AS APAY,
-			AB_GENDER AS ABGENDER,
-			AB_PHONE AS APHONE,
-			AB_NAME AS ABNAME,
-			SH_NAME AS SHNAME,
-			SC_STARTTIME AS STIME,
-			SC_ENDTIME AS ETIME,
-			ST_CODE AS STCODE,
-			ST_COMMENT AS STCOMMENT
-		FROM SIA INNER JOIN AB ON SIA.SIA_ABCODE = AB.AB_CODE
-			INNER JOIN SH ON SIA.SIA_SHCODE = SH.SH_CODE
-			INNER JOIN SC ON SIA.SIA_ABCODE = SC.SC_SIAABCODE AND SIA.SIA_SHCODE =
-			SC.SC_SIASHCODE
-			INNER JOIN ST ON SC.SC_STCODE = ST.ST_CODE
-		WHERE SIA_SHCODE=#{shCode}
-	</select>
-	
 	<insert id="inspaylist1">
 		INSERT INTO PA(PA_SIASHCODE, PA_SIAABCODE, PA_NAME)
 		VALUES(#{shCode}, #{abCode}, #{paName})
@@ -419,6 +486,95 @@
 	WHERE SC_SIASHCODE=#{shCode} AND SC_STCODE=#{stCode}
    ]]>
    </select>	
+   
+         <!-- 날자 선택시 그 날자에 일하는 직원 리스트 출력-->
+   <select id="getWorkManList" resultType="icia.oap.beans.ManageBean">
+   <![CDATA[
+	SELECT  MTD_MTSHCODE AS SHCODE,
+        MTD_MTTLNUMBER AS TLNUMBER,
+        MTD_MTDETAIL AS MTDETAIL,
+        MTD_ABCODE AS ABCODE,
+        AB_NAME AS ABNAME,
+        AB_GENDER AS ABGENDER
+	FROM MTD INNER JOIN AB ON MTD_ABCODE = AB_CODE
+	WHERE MTD_MTSHCODE=#{shCode} AND MTD_MTTLNUMBER=#{tlNumber} AND MTD_MTDETAIL=#{mtDetail}
+   ]]>
+   </select>	
+   
+
+		<!-- SIA 테이블 Delete 관련 메서드#{shCode} , #{abCode} -->
+	
+		<!-- 선택한 근로계약서 삭제 -->
+	<delete id="rotationDetailDelete">
+	<![CDATA[
+		DELETE FROM RD 
+		WHERE RD_RTSHCODE = #{shCode} AND RD_RTABCODE = #{abCode}
+	]]>
+	</delete>
+	
+	<delete id="rotationDelete">
+	<![CDATA[
+		DELETE FROM RT 
+		WHERE RT_SIASHCODE = #{shCode} AND RT_SIAABCODE = #{abCode}
+	]]>
+	</delete>
+	
+	<delete id="payDetailDelete">
+	<![CDATA[
+		DELETE FROM PD 
+		WHERE PD_PASHCODE = #{shCode} AND PD_PAABCODE = #{abCode}
+	]]>
+	</delete>
+	
+	<delete id="workLogDelete">
+	<![CDATA[
+		DELETE FROM WL 
+		WHERE WL_SCSHCODE = #{shCode} AND WL_SCABCODE = #{abCode}
+	]]>
+	</delete>
+	
+	<delete id="laborContractDelete">
+	<![CDATA[
+		DELETE FROM LC 
+		WHERE LC_SIASHCODE = #{shCode} AND LC_SIAABCODE = #{abCode}
+	]]>
+	</delete>
+	
+	<delete id="payDelete">
+	<![CDATA[
+		DELETE FROM PA 
+		WHERE PA_SIASHCODE = #{shCode} AND PA_SIAABCODE = #{abCode}
+	]]>
+	</delete>
+	
+	<delete id="commuteDelete">
+	<![CDATA[
+		DELETE FROM CM 
+		WHERE CM_SCSHCODE = #{shCode} AND CM_SCABCODE = #{abCode}
+	]]>
+	</delete>
+	
+	<delete id="scheduleDelete">
+	<![CDATA[
+		DELETE FROM SC 
+		WHERE SC_SIASHCODE = #{shCode} AND SC_SIAABCODE = #{abCode}
+	]]>
+	</delete>
+
+	<delete id="shopIncludeAlbaDelete">
+	<![CDATA[
+		DELETE FROM SIA 
+		WHERE SIA_SHCODE = #{shCode} AND SIA_ABCODE = #{abCode}
+	]]>
+	</delete>
+	
+   <delete id="managementDetailDelete">
+   <![CDATA[
+	   DELETE FROM MTD 
+	   WHERE MTD_MTSHCODE = #{shCode} AND MTD_ABCODE = #{abCode}
+   ]]>
+   </delete>
+	
 
 </mapper>	
 

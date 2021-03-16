@@ -112,7 +112,23 @@
 			WHERE MT_SHCODE = #{shCode} AND SIA_ABCODE = #{abCode}
 		]]> 
 	</select>		
-		
+
+	<select id="albaInclueShopInfo" resultType="icia.oap.beans.AlbaBean">
+		SELECT SIA_ABCODE AS "ABCODE",
+		       AB_NAME AS "ABNAME",
+		       SIA_SHCODE AS "SHCODE",
+		       SH_NAME AS "SHNAME"
+		FROM SIA INNER JOIN AB ON SIA.SIA_ABCODE = AB.AB_CODE
+		         INNER JOIN SH ON SIA.SIA_SHCODE = SH.SH_CODE
+		WHERE SIA_ABCODE = #{abCode}
+	</select>	
+
+	<select id="albaMyInfo" resultType="icia.oap.beans.AlbaBean">
+		SELECT AB_CODE AS "ABCODE",
+		       AB_NAME AS "ABNAME"
+		FROM AB
+		WHERE AB_CODE = #{abCode}
+	</select>
 		
 </mapper>	
 

@@ -120,45 +120,45 @@ public class AlbaEnroll {
 
 		mav = new ModelAndView();
 
-		String[] mType = { "10", "50", "100", "500", "1000", "5000", "10000", "50000" };
-		String[] mCount = { aBean.getSip(), aBean.getOsip(), aBean.getBaek(), aBean.getObaek(), aBean.getChun(),
-				aBean.getOchun(), aBean.getMan(), aBean.getOman() };
-		TransactionStatus status = tran.getTransaction(new DefaultTransactionDefinition());
-		String message = "등록도중 오류가 발생하였습니다 . 다시시도 해주세요";
+//		String[] mType = { "10", "50", "100", "500", "1000", "5000", "10000", "50000" };
+//		String[] mCount = { aBean.getSip(), aBean.getOsip(), aBean.getBaek(), aBean.getObaek(), aBean.getChun(),
+//				aBean.getOchun(), aBean.getMan(), aBean.getOman() };
+//		TransactionStatus status = tran.getTransaction(new DefaultTransactionDefinition());
+//		String message = "등록도중 오류가 발생하였습니다 . 다시시도 해주세요";
+//
+//		aBean.setAbCode("100000000");
+//		aBean.setShCode("100000000");
+//		aBean.setRtType((aBean.getTCode().equals("start")) ? 1 : 2);
+//
+//		// insert 는 시제테이블에만 특이사항은 그저 무슨일이 있엇는지 확인용
+//
+//		if (this.insertRt(aBean)) {
+//
+//			aBean.setMaxTime(this.getMaxTime(aBean));
+//
+//			for (int index = 0; index < mCount.length; index++) {
+//
+//				if (mCount[index] != null) {
+//
+//					aBean.setMType(mType[index]);
+//					aBean.setMCount(Integer.parseInt(mCount[index]));
+//
+//					System.out.println("Type = " + aBean.getMType() + " Count = " + aBean.getMCount());
+//
+//					this.insertRd(aBean);
+//
+//				}
+//
+//			}
+//
+//			tran.commit(status);
+//			message = "등록이 완료되었습니다";
+//
+//		}
+//
+//		mav.addObject("message", message);
 
-		aBean.setAbCode("100000000");
-		aBean.setShCode("100000000");
-		aBean.setRtType((aBean.getTCode().equals("start")) ? 1 : 2);
-
-		// insert 는 시제테이블에만 특이사항은 그저 무슨일이 있엇는지 확인용
-
-		if (this.insertRt(aBean)) {
-
-			aBean.setMaxTime(this.getMaxTime(aBean));
-
-			for (int index = 0; index < mCount.length; index++) {
-
-				if (mCount[index] != null) {
-
-					aBean.setMType(mType[index]);
-					aBean.setMCount(Integer.parseInt(mCount[index]));
-
-					System.out.println("Type = " + aBean.getMType() + " Count = " + aBean.getMCount());
-
-					this.insertRd(aBean);
-
-				}
-
-			}
-
-			tran.commit(status);
-			message = "등록이 완료되었습니다";
-
-		}
-
-		mav.addObject("message", message);
-
-		mav.setViewName("alternation");
+		mav.setViewName("checkList");
 
 		return mav;
 	}

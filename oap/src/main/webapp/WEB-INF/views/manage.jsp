@@ -9,6 +9,7 @@
 <link href="/resources/css/labor.css" rel="stylesheet" />
 <link href="/resources/css/laborContents.css" rel="stylesheet" />
 <link href="/resources/css/commute.css" rel="stylesheet" />
+<link href="/resources/css/info.css" rel="stylesheet" />
 <script  src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <!--  캔버스 라이브러리  -->
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -21,7 +22,7 @@
             <div class="head"><img alt="알바어때 ?" src="/resources/img/Main_logo.png"></div>
             <div class="serve">
                 <div class="list" onclick="www();"><img alt="매장 관리" src="/resources/img/nav1.png"><img alt="매장 관리" src="/resources/img/nav1_hover.png"></div>
-                <div class="list" onClick="alba()"><img alt="알바생 관리" src="/resources/img/nav2.png"><img alt="알바생 관리" src="/resources/img/nav2_hover.png"></div>
+                <div class="list" onClick="albaManagement()"><img alt="알바생 관리" src="/resources/img/nav2.png"><img alt="알바생 관리" src="/resources/img/nav2_hover.png"></div>
                 <div class="list" onClick="CommutingManagement()"><img alt="출퇴근 관리" src="/resources/img/nav3.png"><img alt="출퇴근 관리" src="/resources/img/nav3_hover.png"></div>
                 <div class="list" onClick="work()"><img alt="업무 관리" src="/resources/img/nav4.png"><img alt="업무 관리" src="/resources/img/nav4_hover.png"></div>
             </div>
@@ -42,14 +43,7 @@
         </div>
 
         <div id="test3" class="test3">
-
-
-
         </div>
-
-
-	
-
 
     </div>
 
@@ -58,25 +52,146 @@
 
 <script type = "text/javascript">
 
+	var menuIndex = -1; // select box (매장 선택) 에 의해 매장이 바뀔때.. 임의로 메서드를 다시 부르기 위한 index 
 	function zoneList() {
 		managerInfo();
 	}
 	
-	function alba(){
-		
-		$.ajax({
-			type : "POST",
-			url : "/goManageCode",
-			dataType : "html",
-			success : function(data) {
-				$(".test3").html(data);
-				alist();
-			}
-		});
+	
+////////////////////////////////////2021-03-13 작성 (진주) 나중에 주석 삭제해도 됌.
+
+	function albaManagement(){ // 알바생 관리 - 해당 매장에 있는 전체 리스트 가져오는 ajax
+		menuIndex = "albaManagement";
+		let shCode = document.getElementById('shopCode').value;
+		let mnCode = "10000000";
+		let request = new XMLHttpRequest();
+	    request.onreadystatechange = function() {
+	       if (this.readyState == 4 && this.status == 200) {
+	    	   let json = decodeURIComponent(request.response);
+			   let jsonData = JSON.parse(json);
+			   abinfoList(jsonData);
+	       }
+		}
+		 	request.open("POST","albaManagementInfo",true);
+			 	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+			request.send("sCode=albaManagementInfo&mnCode=" + mnCode +"&shCode=" + shCode);
 	}
+
+	function albaManageAddBtn(shCode) {
+		window.open("", "pop","width=850,height=550,left=600,top=900,toolbar=no,status=no,resizable=no");
+		var form = document.createElement("form");
+		form.action = "albaManagementAdd?sCode=albaManagementAdd" + "&shCode=" + shCode;
+		form.method = "POST";
+		form.target = "pop";
+		document.body.appendChild(form);
+		form.submit();
+	}
+
+	
+	function abinfoList(albaInfo){
+		let shCode = document.getElementById('shopCode').value;
+		$('#test3').empty();
+		let al = document.getElementById('test3');
+		let abList = document.createElement('Div');
+		
+		let albaAdd = document.createElement('button');
+		let albaAddText = document.createTextNode('추가');
+		albaAdd.appendChild(albaAddText);
+		albaAdd.className = "alba_manage_add_btn";
+		albaAdd.addEventListener('click', function() {
+			albaManageAddBtn(shCode); // shCode 불러오면 됌
+		});
+		al.appendChild(albaAdd);
+		
+		abList.className = "alba_manage_content";
+		al.appendChild(abList);
+		for (i = 0; i < albaInfo.length; i++) {
+			let index = i;
+			let div = document.createElement("Div");
+			div.className = "profile-one";
+			div.style.cursor = "pointer";
+			div.value = albaInfo[i].abCode;
+			div.addEventListener('click', function() {
+				albaInfoOpen(shCode,albaInfo[index].abCode);
+			});
+			abList.appendChild(div);
+	
+			let div1 = document.createElement("Div");
+			div1.className = "profile-left"
+			div.appendChild(div1);
+	
+			let div2 = document.createElement("Div");
+			div2.className = "div2"
+			div.appendChild(div2);
+	
+			if (albaInfo[i].abGender == "M") {
+				let div3 = document.createElement("img");
+				div3.className = "profile-pic"
+				div3.src = "/resources/img/M.png";
+				div1.appendChild(div3);
+			} else if (albaInfo[i].abGender == "F") {
+				let div3 = document.createElement("img");
+				div3.className = "profile-pic"
+				div3.src = "/resources/img/F.png";
+				div1.appendChild(div3);
+			}
+	
+			let abName = document.createElement("Div")
+			abName.className = "alba_manage_abName";
+			abName.textContent = albaInfo[i].abName;
+			div1.appendChild(abName);
+	
+			let siaDate = document.createElement('p');
+			siaDate.textContent = "고용된 날짜 : " + albaInfo[i].siaDate;
+			siaDate.className = "alba11";
+			div2.appendChild(siaDate);
+	
+			let albaPay = document.createElement('p');
+			albaPay.textContent = "시급 : " + albaInfo[i].siaPay + " 원";
+			albaPay.className = "alba111";
+			div2.appendChild(albaPay);
+	
+			let albaPhone = document.createElement('p');
+			albaPhone.textContent = "전화번호 : " + albaInfo[i].abPhone.substr(0, 3)
+										 + "-" + albaInfo[i].abPhone.substr(3, 4) 
+										 + "-" + albaInfo[i].abPhone.substr(7, 8);
+			albaPhone.className = "alba1111";
+			div2.appendChild(albaPhone);
+	
+		}
+		
+	}
+
+
+	function albaInfoOpen(shCode, abCode) { // 왜 get방식인진 모르겠는데 바꿔야함.
+		window.open("", "pop","width=760,height=750,left=600,top=900,toolbar=no,status=no,resizable=no");
+		var form = document.createElement("form");
+		form.action = "albaInfoDetail?sCode=albaInfoDetail" + "&shCode=" + shCode + "&abCode=" + abCode;
+		form.method = "POST";
+		form.target = "pop";
+		document.body.appendChild(form);
+		form.submit();
+	}
+
+	
+	////
+	
+
+// 	function alba(){ // 관련된거 다삭제.
+		
+// 		$.ajax({
+// 			type : "POST",
+// 			url : "/goManageCode",
+// 			dataType : "html",
+// 			success : function(data) {
+// 				$(".test3").html(data);
+// 				alist();
+// 			}
+// 		});
+// 	}
 	
 	function workLog(){
-		
+		menuIndex = "workLog";
 		$.ajax({
 			type : "POST",
 			url : "/Log",
@@ -106,7 +221,7 @@
 	}
 	
 	function Schedule(){
-		
+		menuIndex = "Schedule";
 		$.ajax({
 			type : "POST",
 			url : "/Schedule",
@@ -344,6 +459,7 @@
 	}	
 	
 	function work(){
+		menuIndex = "work";
 		var shn = $("#shopSelect option:selected").val();
 		$.ajax({
 			type:"POST",
@@ -375,7 +491,6 @@
 	      
 	      shopSelectBox.addEventListener('change', function() {
 	         manaOnchangeTest(this);
-	         
 	      });
 		
 //	 	let shopSelectOption = document.createElement("option");
@@ -399,11 +514,39 @@
 		}
 
 	}
+	
+	function manaOnchangeTest(obj) { // shopSelect onChange
+		let shopHiddenInput = document.getElementById('shopCode');
+	    let shopName = obj.options[obj.selectedIndex].text;
+		shopHiddenInput.value = obj.value;
+		alert("shCode HiddenInput :: " + shopName + "("+ obj.value +")로 매장 변경 및 test3 영역 초기화. manaOnchageTest 부분");
+		$('#test3').empty();
+		
+		if(menuIndex == "albaManagement"){
+			albaManagement();
+		}else if(menuIndex == "laborContract"){
+			laborContract();
+		}else if(menuIndex == "www"){
+			www();
+		}else if(menuIndex == "CommutingManagement"){
+			CommutingManagement();
+		}else if(menuIndex == "work"){
+			work();
+		}else if(menuIndex == "pay"){
+			pay();
+		}else if(menuIndex == "Schedule"){
+			Schedule();
+		}else if(workLog == "workLog"){
+			workLog();
+		}
+		
+	}
 
 	
 	//
 
 	function pay() {
+		menuIndex = "pay";
 		$.ajax({
 			type : "POST",
 			url : "/pay",
@@ -416,6 +559,7 @@
 	}
 
 	function www() {
+		menuIndex = "www";
 		$.ajax({
 			type : "GET",
 			url : "http://localhost/MyWorkZone",
@@ -538,6 +682,8 @@
 
 	//출퇴근 관리 눌렀을때. 현재 매장에 있는 알바생 이름들 가져와야함
 	function CommutingManagement() {
+		menuIndex = "CommutingManagement";
+		
 		let shCode = document.getElementById('shopCode').value;
 		// let shCode = '100000000';
 		 let request = new XMLHttpRequest();
@@ -763,6 +909,7 @@
 
 	// 근로 계약서 눌렀을때 리스트 ajax 처리(labor step1)
 	function laborContract(){
+		menuIndex = "laborContract";
 		$('#test3').empty();
 		let shCode = document.getElementById('shopCode').value;
 		 let request = new XMLHttpRequest();
@@ -1056,20 +1203,20 @@
 		labor += '<div class="day_contents"><input type="text" class="labor_year" value ="'+ year +'"disabled/>년    <input type="text" class="labor_contents_style1" value ="'+ month +'"disabled/>월    <input type="text" class="labor_contents_style1" value ="'+ date +'"disabled/>일 </div>';
 		labor += '(사업주) 사업체명 :<input type="text" class="labor_contents_style3" value="' + albaData[0].shName.replace(/\+/gi," ")+ '"disabled/>(전화 :<input type="text" class="labor_contents_style4" value="' + albaData[0].shTel+ '"disabled/> )  <br>';
 		labor += '주    소 :<input type="text" class="labor_contents_style2" value="' + albaData[0].shAddr.replace(/\+/gi," ") + '"disabled/>                                                  <br>';
-		labor += '대 표 자 :<input type="text" class="labor_contents" value="' + albaData[0].mnName+ '"disabled/> <br>(서명)<br>';
-		labor += '<canvas id="signAdmin" style="border: 1px solid black"></canvas>';
-		labor += ' <br><button class = "labor_clear" onclick="canvasClear(0)">초기화</button><br>';
-		labor += '(근로자)  주    소 :<input type="text" id = "labor_abAddr" class="labor_contents_style3" disabled/> (전화 :<input type="text"  class="labor_contents_style4">)  <br>';
+		labor += '대 표 자 :<input type="text" class="labor_contents" value="' + albaData[0].mnName+ '"disabled/>';
+		labor += '(근로자)  주    소 :<input type="text" id = "labor_abAddr" class="labor_contents_style3" disabled/><br> (전화 :<input type="text"  class="labor_contents_style4">)  <br>';
 		labor += '          연 락 처 :<input type="text" id = "labor_abPhone" class="labor_contents_style4" disabled/><br>';
-		labor += '          성    명 :<input type="text" id = "labor_abName" class="labor_contents" disabled/> <br>(서명)<br>';
-		labor += '		<canvas id="signAlba" style="border: 1px solid black"></canvas>';
-		labor += '		<br><button class = "labor_clear" onclick="canvasClear(1)" class = "labor_clear_btn">초기화</button><br>';
+		labor += '          성    명 :<input type="text" id = "labor_abName" class="labor_contents" disabled/>';
+		labor +=  '<br>(관리자 서명)';
+		labor += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+		labor += '(근로자 서명) <br>';
+		labor += '<canvas id="signAdmin" style="border: 1px solid black"></canvas> <canvas id="signAlba" style="border: 1px solid black"></canvas>' ;
+		labor += ' <br><button class = "labor_clear" onclick="canvasClear(0)">초기화</button>';
+		labor += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+		labor += '<button class = "labor_clear" onclick="canvasClear(1)" class = "labor_clear_btn">초기화</button><br>';
 		labor += '</span>';
 		labor += '</div>';
 		test.innerHTML = labor;
-		
-
-
 	}
 
 	function laborSelectBox(obj) {

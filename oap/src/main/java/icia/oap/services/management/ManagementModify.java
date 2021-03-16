@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -32,6 +34,14 @@ public class ManagementModify {
 	public ModelAndView entrance(ManageBean mBean) {
 		
 		switch (mBean.getSCode()) {
+		
+		// 알바생 관리 상세 정보에서 계좌 수정
+		case "albaDetailUpdateComplete" :
+			mav = this.albaDetailUpdateCompleteCtl(mBean);
+			break;
+		case "albaManagementDetailDelete" :
+			mav = this.albaManagementDetailDeleteCtl(mBean);
+			break;
 		case "laborDelete":
 			mav = this.laborDeleteCtl(mBean);
 			break;
@@ -52,6 +62,108 @@ public class ManagementModify {
 		
 		return mav;
 	}
+	
+	
+	private ModelAndView albaManagementDetailDeleteCtl(ManageBean mBean) {
+		
+		System.out.println("albaManagementDetailDelete:: 까지 진입");
+		mav = new ModelAndView();
+		TransactionStatus status = tran.getTransaction(new DefaultTransactionDefinition());
+		int deleteState = -1;
+		
+		try {
+			this.rotationDetailDelete(mBean);
+			System.out.println(" RD 시제 상세 Del");
+			this.rotationDelete(mBean);
+			System.out.println("RT 시제 테이블 Del");
+			this.payDetailDelete(mBean) ;
+	        System.out.println("MT 시제 테이블 Del");
+	        this.payDetailDelete(mBean) ;
+			System.out.println("PD 지급내역 테이블 Del");
+			this.workLogDelete(mBean);
+			System.out.println("WL 근무 일지 Del");
+			this.laborContractDelete(mBean);
+			System.out.println("LC 근로 계약서 Del");
+			this.payDelete(mBean);
+			System.out.println("PA 급여 테이블 Del");
+			this.commuteDelete(mBean);
+			System.out.println("CM 출퇴근 테이블 Del");
+			this.scheduleDelete(mBean);
+			System.out.println("SC 일정 관리 테이블 Del");
+			this.shopIncludeAlbaDelete(mBean);
+			deleteState = 1;
+			tran.commit(status);
+			System.out.println("정상적으로 commit");
+		}catch (Exception e) {
+			e.printStackTrace();
+			deleteState = 0;
+			tran.rollback(status);
+			System.out.println("실패");
+		}
+		mav.addObject("deleteState", deleteState);
+		return mav;
+	}
+	
+	
+	/////delete 관련된 mapper Method
+	public boolean rotationDetailDelete(ManageBean mBean){ 
+		// RD 시제 상세
+		return convertToBoolean(mapperM.rotationDetailDelete(mBean));
+	}
+	public boolean rotationDelete(ManageBean mBean) {
+		// RT 시제 테이블 
+		return convertToBoolean(mapperM.rotationDelete(mBean));
+	}
+	public boolean payDetailDelete(ManageBean mBean) {
+		// PD 지급 내역
+		return convertToBoolean(mapperM.payDetailDelete(mBean));
+	}
+	public boolean workLogDelete(ManageBean mBean) {
+		// WL 근무 일지 
+		return convertToBoolean(mapperM.workLogDelete(mBean));
+	}
+	public boolean laborContractDelete(ManageBean mBean) {
+		// LC 근로 계약서  
+		return convertToBoolean(mapperM.laborContractDelete(mBean));
+	}
+	public boolean payDelete(ManageBean mBean) {
+		// PA 급여 테이블
+		return convertToBoolean(mapperM.payDelete(mBean));
+	}
+	public boolean commuteDelete(ManageBean mBean) {
+		// CM 출퇴근 관리
+		return convertToBoolean(mapperM.commuteDelete(mBean));
+	}
+	public boolean scheduleDelete(ManageBean mBean) {
+		// SC 일정 관리 
+		return convertToBoolean(mapperM.scheduleDelete(mBean));
+	}
+	public boolean shopIncludeAlbaDelete(ManageBean mBean) {
+		// SIA 매장에 있는 알바생 정보
+		return convertToBoolean(mapperM.shopIncludeAlbaDelete(mBean));
+	}
+	
+   public boolean managementDetailDelete(ManageBean mBean){ 
+	   // MTD 
+	   return convertToBoolean(mapperM.managementDetailDelete(mBean));
+	}
+	
+	private ModelAndView albaDetailUpdateCompleteCtl(ManageBean mBean) {
+		mav = new ModelAndView();
+		int updateState = -1;
+		
+		if(this.accountInfoUpdate(mBean)) {
+			updateState = 1;
+		}else {
+			updateState = 0;
+		}
+		mav.addObject("updateState", updateState);
+		return mav;
+	}
+	private boolean accountInfoUpdate(ManageBean mBean){
+		return convertToBoolean(mapperM.accountInfoUpdate(mBean));
+	}
+	
 	
 	private ModelAndView laborDeleteCtl(ManageBean mBean) {
 		mav = new ModelAndView();

@@ -31,4 +31,8 @@ public interface AlbaMapper {
 	public int getAlbaTaskListCount(AlbaBean aBean);
 	
 	public int getAlbaTaskListSelectCount(AlbaBean aBean);
+
+	public ArrayList<AlbaBean> albaInclueShopInfo(AlbaBean aBean);
+
+	public ArrayList<AlbaBean> albaMyInfo(AlbaBean aBean);
 }

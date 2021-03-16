@@ -39,10 +39,12 @@ public class AlbaInquiery {
 		case "AlbaTaskList":
 			mav = this.albaTaskList(aBean);
 			break;
-		
 		case "AlbaTaskListSelect":
 			mav = this.albaTaskListSelect(aBean);
 			break;
+		case "albaInclueShopInfo" : 
+			mav = this.albaInclueShopInfoCtl(aBean);
+			break;	
 			
 		}
 		
@@ -50,7 +52,36 @@ public class AlbaInquiery {
 		return mav;
 	}
 	
-	
+	private ModelAndView albaInclueShopInfoCtl(AlbaBean aBean) {
+		mav = new ModelAndView();
+		ArrayList<AlbaBean> aList;
+		int selectState = -1;
+			aList = this.albaInclueShopInfo(aBean);
+			// 알바생이 매장을 갖고있을때.
+			System.out.println("aList.isEmpty()::" + aList.isEmpty());
+			
+			if(aList.isEmpty()) { // 빈값이면 나의 정보만 뜨게 해야하니까.
+				aList = this.albaMyInfo(aBean);
+				selectState = 0;
+				
+			}else {
+				selectState = 1;
+			}
+		System.out.println("albaInclueShopInfo결과 ::" + aList );
+		System.out.println("selectState 0이면 나의정보, 1이면 매장정보가 있다는 뜻:: " + selectState);
+		String jsonData = gson.toJson(aList) + "_" + selectState;
+		mav.addObject("albaInclueShopInfo", jsonData);
+		return mav;
+		
+	}
+	private ArrayList<AlbaBean> albaInclueShopInfo(AlbaBean aBean) {
+		return mapperW.albaInclueShopInfo(aBean);
+	}
+	private ArrayList<AlbaBean> albaMyInfo(AlbaBean aBean) {
+		return mapperW.albaMyInfo(aBean);
+	}
+
+
 	private ModelAndView albaTaskList(AlbaBean aBean) {
 		mav = new ModelAndView();
 		

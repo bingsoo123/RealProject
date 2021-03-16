@@ -142,7 +142,7 @@
 		document.body.appendChild(form);
 			
 
-		window.open('searchMap_join.jsp','regist_info_addr','top=10,left=10,width=600,height=600,status=no,menubar=no,toolbar=no,resizable=no');
+		window.open('searchMapJoin.jsp','regist_info_addr','top=10,left=10,width=600,height=600,status=no,menubar=no,toolbar=no,resizable=no');
 
 		form.submit();
 				

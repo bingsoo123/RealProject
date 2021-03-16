@@ -13,15 +13,9 @@
 	<div id="taskList">
 	
 	</div>
-	<!-- <img src="/resources/img/bolt.png" width="30px" height="30px" class="content-img"> -->
+	
 	<div id="detail">
 	
-		<div class="detail-name">청소하기</div>
-        <div class="detail-content">1. 청소를 잘하면 복받아요 사랑받아요 행복해요</div>
-        <div class="detail-content">2. 일을 잘해도  복받아요 사랑받아요 행복해요</div>
-        <div class="detail-content">3. 정산을 잘하면 복받아요 사랑받아요 행복해요</div>
-        <div class="detail-content">4. 재고정리를 잘해도 복받아요 사랑받아요 행복해요</div>
-        <div class="detail-content">5. 돈을 잘벌어도 복받아요 사랑받아요 행복해요</div>
 		
 	</div>
 	
@@ -91,23 +85,35 @@
 			dv.className = "detail-content";
 			var cont = document.createTextNode(index+1+" . "+param[index].mtDetail.replaceAll("+"," "));
 			dv.appendChild(cont);
+			dv.addEventListener('click',function(){
+				openInfo(param);
+			});
 			zone.appendChild(dv);
 		}
-		
-		
 	}
+	
+	
+	// workInfo  >>  shcode  ,  tlNumber , tlComment , mtDetail   
+	function openInfo(workInfo){
+		
+		var shcode = workInfo[0].shCode;
+		var tlNumber = workInfo[0].tlNumber;
+		var mtDetail = workInfo[0].mtDetail.replaceAll("+"," ");
+		alert(shcode + " :: " + tlNumber + " :: " + mtDetail);
+		
+		var popupX = (window.screen.width / 2) - (850 / 2);
+		// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
 
-	function manaOnchangeTest(obj) {
-		// obj에는 관리자 코드/이름  매장 코드/이름이 들어있음
-		let shopHiddenInput = document.getElementById('shopCode');
-	    let shopName = obj.options[obj.selectedIndex].text;
-		shopHiddenInput.value = obj.value;
-		alert("바꼇당!!");
-		Schedule();
+		var popupY= (window.screen.height / 2) - (250 / 2) - 100;
+		// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+
+		window.open("/WhoWork?shCode=" + shcode + "&tlNumber=" + tlNumber + "&mtDetail=" + mtDetail , "target", "width=850,height=250,left=" + popupX + ",top=" + popupY + ",toolbar=no,status=no,resizable=no");
 	}
-
+	
 </script>
 </html>
+
+
 
 
 

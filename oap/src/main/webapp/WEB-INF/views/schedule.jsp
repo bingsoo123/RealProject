@@ -272,17 +272,28 @@
 				dv1.className="todo-detail";
 				var text1 = document.createTextNode(list[index].abName + " " + list[index].startTime + " ~ " + list[index].endTime);
 				dv1.appendChild(text1);
+				dv1.addEventListener('click',function(){
+					test();
+				});
 				wrap.appendChild(dv1);
 			
 		}
 	}
 	
-	function manaOnchangeTest(obj) {
-		// obj에는 관리자 코드/이름  매장 코드/이름이 들어있음
-		let shopHiddenInput = document.getElementById('shopCode');
-	    let shopName = obj.options[obj.selectedIndex].text;
-		shopHiddenInput.value = obj.value;
-		alert("바꼇당!!");
+	function test(){
+		
+		var popupWidth = 690;
+		var popupHeight = 590;
+
+		var popupX = (window.screen.width / 2) - (popupWidth / 2);
+		// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height / 2) - (popupHeight / 2) - 100;
+		// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+		
+		function workDiary(){
+			window.open("/TestWork","근무일지",'status=no , height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+		}
 		
 	}
 	

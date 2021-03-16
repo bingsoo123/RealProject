@@ -85,36 +85,87 @@ public class ManageController {
 		return mInquiery.entrance(mBean);
 	}
 
-	// 알바생 관리
-	@RequestMapping(value = "/info", method = {RequestMethod.POST, RequestMethod.GET})
+	//////// 진주 20210315
+	// 알바 디테일에서 그 알바의 계좌 정보를 불러오는 메서드
+	@RequestMapping(value = "/albaInfoDetailAccountList", method = {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
-	public String info(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
-		
+	public String albaInfoDetailAccountList(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
 		mav = new ModelAndView();
-		System.out.println("받앗니?>>> " + mBean.getShCode());
-		mBean.setMnCode("10000000");
 		mav = mInquiery.entrance(mBean);
-		System.out.println("mav.getModel().get(\"Data1\").toString() :::: " + mav.getModel().get("Data1").toString());
-		
-		return URLEncoder.encode(mav.getModel().get("Data1").toString(),"UTF-8");
+		return URLEncoder.encode(mav.getModel().get("albaAccountList").toString(),"UTF-8");
 	}
-
-	// 알바생 관리 - 알바생 검색
-	@RequestMapping(value = "/AlbaInfoSearch", method = RequestMethod.GET)
-	public ModelAndView albaInfoSearch(@ModelAttribute ManageBean mBean) {
+	
+	// 알바생 관리 매핑값 info 였던것. albaManagementInfo로 변경.
+	@RequestMapping(value = "/albaManagementInfo", method = {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public String albaManagementInfo(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
+		mav = new ModelAndView();
+		mav = mInquiery.entrance(mBean);
+		return URLEncoder.encode(mav.getModel().get("albaData").toString(),"UTF-8");
+	}
+	
+	// 알바생 관리 상세정보에서 계좌 수정
+	@RequestMapping(value = "/albaDetailUpdateComplete", method = {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public String albaDetailUpdateComplete(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
+		mav = new ModelAndView();
+		mav = mModify.entrance(mBean);
+		return URLEncoder.encode(mav.getModel().get("updateState").toString(),"UTF-8");
+	}
+	
+	
+    // 알바생 관리 에서 [등록]버튼 눌렀을때 내 매장에 지원한 알바생 정보
+	@RequestMapping(value = "/albaManagementAdd", method ={RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView albaManagementAdd(@ModelAttribute ManageBean mBean) {
+		mav = new ModelAndView();
+		mav.setViewName("albaManagementAdd");
 		return mInquiery.entrance(mBean);
 	}
 	
+	// 알바생 [등록] 누르고 알바생 눌렀을떄 상세 정보
+	@RequestMapping(value = "/albaManagementAddSelect", method = {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public String albaManagementAddSelect(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
+		mav = new ModelAndView();
+		mav = mInquiery.entrance(mBean);
+		return URLEncoder.encode(mav.getModel().get("mAlbaList").toString(),"UTF-8");
+	}
+	
+	@RequestMapping(value = "/albaManagementAddComplete", method = {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public String albaManagementAddComplete(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
+		mav = new ModelAndView();
+		mav = mEnroll.entrance(mBean);
+		return URLEncoder.encode(mav.getModel().get("insertState").toString(),"UTF-8");
+	}
+	
+	// accessDetail 을 - > albaInfoDetail로 바꿈
 	// 알바생 관리 - 알바생 클릭시 상세정보
-	@RequestMapping(value = "/accessDetail", method ={RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView accessDetail(@ModelAttribute ManageBean mBean) {
+	@RequestMapping(value = "/albaInfoDetail", method ={RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView albaInfoDetail(@ModelAttribute ManageBean mBean) {
 		mav = new ModelAndView();
 		System.out.println("상세 정보 접근");
-		System.out.println("매장 코드 받앗니?" + mBean.getShCode());
-		System.out.println("알바 코드 받앗니?" + mBean.getAbCode());
-		mav.setViewName("accessDetail");
-		
+		mav.setViewName("albaInfoDetail");
 		return mInquiery.entrance(mBean);
+	}
+	/////여기까지 15일 추가
+	
+	
+	///  ???
+	// 알바생 관리 - 알바생 검색 // ?? 이건 뭐하는앤지잘모르겠음. (현기씨)
+	@RequestMapping(value = "/AlbaInfoSearch", method = RequestMethod.GET)
+	public ModelAndView albaInfoSearch(@ModelAttribute ManageBean mBean) {
+		return mInquiery.entrance(mBean);
+	} 
+	
+	
+    // 알바생 관리에서, 상세 정보에서 알바생을 [삭제] 눌렀을때. 
+	@RequestMapping(value = "/albaManagementDetailDelete", method = {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public String albaManagementDetailDelete(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
+		mav = new ModelAndView();
+		mav = mModify.entrance(mBean);
+		return URLEncoder.encode(mav.getModel().get("deleteState").toString(),"UTF-8");
 	}
 
 	// 출퇴근 관리 - 날자 선택후 조회하기 버튼클릭시 요청
@@ -318,6 +369,13 @@ public class ManageController {
 		return URLEncoder.encode(mav.getModel().get("paySearch").toString(),"UTF-8");
 	}
 	
+	
+	// 조회 버튼눌럿을때 실행
+	@RequestMapping(value = "/WhoWork", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView whoWork(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
+		mBean.setSCode("WhoWork");
+		return mInquiery.entrance(mBean);
+	}
 
 	/* ------------------------- 관리자 - 등록 ------------------------- */
 
@@ -362,6 +420,7 @@ public class ManageController {
 	   @ResponseBody
 	   public String insPay(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
 	      mBean.setSCode("insPay");
+	      
 	      mBean.setMnCode("10000000");
 	      mav =  mEnroll.entrance(mBean);
 	      System.out.println("ins야 받았니이잉???>>>>  " + mBean);
