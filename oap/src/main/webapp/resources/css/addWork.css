@@ -2,6 +2,13 @@
 
 /* --------------------------------------------------------------------------------------------------- */
 
+body{
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+}
 
 .table {
 	padding: 10px;
@@ -37,6 +44,23 @@
 }
 
 #select1{
-	width:180px;
+	width:29
+	
+	0px;
 }
+
+.addWorkBtn{
+	
+	position : relative;
+	bottom : 0px;
+	margin:10px 0 0 0;
+	background-color: #FFCC99;
+	color:white; border-radius: 3px; 
+    width:70px;
+    height:35px;
+    border:1px solid #CCCCCC;
+	
+}
+
+
 

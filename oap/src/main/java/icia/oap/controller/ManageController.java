@@ -372,18 +372,20 @@ public class ManageController {
 	
 	// 조회 버튼눌럿을때 실행
 	@RequestMapping(value = "/WhoWork", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView whoWork(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
+	@ResponseBody
+	public String whoWork(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
 		mBean.setSCode("WhoWork");
-		return mInquiery.entrance(mBean);
+		System.out.println("WhoWork 도착 @@@@@@@@@@@@@@");
+		return URLEncoder.encode(mInquiery.entrance(mBean).getModel().get("workList").toString(),"UTF-8");
 	}
 
 	/* ------------------------- 관리자 - 등록 ------------------------- */
 
 	// 업무 관리 - 업무 추가하기      sCode :: 1
-	@RequestMapping(value = "/WorkAdd", method = RequestMethod.GET)
+	@RequestMapping(value = "/WorkAdd", method = RequestMethod.POST)
 	public ModelAndView addWork(@ModelAttribute ManageBean mBean) {
 		mBean.setSCode("WorkAdd");
-		mBean.setMnCode("10000000");
+		System.out.println("관리자 코드는 >" + mBean.getMnCode() + "매장코드는 >" + mBean.getShCode());
 		return mEnroll.entrance(mBean);
 	}
 	
@@ -391,8 +393,15 @@ public class ManageController {
 	@RequestMapping(value = "/WorkAddComplete", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView workAdd(@ModelAttribute ManageBean mBean) {
 		System.out.println("workadd 진입");
-		System.out.println("mBean.getShCode()::" + mBean.getShCode());
+		System.out.println("mBean.getShCode()::" + mBean.getShCode() + "abCode ::" + mBean.getAbCode());
 		return mEnroll.entrance(mBean);
+	}
+	
+	// 업무추가 - 매장이 바뀜에따라 알바생리스트 알아서 넘겨줌
+	@RequestMapping(value = "/ChangeAlbaList", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String changeAlbaList(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException{
+		return URLEncoder.encode(mInquiery.entrance(mBean).getModel().get("changeAlba").toString(),"UTF-8");
 	}
 
 	// 일정 관리 - 해당 매장에 알바생이 일할 시간을 등록

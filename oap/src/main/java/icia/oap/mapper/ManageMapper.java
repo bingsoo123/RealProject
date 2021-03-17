@@ -97,6 +97,10 @@ public interface ManageMapper {
 	
 	public int workAddComplete(ManageBean mBean);// 실제로 추가 insert 하는 역활
 	
+	public ArrayList<ManageBean> getWorkAlbaList(ManageBean mBean); // 매장에서 일하는 알바생 리스트 가져옴
+	
+	public int workAddDetail(ManageBean mBean);
+	
 	
 	
 	//  Modify   ( 수정 )
@@ -117,16 +121,30 @@ public interface ManageMapper {
 
 	//delete 관련 메서드
 	public int rotationDetailDelete(ManageBean mBean); // RD 시제 상세
+	
 	public int rotationDelete(ManageBean mBean); // RT 시제 테이블 
+	
 	public int payDetailDelete(ManageBean mBean); // PD 지급 내역
+	
 	public int workLogDelete(ManageBean mBean); // WL 근무 일지 
+	
 	public int laborContractDelete(ManageBean mBean); // LC 근로 계약서  
+	
 	public int payDelete(ManageBean mBean); // PA 급여 테이블
+	
 	// 업무 관리테이블은 연관X 여서 안지움.
+	
 	public int commuteDelete(ManageBean mBean); // CM 출퇴근 관리
+	
 	public int scheduleDelete(ManageBean mBean); // SC 일정 관리 
+	
 	public int shopIncludeAlbaDelete(ManageBean mBean); // SIA 매장에 있는 알바생 정보
+	
 	public int managementDetailDelete(ManageBean mBean); // 업무 관리 디테일 정보
+	
+
+
+
 
 
 	

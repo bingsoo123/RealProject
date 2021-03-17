@@ -81,14 +81,13 @@ public class AlbaInquiery {
 		return mapperW.albaMyInfo(aBean);
 	}
 
-
 	private ModelAndView albaTaskList(AlbaBean aBean) {
 		mav = new ModelAndView();
 		
 		/* TaskWork Info & Convert to JSON */
 		
 		// 전체 업무리스트 조회
-		String albaTaskList = gson.toJson(this.getAlbaTaskList(aBean));
+		String albaTaskList = gson.toJson(this.getAlbaTaskListSelect(aBean));
 		System.out.println(albaTaskList);
 		mav.addObject("albaTaskList", albaTaskList);
 		
@@ -99,7 +98,7 @@ public class AlbaInquiery {
 		
 		
 		// 알바가 가진 매장 전체 조회
-		String albaTaskListCount = gson.toJson(this.getAlbaTaskListCount(aBean));
+		String albaTaskListCount = gson.toJson(this.getAlbaTaskListSelectCount(aBean));
 		System.out.println(albaTaskListCount);
 		mav.addObject("albaTaskListCount", albaTaskListCount);
 		
@@ -183,12 +182,7 @@ public class AlbaInquiery {
 	private ArrayList<AlbaBean> myAlbaZone(AlbaBean aBean) {
 		return mapperW.myAlbaZone(aBean);
 	}
-	
-		
-	private ArrayList<AlbaBean> getAlbaTaskList(AlbaBean aBean) {
-		
-		return mapperW.getAlbaTaskList(aBean);
-	}
+			
 	
 	private ArrayList<AlbaBean> getAlbaShopList(AlbaBean aBean) {
 		
@@ -200,10 +194,6 @@ public class AlbaInquiery {
 		return mapperW.getAlbaTaskListSelect(aBean);
 	}
 	
-	private int getAlbaTaskListCount(AlbaBean aBean) {
-		
-		return mapperW.getAlbaTaskListCount(aBean);
-	}
 	
 	private int getAlbaTaskListSelectCount(AlbaBean aBean) {
 		

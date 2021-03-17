@@ -143,6 +143,9 @@ public class ManagementInquiery {
 		        case "WhoWork" :
 		        	mav=this.whoWork(mBean);
 		        	break;
+		        case "ChangeAlbaList" :
+		        	mav=this.changeAlbaListCtl(mBean);
+		        	break;	
 				}
 				
 			}
@@ -162,6 +165,17 @@ public class ManagementInquiery {
 		return mav;
 	}
 	
+	private ModelAndView changeAlbaListCtl(ManageBean mBean) {
+		
+		mav = new ModelAndView();
+		
+		System.out.println("바뀐다 알바생 !!!" + gson.toJson(this.getAlbaList1(mBean)));
+		
+		mav.addObject("changeAlba", gson.toJson(this.getAlbaList1(mBean)));
+		
+		return mav;
+	}
+
 	private ModelAndView whoWork(ManageBean mBean) {
 		
 		mav = new ModelAndView();
@@ -172,8 +186,6 @@ public class ManagementInquiery {
 		System.out.println("그 일을 해야하는 알바생은 ?" + gson.toJson(this.workManList(mBean)));
 		
 		mav.addObject("workList", gson.toJson(this.workManList(mBean)));
-		
-		mav.setViewName("whoseWorkList");
 		
 		return mav;
 	}
@@ -336,7 +348,9 @@ public class ManagementInquiery {
 		String jsonCommuteList = gson.toJson(getAlbaList1(mBean));
 		
 		System.out.println("getAlbaList1:: " + jsonCommuteList);
+		
 		mav.addObject("albaListData",jsonCommuteList);
+		
 		return mav;
 	}
 	

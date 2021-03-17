@@ -46,36 +46,19 @@
 		FROM PAYGROUP INNER JOIN PD ON SHCODE = PD_PASHCODE AND ABCODE = PD_PAABCODE AND PANAME = PD_PANAME WHERE ABCODE=#{abCode}
 	</select>	
 	
-		
-	<!-- 알바가 가진 매장의 전체 업무리스트 가져오기 -->
-	<select id="getAlbaTaskList" resultType="icia.oap.beans.AlbaBean">
-		<![CDATA[
-			SELECT  MT_SHCODE AS SHCODE,
-			        SIA_ABCODE AS ABCODE,
-			        MT_TLNUMBER AS TLNUMBER,
-			        TL_COMMENT AS TLCOMMENT,
-			        MT_DETAIL AS MTDETAIL
-			FROM MT INNER JOIN TL ON MT.MT_TLNUMBER = TL.TL_NUMBER
-			        INNER JOIN SIA ON MT.MT_SHCODE = SIA.SIA_SHCODE
-			WHERE SIA_ABCODE = #{abCode}
-		]]> 
-	</select>
-	
 	<!-- 알바가 선택한 매장의 업무리스트 가져오기 -->
 	<select id="getAlbaTaskListSelect" resultType="icia.oap.beans.AlbaBean">
 		<![CDATA[
-			SELECT  
-			        MT_SHCODE AS SHCODE,
-			        SIA_ABCODE AS ABCODE,
-			        SH_NAME AS SHNAME,
-			        MT_TLNUMBER AS TLNUMBER,
-			        TL_COMMENT AS TLCOMMENT,
-			        MT_DETAIL AS MTDETAIL
-			        
-			FROM MT INNER JOIN TL ON MT.MT_TLNUMBER = TL.TL_NUMBER
-			        INNER JOIN SIA ON MT.MT_SHCODE = SIA.SIA_SHCODE
-			        INNER JOIN SH ON MT.MT_SHCODE = SH.SH_CODE
-			WHERE MT_SHCODE = #{shCode} AND SIA_ABCODE = #{abCode}
+		
+		SELECT  MTD_MTSHCODE AS SHCODE,
+				SH_NAME AS SHNAME,
+		        MTD_MTTLNUMBER AS TLNUMBER,
+		        TL_COMMENT AS TLCOMMENT,
+		        MTD_MTDETAIL AS MTDETAIL,
+		        MTD_ABCODE AS ABCODE
+		FROM MTD INNER JOIN TL ON MTD.MTD_MTTLNUMBER = TL.TL_NUMBER
+				 INNER JOIN SH ON MTD.MTD_MTSHCODE = SH.SH_CODE
+		WHERE MTD_ABCODE = #{abCode} AND MTD_MTSHCODE = #{shCode}
 		]]> 
 	</select>
 	
@@ -89,29 +72,14 @@
 		]]> 
 	</select>
 	
-	<!-- 알바가 다니는 매장의 전체 업무 COUNT 하기 -->
-	<select id="getAlbaTaskListCount" resultType="int">
-		<![CDATA[
-			SELECT  
-			       COUNT(*)
-			        
-			FROM MT INNER JOIN TL ON MT.MT_TLNUMBER = TL.TL_NUMBER
-			        INNER JOIN SIA ON MT.MT_SHCODE = SIA.SIA_SHCODE
-			WHERE SIA_ABCODE = #{abCode}
-		]]> 
-	</select>
-	
 	<!-- 알바가 선택한 매장의 업무 COUNT 하기 -->
 	<select id="getAlbaTaskListSelectCount" resultType="int">
 		<![CDATA[
-			SELECT  
-			       COUNT(*)
-			        
-			FROM MT INNER JOIN TL ON MT.MT_TLNUMBER = TL.TL_NUMBER
-			        INNER JOIN SIA ON MT.MT_SHCODE = SIA.SIA_SHCODE
-			WHERE MT_SHCODE = #{shCode} AND SIA_ABCODE = #{abCode}
+			SELECT  COUNT(*)
+			FROM MTD
+			WHERE MTD_ABCODE = #{abCode} AND MTD_MTSHCODE = #{shCode}
 		]]> 
-	</select>		
+	</select>	
 
 	<select id="albaInclueShopInfo" resultType="icia.oap.beans.AlbaBean">
 		SELECT SIA_ABCODE AS "ABCODE",

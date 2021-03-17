@@ -14,8 +14,10 @@
 	
 	</div>
 	
-	<div id="detail">
+	<div class="taskListAdd" id="taskListAdd" onClick="taskListAdd()"><a href="#" class="button">업무 추가하기</a></div>
 	
+	<div id="detail">
+		
 		
 	</div>
 	
@@ -80,7 +82,7 @@
 		zone.appendChild(name);
 		
 		for(index = 0 ; index<param.length ; index++){
-			
+			let indexTest = index;
 			var dv = document.createElement("Div");
 			dv.className = "detail-content";
 			var cont = document.createTextNode(index+1+" . "+param[index].mtDetail.replaceAll("+"," "));
@@ -88,27 +90,94 @@
 			dv.addEventListener('click',function(){
 				openInfo(param);
 			});
-			zone.appendChild(dv);
+			
+	        var line = document.createElement("Div");
+			line.className="alba-line";
+			line.setAttribute("id","lineTest" + indexTest);
+			
+			
+			
+			/*------------ Ajax 처리 ( 해당하는 상세내용에 의해 해당 알바생 리스트를 가져옴) ----------*/
+			
+			var shcode = param[index].shCode;
+			var tlNumber = param[index].tlNumber;
+			var mtDetail = param[index].mtDetail.replaceAll("+"," ");
+			
+			 let request = new XMLHttpRequest();
+			 request.onreadystatechange = function(){
+			    if(this.readyState == 4 && this.status == 200){
+			       let jsond = decodeURIComponent(request.response);
+			       let albaD = JSON.parse(jsond);
+			       
+			       for(i = 0 ; i<albaD.length ; i++){
+			    	   
+			    	   let li = document.getElementById("lineTest"+indexTest);
+			    	   
+						// 해당하는 알바생의 수 만큼 동적으로 만들어져야하므로 for문을 돌림 
+						let flex = document.createElement("Div");
+						flex.className="alba-flex";
+						let imageBox = document.createElement("Div");
+						imageBox.className="content-image";
+						let image = document.createElement("Img");
+						image.src="/resources/img/"+albaD[i].abGender + ".png";
+						image.setAttribute("style","width:50px;height:50px;");
+						imageBox.appendChild(image);
+						flex.appendChild(imageBox);
+						let p1 = document.createElement("p");
+						p1.className="alba-test";
+						let nText = document.createTextNode(albaD[i].abName);
+						p1.appendChild(nText);
+						flex.appendChild(p1);
+						li.appendChild(flex);
+			       }
+			 		      
+			    }
+			    
+			 };
+			 
+			 request.open("POST", "WhoWork" , true);
+			 request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+			 request.send("shCode=" + shcode + "&tlNumber=" + tlNumber + "&mtDetail=" + mtDetail);
+			
+			 
+			 zone.appendChild(dv);
+			 zone.appendChild(line);
+			
 		}
 	}
 	
-	
-	// workInfo  >>  shcode  ,  tlNumber , tlComment , mtDetail   
-	function openInfo(workInfo){
-		
-		var shcode = workInfo[0].shCode;
-		var tlNumber = workInfo[0].tlNumber;
-		var mtDetail = workInfo[0].mtDetail.replaceAll("+"," ");
-		alert(shcode + " :: " + tlNumber + " :: " + mtDetail);
-		
-		var popupX = (window.screen.width / 2) - (850 / 2);
-		// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
 
-		var popupY= (window.screen.height / 2) - (250 / 2) - 100;
-		// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+	function taskListAdd(){
+		
+		var shCode = $("#shopSelect option:selected").val();
+		
+		window.open("","pop","width=640,height=380,left=600,top=1500,toolbar=no,status=no,resizable=no");
+		
+		var form = document.createElement("form");
+		form.method="post";
+		form.action="/WorkAdd";
+		form.target="pop";
+		
+		var inputData = document.createElement("input");
+		inputData.type="hidden";
+		inputData.name="shCode";
+		inputData.value=shCode;
+		form.appendChild(inputData);
+			
+		var inputData2 = document.createElement("input");
+		inputData2.type="hidden";
+		inputData2.name="mnCode";
+		inputData2.value=mnCode;
+		form.appendChild(inputData2);
 
-		window.open("/WhoWork?shCode=" + shcode + "&tlNumber=" + tlNumber + "&mtDetail=" + mtDetail , "target", "width=850,height=250,left=" + popupX + ",top=" + popupY + ",toolbar=no,status=no,resizable=no");
+		
+		document.body.appendChild(form);
+		
+		form.submit();
+		
+
 	}
+	
 	
 </script>
 </html>

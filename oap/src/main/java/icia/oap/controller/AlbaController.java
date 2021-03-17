@@ -66,13 +66,15 @@ public class AlbaController {
 	public ModelAndView albaTaskList(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
 		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		aBean.setAbCode("100000001");
+		aBean.setShCode("100000002");
 		return aInquiery.entrance(aBean);
 	}
 	
 	// 알바가 선택한 매장의 업무리스트 조회
 	@RequestMapping(value = "/AlbaTaskListSelect", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public String albaTaskListSelect(@ModelAttribute AlbaBean aBean) throws UnsupportedEncodingException {
+	public String albaTaskListSelect(@ModelAttribute AlbaBean aBean,HttpServletRequest req) throws UnsupportedEncodingException {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		System.out.println("aBean.getAbCode()::"+aBean.getAbCode());
 		System.out.println("aBean.getShCode()::"+aBean.getShCode());
 		mav = aInquiery.entrance(aBean);

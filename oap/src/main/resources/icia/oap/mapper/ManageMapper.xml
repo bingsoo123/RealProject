@@ -386,6 +386,13 @@
 		]]> 
 	</insert>
 	
+	<!-- 업무추가 최종 insert 하기 -->
+	<insert id="workAddDetail">
+		<![CDATA[
+			INSERT INTO MTD(MTD_MTSHCODE,MTD_MTTLNUMBER,MTD_MTDETAIL,MTD_ABCODE) VALUES(#{shCode},#{tlNumber},#{mtDetail},#{abCode})
+		]]> 
+	</insert>	
+	
 	<!-- 업무수정 최종 update 하기 -->
 	<update id="change">
 		<![CDATA[
@@ -401,7 +408,7 @@
 		<![CDATA[
 			DELETE FROM MT
 			WHERE MT_SHCODE = #{shCode} AND MT_TLNUMBER = #{tlNumber} AND MT_DETAIL = #{mtDetail}
-		]]> 
+		]]>
 	</delete>
 	
 	<insert id="inspaylist1">

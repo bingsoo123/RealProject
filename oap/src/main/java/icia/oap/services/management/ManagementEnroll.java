@@ -14,6 +14,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import icia.oap.beans.ManageBean;
 import icia.oap.mapper.ManageMapper;
@@ -233,10 +234,21 @@ public class ManagementEnroll {
 		System.out.println(tlComment);
 		mav.addObject("commentData", tlComment);
 		
+		mBean.setShCode(this.selectName(mBean).get(0).getShCode());
+		
+		mav.addObject("workAlbaList", gson.toJson(this.getAlbaList(mBean)));
+		System.out.println("업무추가 > 이매장에서 일하는 알바생 ?" + gson.toJson(this.getAlbaList(mBean)));
+		
 		mav.setViewName("addWork");
 		return mav;
 	}
 	
+
+
+	private ArrayList<ManageBean> getAlbaList(ManageBean mBean) {
+		return mapperM.getAlbaList1(mBean);
+	}
+
 	private ArrayList<ManageBean> selectName(ManageBean mBean) {
 		return mapperM.getNameData(mBean);
 	}
@@ -252,10 +264,29 @@ public class ManagementEnroll {
 	private ModelAndView workAddCompleteCtl(ManageBean mBean) {
 		
 		mav = new ModelAndView();
-		mav.addObject("test",this.workAddComplete(mBean));
+
+		TransactionStatus status = tran.getTransaction(new DefaultTransactionDefinition());
+		
+		if(this.workAddComplete(mBean)) {
+			
+			System.out.println("MT테이블 인서트 완료");
+			
+			if(this.workAddDetail(mBean)) {
+				
+				System.out.println("MTD까지 인서트완료");
+				
+				tran.commit(status);
+				
+			}
+		}
+		
 		return mav;
 	}
 	
+	private boolean workAddDetail(ManageBean mBean) {
+		return this.convertToBoolean(mapperM.workAddDetail(mBean));
+	}
+
 	// 업무추가 입력후  추가하기 버튼 
 	private boolean workAddComplete(ManageBean mBean) {
 		

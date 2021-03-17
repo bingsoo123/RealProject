@@ -4,13 +4,13 @@
 	width:300px;
 	height:45px;
 	position: relative;
-    left: 600px;
+    left: 330px;
     margin: 10px;
 }
 
 #taskBoxDiv{
 	position: relative;
-    left: 400px;
+    left: 100px;
     margin: 10px;
 }
 
@@ -61,13 +61,11 @@
 }
 
 .taskBox {
-	border: 1px solid #BBBBBB;
-	width: 700px;
+	border-bottom: 1px solid #BBBBBB;
+	width: 500px;
 	height: 35px;
 	margin: 15px 10px;
 	padding: 10px;
-	border-radius: 5px;
-	background-color:#FFFFCC;
 }
 
 .timeTask {
@@ -77,11 +75,10 @@
 }
 
 .chooseTime {
-	border: 1px solid #BBBBBB;
-	border-radius: 3px;
+	border: 2px solid #FEE300;
+	border-radius: 10px;
 	padding: 7px;
 	font-weight: bold;
-	background-color:#FFFF99;
 	display:inline-block;
 	margin: 0 10px;
 }

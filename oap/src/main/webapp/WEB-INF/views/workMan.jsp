@@ -47,6 +47,7 @@
 	
 	var lCode="${lCode}";
 	
+	
 	var popupWidth = 690;
 	var popupHeight = 590;
 
