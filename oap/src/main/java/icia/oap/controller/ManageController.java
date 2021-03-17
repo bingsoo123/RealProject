@@ -355,7 +355,7 @@ public class ManageController {
 	@RequestMapping(value = "/DayWork", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public String dayWork(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
-		System.out.println("shCode >" + mBean.getShCode() + "stCode =>" + mBean.getStCode() );
+		System.out.println("shCode >" + mBean.getShCode() + "stCode =>" + mBean.getStCode());
 		mav = mInquiery.entrance(mBean);
 		return URLEncoder.encode(mav.getModel().get("workList").toString(), "UTF-8");
 	}
@@ -377,6 +377,14 @@ public class ManageController {
 		mBean.setSCode("WhoWork");
 		System.out.println("WhoWork 도착 @@@@@@@@@@@@@@");
 		return URLEncoder.encode(mInquiery.entrance(mBean).getModel().get("workList").toString(),"UTF-8");
+	}
+	
+	
+	// 근로 계약서 - 해당 매장에 잇는 알바생들의 근로 계약서 리스트 보여짐
+	@RequestMapping(value = "/SerachWorkList", method = RequestMethod.GET)
+	public ModelAndView searchWorkList(@ModelAttribute ManageBean mBean) {
+		System.out.println("sCode >>" + mBean.getSCode() + "shCode >>" + mBean.getShCode() + "abCode >>" + mBean.getAbCode() + "selectDate=" + mBean.getSelectData());
+		return mInquiery.entrance(mBean);
 	}
 
 	/* ------------------------- 관리자 - 등록 ------------------------- */

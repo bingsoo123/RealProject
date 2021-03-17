@@ -33,22 +33,24 @@
 			
 			var serDiv = document.createElement('Div');
 			var img = document.createElement('img');
-			var h1 = document.createElement('h2');
+			var h1 = document.createElement('div');
 			var text = document.createTextNode(list[i].shName);
+			h1.className="officerTitle";
 			h1.appendChild(text);
-			var h2 = document.createElement('h4');
-			var text2 = document.createTextNode("업종 :" + list[i].shType);
+			var h2 = document.createElement('div');
+			var text2 = document.createTextNode(list[i].shType);
 			h2.className="oname";
 			h2.appendChild(text2);
-			var h3 = document.createElement('h4');
-			var text3 = document.createTextNode("근무시간 :" + list[i].startTime + "~" + list[i].endTime);
+			var h3 = document.createElement('div');
+			var text3 = document.createTextNode("근무시간 : " + list[i].startTime + " ~ " + list[i].endTime);
 			h3.className="omember";
 			h3.appendChild(text3);
 			
 			
 			img.src="/resources/img/mac.jpg";
 			img.style.cursor = "pointer";
-			img.style.width = "140px";
+			img.style.width = "100px";
+			img.style.marginTop = "20px";
 			serDiv.appendChild(img);
 			serDiv.className="offimg";
 						

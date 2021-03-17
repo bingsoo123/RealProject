@@ -193,12 +193,14 @@
 	
 	function workLog(){
 		menuIndex = "workLog";
+		var shCode = $("#shopSelect option:selected").val();
 		$.ajax({
 			type : "POST",
-			url : "/Log",
+			url : "/WorkLog?shCode="+shCode,
 			dataType : "html",
 			success : function(data) {
 				$(".test3").html(data);
+				Loader();
 			}
 		});
 		

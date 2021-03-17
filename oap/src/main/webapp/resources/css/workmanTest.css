@@ -65,8 +65,14 @@ body {
 }
 
 .list img{
+	border : 1px solid #C6C6C5;
 	position : relative;
 	width: 100%;
+}
+
+
+.list_active{
+	border : 10px solid red;
 }
 
 .list img:last-child{
@@ -76,11 +82,11 @@ body {
 	display:none;
 } 	
 .list:hover img:last-child{
-	border : 1px solid #C6C6C5;
 	display:inline-block;
 }
 
 .list:focus img{
+	border : 3px solid #red;
 	display:inline-block;
 }
 

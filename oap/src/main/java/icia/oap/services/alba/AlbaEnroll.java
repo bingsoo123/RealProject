@@ -31,6 +31,11 @@ public class AlbaEnroll {
 
 		switch (aBean.getAction()) {
 
+		//지원 완료
+		case "albaApplyComplete" :
+			mav = this.albaApplyCompleteCtl(aBean);
+			break;
+		
 		case "StartMoney":
 			mav = this.startMoney(aBean);   // 시제 작성 후 전송하기 버튼 클릭
 			break;
@@ -44,6 +49,28 @@ public class AlbaEnroll {
 		}
 
 		return mav;
+	}
+	
+	private ModelAndView albaApplyCompleteCtl(AlbaBean aBean) {
+		mav = new ModelAndView();
+		
+		int insertState = 0;
+		
+		if(this.albaApplyComplete(aBean)) {
+			insertState = 1;
+		}
+		
+		mav.addObject("insertState", insertState);
+		
+		return mav;
+	}
+	
+	private boolean albaApplyComplete(AlbaBean aBean) {
+		return this.convertToBoolean(mapperAB.albaApplyComplete(aBean));
+	}
+	
+	private boolean convertToBoolean(int data) {
+		return (data==1)?true:false;
 	}
 
 	private ModelAndView startWorkCtl(AlbaBean aBean) {
@@ -158,7 +185,7 @@ public class AlbaEnroll {
 //
 //		mav.addObject("message", message);
 
-		mav.setViewName("checkList");
+		mav.setViewName((aBean.getTCode().equals("start")) ?  "checkList" : "checkListForm");
 
 		return mav;
 	}

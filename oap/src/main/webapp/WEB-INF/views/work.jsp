@@ -72,6 +72,8 @@
 
 		$('#detail').empty();
 		
+		var shCode = $("#shopSelect option:selected").val();
+		
 		var zone = document.getElementById("detail");
 		
 		var name = document.createElement("Div");
@@ -110,6 +112,7 @@
 			       let albaD = JSON.parse(jsond);
 			       
 			       for(i = 0 ; i<albaD.length ; i++){
+			    	   let num = i;
 			    	   
 			    	   let li = document.getElementById("lineTest"+indexTest);
 			    	   
@@ -118,6 +121,10 @@
 						flex.className="alba-flex";
 						let imageBox = document.createElement("Div");
 						imageBox.className="content-image";
+						imageBox.style.cursor="pointer";
+						imageBox.addEventListener('click', function() {
+							albaInfoOpen(shCode,albaD[num].abCode);
+						});
 						let image = document.createElement("Img");
 						image.src="/resources/img/"+albaD[i].abGender + ".png";
 						image.setAttribute("style","width:50px;height:50px;");
@@ -177,7 +184,7 @@
 		
 
 	}
-	
+
 	
 </script>
 </html>

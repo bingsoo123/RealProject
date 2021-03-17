@@ -146,6 +146,9 @@ public class ManagementInquiery {
 		        case "ChangeAlbaList" :
 		        	mav=this.changeAlbaListCtl(mBean);
 		        	break;	
+		        case "SerachWorkList" :
+		        	mav = this.searchWorkListCtl(mBean);
+		        	break;
 				}
 				
 			}
@@ -165,6 +168,25 @@ public class ManagementInquiery {
 		return mav;
 	}
 	
+	private ModelAndView searchWorkListCtl(ManageBean mBean) {
+		
+		mav = new ModelAndView();
+		
+		// 선택된 녀석의 이번주 일정 리스트
+
+		mav.addObject("scheduleList", gson.toJson(this.serarchWorkList(mBean)));
+		
+		System.out.println("알바생이 일하는시간은 다음과같습니다>" + gson.toJson(this.serarchWorkList(mBean)));
+		
+		mav.setViewName("scheduleList");
+		
+		return mav;
+	}
+
+	private ArrayList<ManageBean> serarchWorkList(ManageBean mBean) {
+		return mapperM.getSearchWork(mBean);
+	}
+
 	private ModelAndView changeAlbaListCtl(ManageBean mBean) {
 		
 		mav = new ModelAndView();
@@ -634,7 +656,11 @@ public class ManagementInquiery {
 		
 		mav = new ModelAndView();
 		
+		System.out.println("근무일지 클릭시 넘어오는 매장코드?" + mBean.getShCode());
 		
+		mav.addObject("shCode", mBean.getShCode());
+		
+		mav.setViewName("diary");
 		
 		return mav;
 	}
@@ -645,15 +671,15 @@ public class ManagementInquiery {
 	
 	private ModelAndView logDetailCtl(ManageBean mBean) {
 		
-		ModelAndView mav = new ModelAndView();
-		String jsonData = gson.toJson(this.getLogList(mBean));
+//		ModelAndView mav = new ModelAndView();
+//		String jsonData = gson.toJson(this.getLogList(mBean));
+//		
+//		
+//		ArrayList<ManageBean> mbTest = new ArrayList<ManageBean>();
+//		mbTest = this.getLogList(mBean);
+//		mav.addObject("Log", jsonData);
 		
-		
-		ArrayList<ManageBean> mbTest = new ArrayList<ManageBean>();
-		mbTest = this.getLogList(mBean);
-		mav.addObject("Log", jsonData);
-		
-		System.out.println(jsonData);
+//		System.out.println(jsonData);
 		
 		
 		mav.setViewName("workDiary");

@@ -105,7 +105,7 @@
 		
 		     let request = new XMLHttpRequest();
 		     request.onreadystatechange = function(){
-		        if(this.readyState == 4 || this.status == 200){
+		        if(this.readyState == 4 && this.status == 200){
 		           alert("업무 추가가 완료 되었습니다.");
 		           $('#mtDetail').val('');
 		           }
@@ -117,18 +117,19 @@
 	}
 
 	function onChangeAlba() {
-
+		
+		alert("1212");
 		let shCode = $("#name option:selected").val();
 		let selectWorkMan = document.getElementById('select-workMan');
 		
 		
 	    let request = new XMLHttpRequest();
 	    request.onreadystatechange = function(){
-	   		if(this.readyState == 4 || this.status == 200){
+	   		if(this.readyState == 4 && this.status == 200){
 			    let jsonData = decodeURIComponent(request.response);
 			    let changeAlba = JSON.parse(jsonData);
-			    
 	   			$('#select-workMan').empty();
+	   			alert(changeAlba.length);
 	   			
 	   			for(index = 0 ; index < changeAlba.length ; index++){
 						   				

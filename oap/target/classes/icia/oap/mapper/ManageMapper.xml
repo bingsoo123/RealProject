@@ -508,6 +508,23 @@
    ]]>
    </select>	
    
+   
+   <select id="getSearchWork" resultType="icia.oap.beans.ManageBean">
+   <![CDATA[
+   	  SELECT  SC_SIASHCODE AS SHCODE,
+        SC_SIAABCODE AS ABCODE,
+        AB_NAME AS ABNAME,
+        AB_GENDER AS ABGENDER,
+        SC_STARTTIME AS STARTTIME,
+        SC_ENDTIME AS ENDTIME,
+        SC_STCODE AS STCODE,
+        ST_COMMENT AS STCOMMENT
+		FROM SC INNER JOIN AB ON SC_SIAABCODE = AB_CODE
+		        INNER JOIN ST ON SC_STCODE = ST_CODE
+		WHERE SC_SIASHCODE=#{shCode} AND SC_SIAABCODE=#{abCode}
+   ]]>
+   </select>
+   
 
 		<!-- SIA 테이블 Delete 관련 메서드#{shCode} , #{abCode} -->
 	

@@ -97,7 +97,115 @@
 		FROM AB
 		WHERE AB_CODE = #{abCode}
 	</select>
-		
+
+
+	<!--  알바 지원에서내가 선택한 회사에 지원했을떄 계좌 수정하기위한  나의 정보에서 -->
+	<select id="albaApplyShopMyInfo" resultType="icia.oap.beans.AlbaBean">
+		SELECT SS_SHCODE AS "SHCODE",
+		       SS_ABCODE AS "ABCODE",
+		       SS_BANKNAME AS "SSBANKNAME",
+		       SS_ACCOUNT AS "SSACCOUNT",
+		       AB_NAME AS "ABNAME",
+		       AB_PHONE AS "ABPHONE",
+		       AB_BIRTH AS "ABBIRTH",
+		       AB_ADDR AS "ABADDR",
+		       AB_EMAIL AS "ABEMAIL",
+		       AB_GENDER AS "ABGENDER",
+		       AC_BANKNAME AS "ACBANKNAME",
+		       AC_ACCOUNT AS "ACACCOUNT"
+		FROM SS INNER JOIN AB ON SS.SS_ABCODE = AB.AB_CODE
+		        INNER JOIN AC ON AB.AB_CODE = AC.AC_ABCODE
+		WHERE SS_SHCODE = #{shCode} AND SS_ABCODE=#{abCode}
+	</select>
+
+
+	<!--  내가 지원한 매장리스트에서 계좌 수정 -->
+	<update id="albaApplyMyAccountUpdate">
+	<![CDATA[
+		UPDATE SS
+		SET SS_BANKNAME= #{acBankName},  SS_ACCOUNT = #{acAccount}
+		WHERE SS_SHCODE = #{shCode} AND SS_ABCODE=#{abCode}
+		]]> 
+	</update>
+	<!-- 내가 지원한 매장 리스트에서 선택해서 삭제 (지원취소) -->
+	<delete id="albaApplyDelete">
+	<![CDATA[
+		DELETE FROM SS 
+		WHERE SS_SHCODE = #{shCode} AND SS_ABCODE=#{abCode}
+	]]>
+	</delete>
+
+
+	<!-- 내가 지원한 매장 리스트 -->
+	<select id="albaApplyMyShopInquiry" resultType="icia.oap.beans.AlbaBean">
+		SELECT SS_SHCODE AS "SHCODE",
+		       SS_ABCODE AS "ABCODE",
+		       SH_NAME AS "SHNAME",
+		       SH_TYPE AS "SHTYPE",
+			   SH_ADDR AS "SHADDR",
+			   SH_TEL AS "SHTEL",
+		       SH_IMG AS "SHIMG"
+		FROM SS INNER JOIN SH ON SS.SS_SHCODE = SH.SH_CODE
+		WHERE SS_ABCODE = #{abCode}
+	</select>
+	
+
+
+	<!-- 내가 이 매장에 이미 지원했는지 체크. -->
+	<select id="albaApplyAlreadyCheck" resultType="int">
+		SELECT COUNT(*)
+		FROM SS 
+		WHERE SS_SHCODE = #{shCode} AND SS_ABCODE = #{abCode}
+	</select>
+
+
+	<!-- 알바가 매장에 지원할떄 insert --> 
+     <insert id="albaApplyComplete">
+		INSERT INTO SS(SS_SHCODE,SS_ABCODE,SS_BANKNAME,SS_ACCOUNT,SS_TIME)
+	    VALUES(#{shCode}, #{abCode}, #{acBankName},#{acAccount}, DEFAULT)  
+	</insert>
+
+
+	<!--  알바 지원에서내가 선택한 회사에 지원했을떄 회사 상세 정보.-->
+	<select id="albaApplyShopDetailInfo" resultType="icia.oap.beans.AlbaBean">
+		SELECT SH_CODE AS "SHCODE",
+		       SH_TYPE AS "SHTYPE",
+		       SH_NAME AS "SHNAME",
+		       SH_ADDR AS "SHADDR",
+		       SH_TEL AS "SHTEL",
+		       MN_NAME AS "MNNAME",
+		       MN_PHONE AS "MNPHONE",
+		       SH_IMG AS "SHIMG"
+		FROM SH INNER JOIN MN ON SH.SH_MNCODE = MN.MN_CODE
+		WHERE SH_CODE = #{shCode}
+	</select>
+
+	<!--  알바 지원에서내가 선택한 회사에 지원했을떄 나의 정보.-->
+	<select id="albaApplyMyInfo" resultType="icia.oap.beans.AlbaBean">
+		SELECT AB_CODE AS "ABCODE",
+		       AB_NAME AS "ABNAME",
+		       AB_PHONE AS "ABPHONE",
+		       AB_BIRTH AS "ABBIRTH",
+		       AB_ADDR AS "ABADDR",
+		       AB_EMAIL AS "ABEMAIL",
+		       AB_GENDER AS "ABGENDER",
+		       AC_BANKNAME AS "ACBANKNAME",
+		       AC_ACCOUNT AS "ACACCOUNT"
+		FROM AB INNER JOIN AC ON AB.AB_CODE = AC.AC_ABCODE
+		WHERE AB_CODE = #{abCode}
+	</select>
+
+
+
+	<select id="albaApplyShopInfo" resultType="icia.oap.beans.AlbaBean">
+		SELECT SH_CODE AS "SHCODE",
+		       SH_NAME AS "SHNAME",
+		       SH_TYPE AS "SHTYPE",
+		       SH_ADDR AS "SHADDR",
+		       SH_TEL AS "SHTEL"
+		FROM SH
+	</select>	
+			
 </mapper>	
 
 

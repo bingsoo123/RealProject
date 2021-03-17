@@ -30,7 +30,6 @@
 			let albaShopList= JSON.parse('${albaShopList}');
 			//console.log(albaShopList);
 			
-			
 				for(i = 0; i < albaShopList.length; i++){
 					let selectShCode = document.getElementById("selectShCode");
 					
@@ -116,7 +115,7 @@
 		
 		var taskInfo;
 		function selectShCode(){
-			let shCode = document.getElementById("selectShCode").value;
+			let shCode = $("#shop_select_box option:selected").val()
 			let abCode = "100000000";
 			//console.log(shCode);
 			//console.log(abCode);

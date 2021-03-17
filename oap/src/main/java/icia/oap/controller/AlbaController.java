@@ -65,8 +65,7 @@ public class AlbaController {
 	@RequestMapping(value = "/AlbaTaskList", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView albaTaskList(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
 		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
-		aBean.setAbCode("100000001");
-		aBean.setShCode("100000002");
+		System.out.println("알바코드>" + aBean.getAbCode() + ":매장코드:" + aBean.getShCode());
 		return aInquiery.entrance(aBean);
 	}
 	
@@ -128,6 +127,48 @@ public class AlbaController {
 	}
 	
 	
+	@RequestMapping(value = "/albaApplyShopMyInfo", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String albaApplyShopMyInfo(@ModelAttribute AlbaBean aBean) throws UnsupportedEncodingException {
+		mav = aInquiery.entrance(aBean);
+		return URLEncoder.encode(mav.getModel().get("albaApplyMyInfo").toString(),"UTF-8");
+	}
+	
+	// 내가 지원한 매장 정보
+	@RequestMapping(value = "/albaApplyMyShopInquiry", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String albaApplyMyShopInquiry(@ModelAttribute AlbaBean aBean) throws UnsupportedEncodingException {
+		mav = aInquiery.entrance(aBean);
+		return URLEncoder.encode(mav.getModel().get("applyMyShopInfo").toString(),"UTF-8");
+	}
+	
+	// 알바지원, 눌렀을때 그 회사 디테일 정보 
+	@RequestMapping(value = "/albaApplyShopDetailInfo", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView albaApplyShopDetailInfo(@ModelAttribute AlbaBean aBean) {
+		return aInquiery.entrance(aBean);
+	}
+	
+	
+	//albaApplyMyInfo
+	//알바지원.. 내가 지원하고 싶은 회사 눌렀을때 나의 정보 뜨는것. (지원 전)  
+	@RequestMapping(value = "/albaApplyMyInfo", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String albaApplyMyInfo(@ModelAttribute AlbaBean aBean) throws UnsupportedEncodingException {
+		mav = aInquiery.entrance(aBean);
+		return URLEncoder.encode(mav.getModel().get("albaMyInfo").toString(),"UTF-8");
+	}
+	
+	/////////////// 
+	// 로그인했을때 알바생이 알바를 하고있는 매장들 select box에 담고, 자기 이름 정보 가져오기.
+	// 만약 알바를 하고 있지않다면 자기 정보만 가져와서 출력하게함.
+	@RequestMapping(value = "/albaApply", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String albaApply(@ModelAttribute AlbaBean aBean) throws UnsupportedEncodingException {
+		mav = aInquiery.entrance(aBean);
+		return URLEncoder.encode(mav.getModel().get("albaApplyShopInfo").toString(),"UTF-8");
+	}
+	
+	
 	/* ---------------------------------- 알바생 - 등록  ---------------------------------- */
 	
 	// 알바생 일정 관리  -  알바생이 자신이 일하는 알바에대한 일정을 관리
@@ -161,6 +202,14 @@ public class AlbaController {
 		return aEnroll.entrance(aBean);
 	}
 	
+	// 알바 지원 성공. (인서트 구문) albaApplyComplete
+	@RequestMapping(value = "/albaApplyComplete", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String albaApplyComplete(@ModelAttribute AlbaBean aBean) throws UnsupportedEncodingException {
+		mav = aEnroll.entrance(aBean);
+		return URLEncoder.encode(mav.getModel().get("insertState").toString(),"UTF-8");
+	}
+	
 	
 	
 	
@@ -184,8 +233,21 @@ public class AlbaController {
 		return aModify.entrance(aBean);
 	}
 	
+	@RequestMapping(value = "/albaApplyMyAccountUpdate", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String albaApplyMyAccountUpdate(@ModelAttribute AlbaBean aBean) throws UnsupportedEncodingException {
+		mav = aModify.entrance(aBean);
+		return URLEncoder.encode(mav.getModel().get("albaApplyUpdate").toString(),"UTF-8");
+	}
 	
 	
+	// 지원 취소
+	@RequestMapping(value = "/albaApplyDelete", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String albaApplyDelete(@ModelAttribute AlbaBean aBean) throws UnsupportedEncodingException {
+		mav = aModify.entrance(aBean);
+		return URLEncoder.encode(mav.getModel().get("albaApplyDelete").toString(),"UTF-8");
+	}
 	
 }
 

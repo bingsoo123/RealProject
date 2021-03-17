@@ -45,11 +45,120 @@ public class AlbaInquiery {
 		case "albaInclueShopInfo" : 
 			mav = this.albaInclueShopInfoCtl(aBean);
 			break;	
-			
-		}
+		// 내가 지원한 매장, 계좌 수정하려고 내 정보 띄워주는것. ss 테이블에 있는 계좌 추가.
+		case "albaApplyShopMyInfo":
+			mav = this.albaApplyShopMyInfoCtl(aBean);
+			break;
 		
+		// 알바 지원 . 내가 지원한 매장 정보들
+		case "albaApplyMyShopInquiry":
+			mav = this.albaApplyMyShopInquiryCtl(aBean);
+			break;
+		
+		// 선택했을때 내가 이미 지원한 매장이냐? 아니면 매장 상세정보 띄워주기
+		case "albaApplyShopDetailInfo":
+			mav = this.albaApplyShopDetailInfoCtl(aBean);
+			break;
+		// 상세 정보 보여주고 내가 지원할거면 내 정보 (계좌 선택할수있는 창)
+		case "albaApplyMyInfo":
+			mav = this.albaApplyMyInfoCtl(aBean);
+			break;
+		
+		case "albaApply":
+			mav = this.albaApplyCtl(aBean);
+			break;
+		//
+		}
+		return mav;
+	}
+	
+	// 알바지원, 계좌 수정하려고..
+	
+	private ModelAndView albaApplyShopMyInfoCtl(AlbaBean aBean) {
+		mav = new ModelAndView();
+		String shopInfo = gson.toJson(this.albaApplyShopMyInfo(aBean));
+		mav.addObject("albaApplyMyInfo", shopInfo);
+		return mav;
+	}
+	
+	public ArrayList<AlbaBean> albaApplyShopMyInfo(AlbaBean aBean){
+		return mapperW.albaApplyShopMyInfo(aBean);
+	}
+	
+	
+	
+	// 내가 지원한 매장 리스트
+	private ModelAndView albaApplyMyShopInquiryCtl(AlbaBean aBean) {
+		mav = new ModelAndView();
+		String shopInfo = gson.toJson(this.albaApplyMyShopInquiry(aBean));
+		mav.addObject("applyMyShopInfo", shopInfo);
 		
 		return mav;
+	}
+	
+	public ArrayList<AlbaBean> albaApplyMyShopInquiry(AlbaBean aBean){
+		return mapperW.albaApplyMyShopInquiry(aBean);
+	}
+	
+	// 내가 지원할 매장 눌렀을때 이미 지원했으면 뜨고, 아니면 그 매장 상세 정보
+	private ModelAndView albaApplyShopDetailInfoCtl(AlbaBean aBean) {
+		mav = new ModelAndView();
+		String albaShopDetailInfo = "0";
+		int cnt = this.albaApplyAlreadyCheck(aBean);
+		// getApplyState = albaApplyShopInfo // 처음 전체 리스트
+        //                 myShopInquiry // 내가 지원한 알바 매장 리스트 디테일
+		String applyState = aBean.getApplyState();
+		if(cnt != 0 && applyState.equals("albaApplyShopInfo")) {
+			albaShopDetailInfo = gson.toJson("alreayApplyClose");
+		}else {
+			AlbaBean ab = this.albaApplyShopDetailInfo(aBean);
+			ab.setAbCode(aBean.getAbCode());
+			ab.setApplyState(applyState);
+			albaShopDetailInfo = gson.toJson(ab);
+		}
+		mav.addObject("albaShopDetailInfo", albaShopDetailInfo);
+		mav.setViewName("albaApply");
+		return mav;
+	}
+	
+	public int albaApplyAlreadyCheck(AlbaBean aBean) {
+		return mapperW.albaApplyAlreadyCheck(aBean);
+	}
+	
+	private AlbaBean albaApplyShopDetailInfo(AlbaBean aBean) {
+		return mapperW.albaApplyShopDetailInfo(aBean);
+	}
+	
+	// 매장에 지원한 
+	
+	
+	private ModelAndView albaApplyMyInfoCtl(AlbaBean aBean) {
+		mav = new ModelAndView();
+		
+		ArrayList<AlbaBean> ab = this.albaApplyMyInfo(aBean);
+		ab.get(0).setShCode(aBean.getShCode());
+		String albaMyInfo = gson.toJson(ab);
+		mav.addObject("albaMyInfo", albaMyInfo);
+		return mav;
+	}
+	
+	private ArrayList<AlbaBean> albaApplyMyInfo(AlbaBean aBean) {
+		return mapperW.albaApplyMyInfo(aBean);
+	}
+	
+	// 매장 지원 매장 리스트
+	private ModelAndView albaApplyCtl(AlbaBean aBean) {
+		mav = new ModelAndView();
+		
+		String shopInfo = gson.toJson(this.albaApplyShopInfo(aBean));
+		
+		mav.addObject("albaApplyShopInfo", shopInfo);
+		
+		return mav;
+	}
+	
+	private ArrayList<AlbaBean> albaApplyShopInfo(AlbaBean aBean) {
+		return mapperW.albaApplyShopInfo(aBean);
 	}
 	
 	private ModelAndView albaInclueShopInfoCtl(AlbaBean aBean) {
@@ -111,8 +220,6 @@ public class AlbaInquiery {
 	private ModelAndView albaTaskListSelect(AlbaBean aBean) {
 		mav = new ModelAndView();
 		
-		/* TaskWork Info & Convert to JSON */
-		
 		// 선택한 매장 업무리스트 조회
 		String albaTaskListSelect = gson.toJson(this.getAlbaTaskListSelect(aBean));
 		System.out.println(albaTaskListSelect);
@@ -122,7 +229,6 @@ public class AlbaInquiery {
 		// 선택한 매장의 업무 개수 조회
 		String albaTaskListCount = gson.toJson(this.getAlbaTaskListSelectCount(aBean));
 		System.out.println(albaTaskListCount);
-		// mav.addObject("albaTaskListSelectCount", albaTaskListCount);
 		albaTaskListSelect+= "_" + albaTaskListCount;
 		mav.addObject("albaTaskListSelect", albaTaskListSelect);
 		

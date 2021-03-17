@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap');
+body {
+	font-family: 'Noto Sans KR', sans-serif;
+	width: 100%;
+	height: 100%;
+}
+
+.weekSchedule{
+	width: 67%;
+	display: flex;
+	position : relative;
+	left : 17%;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-top: 7%;
+	border: 1px solid #C6C6C5;
+	border-radius: 20px;
+	text-align: center;
+}
+
+.scheduleList-top{
+	
+	display: flex;
+	align-items : center;
+	justify-content : center;
+	width: 100%;
+	margin-bottom: 20px;
+	
+}
+
+.schedule-Alba{
+	
+	margin-right: 15px;
+}
+
+.schedule-content{
+	
+	font-size: 20px;
+	color: #6D6D6D;
+}
+
+.scheduleList-bottom{
+	
+	width : 100%;
+	display: flex;
+	flex-direction: column;
+	
+}
+
+.schedule-when{
+	
+	margin-bottom: 30px;
+	font-size: 18px;
+	
+}
+
+
+.logo-img{
+	
+	width: 90px;
+	height: 90px;
+	position: absolute;
+	bottom: 6px;
+	right: 3px;	
+}
+
+

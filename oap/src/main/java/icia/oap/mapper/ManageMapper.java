@@ -83,6 +83,8 @@ public interface ManageMapper {
 	
 	public ArrayList<ManageBean> getWorkManList(ManageBean mBean);
 	
+	public ArrayList<ManageBean> getSearchWork(ManageBean mBean);
+	
 	//   Enroll       ( 등록 )
 
 	public int inspaylist1(ManageBean mBean);
@@ -141,6 +143,8 @@ public interface ManageMapper {
 	public int shopIncludeAlbaDelete(ManageBean mBean); // SIA 매장에 있는 알바생 정보
 	
 	public int managementDetailDelete(ManageBean mBean); // 업무 관리 디테일 정보
+	
+
 	
 
 

@@ -38,6 +38,21 @@ public class AlbaBean {
 	private String tlComment;
 	private String mtDetail;
 	
-	
+	//2021 03 16 추가한것
+	private String shAddr;
+	private String shTel;
+	private String abPhone;
+	private String abBirth;
+	private String abAddr;
+	private String abEmail;
+	private String abGender;
+	private String acBankName;
+	private String acAccount;
+	private String mnName;
+	private String mnPhone;
+	private String shImg;
+	private String applyState; // 알바 지원에서 지원할건지, 이미 지원한 회사들 정보를 클릭해서 볼때 분기
+	private String ssBankName;
+	private String ssAccount;
 	
 }
