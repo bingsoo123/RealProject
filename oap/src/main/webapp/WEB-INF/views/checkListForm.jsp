@@ -23,35 +23,13 @@
 					
 				</div>
 				
-				<div class="checkList-body">
-				
-					<div class="checkList-detail">
-					
-						<div class="detail-content">● 구석구석 먼지털고 청소하기</div>
-						<div class="detail-content">● 커피머신 내부 해체해서 청소하기</div>
-					
-					</div>
-					
-					<div class="checkList-True">
-					
-						<input class="trueCheck" type="checkbox" name="trueBox" value="T">
-						<input class="trueCheck" type="checkbox" name="trueBox" value="T">										
-
-					
-					</div>
-				
-					<div class="checkList-false">
-									
-						<input class="falseCheck" type="checkbox" name="falseeBox" value="F">
-						<input class="falseCheck" type="checkbox" name="falseeBox" value="F">
-					
-					</div>
-				
-				</div>
+				<button class="albaAdd_btn" onClick="transffer()">지원하기</button>
 				
 			</div>
 		
 		</div>
+		
+
 
 </body>
 
@@ -60,9 +38,50 @@
 	function check(){
 		
 		
+	}
+
+	function multiChk(obj){
+		
+		var checkTrue = document.getElementsByName("checkTrue");
+		var checkFalse = document.getElementsByName("checkFalse");
+		
+		for(var i=0; i<checkTrue.length; i++){
+			
+			if(checkTrue[i] == obj){
+				checkFalse[i].checked=false;
+			}else if(checkFalse[i] == obj){
+				checkTrue[i].checked=false;				
+			}
+			
+		}
+	}
+	
+	function transffer(){
+		
+		var test = document.getElementsByClassName("detail-content");
+		var checkTrue = document.getElementsByName("checkTrue");
+		var checkFalse = document.getElementsByName("checkFalse");
+		
+		alert("testValue" + test[0].innerText);
+		
+		
+		for (index=0 ; index < checkTrue.length ; index++){
+			
+			if(checkTrue[index].checked){
+				
+				alert(checkTrue[index].value);
+				
+			}else if(checkFalse[index].checked){
+				
+				alert(checkFalse[index].value);
+			}
+				
+		}
 		
 	}
 
 </script>
 
 </html>
+
+
