@@ -65,9 +65,6 @@
 		
 		</section>
 	</div>
-	
-	
-
 </body>
 <!-- 카카오 지도 api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c12ddaa519ac1f1f821e84ef032ac15d&libraries=services"></script>

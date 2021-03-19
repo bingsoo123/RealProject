@@ -125,6 +125,9 @@
 				if (this.readyState == 4 && this.status == 200) {
 					//alert("전송완료");
 					let jsonData = decodeURIComponent(request.response);
+			    	if(jsonData=="noSession"){
+			    		 location.href="/LogInForm?lCode=alba";
+			        }		
 					let jsonArr = jsonData.split("_");
 					taskInfo = JSON.parse(jsonArr[0]);
 					let taskIndex = jsonArr[1];

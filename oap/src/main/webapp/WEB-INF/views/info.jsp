@@ -134,6 +134,9 @@
 	    request.onreadystatechange = function() {
 	       if (this.readyState == 4 && this.status == 200) {
 	    	   let json = decodeURIComponent(request.response);
+		    	if(json=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 			  let test1 = JSON.parse(json);
 			   allData = test1;
 			   albaInfoList(test1);

@@ -246,6 +246,9 @@
 		 request.onreadystatechange = function(){
 		    if(this.readyState == 4 && this.status == 200){
 		       let jsonData = decodeURIComponent(request.response);
+		    	if(jsonData=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 		       let workDay = JSON.parse(jsonData);
 		       workManList(workDay,key);
 		    }

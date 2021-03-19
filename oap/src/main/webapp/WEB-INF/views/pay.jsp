@@ -118,17 +118,16 @@
 		var month = document.getElementById("box2").value;
 		let pay = JSON.parse('${jsonData}');
 		paName = year+month;
-		shCode = pay[0].shCode;
+		shCode = $("#shopSelect option:selected").val();
 		let request = new XMLHttpRequest();
 	    request.onreadystatechange = function() {
 	       if (this.readyState == 4 && this.status == 200) {
 	    	   let paySearch = decodeURIComponent(request.response);
-	    	   if(paySearch.equals("noSession")){
-	    		   alert("ok");
+	    	   if(paySearch=="noSession"){
 	    		   location.href="/LogInForm?lCode=manage";
 	    	   }
-	    	   let sPay = JSON.parse(paySearch);
-	    	   sView(sPay);
+		    	   let sPay = JSON.parse(paySearch);
+		    	   sView(sPay);
 	    	   
 	       }
 		}

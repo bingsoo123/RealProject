@@ -106,9 +106,13 @@
 		     let request = new XMLHttpRequest();
 		     request.onreadystatechange = function(){
 		        if(this.readyState == 4 && this.status == 200){
-		           alert("업무 추가가 완료 되었습니다.");
-		           $('#mtDetail').val('');
-		           }
+		        	let jsonData = decodeURIComponent(request.response);
+			    	if(jsonData=="noSession"){
+			    		 location.href="/LogInForm?lCode=manage";
+			        }		
+		            alert("업무 추가가 완료 되었습니다.");
+		            $('#mtDetail').val('');
+		            }
 			   };
 			request.open("POST", "WorkAddComplete", true);
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
@@ -127,6 +131,9 @@
 	    request.onreadystatechange = function(){
 	   		if(this.readyState == 4 && this.status == 200){
 			    let jsonData = decodeURIComponent(request.response);
+		    	if(jsonData=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 			    let changeAlba = JSON.parse(jsonData);
 	   			$('#select-workMan').empty();
 	   			alert(changeAlba.length);

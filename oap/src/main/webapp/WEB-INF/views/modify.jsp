@@ -372,6 +372,9 @@
 		request.onreadystatechange = function(){
 			if(this.readyState == 4 && this.status == 200){
 				let messageData = decodeURIComponent(request.response);
+		    	if(messageData=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 				let message = messageData.replace(/\+/g, " ");
 				console.log(message);
 				if(message != "") {
@@ -416,6 +419,9 @@
 		request.onreadystatechange = function(){
 			if(this.readyState == 4 && this.status == 200){
 				let messageData = decodeURIComponent(request.response);
+		    	if(messageData=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 				let message = messageData.replace(/\+/g, " ");
 				console.log(message);
 				if(message != "") {

@@ -106,6 +106,9 @@
 	    request.onreadystatechange = function() {
 	       if (this.readyState == 4 && this.status == 200) {
 	    	   let insPayState = decodeURIComponent(request.response);
+		    	if(insPayState=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 	    	   console.log(insPayState);
 	    	   if(insPayState == "1"){
 	    		   alert("정상적으로 명세서를 등록하였습니다.");
@@ -144,7 +147,9 @@
 	    request.onreadystatechange = function() {
 	       if (this.readyState == 4 && this.status == 200) {
 	    	   let jsondata = decodeURIComponent(request.response);
-	    	   
+		    	if(jsonData=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 			   let test = JSON.parse(jsondata);
 			   allData = test;
 			   shopNameInfo(test);
@@ -261,7 +266,9 @@
 		request.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				let jdats = decodeURIComponent(request.response);
-
+		    	if(jdats=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 				twogab = jdats.split("-");
 				let text3 = document.getElementById('text3');
 				text3.value = twogab[0];

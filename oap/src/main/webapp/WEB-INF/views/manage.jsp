@@ -75,8 +75,16 @@
 	    request.onreadystatechange = function() {
 	       if (this.readyState == 4 && this.status == 200) {
 	    	   let json = decodeURIComponent(request.response);
+	    	   if(json=="noSession"){
+	    		    location.href="/LogInForm?lCode=manage";
+	    	   }		
+	    	   if(json=="noSession"){
+	    		   alert("ok");
+	    		   location.href="/LogInForm?lCode=manage";
+	    	   }else{
 			   let jsonData = JSON.parse(json);
 			   abinfoList(jsonData);
+	    	   }
 	       }
 		}
 		 	request.open("POST","albaManagementInfo",true);
@@ -218,6 +226,9 @@
 		request.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				let jsonData = decodeURIComponent(request.response);
+	    	    if(jsonData=="noSession"){
+	    		    location.href="/LogInForm?lCode=manage";
+	    	    }				
 				let manageDataParam = JSON.parse(jsonData);
 				shopSelect(manageDataParam);
 			}
@@ -247,6 +258,9 @@
 		 request.onreadystatechange = function(){
 		    if(this.readyState == 4 && this.status == 200){
 		       let jsonData = decodeURIComponent(request.response);
+	    	   if(jsonData=="noSession"){
+	    		    location.href="/LogInForm?lCode=manage";
+	    	   }			
 		       let albaListData = JSON.parse(jsonData);
 		       addScheduleMenu(albaListData);
 		    }
@@ -417,6 +431,9 @@
 		 request.onreadystatechange = function(){
 		    if(this.readyState == 4 && this.status == 200){
 		       let jsonData = decodeURIComponent(request.response);
+	    	   if(jsonData=="noSession"){
+	    		    location.href="/LogInForm?lCode=manage";
+	    	   }		
 		       let insertState = JSON.parse(jsonData);
 		       console.log(insertState);
 		       if(insertState == "1"){
@@ -556,12 +573,12 @@
 
 	function pay() {
 		menuIndex = "pay";
+		shCode = $("#shopSelect option:selected").val();
 		$.ajax({
 			type : "POST",
-			url : "/pay",
+			url : "/pay?shCode=" + shCode,
 			dataType : "html",
 			success : function(data) {
-				alert(data);
 				$(".test3").html(data);
 				init();
 			}
@@ -569,7 +586,7 @@
 	}
 
 	function www() {
-		var manaData = {"sCode" : "myWorkZone", "mnCode": "10000000" };
+		var manaData = {"sCode" : "myWorkZone", "mnCode": mnCode };
 		$.ajax({
 			data: manaData,
 			type : "POST",
@@ -701,6 +718,9 @@
 		 request.onreadystatechange = function(){
 		    if(this.readyState == 4 && this.status == 200){
 		       let jsonData = decodeURIComponent(request.response);
+	    	   if(jsonData=="noSession"){
+	    		    location.href="/LogInForm?lCode=manage";
+	    	   }		
 		       let albaDataParam = JSON.parse(jsonData);
 		       commuteContents(albaDataParam);
 		    }
@@ -797,6 +817,9 @@
 		 request.onreadystatechange = function(){
 		    if(this.readyState == 4 && this.status == 200){
 		       let jsonData = decodeURIComponent(request.response);
+	    	   if(jsonData=="noSession"){
+	    		    location.href="/LogInForm?lCode=manage";
+	    	   }		
 		       let commuteDataParam = JSON.parse(jsonData);
 		       $('.dateText2').remove();
 		       $('.commute_row').remove();
@@ -927,6 +950,9 @@
 		 request.onreadystatechange = function(){
 		    if(this.readyState == 4 && this.status == 200){
 		       let jsonData = decodeURIComponent(request.response);
+	    	   if(jsonData=="noSession"){
+	    		    location.href="/LogInForm?lCode=manage";
+	    	   }		
 		       let laborDataParam = JSON.parse(jsonData);
 		       laborContractList(laborDataParam);
 		    }
@@ -1081,6 +1107,9 @@
 		 request.onreadystatechange = function(){
 		    if(this.readyState == 4 && this.status == 200){
 		       let deleteState = decodeURIComponent(request.response);
+	    	   if(deleteState=="noSession"){
+	    		    location.href="/LogInForm?lCode=manage";
+	    	   }		
 		       if(deleteState==1){
 		    	   alert("선택하신 계약서를 정상적으로 삭제 완료 하였습니다.");
 		   		$('#test3').empty(); laborContract();
@@ -1121,6 +1150,9 @@
 		 request.onreadystatechange = function(){
 		    if(this.readyState == 4 && this.status == 200){
 		       let jsonData = decodeURIComponent(request.response);
+	    	   if(jsonData=="noSession"){
+	    		    location.href="/LogInForm?lCode=manage";
+	    	   }		
 		       let laborDataParam = JSON.parse(jsonData);
 		       laborDetailInfo(laborDataParam);
 		    }
@@ -1155,6 +1187,9 @@
 		 request.onreadystatechange = function(){
 		    if(this.readyState == 4 && this.status == 200){
 		       let jsonData = decodeURIComponent(request.response);
+	    	   if(jsonData=="noSession"){
+	    		    location.href="/LogInForm?lCode=manage";
+	    	   }		
 		       let albaDataParam = JSON.parse(jsonData);
 		   	   laborContractCanvas(albaDataParam);
 		    }
@@ -1241,6 +1276,9 @@
 			 request.onreadystatechange = function(){
 			    if(this.readyState == 4 || this.status == 200){
 			    	let jsonData = decodeURIComponent(request.response);
+			    	if(jsonData=="noSession"){
+			    		 location.href="/LogInForm?lCode=manage";
+			    	}		
 			    	let albaDataParam = JSON.parse(jsonData);
 			    	console.log(albaDataParam);
 				   	laborContractAlbaInfoWrite(albaDataParam);

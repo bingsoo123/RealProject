@@ -57,6 +57,9 @@
 		 request.onreadystatechange = function(){
 		    if(this.readyState == 4 && this.status == 200){
 		       let jsonData = decodeURIComponent(request.response);
+		    	if(jsonData=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 		       let albaData = JSON.parse(jsonData);
 		       workType(albaData);
 		    }
@@ -109,6 +112,9 @@
 			 request.onreadystatechange = function(){
 			    if(this.readyState == 4 && this.status == 200){
 			       let jsond = decodeURIComponent(request.response);
+			    	if(jsond=="noSession"){
+			    		 location.href="/LogInForm?lCode=manage";
+			        }		
 			       let albaD = JSON.parse(jsond);
 			       
 			       for(i = 0 ; i<albaD.length ; i++){
@@ -137,7 +143,7 @@
 						flex.appendChild(p1);
 						li.appendChild(flex);
 			       }
-			 		      
+			 	
 			    }
 			    
 			 };

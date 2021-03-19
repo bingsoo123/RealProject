@@ -82,6 +82,9 @@
 		request.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				let json = decodeURIComponent(request.response);
+		    	if(json=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 				let accountList = JSON.parse(json);
 				albaInfoDetailAccountListSelect(accountList);
 			}
@@ -152,7 +155,9 @@
 		 request.onreadystatechange = function(){
 		    if(this.readyState == 4 && this.status == 200){
 		       let updateState = decodeURIComponent(request.response);
-		       
+		    	if(updateState=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 		       if(updateState == "1"){
 		    	   alert("정상적으로 수정되었습니다");
 		    	   window.location.reload();
@@ -270,7 +275,9 @@
 		 request.onreadystatechange = function(){
 		    if(this.readyState == 4 && this.status == 200){
 		       let deleteState = decodeURIComponent(request.response);
-		       
+		    	if(deleteState=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 		       if(deleteState == "1"){
 		    	   alert("정상적으로 삭제 되었습니다");
 		    	   window.close();

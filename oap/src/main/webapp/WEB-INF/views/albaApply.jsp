@@ -25,6 +25,9 @@
 		request.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				let jsonData = decodeURIComponent(request.response);
+		    	if(jsonData=="noSession"){
+		    		 location.href="/LogInForm?lCode=alba";
+		        }		
 				let updateState = JSON.parse(jsonData);
 				if(updateState == "updateComplete"){
 					alert("계좌 수정이 완료 되었습니다.")
@@ -46,6 +49,9 @@
 		request.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				let jsonData = decodeURIComponent(request.response);
+		    	if(jsonData=="noSession"){
+		    		 location.href="/LogInForm?lCode=alba";
+		        }		
 				let albaInfo = JSON.parse(jsonData);
 				console.log(albaInfo);
 				albaApplyMyInfoUpdateStep2(albaInfo);
@@ -218,6 +224,9 @@
 		request.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				let json = decodeURIComponent(request.response);
+		    	if(json=="noSession"){
+		    		 location.href="/LogInForm?lCode=alba";
+		        }		
 				let jsonData = JSON.parse(json);
 
 				albaApplyMyLastStep(jsonData);
@@ -362,6 +371,9 @@
 		request.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				let insertState = decodeURIComponent(request.response);
+		    	if(insertState=="noSession"){
+		    		 location.href="/LogInForm?lCode=alba";
+		        }		
 				if(insertState == "1"){
 					alert("알바 지원을 성공하셨습니다. " + albaInfo[0].abName +"님 합격을 기원합니다!")
 					window.close();
@@ -533,6 +545,9 @@
 		request.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				let jsonData = decodeURIComponent(request.response);
+		    	if(jsonData=="noSession"){
+		    		 location.href="/LogInForm?lCode=alba";
+		        }		
 				let deleteState = JSON.parse(jsonData);
 				
 				if(deleteState == "deleteComplete"){

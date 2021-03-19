@@ -30,32 +30,6 @@ public class ManagementInquiery {
 		
 	}
 	
-	/*------------- 세션체크 ------------*/
-	
-	private ModelAndView SessionCheck(AlbaBean aBean) throws Exception {
-			
-			ModelAndView mv = null;
-		
-		if(pu.getAttribute("idCode")!=null) {
-			
-			System.out.println("세션이 존재합니다");
-			System.out.println("세션 값 ::" + pu.getAttribute("idCode"));
-			
-		}else {
-			
-			mv = new ModelAndView();
-			
-			System.out.println("세션이 존재하지않아요");
-			
-			aBean.setAction("");
-			
-			mv.setViewName("redirect:/LogInForm?lCode=alba");
-			
-		}
-		
-		return mv;
-	}
-	
 	public ModelAndView entrance(ManageBean mBean) {
 				
 				switch(mBean.getSCode()) {
@@ -396,15 +370,13 @@ public class ManagementInquiery {
 		
 		String jsonData = gson.toJson(this.getMyWorkZoneList(mBean));
 		
-		ArrayList<ManageBean> mbTest = new ArrayList<ManageBean>();
+		System.out.println("매장 :" + jsonData);
 		
-		mbTest = this.getMyWorkZoneList(mBean);
-	
-		
+//		ArrayList<ManageBean> mbTest = new ArrayList<ManageBean>();
+//		
+//		mbTest = this.getMyWorkZoneList(mBean);
 		
 		mav.addObject("WL", jsonData);
-		
-
 		
 		mav.setViewName("myWorkZone");
 		

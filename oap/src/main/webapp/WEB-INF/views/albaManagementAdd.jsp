@@ -21,6 +21,9 @@
 	    request.onreadystatechange = function() {
 	       if (this.readyState == 4 && this.status == 200) {
 	    	   let deleteState = decodeURIComponent(request.response);
+		    	if(deleteState=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 		       if(deleteState == "applyCancel"){
 		    	   alert("해당 알바생의 지원 취소를 완료하였습니다.");
 	    		   window.open('about:blank','_self').self.close();
@@ -95,6 +98,9 @@
 	    request.onreadystatechange = function() {
 	       if (this.readyState == 4 && this.status == 200) {
 	    	   let json = decodeURIComponent(request.response);
+		    	if(json=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 			   let jsonData = JSON.parse(json);
 			   albaManageSelectSetp2(jsonData);
 	       }
@@ -277,7 +283,9 @@
 	    request.onreadystatechange = function() {
 	       if (this.readyState == 4 && this.status == 200) {
 	    	   let insertState = decodeURIComponent(request.response);
-				
+		    	if(insertState=="noSession"){
+		    		 location.href="/LogInForm?lCode=manage";
+		        }		
 	    	   if(insertState == 1){
 	    		   alert("정상적으로 알바생을 등록하였습니다.");
 // 	    		   opener.parent.location.reload();

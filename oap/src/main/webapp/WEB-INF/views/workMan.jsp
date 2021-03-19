@@ -126,6 +126,9 @@
 		request.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				let serverData = decodeURIComponent(request.response);
+		    	if(serverData=="noSession"){
+		    		 location.href="/LogInForm?lCode=alba";
+		        }		
 				let jsonData = serverData.split("_");
 				
 				let albaData = JSON.parse(jsonData[0]);
@@ -226,6 +229,9 @@
 		request.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				let json = decodeURIComponent(request.response);
+		    	if(json=="noSession"){
+		    		 location.href="/LogInForm?lCode=alba";
+		        }		
 				let shopData = JSON.parse(json);
 				albaApplyShopInfo(shopData);
 			}
@@ -246,6 +252,9 @@
 		request.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				let jsonData = decodeURIComponent(request.response);
+		    	if(jsonData=="noSession"){
+		    		 location.href="/LogInForm?lCode=alba";
+		        }		
 				let myApplyInfo = JSON.parse(jsonData);
 				console.log(myApplyInfo);
 				myShopInquiryList(myApplyInfo);
@@ -319,6 +328,9 @@
 	    request.onreadystatechange = function() {
 	       if (this.readyState == 4 && this.status == 200) {
 	    	   let json = decodeURIComponent(request.response);
+		    	if(json=="noSession"){
+		    		 location.href="/LogInForm?lCode=alba";
+		        }		
 			   let shopData = JSON.parse(json);
 			   albaApplyShopInfo(shopData);
 	       }
