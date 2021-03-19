@@ -241,7 +241,9 @@
 		let albaDetailUpdateBtnText = document.createTextNode('계좌 수정');
 		albaDetailUpdateBtn.appendChild(albaDetailUpdateBtnText);
 		albaDetailUpdateBtn.className = "albaDetail_btn";
+
 		albaDetailUpdateBtn.addEventListener('click', function() {
+			albaDetailUpdateBtn.setAttribute("style","display:none;")
 			albaInfoDetailAccountList(albaInfo.abCode); // 
 		});
 		

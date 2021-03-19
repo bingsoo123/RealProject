@@ -134,6 +134,9 @@
 		
 		var msg = "${message}";
 		var check = "${tCode}";
+		var shCode = "${shCode}";
+		
+		alert(shCode);
 		
 		if(msg!=""){
 			alert(msg);
@@ -163,6 +166,16 @@
 			tcode.name = "tCode";
 			tcode.value = "${tCode}";
 			form.appendChild(tcode);
+			
+			let abCode = document.createElement("input");
+			abCode.name = "abCode";
+			abCode.value = "${abCode}";
+			form.appendChild(abCode);
+			
+			let shCode = document.createElement("input");
+			shCode.name = "shCode";
+			shCode.value = "${shCode}";
+			form.appendChild(shCode);
 			
 			for(i=0 ; i<data.length ; i++){
 				if(data[i].value != 0){

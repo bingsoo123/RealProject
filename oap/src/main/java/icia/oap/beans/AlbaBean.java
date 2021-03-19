@@ -37,6 +37,10 @@ public class AlbaBean {
 	private int tlNumber;
 	private String tlComment;
 	private String mtDetail;
+	private String tf;
+	private String[] tlNum;
+	private String[] isCheck;
+	private String[] albaWorkDetail;
 	
 	//2021 03 16 추가한것
 	private String shAddr;
@@ -54,5 +58,22 @@ public class AlbaBean {
 	private String applyState; // 알바 지원에서 지원할건지, 이미 지원한 회사들 정보를 클릭해서 볼때 분기
 	private String ssBankName;
 	private String ssAccount;
-	
+    private String keyWord;
+    private String category;
+    private String stComment;
+ 
+	public String abId;
+	public String abPw;
+	public String editAcAccount;
+	public String editAcBankName;
 }
+
+
+
+
+
+
+
+
+
+

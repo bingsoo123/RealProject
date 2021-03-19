@@ -9,18 +9,15 @@
 <link href="/resources/css/info.css" rel="stylesheet" />
 </head>
 <body onLoad="alist()">
-	<!-- 검색 버튼 -->
-	<!-- this.style.backgroundImage="url()"; javascript 백그라운드 이미지 클릭시 onClick 작동 구문 활용 -->
 	<br/> 
 <!-- 	<div class="search" > -->
 	<div class="div-absel">
 		<select id="absel" class="absel" onChange="goShCode()">
 			<option>-- 매장을 선택하세요 --</option>
 		</select>
+		
+		
 	</div>
-<!-- 		<input type="text" id="namesearch" onClick="searchimg()"placeholder="이름 검색" /> -->
-<!-- 		<button onClick="searchimg()" >조회하기</button> -->
-<!-- 	</div> -->
 	<br/><br/>
 
 		
@@ -32,9 +29,11 @@
 </body>
 
 <script>
-	function goalbaInfo(abinfo, index) {
-		shCode = abinfo[index].shCode;
-		abCode = abinfo[index].abCode;
+	var menuIndex = 0;
+
+	function goalbaInfo(albaInfo, index) {
+		shCode = albaInfo[index].shCode;
+		abCode = albaInfo[index].abCode;
 
 		window.open("", "pop","width=800,height=950,left=600,top=900,toolbar=no,status=no,resizable=no");
 
@@ -51,25 +50,25 @@
 
 	
 	var allData;
-	function abinfoList(test1){
+	function albaInfoList(test1){
 		document.getElementById("al").innerHTML = "";
 		let al = document.getElementById('al');
 		
 		let abList = document.createElement('Div');
 		abList.className = "ttt";
 		al.appendChild(abList);
-		let abinfo = test1
+		let albaInfo = test1
 		
-		for (i = 0; i < abinfo.length; i++) {
+		for (i = 0; i < albaInfo.length; i++) {
 			
 			let index = i;
 
 			let div = document.createElement("Div");
 			div.className = "profile-one";
 			div.style.cursor = "pointer";
-			div.value = abinfo[i].abCode;
+			div.value = albaInfo[i].abCode;
 			div.addEventListener('click', function() {
-				goalbaInfo(abinfo, index);
+				goalbaInfo(albaInfo, index);
 			});
 			abList.appendChild(div);
 
@@ -81,12 +80,12 @@
 			div2.className = "div2"
 			div.appendChild(div2);
 
-			if (abinfo[i].abGender == "M") {
+			if (albaInfo[i].abGender == "M") {
 				let div3 = document.createElement("img");
 				div3.className = "profile-pic"
 				div3.src = "/resources/img/M.png";
 				div1.appendChild(div3);
-			} else if (abinfo[i].abGender == "F") {
+			} else if (albaInfo[i].abGender == "F") {
 				let div3 = document.createElement("img");
 				div3.className = "profile-pic"
 				div3.src = "/resources/img/F.png";
@@ -94,35 +93,35 @@
 			}
 
 			let abName = document.createElement("Div")
-			abName.textContent = abinfo[i].abName;
+			abName.textContent = albaInfo[i].abName;
 			abName.className = "alba1";
 			div1.appendChild(abName);
 
 			let sTime = document.createElement('p');
 			sTime.textContent = "근무시간 : "
-					+ abinfo[i].sTime.substr(
-							abinfo[i].sTime.lastIndexOf(" ") + 1).substr(0, 2)
+					+ albaInfo[i].sTime.substr(
+							albaInfo[i].sTime.lastIndexOf(" ") + 1).substr(0, 2)
 					+ ":"
-					+ abinfo[i].sTime.substr(
-							abinfo[i].sTime.lastIndexOf(" ") + 1).substr(2, 5)
+					+ albaInfo[i].sTime.substr(
+							albaInfo[i].sTime.lastIndexOf(" ") + 1).substr(2, 5)
 					+ " ~ "
-					+ abinfo[i].eTime.substr(
-							abinfo[i].eTime.lastIndexOf(" ") + 1).substr(0, 2)
+					+ albaInfo[i].eTime.substr(
+							albaInfo[i].eTime.lastIndexOf(" ") + 1).substr(0, 2)
 					+ ":"
-					+ abinfo[i].eTime.substr(
-							abinfo[i].eTime.lastIndexOf(" ") + 1).substr(2, 5);
+					+ albaInfo[i].eTime.substr(
+							albaInfo[i].eTime.lastIndexOf(" ") + 1).substr(2, 5);
 			sTime.className = "alba11";
 			div2.appendChild(sTime);
 
 			let aPay = document.createElement('p');
-			aPay.textContent = "시급 : " + abinfo[i].aPay + " 원";
+			aPay.textContent = "시급 : " + albaInfo[i].aPay + " 원";
 			aPay.className = "alba111";
 			div2.appendChild(aPay);
 
 			let aPhone = document.createElement('p');
-			aPhone.textContent = "전화번호 : " + abinfo[i].aPhone.substr(0, 3)
-					+ "-" + abinfo[i].aPhone.substr(3, 4) + "-"
-					+ abinfo[i].aPhone.substr(7, 8);
+			aPhone.textContent = "전화번호 : " + albaInfo[i].aPhone.substr(0, 3)
+					+ "-" + albaInfo[i].aPhone.substr(3, 4) + "-"
+					+ albaInfo[i].aPhone.substr(7, 8);
 			aPhone.className = "alba1111";
 			div2.appendChild(aPhone);
 
@@ -137,7 +136,7 @@
 	    	   let json = decodeURIComponent(request.response);
 			  let test1 = JSON.parse(json);
 			   allData = test1;
-			   abinfoList(test1);
+			   albaInfoList(test1);
 	       }
 		}
 		 	request.open("POST","info",true);
@@ -147,7 +146,7 @@
 	
 	function alist() {
 
-		let ab = JSON.parse('${ab}');
+		let ab = JSON.parse('${ab}'); // 
 		let absel = document.getElementById('absel');
 		for (i = 0; i < ab.length; i++) {
 			let op = document.createElement('option');

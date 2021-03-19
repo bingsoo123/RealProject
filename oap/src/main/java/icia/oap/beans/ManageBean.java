@@ -31,6 +31,7 @@ public class ManageBean {
 	private String cmType; // -1 퇴근 1 출근
 	private String stCode;
 	private String stComment;
+	private String applyState;
 	// 2021-03-13 추가한것. 진주
 	private String siaPay; // sia테이블이 제일 최상위인 급여인거같아서 만듬.
 	private String siaDate; // 입사 날짜.

@@ -26,10 +26,10 @@ public class ManagementModify {
 	private PlatformTransactionManager tran;
 	@Autowired
 	private Gson gson;
+	
 	public ManagementModify() {
 		
 	}
-	
 
 	public ModelAndView entrance(ManageBean mBean) {
 		
@@ -56,6 +56,13 @@ public class ManagementModify {
 		case "Drop":
 			mav = this.dropCtl(mBean);
 			break;	
+		case "albaApplyCancel" :
+			mav = this.albaApplyCancelCtl(mBean);
+			break;
+		
+		case "updateApplyCode" : 
+			mav = this.updateApplyCodeCtl(mBean);
+			break;	
 		default:
 			break;
 		}
@@ -63,6 +70,53 @@ public class ManagementModify {
 		return mav;
 	}
 	
+	
+	//albaApplyCancel
+	private ModelAndView albaApplyCancelCtl(ManageBean mBean) {
+		mav = new ModelAndView();
+		
+		String deleteState = "";
+		
+		if(this.albaApplyCancel(mBean)) {
+			deleteState = "applyCancel";
+		}else {
+			deleteState = "fail";
+		}
+		mav.addObject("deleteState",deleteState);
+		
+		
+		return mav;
+	}
+	
+	public boolean albaApplyCancel(ManageBean mBean){ 
+		return convertToBoolean(mapperM.albaApplyCancel(mBean));
+	}
+	
+	private ModelAndView updateApplyCodeCtl(ManageBean mBean) {
+		mav = new ModelAndView();
+		
+		String updateState = "";
+		
+		if(mBean.getApplyState().equals("I")){
+			mBean.setApplyState("S");
+		}else if(mBean.getApplyState().equals("S")) {
+			mBean.setApplyState("I");
+		}
+		
+		if(this.updateApplyCode(mBean)) {
+			updateState = "applyStateUpdate";
+		}else {
+			updateState = "fail";
+		}
+		mav.addObject("updateState",updateState);
+		
+		
+		return mav;
+	}
+	
+	public boolean updateApplyCode(ManageBean mBean){ 
+		return convertToBoolean(mapperM.updateApplyCode(mBean));
+	}
 	
 	private ModelAndView albaManagementDetailDeleteCtl(ManageBean mBean) {
 		

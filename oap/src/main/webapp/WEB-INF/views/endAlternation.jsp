@@ -139,6 +139,7 @@
 	}
 
 	function handOverStrongBox() {
+		
 		var str = [ "sip", "osip", "baek", "obaek", "chun", "ochun", "man", "oman" ];
 		var btn = document.getElementById("modify");
 		let data = document.getElementsByName("money");
@@ -151,6 +152,16 @@
 		tcode.name = "tCode";
 		tcode.value = "${tCode}";
 		form.appendChild(tcode);
+		
+		let abCode = document.createElement("input");
+		abCode.name = "abCode";
+		abCode.value = "${abCode}";
+		form.appendChild(abCode);
+		
+		let shCode = document.createElement("input");
+		shCode.name = "shCode";
+		shCode.value = "${shCode}";
+		form.appendChild(shCode);
 
 		for (i = 0; i < data.length; i++) {
 			if (data[i].value != 0) {

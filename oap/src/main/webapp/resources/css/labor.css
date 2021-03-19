@@ -8,28 +8,32 @@ font-family: 'Noto Sans KR', sans-serif;
 	width: 500px;
 	height: 150px;
 	margin-bottom: 30px;
-	border : 1px solid #6D6D6D;
+	border : 2px solid #6D6D6D;
 	margin-top: 30px;
     margin-left: 90px;
+}
+
+.labor_contract_contents_row:hover{
+	background:#f7f7f7;
 }
 
 .labor_contract_contents_row_select{
 	width: 500px;
 	height: 150px;
 	margin-bottom: 30px;
-	border : 3px solid #b02b2b;
+	border : 2px solid #b02b2b;
 	margin-top: 30px;
     margin-left: 90px;
     
 }
 
 labor_contract_contents_row_select:hover{
-	border : 3px solid #b02b2b;
+	border : 2px solid #b02b2b;
 }
 
 
 .labor_contract_contents_row:hover{
-	border : 3px solid #FEE300;
+	border : 2px solid #FEE300;
 	
 }
 .labor_contract_name:hover{
@@ -58,25 +62,50 @@ labor_contract_contents_row_select:hover{
 }
 
 .labor_add_btn{
-	border : 0px;
+	border: 1px solid white;
 	width: 100px;
-    height: 50px;
-	background: #FEE300;
+   	height: 41px;
+   	margin-left:11px;
+   	margin-left: 30px;
+    margin-top: 50px;
 }
 
+.labor_add_btn:hover{
+    background: #FEE300;
+}
+.labor_add_btn:focus{
+	border: none;
+}
+
+
 .labor_delete_btn{
-	border : 0px;
+	border: none;
 	width: 100px;
-    height: 50px;
+   	height: 41px;
+   	color:white;
+    background: #6D6D6D;
+}
+
+.labor_delete_btn:hover{
+	border:none;
     background: #C6C6C5;
+    color:black;
 }
 
 .labor_delete_complete{
-		border : 0px;
+	border: 1px solid white;
 	width: 100px;
-    height: 50px;
-    background: #989898;
+   	height: 41px;
 }
+
+.labor_delete_complete:hover{
+    background: red;
+    color: white;
+}
+.labor_delete_complete:focus{
+	border: none;
+}
+
 
 .labor_contract_name{
 		border : 0px;

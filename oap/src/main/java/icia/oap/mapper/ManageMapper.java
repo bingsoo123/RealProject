@@ -144,7 +144,11 @@ public interface ManageMapper {
 	
 	public int managementDetailDelete(ManageBean mBean); // 업무 관리 디테일 정보
 	
-
+	// 알바 지원한거 지원 취소 시키는것.
+	public int albaApplyCancel(ManageBean mBean);
+	
+	// 구인중? 구인안함?
+	public int updateApplyCode(ManageBean mBean);
 	
 
 

@@ -9,7 +9,7 @@
 <link href="/resources/css/albaApply.css" rel="stylesheet" />
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
-<body onLoad="workDiary()">
+<body>
 
 
     <div class="two">
@@ -24,7 +24,7 @@
                 <div class="list" onClick="loadAlbaTaskList()"><img alt="업무리스트" src="/resources/img/alba_nav4.png"><img alt="업무리스트" src="/resources/img/alba_nav4_hover.png"></div>
                 <div class="list" onClick=""><img alt="이력서 관리" src="/resources/img/alba_nav5.png"><img alt="이력서 관리" src="/resources/img/alba_nav5_hover.png"></div>
                 <div class="list" onClick="albaApply()"><img alt="알바 지원" src="/resources/img/alba_nav7.png"><img alt="알바 지원" src="/resources/img/alba_nav7_hover.png"></div>
-                <div class="list" onClick=""><img alt="정보 수정" src="/resources/img/alba_nav6.png"><img alt="정보 수정" src="/resources/img/alba_nav6_hover.png"></div>
+                <div class="list" onClick="albaInfoModify()"><img alt="정보 수정" src="/resources/img/alba_nav6.png"><img alt="정보 수정" src="/resources/img/alba_nav6_hover.png"></div>
             </div>
         </div>
 
@@ -32,8 +32,9 @@
                 <div class="detail_info_img"><img alt="detail_logo" src="/resources/img/manager_logo.png"></div>
                 <div class="detail_if" id="albaName"></div>
                 <div id="shopSelect"></div>
+                <div class="detail_logOut" onClick="workDiary()">출근하기</div>
                 <div class="detail_logOut" onClick="leave()">퇴근하기</div>
-                <div class="detail_logOut">로그아웃</div>
+                <div class="detail_logOut" onClick="logOut()">로그아웃</div>
                 <input type="hidden" id="shopCode" value="0">
         </div>
 
@@ -65,11 +66,18 @@
 	// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
 	
 	function workDiary(){
-		window.open("/TestWork?lCode=${lCode}&tCode=start","근무일지",'status=no , height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+		var shCode = $("#shopSelect option:selected").val();
+		window.open("/TestWork?lCode=${lCode}&tCode=start&abCode="+abCode +"&shCode="+shCode,"근무일지",'status=no , height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 	}
 
 	function leave(){
-		window.open("/LeaveWork?lCode=${lCode}&tCode=end","근무일지",'status=no , height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+		var shCode = $("#shopSelect option:selected").val();
+		window.open("/LeaveWork?lCode=${lCode}&tCode=end&abCode="+abCode +"&shCode="+shCode,"근무일지",'status=no , height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+	}
+	
+	function logOut(){
+		
+		location.href="/LogOut";
 	}
 	
 	function ajax(action){
@@ -105,8 +113,12 @@
 		
 	}
 	
-
-
+	// 알바생이 자신이 회원가입시 등록한 정보를 조회
+	function albaInfoModify() {
+		menuIndex = "albaInfoModify";
+		ajax("/Modify");
+	}
+	
 	function albaInclueShopInfo() {
 		//
 		let abCode = "${abCode}"; // 임의. 세션에 있는 abCode 가져오면 됌.
@@ -205,7 +217,25 @@
 			form.submit();
 		}
 		
-
+	
+	function applySearch(abCode, category, keyWord){
+		$('#test3').empty();
+		alert(category + keyWord)
+//		$('#alba_applyTableContent').remove();
+		let request = new XMLHttpRequest();
+		request.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				let json = decodeURIComponent(request.response);
+				let shopData = JSON.parse(json);
+				albaApplyShopInfo(shopData);
+			}
+		};
+		request.open("POST", "albaApplySearch", true);
+		request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+		request.send("action=albaApplySearch&abCode=" + abCode + "&category=" + category + "&keyWord=" + keyWord);
+	}
+	
+	
 		// 매장에 있는 알바생 매장 정보.
 		
 	// 내가 지원한 알바 리스트 가져오는 Ajax
@@ -325,8 +355,47 @@
 	    	myShopInquiry();
         });
 	    
+	    let applyLi3 = document.createElement('li');
+// 	    applyLi3.textContent = "호에엥";
+		
+	      let searchSelectBox = document.createElement('select');
+	      searchSelectBox.id = "search_category_select";
+		
+	    let searchCategory = ['매장명','주소'];
+	      
+		for(index = 0; index < searchCategory.length; index++){
+			let shopOptionIn = document.createElement("option");
+			shopOptionIn.className = "search_category_option1";
+			shopOptionIn.value = searchCategory[index];
+			shopOptionIn.text = searchCategory[index];
+			searchSelectBox.appendChild(shopOptionIn);
+		}
+// 			shopSelectContents.appendChild(shopSelectBox);
+		
+
+	    
+	    let applyLi3Input = document.createElement('input');
+	    applyLi3Input.id = "apply_input";
+	    applyLi3.value = "검색어를 입력해주세요.";
+	    
+	    let applyLi3InputBtn = document.createElement('button');
+	    applyLi3InputBtn.textContent = "완료";
+	    applyLi3.appendChild(searchSelectBox);
+	    applyLi3.appendChild(applyLi3Input);
+	    
+	    applyLi3InputBtn.addEventListener('click', function() {
+	    	let searchSelect = document.getElementById('search_category_select');
+	    	let searchKeyWord = document.getElementById('apply_input');
+		    let searchCate = searchSelect.options[searchSelect.selectedIndex].text;
+ 			applySearch(shopData[0].abCode, searchCate, searchKeyWord.value);         
+		});
+	    
+	    applyLi3.appendChild(applyLi3InputBtn);
+	    
+	    
 	    applyUl.appendChild(applyLi1);
 	    applyUl.appendChild(applyLi2);
+	    applyUl.appendChild(applyLi3);
 	    
 	    applyNavDiv.appendChild(applyUl);
 	    mainTest.appendChild(applyNavDiv);
@@ -348,6 +417,9 @@
 	    divTCell1.textContent = "매장명";
 	    
 	    
+// 	    let divTCell2 = document.createElement('div');
+// 	    divTCell2.setAttribute("style", "display:table-cell");
+// 	    divTCell2.textContent = "업종";
 	    let divTCell3 = document.createElement('div');
 	    divTCell3.setAttribute("style", "display:table-cell");
 	    divTCell3.textContent = "주소";
@@ -356,6 +428,7 @@
 	    divTCell4.textContent = "연락처";
 	    
 	    divRow1.appendChild(divTCell1);
+// 	    divRow1.appendChild(divTCell2);
 	    divRow1.appendChild(divTCell3);
 	    divRow1.appendChild(divTCell4);
 	    
@@ -383,6 +456,12 @@
 		    divCell1.className = "alba_apply_table_head_cell1_shop_name";
 		    testDiv.appendChild(divCell1);
 		    
+		    
+// 		    let divCell2 = document.createElement('div');
+// 		    divCell2.setAttribute("style", "display:table-cell");
+// 		    divCell2.textContent = shopData[index].shType.replace(/\+/gi," ");
+// 		    divCell2.className = "alba_apply_table_head_cell2";
+		    
 		    let divCell3 = document.createElement('div');
 		    divCell3.setAttribute("style", "display:table-cell");
 		    divCell3.textContent = shopData[index].shAddr.replace(/\+/gi," ");
@@ -394,17 +473,22 @@
 		    divCell4.className = "alba_apply_table_head_cell4";
 		    
 		    divRow.appendChild(testDiv);
+// 		    divRow.appendChild(divCell2);
 		    divRow.appendChild(divCell3);
 		    divRow.appendChild(divCell4);
 		    
 		    divTable.appendChild(divRow);
 		    
+// 			shopData[index].shCode; // div value로 들어갈 아이
+// 			shopData[index].shName;
+// 			shopData[index].shType;
+// 			shopData[index].shAddr;
+// 			shopData[index].shTel;
 		}
-	    
 	    divTableContent.appendChild(divTable);
 	    mainTest.appendChild(divTableContent);
 		
-	}	
+	}
 
 
 

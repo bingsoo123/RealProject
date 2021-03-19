@@ -41,25 +41,17 @@ public class AlbaController {
 	ModelAndView mav = null;
 	
 	
-	/*------------- 세션체크 ------------*/
-	
-	private String SessionCheck() throws Exception {
-		
-		String result = null;
-		
-		if(pu.getAttribute("idCode")==null) {
-			
-			System.out.println("세션이 존재합니다");
-			System.out.println("세션 값 ::" + pu.getAttribute("idCode"));
-		}else {
-			
-			System.out.println("세션이 존재하지 않습니다.");
-		}
-		
-		return result;
-	}
+
 	
 	/* ---------------------------------- 알바생 - 조회 ---------------------------------- */
+	
+	// 알바 지원 검색
+	@RequestMapping(value = "/albaApplySearch", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String albaApplySearch(@ModelAttribute AlbaBean aBean) throws UnsupportedEncodingException {
+		mav = aInquiery.entrance(aBean);
+		return URLEncoder.encode(mav.getModel().get("albaApplyShopInfo").toString(),"UTF-8");
+	}
 	
 	// 알바생이 일하고 있는 매장의 전체 업무리스트
 	@RequestMapping(value = "/AlbaTaskList", method = {RequestMethod.GET, RequestMethod.POST})
@@ -211,31 +203,35 @@ public class AlbaController {
 	}
 	
 	
+	// 알바 지원 성공. (인서트 구문) albaApplyComplete
+	@RequestMapping(value = "/CheckListForm", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView checkListForm(@ModelAttribute AlbaBean aBean,HttpServletRequest req) throws UnsupportedEncodingException {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		return aEnroll.entrance(aBean);
+	}
+	
 	
 	
 	/* ---------------------------------- 알바생 - 수정  ---------------------------------- */
 	
 	// 알바생 일정 관리  -  알바생이 자신이 일하는 알바에대한 등록 해놓은 일정을 삭제
 	@RequestMapping(value = "/AlbaDeleteSchedule", method = RequestMethod.GET)
-	public ModelAndView albaDeleteSchedule(@ModelAttribute AlbaBean aBean) {
-		return aModify.entrance(aBean);
-	}
-	
-	// 알바생 일정 관리  -  알바생이 자신이 회원가입시 등록한 정보를 조회
-	@RequestMapping(value = "/Modify", method = RequestMethod.GET)
-	public ModelAndView modify(@ModelAttribute AlbaBean aBean) {
+	public ModelAndView albaDeleteSchedule(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return aModify.entrance(aBean);
 	}
 	
 	// 알바생 일정 관리  -  알바생이 자신이 회원가입시 등록한 정보에대해 수정
 	@RequestMapping(value = "/ModifyInfomation", method = RequestMethod.GET)
-	public ModelAndView modifyInfomation(@ModelAttribute AlbaBean aBean) {
+	public ModelAndView modifyInfomation(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		return aModify.entrance(aBean);
 	}
 	
 	@RequestMapping(value = "/albaApplyMyAccountUpdate", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public String albaApplyMyAccountUpdate(@ModelAttribute AlbaBean aBean) throws UnsupportedEncodingException {
+	public String albaApplyMyAccountUpdate(@ModelAttribute AlbaBean aBean,HttpServletRequest req) throws UnsupportedEncodingException {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		mav = aModify.entrance(aBean);
 		return URLEncoder.encode(mav.getModel().get("albaApplyUpdate").toString(),"UTF-8");
 	}
@@ -244,11 +240,80 @@ public class AlbaController {
 	// 지원 취소
 	@RequestMapping(value = "/albaApplyDelete", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public String albaApplyDelete(@ModelAttribute AlbaBean aBean) throws UnsupportedEncodingException {
+	public String albaApplyDelete(@ModelAttribute AlbaBean aBean,HttpServletRequest req) throws UnsupportedEncodingException {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		mav = aModify.entrance(aBean);
 		return URLEncoder.encode(mav.getModel().get("albaApplyDelete").toString(),"UTF-8");
 	}
 	
+	// 알바생 일정 관리  -  알바생이 자신이 회원가입시 등록한 정보를 조회
+	@RequestMapping(value = "/Modify", method = {RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public ModelAndView modify(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		aBean.setSCode("Modify");
+		aBean.setAbCode("100000112");
+		
+		return aModify.entrance(aBean);
+	}
+	
+	// 비밀번호 수정
+	@RequestMapping(value = "/ModifyComplete", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView modifyComplete(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		aBean.setSCode("ModifyComplete");
+		aBean.setAbCode("100000112");
+		
+		return aModify.entrance(aBean);
+	}
+	
+	// 이름 수정
+	@RequestMapping(value = "/ModifyComplete2", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView modifyComplete2(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		aBean.setSCode("ModifyComplete2");
+		aBean.setAbCode("100000112");
+		
+		return aModify.entrance(aBean);
+	}
+	
+	// 계좌수정
+	@RequestMapping(value = "/ModifyComplete3", method = {RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public String modifyComplete3(@ModelAttribute AlbaBean aBean,HttpServletRequest req) throws UnsupportedEncodingException {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		mav = aModify.entrance(aBean);
+		return URLEncoder.encode(mav.getModel().get("message").toString(),"UTF-8");
+	}
+	
+	
+	// 계좌 삭제
+	@RequestMapping(value = "/DeleteAccountInfo", method = {RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public String deleteAccountInfo(@ModelAttribute AlbaBean aBean,HttpServletRequest req) throws UnsupportedEncodingException {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		mav = aModify.entrance(aBean);
+		return URLEncoder.encode(mav.getModel().get("message").toString(),"UTF-8");
+	}
+	
+	// 계좌 추가
+	
+	@RequestMapping(value = "/AddAccountInfo", method = {RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public ModelAndView addAccountInfo(@ModelAttribute AlbaBean aBean,HttpServletRequest req) {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		aBean.setSCode("AddAccountInfo");
+		
+		return aModify.entrance(aBean);
+	}	
+	
+	
+	
 }
+
+
+
+
+
 
 

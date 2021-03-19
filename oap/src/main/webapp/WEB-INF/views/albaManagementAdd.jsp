@@ -9,12 +9,32 @@
 <script  src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 </head>
 <body onload="albaManaInit();">
- <h5>매장에 지원한 알바 리스트. ( 지원 기능은 아직.. )</h5>
+ <h5>매장에 지원한 알바 리스트 입니다.</h5>
 	<div class = "albaMana" id="albaMana"></div>
 
 </body>
 
 <script>
+
+	function albaApplyCancel(shCode,abCode) {
+		let request = new XMLHttpRequest();
+	    request.onreadystatechange = function() {
+	       if (this.readyState == 4 && this.status == 200) {
+	    	   let deleteState = decodeURIComponent(request.response);
+		       if(deleteState == "applyCancel"){
+		    	   alert("해당 알바생의 지원 취소를 완료하였습니다.");
+	    		   window.open('about:blank','_self').self.close();
+		       }else{
+		    	   alert("서버가 불안정합니다. 다시 시도해주세요.");
+		       }
+	       }
+		}
+		 	request.open("POST","albaApplyCancel",true);
+			 	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+			request.send("sCode=albaApplyCancel&shCode=" + shCode +"&abCode=" + abCode);
+		
+	}
+
 	function albaManaInit() {
 		let al = document.getElementById('albaMana');
 		let mAlbaList = '${mAlbaList }';
@@ -90,8 +110,6 @@
 		console.log(albaInfo);
 		$('#albaMana').empty();
 		let al = document.getElementById('albaMana');
-		
-		
 		let albaAddContents = document.createElement('div');
 		albaAddContents.className = "albaAdd_contents1";
 		
@@ -214,6 +232,17 @@
 		});
 		
 		
+		let albaDeleteBtn = document.createElement('button');
+		albaDeleteBtn.className = "albaDelete_btn";
+		let albaDeleteBtnText = document.createTextNode('지원 취소');
+		albaDeleteBtn.appendChild(albaDeleteBtnText);
+		
+		albaDeleteBtn.addEventListener('click', function() { // 추가
+			albaApplyCancel(albaInfo.shCode, albaInfo.abCode)
+		});
+		
+		
+		
 		let albaAddBtn = document.createElement('button');
 		albaAddBtn.className = "albaAdd_btn";
 		let albaAddBtnText = document.createTextNode('추가');
@@ -223,7 +252,10 @@
 			albaAddComplete(albaInfo);
 		});
 		
+		
+		albaBtnContent.appendChild(albaDeleteBtn);
 		albaBtnContent.appendChild(albaPrevBtn);
+		albaBtnContent.appendChild(albaDeleteBtn);
 		albaBtnContent.appendChild(albaAddBtn);
 		
 		albaAddContents.appendChild(albaBtnContent);
@@ -239,7 +271,7 @@
 		let ssAccount = albaInfo.ssAccount;
 		let ssBankName = albaInfo.ssBankName;
 		
-// 		alert("siaPAy :: " + siaPay +  "resttime :: " + restTime + "ssAcount::" + ssAccount);
+		alert("siaPAy :: " + siaPay +  "resttime :: " + restTime + "ssAcount::" + ssAccount);
 		
 		let request = new XMLHttpRequest();
 	    request.onreadystatechange = function() {
@@ -250,7 +282,7 @@
 	    		   alert("정상적으로 알바생을 등록하였습니다.");
 // 	    		   opener.parent.location.reload();
 	    		   window.open('about:blank','_self').self.close();
-
+					
 	    	   }else{
 	    		   alert("실패 하였습니다.");
 	    	   }

@@ -22,6 +22,7 @@ import icia.oap.beans.ManageBean;
 import icia.oap.services.management.ManagementEnroll;
 import icia.oap.services.management.ManagementInquiery;
 import icia.oap.services.management.ManagementModify;
+import icia.oap.utils.ProjectUtils;
 
 @Controller
 public class ManageController {
@@ -34,8 +35,34 @@ public class ManageController {
 	private ManagementModify mModify;
 	@Autowired
 	private ManagementInquiery mInquiery;
+	@Autowired
+	private ProjectUtils pu;
 
 	ModelAndView mav = null;
+	
+	/*------------- 세션체크 ------------*/
+	
+	private String SessionCheck() throws Exception {
+		
+		String result = "noSession";
+		
+		System.out.println("세션이 존재하지 않습니다.");
+		
+		return result;
+	}
+	
+	private ModelAndView mavSessionCheck() throws Exception {
+		
+		ModelAndView mv = null;
+		
+			System.out.println("세션이 존재하지 않습니다.");
+			
+			mv = new ModelAndView();
+			
+			mv.setViewName("redirect:/LogInForm?lCode=manage");
+			
+		return mv;
+	}
 
 	/* ------------------------- 관리자 - 조회 ------------------------- */
 	
@@ -49,12 +76,8 @@ public class ManageController {
 	
 	
 	// 나의 매장 관리
-	@RequestMapping(value = "/MyWorkZone", method = RequestMethod.GET)
+	@RequestMapping(value = "/MyWorkZone", method = RequestMethod.POST)
 	public ModelAndView myWorkZone(@ModelAttribute ManageBean mBean) {
-		mBean.setSCode("myWorkZone");
-
-		mBean.setShMnCode("10000000");
-
 		return mInquiery.entrance(mBean);
 	}
 	
@@ -194,14 +217,14 @@ public class ManageController {
 
 	// 급여 관리 - 나의 매장 식구들의 급여리스트를 보여줌 
 	@RequestMapping(value = "/pay", method = {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView pay(@ModelAttribute ManageBean mBean) {
-		mav = new ModelAndView();
+	public ModelAndView pay(@ModelAttribute ManageBean mBean) throws Exception {
+		//mav = new ModelAndView();
+		
 		mBean.setShCode("100000000");
 		mBean.setAbCode("100000000");
 		mBean.setSCode("pay");
-		mav.setViewName("pay");
 		
-		return mInquiery.entrance(mBean);
+		return (pu.getAttribute("idCode")!=null) ? mInquiery.entrance(mBean) : this.mavSessionCheck();
 	}
 
 	// 급여 관리 - 나의 매장 식구들의 급여리스트중 한명의 내역을 상세하게 보여줌
@@ -228,7 +251,6 @@ public class ManageController {
 	@RequestMapping(value = "/payInsert", method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public String payInsert(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
-		
 		mav = new ModelAndView();
 		mBean.setMnCode("10000000");
 		mav = mInquiery.entrance(mBean);
@@ -363,10 +385,10 @@ public class ManageController {
 	// 조회 버튼눌럿을때 실행
 	@RequestMapping(value = "/paySearch", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public String paySearch(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
+	public String paySearch(@ModelAttribute ManageBean mBean) throws Exception {
 		mBean.setSCode("paySearch");
 		mav = mInquiery.entrance(mBean);
-		return URLEncoder.encode(mav.getModel().get("paySearch").toString(),"UTF-8");
+		return (pu.getAttribute("idCode")!=null) ? URLEncoder.encode(mav.getModel().get("paySearch").toString(),"UTF-8") : this.SessionCheck();
 	}
 	
 	
@@ -479,5 +501,20 @@ public class ManageController {
 	public ModelAndView deleteSchedule(@ModelAttribute ManageBean mBean) {
 		return mModify.entrance(mBean);
 	}
+	
+	@RequestMapping(value = "/albaApplyCancel", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String albaApplyCancel(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException{
+		mav = mModify.entrance(mBean); //
+		return URLEncoder.encode(mav.getModel().get("deleteState").toString(),"UTF-8");
+	}
+	
+	@RequestMapping(value = "/updateApplyCode", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String updateApplyCode(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException{
+		mav = mModify.entrance(mBean); //
+		return URLEncoder.encode(mav.getModel().get("updateState").toString(),"UTF-8");
+	}
+	///////////
 
 }

@@ -88,7 +88,8 @@ body {
 	border-radius: 20px;
 }
 .albaAdd_contents_row:hover{
-	border : 3px solid #FEE300;
+	border : 2px solid #FEE300;
+	background:#f7f7f7;
 }
 
 
@@ -98,25 +99,55 @@ body {
 }
 
 .albaAdd_btn{
-	border: 0px;
+	border: 1px solid white;
 	width: 100px;
    	height: 41px;
    	margin-left:11px;
-    background: #FEE300;
 }
 
-.albaAdd_prev_btn{
-	border: 0px;
+.albaAdd_btn:hover{
+    background: #FEE300;
+}
+.albaAdd_btn:focus{
+	border: none;
+}
+
+.albaDelete_btn{
+	border: 1px solid white;
 	width: 100px;
    	height: 41px;
+   	margin-left:11px;
+}
+
+.albaDelete_btn:hover{
+    background: red;
+    color: white;
+}
+.albaDelete_btn:focus{
+	border: none;
+}
+
+
+.albaAdd_prev_btn{
+	border: none;
+	width: 100px;
+   	height: 41px;
+   	color:white;
     background: #6D6D6D;
+    margin-left: 20px;
+}
+
+.albaAdd_prev_btn:hover{
+	border:none;
+    background: #C6C6C5;
+    color:black;
 }
 
 .albaAdd_btn_content{
 	width:100%;
 	display:inline-block;
-	margin-left: 550px;
-    margin-top: -15px;
+	margin-left: 55%;
+    margin-top: 3%;
 }
 
 

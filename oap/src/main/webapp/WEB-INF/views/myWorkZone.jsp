@@ -11,28 +11,40 @@
 
 </head>
 <body onload="init()">
-	<div class="work_wrap"> 
 	<div class="buttons"> 
 	<i class="fas fa-store"></i>
 	<div class ="addwork_btn">
 	<i class="fas fa-store"></i><i class="fas fa-ad"></i><input type ="button"  class= "addstore" value="매장추가" onClick="addstore()"></div>
    <div class ="deletework_btn">	<i class="fas fa-store"></i><input type ="button" value="매장삭제" onClick="deletestore()"> </div>
-
-
     </div>
-	<section id= "workZone">
+	<section id= "workZone" class = "workZone">
 	
 	<div id= "workInfo"></div>
 	</section>
-   
-
-
-  
-   
- 
    <br/><br/>
   </body>
   <script>
+  
+  function applyStateUpdate(shCode, applyState){
+		 let request = new XMLHttpRequest();
+		 request.onreadystatechange = function(){
+		    if(this.readyState == 4 && this.status == 200){
+		       let updateState = decodeURIComponent(request.response);
+		       
+		       if(updateState == "applyStateUpdate"){
+		    	   alert("구인 상태를 정상적으로 변경하였습니다.");
+		    	   $('#workZone').empty();
+		       }else{
+		    	   alert("서버가 불안정 합니다.");
+		       }
+		    }
+		 };
+		 request.open("POST", "updateApplyCode", true);
+		 request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+		 request.send("sCode=updateApplyCode&"+"shCode="+shCode+"&applyState="+applyState);
+	  
+  }
+  
   function init() {
 	   let section = document.getElementById("workZone");
 	   let workInfo = document.getElementById("workInfo");
@@ -42,13 +54,15 @@
 
 		
 		for(i = 0; i<work.length; i++){
+			let index = i;
 			let div = document.createElement('Div');
 			div.className = "workzone";
 			div.style.margin ="40px 0px";
 			section.appendChild(div)
 			let shName = document.createElement('h2');
-			shName.textContent = work[i].shName;
+			shName.textContent = work[i].shName + "["+ work[i].stComment + "]";
 			shName.className="workInfo";
+			
 			let shtype = document.createElement('h4');
 			shtype.textContent = "업종 : " +work[i].shType;
 			shtype.className="kname";
@@ -60,6 +74,15 @@
 // 			workimg.style.backgroundImage = "url(/resources/image/" +work[i].workimg + ")";
 // 			workimg.style.backgroundSize = "contain";
 // 			workimg.className="workimg";
+			
+			// applyState 변경하는 버튼
+			let stComment = document.createElement('button');
+			stComment.textContent = work[i].stComment;
+			stComment.className = "apply_btn";
+			stComment.addEventListener('click', function() {
+				applyStateUpdate(work[index].shCode,work[index].applyState);
+			});
+			div.appendChild(stComment);
 			
 // 			div.appendChild(workimg);
 			div.appendChild(workman);
@@ -73,16 +96,10 @@
 		form.setAttribute("method","get");
 		form.setAttribute("action",'AddWorkZone');
 		form.setAttribute("target","매장등록");
-		
 		document.body.appendChild(form);
-			
-			
-			  window.open('addWorkZone.jsp','매장등록','top=10,left=10,width=800,height=600,status=no,menubar=no,toolbar=no,resizable=no');
-			
-			 
-			 form.submit();
-	
-		}
+		window.open('addWorkZone.jsp','매장등록','top=10,left=10,width=800,height=600,status=no,menubar=no,toolbar=no,resizable=no');
+		form.submit();
+	}
 
   </script>
 </html>

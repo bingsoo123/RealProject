@@ -362,11 +362,14 @@
 		request.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				let insertState = decodeURIComponent(request.response);
-				if(insertState == 1){
+				if(insertState == "1"){
 					alert("알바 지원을 성공하셨습니다. " + albaInfo[0].abName +"님 합격을 기원합니다!")
 					window.close();
+				}else if(insertState == "-1"){
+					alert(albaInfo[0].shName + "는 이미 근무중인 장소 입니다. 이 창을 닫습니다.");
+					window.close();
 				}else{
-					alert("서비스가 불안정합니다. 다시 시도해주세요.");
+					alert("서비스가 불안정합니니니다. 다시 시도해주세요.");
 					window.location.reload();
 				}
 			}

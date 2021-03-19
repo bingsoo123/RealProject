@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
+import icia.oap.beans.AlbaBean;
 import icia.oap.beans.ManageBean;
 import icia.oap.mapper.ManageMapper;
 import icia.oap.utils.ProjectUtils;
@@ -29,12 +30,33 @@ public class ManagementInquiery {
 		
 	}
 	
-	public ModelAndView entrance(ManageBean mBean) {
-		
-		try {
+	/*------------- 세션체크 ------------*/
+	
+	private ModelAndView SessionCheck(AlbaBean aBean) throws Exception {
 			
-			if(pu.getAttribute("idCode")!=null) {
-				System.out.println("세션이 존재합니다 :: " + pu.getAttribute("idCode") );
+			ModelAndView mv = null;
+		
+		if(pu.getAttribute("idCode")!=null) {
+			
+			System.out.println("세션이 존재합니다");
+			System.out.println("세션 값 ::" + pu.getAttribute("idCode"));
+			
+		}else {
+			
+			mv = new ModelAndView();
+			
+			System.out.println("세션이 존재하지않아요");
+			
+			aBean.setAction("");
+			
+			mv.setViewName("redirect:/LogInForm?lCode=alba");
+			
+		}
+		
+		return mv;
+	}
+	
+	public ModelAndView entrance(ManageBean mBean) {
 				
 				switch(mBean.getSCode()) {
 				case "myWorkZone":
@@ -150,20 +172,6 @@ public class ManagementInquiery {
 		        	mav = this.searchWorkListCtl(mBean);
 		        	break;
 				}
-				
-			}
-			
-		} catch (Exception e) {
-			
-			System.out.println("세션이 존재하지않아요");
-			
-			mav = new ModelAndView();
-			
-			mav.setViewName("/LogInForm?lCode=manage");
-			
-			e.printStackTrace();
-		}
-	   			
 		
 		return mav;
 	}

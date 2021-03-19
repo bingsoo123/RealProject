@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 
 import icia.oap.beans.AlbaBean;
 import icia.oap.mapper.AlbaMapper;
+import icia.oap.utils.ProjectUtils;
 
 @Service
 public class AlbaInquiery {
@@ -21,12 +22,22 @@ public class AlbaInquiery {
 	private AlbaMapper mapperW;
 	@Autowired
 	private Gson gson;
+	@Autowired
+	private ProjectUtils pu;
 	
 	public AlbaInquiery() {
 		
 	}
 	
+
+	
 	public ModelAndView entrance(AlbaBean aBean) {
+		
+//		try {
+//			mav = this.SessionCheck(aBean);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		
 		switch(aBean.getAction()) {
 		
@@ -67,6 +78,10 @@ public class AlbaInquiery {
 		case "albaApply":
 			mav = this.albaApplyCtl(aBean);
 			break;
+		// 알바 지원 검색
+		case "albaApplySearch":
+			mav = this.albaApplySearchCtl(aBean);
+			break;	
 		//
 		}
 		return mav;
@@ -103,18 +118,23 @@ public class AlbaInquiery {
 	// 내가 지원할 매장 눌렀을때 이미 지원했으면 뜨고, 아니면 그 매장 상세 정보
 	private ModelAndView albaApplyShopDetailInfoCtl(AlbaBean aBean) {
 		mav = new ModelAndView();
+		System.out.println(aBean.getAbCode());
 		String albaShopDetailInfo = "0";
 		int cnt = this.albaApplyAlreadyCheck(aBean);
+		System.out.println("cnt :: " + cnt);
 		// getApplyState = albaApplyShopInfo // 처음 전체 리스트
         //                 myShopInquiry // 내가 지원한 알바 매장 리스트 디테일
 		String applyState = aBean.getApplyState();
+		System.out.println("applyState::" + applyState);
 		if(cnt != 0 && applyState.equals("albaApplyShopInfo")) {
+			System.out.println("이미 지원한 매장 임.");
 			albaShopDetailInfo = gson.toJson("alreayApplyClose");
 		}else {
 			AlbaBean ab = this.albaApplyShopDetailInfo(aBean);
 			ab.setAbCode(aBean.getAbCode());
 			ab.setApplyState(applyState);
 			albaShopDetailInfo = gson.toJson(ab);
+			System.out.println("albaShopDetailInfo" + albaShopDetailInfo);
 		}
 		mav.addObject("albaShopDetailInfo", albaShopDetailInfo);
 		mav.setViewName("albaApply");
@@ -188,6 +208,32 @@ public class AlbaInquiery {
 	}
 	private ArrayList<AlbaBean> albaMyInfo(AlbaBean aBean) {
 		return mapperW.albaMyInfo(aBean);
+	}
+	
+	// 알바지원 검색
+	private ModelAndView albaApplySearchCtl(AlbaBean aBean) {
+		mav = new ModelAndView();
+		
+		String shopInfo = "";
+		System.out.println("kekWord = " + aBean.getKeyWord() + "cate = " + aBean.getCategory());
+		if(aBean.getCategory().equals("매장명")) {
+			shopInfo = gson.toJson(this.albaApplyShopNameSearch(aBean));	
+		}else if(aBean.getCategory().equals("주소")) {
+			shopInfo = gson.toJson(this.albaApplyShopAddressSearch(aBean));	
+		}
+		
+		mav.addObject("albaApplyShopInfo", shopInfo);
+		
+		
+		return mav;
+	}
+	// 이거 카테고리에 따라서 메서드가 다름가 다름. 분기 나누기.
+	public ArrayList<AlbaBean> albaApplyShopAddressSearch(AlbaBean aBean){
+		return mapperW.albaApplyShopAddressSearch(aBean);
+	}
+	
+	public ArrayList<AlbaBean> albaApplyShopNameSearch(AlbaBean aBean){
+		return mapperW.albaApplyShopNameSearch(aBean);
 	}
 
 	private ModelAndView albaTaskList(AlbaBean aBean) {

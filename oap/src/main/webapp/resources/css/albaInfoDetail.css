@@ -20,11 +20,11 @@ body {
 
 .accountSelect:focus{
    outline: none !important;
-    border:3px solid #FEE300;
+    border:2px solid #FEE300;
 }
 
 .accountSelect:hover{
-	border : 3px solid #FEE300;
+	border : 2px solid #FEE300;
 }
 
 
@@ -41,13 +41,52 @@ body {
 	margin: 15px 0px 50px 0px;
 }
 
-.albaDetailDelete_btn{
-	border: 0px;
+.albaDetail_btn_complete{
+	border: 1px solid white;
 	width: 100px;
    	height: 41px;
    	margin-left:11px;
-    background: #c11a1a;
 }
+
+.albaDetail_btn_complete:hover{
+    background: #FEE300;
+}
+.albaDetail_btn_complete:focus{
+	border: none;
+}
+
+.albaDetailDelete_btn{
+	border: 1px solid white;
+	width: 100px;
+   	height: 41px;
+   	margin-left:11px;
+}
+
+.albaDetailDelete_btn:hover{
+    background: red;
+    color: white;
+}
+.albaDetailDelete_btn:focus{
+	border: none;
+}
+
+.albaDetail_btn{
+	border: none;
+	width: 100px;
+   	height: 41px;
+   	color:white;
+    background: #6D6D6D;
+    margin-left: 20px;
+}
+
+.albaDetail_btn:hover{
+	border:none;
+    background: #C6C6C5;
+    color:black;
+}
+
+
+
 
 .albaDetail_btn{
 	border: 0px;
@@ -56,15 +95,6 @@ body {
    	margin-left:11px;
     background: #6D6D6D;
 }
-
-.albaDetail_btn_complete{
-	border: 0px;
-	width: 100px;
-   	height: 41px;
-   	margin-left:11px;
-    background: #FEE300;
-}
-
 
 
 #imgtwo{

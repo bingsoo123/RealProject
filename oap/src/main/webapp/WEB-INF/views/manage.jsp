@@ -19,7 +19,7 @@
 
     <div class="two">
         <div class="test2">
-            <div class="head"><img alt="알바어때 ?" src="/resources/img/Main_logo.png"></div>
+            <div class="head" onClick="location.href='/'"><img alt="알바어때 ?" src="/resources/img/Main_logo.png"></div>
             <div class="serve">
                 <div class="list" onclick="www();"><img alt="매장 관리" src="/resources/img/nav1.png"><img alt="매장 관리" src="/resources/img/nav1_hover.png"></div>
                 <div class="list" onClick="albaManagement()"><img alt="알바생 관리" src="/resources/img/nav2.png"><img alt="알바생 관리" src="/resources/img/nav2_hover.png"></div>
@@ -38,11 +38,13 @@
                 <div class="detail_info_img"><img alt="detail_logo" src="/resources/img/manager_logo.png"></div>
                 <div class="detail_if" id="mangerName"></div>
                 <div id="shopSelect"></div>
-                <div class="detail_logOut">로그아웃</div>
+                <div class="detail_logOut" onClick="logOut()">로그아웃</div>
                 <input type="hidden" id="shopCode" value="0">
         </div>
 
         <div id="test3" class="test3">
+        
+        
         </div>
 
     </div>
@@ -60,6 +62,10 @@
 	var mnCode="${mnCode}";	
 	
 ////////////////////////////////////2021-03-13 작성 (진주) 나중에 주석 삭제해도 됌.
+
+	function logOut(){
+		location.href="/LogOut";
+	}
 
 	function albaManagement(){ // 알바생 관리 - 해당 매장에 있는 전체 리스트 가져오는 ajax
 		menuIndex = "albaManagement";
@@ -216,7 +222,7 @@
 				shopSelect(manageDataParam);
 			}
 		};
-		let mnCode = '10000000'; // 로그인한 정보 (아마 세션에있는거) 임의로 넣음
+		let mnCode = "${mnCode}"; // 로그인한 정보 (아마 세션에있는거) 임의로 넣음
 		request.open("POST", "managerInfo", true);
 		request.setRequestHeader("Content-Type",
 				"application/x-www-form-urlencoded;charset=UTF-8");
@@ -555,6 +561,7 @@
 			url : "/pay",
 			dataType : "html",
 			success : function(data) {
+				alert(data);
 				$(".test3").html(data);
 				init();
 			}
@@ -562,10 +569,11 @@
 	}
 
 	function www() {
-		menuIndex = "www";
+		var manaData = {"sCode" : "myWorkZone", "mnCode": "10000000" };
 		$.ajax({
-			type : "GET",
-			url : "http://localhost/MyWorkZone",
+			data: manaData,
+			type : "POST",
+			url : "/MyWorkZone",
 			dataType : "html",
 			success : function(data) {
 				$(".test3").html(data);
@@ -980,9 +988,9 @@
 			
 			laborDelete.addEventListener('click', function() { // 삭제
 				laborFlag = -1;
-				alert("삭제 버튼 활성화(laborFlag) ::" + laborFlag);
-				
-				
+				laborDelete.setAttribute("style","display:none");
+				laborDeleteConfirm.style = "display:inline";
+// 				alert("삭제 버튼 활성화(laborFlag) ::" + laborFlag);
 			});
 			
 			laborDelete.appendChild(laborDeleteText);
@@ -1009,7 +1017,6 @@
 					
 					laborRow.addEventListener('click', function() { // !!!! 중요 !!!! isDeletePressed 로 해버리면 두번클릭해야 적용되서 다시 로직짜야함 ㅠ
 						if(laborFlag == -1){ // 삭제 버튼이 눌렸을때.
-							laborDeleteConfirm.style = "display:inline";
 							if(isDeletePressed == 0){
 								
 								laborCheck.checked = true;

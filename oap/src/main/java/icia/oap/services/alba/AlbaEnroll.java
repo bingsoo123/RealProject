@@ -9,6 +9,9 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+
 import icia.oap.beans.AlbaBean;
 import icia.oap.beans.Money;
 import icia.oap.mapper.AlbaMapper;
@@ -20,6 +23,8 @@ public class AlbaEnroll {
 	private AlbaMapper mapperAB;
 	@Autowired
 	private PlatformTransactionManager tran;
+	@Autowired
+	private Gson gson;
 
 	ModelAndView mav = null;
 
@@ -45,24 +50,65 @@ public class AlbaEnroll {
 		case "LeaveWork":
 			mav=this.startWorkCtl(aBean);
 			break;
+		case "CheckListForm" :
+			mav=this.checkListForm(aBean);
+			break;
 
 		}
 
 		return mav;
 	}
 	
-	private ModelAndView albaApplyCompleteCtl(AlbaBean aBean) {
+	private ModelAndView checkListForm(AlbaBean aBean) {
+		
 		mav = new ModelAndView();
 		
+		System.out.println("넘어온 isCheck ?" + aBean.getIsCheck()[0] + "::" + aBean.getIsCheck()[1]+ "::" + aBean.getIsCheck()[2]+ "::" + aBean.getIsCheck()[3]);
+		System.out.println("넘어온 tlNum ?" + aBean.getTlNum()[0] + "::" + aBean.getTlNum()[1] + "::" + aBean.getTlNum()[2] + "::" + aBean.getTlNum()[3]);
+		System.out.println("넘어온 detail ?" + aBean.getAlbaWorkDetail()[0] + "::" + aBean.getAlbaWorkDetail()[1] + "::" + aBean.getAlbaWorkDetail()[2] + "::" + aBean.getAlbaWorkDetail()[3]);
+		System.out.println("알바 >" + aBean.getAbCode() + "매장" + aBean.getShCode());
+		
+		for(int i = 0 ; i<aBean.getIsCheck().length ; i++) {
+			
+			aBean.setMtDetail(aBean.getAlbaWorkDetail()[i]);
+			aBean.setTlNumber(Integer.parseInt(aBean.getTlNum()[i]));
+			aBean.setTf(aBean.getIsCheck()[i]);
+			
+			if(this.insertCheckList(aBean)) {
+				System.out.println("인서트성공");
+			}
+			
+		}
+		
+		mav.addObject("msg", "창을 종료합니다");
+		
+		mav.setViewName("checkListForm");
+		
+		return mav;
+	}
+
+	private boolean insertCheckList(AlbaBean aBean) {
+		return this.converToBoolean(mapperAB.insertCheckList(aBean));
+	}
+
+	// albaComplete 눌렀을떄.... 여기서체하나,.. 이알바가 이 매장에 이미 근무하고있는지.
+	private ModelAndView albaApplyCompleteCtl(AlbaBean aBean) {
+		mav = new ModelAndView();
 		int insertState = 0;
 		
-		if(this.albaApplyComplete(aBean)) {
+		if(this.isAlreadyApplyInfo(aBean)) {
+			insertState = -1;
+		}else if(this.albaApplyComplete(aBean)) {
 			insertState = 1;
 		}
 		
 		mav.addObject("insertState", insertState);
 		
 		return mav;
+	}
+	
+	private boolean isAlreadyApplyInfo(AlbaBean aBean) {
+		return this.convertToBoolean(mapperAB.isAlreadyApplyInfo(aBean));
 	}
 	
 	private boolean albaApplyComplete(AlbaBean aBean) {
@@ -127,6 +173,8 @@ public class AlbaEnroll {
 
 		mav.addObject("note", getNote());
 		mav.addObject("tCode", aBean.getTCode());
+		mav.addObject("abCode", aBean.getAbCode());
+		mav.addObject("shCode", aBean.getShCode());
 
 		mav.setViewName((aBean.getTCode().equals("start")) ?  "alternation" : "endAlternation");
 
@@ -184,10 +232,27 @@ public class AlbaEnroll {
 //		}
 //
 //		mav.addObject("message", message);
+		
+		/* ----- 업무에대한 정보를 넘겨줘야할 리스트 -----*/
+		
+		System.out.println("알바생알아요" + aBean.getAbCode() + "::" + aBean.getShCode());
+		
+		gson.toJson(this.getCheckList(aBean));
+		
+		System.out.println(gson.toJson(this.getCheckList(aBean)));
+		
+		mav.addObject("checkListInfo", gson.toJson(this.getCheckList(aBean)));
+		
+		mav.addObject("abCode", aBean.getAbCode());
+		mav.addObject("shCode", aBean.getShCode());
 
 		mav.setViewName((aBean.getTCode().equals("start")) ?  "checkList" : "checkListForm");
 
 		return mav;
+	}
+
+	private ArrayList<AlbaBean> getCheckList(AlbaBean aBean) {
+		return mapperAB.getScheduleList(aBean);
 	}
 
 	private boolean insertRd(AlbaBean aBean) {

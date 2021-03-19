@@ -17,15 +17,12 @@ font-family: 'Noto Sans KR', sans-serif;
 
 .labor_alba_select_box:focus{
    outline: none !important;
-    border:3px solid #FEE300;
+    border:2px solid #FEE300;
 }
 
 .labor_alba_select_box:hover{
-	border : 3px solid #FEE300;
+	border : 2px solid #FEE300;
 }
-
-
-
 
 
 .laborDiv{
@@ -58,14 +55,33 @@ font-family: 'Noto Sans KR', sans-serif;
 }
 
 .labor_complete_btn{
-	border: 0px;
+	border: 1px solid white;
 	width: 100px;
-    height: 41px;
+   	height: 41px;
+   	margin-left:11px;
+}
+
+.labor_complete_btn:hover{
     background: #FEE300;
 }
-.labor_clear_btn{
-	background: white;
+.labor_complete_btn:focus{
+	border: none;
 }
+
+
+
+
+.labor_clear{
+	border: none;
+   	color:black;
+}
+
+.labor_clear:hover{
+	border:none;
+    background: white;
+	color: #C6C6C5;
+}
+
 
 
 .radio_btn{

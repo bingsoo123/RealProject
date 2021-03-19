@@ -45,29 +45,43 @@ body {
 }
 
 .list {
-   text-align : center;
-   width : 100%;
-   height: 100%;
-   cursor : pointer;
-   margin-bottom: -7px;
+	text-align : center;
+	width : 100%;
+	height: 100%;
+	cursor : pointer;
+	margin-bottom: -7px;
 }
 
 .list img{
-   border : 1px solid #C6C6C5;
-   position : relative;
-   width: 100%;
+	border : 1px solid #C6C6C5;
+	position : relative;
+	width: 100%;
+}
+
+
+
+.list_active{
+	border : 10px solid red;
 }
 
 .list img:last-child{
-   display:none
+	display:none;
 }
 .list:hover img:first-child{
-   display:none
-}    
+	display:none;
+} 	
 .list:hover img:last-child{
-   border : 1px solid #C6C6C5;
-   display:inline-block
+	border : 1px solid #C6C6C5;
+	display:inline-block;
 }
+
+.list:focus img{
+	border : 3px solid #red;
+	display:inline-block;
+}
+
+
+
 .list a {
 	text-align: center;
 	text-decoration: none;
@@ -93,17 +107,17 @@ body {
 }
 
 .detail_if{
-   color : #6D6D6D;
-   font-size : 20px;
-   width : 80%;
-   border : 1px solid #C6C6C5;
-   padding : 20px 0px 20px 0px;
-   margin-left: 10%;
-   margin-bottom: 3.5%;
+	color : #6D6D6D;
+	font-size : 20px;
+	width : 80%;
+	border : 1px solid #C6C6C5;
+	padding : 20px 0px 20px 0px;
+	margin-left: 10%;
+	margin-bottom: 3.5%;
 }
 
 .detail_if_select_box{
-   color: #6D6D6D;
+	color: #6D6D6D;
     font-size: 20px;
     width: 81%;
     border: 1px solid #C6C6C5;
@@ -111,8 +125,18 @@ body {
     margin-left: 0%;
     margin-bottom: 3.5%;
     text-align-last: center;
-    
 }
+
+.detail_if_select_box:hover{
+	border : 1px solid #FEE300;
+	background:#f7f7f7;
+}
+.detail_if_select_box:focus{
+	border : 1px solid #FEE300;
+	background:#f7f7f7;
+}
+
+
 
 .detail_logOut{
 	color : white;

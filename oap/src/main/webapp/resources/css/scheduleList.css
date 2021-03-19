@@ -3,8 +3,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap');
 body {
 	font-family: 'Noto Sans KR', sans-serif;
-	width: 100%;
+	width: 97%;
 	height: 100%;
+	background: #ddaf35;
 }
 
 .weekSchedule{
@@ -16,7 +17,9 @@ body {
 	align-items: center;
 	justify-content: center;
 	margin-top: 7%;
+	padding-top : 16px;
 	border: 1px solid #C6C6C5;
+	background : #fff;
 	border-radius: 20px;
 	text-align: center;
 }

@@ -54,6 +54,9 @@ public class AbtpAuthentication {
 			case "Join":
 				mav = this.join(authBean);
 				break;
+			case "LogOut" :
+				mav = this.logOutCtl(authBean);
+				break;	
 				
 			}
 
@@ -67,9 +70,7 @@ public class AbtpAuthentication {
 			case "LogIn":
 				mav = this.logInCtl(authBean);
 				break;
-			case "LogOut" :
-				mav = this.logOutCtl(authBean);
-				break;
+
 
 			}
 
@@ -212,8 +213,6 @@ public class AbtpAuthentication {
 					
 					pu.setAttribute("idCode", auBean.getAbCode());
 					
-					System.out.println("세션값 >>>" + pu.getAttribute("idCode"));
-					
 					message = null;
 					page = "workMan";
 				}
@@ -280,12 +279,18 @@ public class AbtpAuthentication {
 
 		ModelAndView mav = new ModelAndView();
 		
+		
 		try {
+			
 			if(pu.getAttribute("idCode")!=null) {
+				
+				System.out.println("로그아웃해주세요");
 				
 				pu.removeAttribute("idCode");
 				
-				mav.setViewName("home");
+				System.out.println("세션이 삭제되엇습니다");
+				
+				mav.setViewName("redirect:/");
 				
 			}
 		} catch (Exception e) {

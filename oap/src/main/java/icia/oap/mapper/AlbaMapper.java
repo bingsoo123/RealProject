@@ -51,4 +51,43 @@ public interface AlbaMapper {
 	public ArrayList<AlbaBean> albaApplyShopInfo(AlbaBean aBean);
 	// 알바 지원 나의 정보
 	public ArrayList<AlbaBean> albaApplyMyInfo(AlbaBean aBean);
+
+	public ArrayList<AlbaBean> getScheduleList(AlbaBean aBean);
+
+	public int insertCheckList(AlbaBean aBean);
+	
+	public ArrayList<AlbaBean> albaApplyShopAddressSearch(AlbaBean aBean);
+	public ArrayList<AlbaBean> albaApplyShopNameSearch(AlbaBean aBean);
+	
+	// 지원하기 (insert) 전에 내가 이 매장에 이미 근무하고있는지 체크하기 위한것
+	public int isAlreadyApplyInfo(AlbaBean aBean);
+	
+	
+	//알바생 정보 조회
+	public ArrayList<AlbaBean> getAlbaInfo(AlbaBean aBean);
+	
+	//알바생 정보 수정
+	public int editName(AlbaBean aBean);
+	
+	public int editPassword(AlbaBean aBean);
+	
+	public int editAccount(AlbaBean aBean);
+	
+	public int deleteAccount(AlbaBean aBean);
+	
+	public int addAccount(AlbaBean aBean);
+	
+	// 지원서 계좌가 있는지 확인
+	public int countSsAccount(AlbaBean aBean);
+	
+	// 매장에 포함된 알바의 계좌가 있는지 확인
+	public int countSiaAccount(AlbaBean aBean);
 }
+
+
+
+
+
+
+
+

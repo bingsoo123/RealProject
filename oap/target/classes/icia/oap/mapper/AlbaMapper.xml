@@ -197,6 +197,7 @@
 
 
 
+	<!-- 20210318 sh_applyState에 관한 조건문 달았음. 구직중인 상태(I)만 출력하게하기. -->
 	<select id="albaApplyShopInfo" resultType="icia.oap.beans.AlbaBean">
 		SELECT SH_CODE AS "SHCODE",
 		       SH_NAME AS "SHNAME",
@@ -204,9 +205,131 @@
 		       SH_ADDR AS "SHADDR",
 		       SH_TEL AS "SHTEL"
 		FROM SH
+		WHERE SH_APPLYSTATE = 'I'
+		
 	</select>	
+	
+	
+	<select id="getScheduleList" resultType="icia.oap.beans.AlbaBean">
+		SELECT  MTD_MTSHCODE AS SHCODE,
+        MTD_ABCODE AS ABCODEM,
+        AB_NAME AS ABNAME,
+       	MTD_MTTLNUMBER AS TLNUMBER,
+        MTD_MTDETAIL AS MTDETAIL
+		FROM MTD INNER JOIN AB ON MTD_ABCODE = AB_CODE
+		WHERE MTD_MTSHCODE=#{shCode} AND MTD_ABCODE=#{abCode}
+	</select>		
+	
+	<insert id="insertCheckList">
+		INSERT INTO CL(CL_MTSHCODE,CL_ABCODE,CL_MTTLNUMBER,CL_MTDETAIL,CL_CHECK) VALUES(#{shCode},#{abCode},#{tlNumber},#{mtDetail},#{tf})
+	</insert>	
+	
+	<!-- 검색 관련 -->
+
+	<select id="albaApplyShopNameSearch" resultType="icia.oap.beans.AlbaBean">
+		SELECT SH_CODE AS "SHCODE",
+		       SH_NAME AS "SHNAME",
+		       SH_TYPE AS "SHTYPE",
+		       SH_ADDR AS "SHADDR",
+		       SH_TEL AS "SHTEL"
+		FROM SH
+		WHERE SH_APPLYSTATE = 'I' AND SH_NAME LIKE '%'||#{keyWord}||'%'
+	</select>	
+	
+	<select id="albaApplyShopAddressSearch" resultType="icia.oap.beans.AlbaBean">
+		SELECT SH_CODE AS "SHCODE",
+		       SH_NAME AS "SHNAME",
+		       SH_TYPE AS "SHTYPE",
+		       SH_ADDR AS "SHADDR",
+		       SH_TEL AS "SHTEL"
+		FROM SH
+		WHERE SH_APPLYSTATE = 'I' AND SH_ADDR LIKE '%'||#{keyWord}||'%' 
+	</select>			
+			
+	<!-- 지원하기 (insert) 전에 내가 이 매장에 이미 근무하고있는지 체크하기 위한것 -->
+	<select id="isAlreadyApplyInfo" resultType="int">
+		SELECT COUNT(*) 
+		FROM SIA
+		WHERE SIA_SHCODE = #{shCode} AND SIA_ABCODE = #{abCode}
+	</select>		
+	
+	
+	
+	<!-- 알바생정보 조회 -->
+	<select id="getAlbaInfo" resultType="icia.oap.beans.AlbaBean">
+		<![CDATA[
+		select ab_code as abCode, ab_id as abId, ab_pw as abPw ,ab_name as abName,ab_birth as abBirth,ab_gender as abGender,
+		ac_bankname as acBankName, ac_account as acAccount from ab
+		inner join ac on ac.ac_abcode = ab.ab_code where ab.ab_code = #{abCode}
+		group by ab.ab_code,ab.ab_id,ab.ab_pw,ab.ab_name,ab.ab_birth,ab.ab_gender,ac.ac_bankname,ac.ac_account
+		]]>
+	</select>
+	
+	<!-- 이름 수정 -->
+	<update id="editName" >
+		<![CDATA[
+		update AB set AB_NAME = #{abName} where AB_CODE =#{abCode} 
+	 	]]> 
+	</update>
+	
+	<!-- 계좌 수정 -->
+	<update id="editAccount" >
+		<![CDATA[
+		update AC
+		set AC_BANKNAME = #{editAcBankName},
+			AC_ACCOUNT = #{editAcAccount}
+		where AC_ABCODE = #{abCode} and AC_ACCOUNT = #{acAccount}
+	 	]]> 
+	</update>
+	
+	<!-- 계좌 삭제 -->
+	<delete id="deleteAccount" >
+		<![CDATA[
+		DELETE FROM AC
+		WHERE AC_ABCODE = #{abCode} AND AC_ACCOUNT = #{acAccount}
+	 	]]> 
+	</delete>
+	
+	<!-- 계좌 삭제하기 전 ss테이블 있는지 확인 -->
+	<select id="countSsAccount" resultType="int">
+		<![CDATA[
+		SELECT COUNT(*)
+		FROM SS
+		WHERE SS_ABCODE = #{abCode} AND SS_ACCOUNT = #{acAccount}
+		]]>
+	</select>
+	
+	<!-- 계좌 삭제하기 전 sia테이블 있는지 확인 -->
+	<select id="countSiaAccount" resultType="int">
+		<![CDATA[
+		SELECT COUNT(*)
+		FROM SIA
+		WHERE SIA_ABCODE = #{abCode} AND SIA_ACCOUNT = #{acAccount}
+		]]>
+	</select>
+	
+	<!-- 계좌 추가 -->
+	<insert id="addAccount" >
+		<![CDATA[
+		INSERT INTO AC (AC_ABCODE, AC_BANKNAME, AC_ACCOUNT)
+		VALUES(#{abCode}, #{acBankName}, #{acAccount})
+	 	]]> 
+	</insert>
+	
+	
+	<!-- 비밀번호 수정 -->
+	<update id="editPassword" >
+		<![CDATA[
+	 	update AB set AB_PW =#{abPw} where AB_CODE =#{abCode}
+	]]> 
+	</update>	
 			
 </mapper>	
+
+
+
+
+
 
 
 

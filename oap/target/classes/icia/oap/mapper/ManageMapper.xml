@@ -5,17 +5,36 @@
 
 	<!-- 원진 -->
 
-	<select id="getMyWorkZoneList"
-		resultType="icia.oap.beans.ManageBean">
+	<!--  원래 있던거 수정함. -->
+	<select id="getMyWorkZoneList" resultType="icia.oap.beans.ManageBean">
 	<![CDATA[
-		SELECT sh_code as shcode,sh_name as shName,sh_type as shType, sh_addr as shaddr,sh_tel 
-		as shTel,
-		COUNT(SIA.sia_abcode) AS workman
-		FROM SH INNER JOIN SIA ON sia.sia_shcode = sh.sh_code 
-		where SH_MNCODE = '10000000'
-		group by sh.sh_code,sh.sh_addr,sh.sh_businessli,sh.sh_tel,sh.sh_type,sh.sh_name
+		SELECT SH_CODE AS "SHCODE",
+		       SH_NAME as "SHNAME",
+		       SH_TYPE as "SHTYPE", 
+		       SH_ADDR as "SHADDR",
+		       ST_COMMENT AS "STCOMMENT",
+		       SH_APPLYSTATE as applyState,
+		COUNT(SIA.SIA_ABCODE) AS "WORKMAN"
+		FROM SH INNER JOIN SIA ON SIA.SIA_SHCODE = SH.SH_CODE
+		        INNER JOIN ST ON SH.SH_APPLYSTATE = ST.ST_CODE
+		where SH_MNCODE = #{mnCode}
+		group by SH.SH_CODE,SH.SH_ADDR,SH.SH_BUSINESSLI,SH.SH_TYPE,SH.SH_NAME,SH_APPLYSTATE, ST_COMMENT
 		]]>
 	</select>
+	
+	<!-- 알바 지원한거 취소 시키는거 -->
+	<delete id="albaApplyCancel">
+	<![CDATA[
+		DELETE FROM SS WHERE SS_SHCODE = #{shCode} AND SS_ABCODE = #{abCode}
+	]]>
+	</delete>
+
+	<update id="updateApplyCode">
+	<![CDATA[
+		UPDATE SH SET SH_APPLYSTATE = #{applyState}
+		WHERE SH_CODE = #{shCode}
+	]]> 
+	</update>
 
 	<!-- 진주 -->
 

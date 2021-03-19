@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import icia.oap.beans.AuthBean;
 import icia.oap.services.authentication.AbtpAuthentication;
+import icia.oap.utils.ProjectUtils;
 
 
 @Controller
@@ -26,6 +27,7 @@ public class HomeController {
 	
 	@Autowired
 	private AbtpAuthentication auth;
+
 	
 	ModelAndView mv = null;
 
@@ -99,6 +101,7 @@ public class HomeController {
 	@RequestMapping(value = "/LogOut", method = RequestMethod.GET)
 	public ModelAndView logOut(@ModelAttribute AuthBean authBean,HttpServletRequest req) throws Exception {
 		authBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		System.out.println("도착");
 		return auth.entrance(authBean);
 	}
 	
