@@ -235,7 +235,7 @@ public class ManageController {
 	// 급여 관리 - 추가버튼 클릭시 매장리스트를 가져오기위한 메서드
 	@RequestMapping(value = "/manageStore", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView manageStore(@ModelAttribute ManageBean mBean) throws Exception {
-		mBean.setMnCode("10000000");
+		System.out.println("mncode>>" + mBean.getMnCode());
 		mBean.setSCode("manageStore");
 		return (pu.getAttribute("idCode")!=null) ? mInquiery.entrance(mBean) : this.mavSessionCheck();
 	}
@@ -440,10 +440,15 @@ public class ManageController {
 	// 매장 관리 - 매장 추가하기 sCode :: 1
 	@RequestMapping(value = "/AddWorkZone", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView addWorkZone(@ModelAttribute ManageBean mBean) throws Exception {
-
 		mBean.setSCode("addWorkZone");
-		System.out.println("작동");
-
+		System.out.println("관리자코드 ?>" + mBean.getMnCode());
+		return (pu.getAttribute("idCode")!=null) ? mEnroll.entrance(mBean) : this.mavSessionCheck();
+	}
+	
+	@RequestMapping(value = "/AddWorkZoneComplete", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView addWorkZoneComplete(@ModelAttribute ManageBean mBean) throws Exception {
+		mBean.setSCode("addWorkZoneComplete");
+		System.out.println("관리자코드 ?>" + mBean.getMnCode()  + "::" + mBean.getShType());
 		return (pu.getAttribute("idCode")!=null) ? mEnroll.entrance(mBean) : this.mavSessionCheck();
 	}
 	

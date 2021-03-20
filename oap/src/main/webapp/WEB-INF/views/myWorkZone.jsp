@@ -101,16 +101,16 @@
 		}
 	}
 	function addstore() {
+		
+		window.open('','pop','top=10,left=10,width=800,height=600,status=no,menubar=no,toolbar=no,resizable=no');
+		
 		let form = document.createElement("form");
-		form.setAttribute("method", "get");
-		form.setAttribute("action", 'AddWorkZone');
-		form.setAttribute("target", "매장등록");
+		form.setAttribute("method", "POST");
+		form.setAttribute("action", 'AddWorkZone?mnCode=' + mnCode);
+		form.setAttribute("target", "pop");
+		
 		document.body.appendChild(form);
-		window
-				.open(
-						'addWorkZone.jsp',
-						'매장등록',
-						'top=10,left=10,width=800,height=600,status=no,menubar=no,toolbar=no,resizable=no');
+
 		form.submit();
 	}
 </script>

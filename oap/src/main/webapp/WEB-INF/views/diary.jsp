@@ -9,24 +9,40 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body onLoad="Loader()">
-    <table style="align-items: center;">
-        <thead>
-            <tr>
-                <th id="btn-prev" colspan="2">&#60;</th>
+
+    <table style="align-items: center;" class="all">
+    
+        <thead class="one">
+        
+            <tr class="one-1">
+                <th id="btn-prev" colspan="2">◀</th>
                 <th id="calendar-year" colspan="2">년</th>
                 <th id="calendar-month">월</th>
-                <th id="btn-next" colspan="2">&gt</th>
+                <th id="btn-next" colspan="2">▶</th>
             </tr>
-            <tr>
-                <th>일</th>
-                <th>월</th>
-                <th>화</th>
-                <th>수</th>
-                <th>목</th>
-                <th>금</th>
-                <th>토</th>
+            
+            <tr class="one-2">
+                <th class="small-0">일</th>
+                <th class="small-1">월</th>
+                <th class="small-1">화</th>
+                <th class="small-1">수</th>
+                <th class="small-1">목</th>
+                <th class="small-1">금</th>
+                <th class="small-2">토</th>
             </tr>
+            
+            <tr class="one-11">
+            	<th></th>
+            	<th class="bar"></th>
+            	<th class="bar"></th>
+            	<th class="bar"></th>
+            	<th class="bar"></th>
+            	<th class="bar"></th>
+            	<th class="bar"></th>
+            </tr>
+            
         </thead>
+        
         <tbody id="calendar-days">
             <!--달력 행렬 생성(정적으로 써놔도 괜찮음)-->
             <script>

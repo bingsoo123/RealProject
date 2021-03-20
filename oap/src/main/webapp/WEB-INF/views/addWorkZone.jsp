@@ -8,7 +8,7 @@
 <link href="/resources/css/addWorkZone.css" rel="stylesheet">
 </head>
 <body>
-  <form name="file" action="UPLOAD" method="post" encType="multipart/form-data">
+<!--   <form name="file" action="UPLOAD" method="post" encType="multipart/form-data"> -->
 	<div class="shopbox">
 		<div class="shopName">
 			매장명 <input type="text" maxlength="15" placeholder="매장명을 입력하여주세요"
@@ -44,12 +44,12 @@
 					onChange="imgadd()" >
 			</div>
 			<div class="resultfile">
-				<input type="text" name="shImage" readonly>
+				<input type="text" name="shImg" readonly>
 			</div>
 		</div>
 		<input type="button" value="확인" onClick="checkshop()">
 	</div>
-  </form>
+<!--   </form> -->
 </body>
 <script>
 
@@ -61,46 +61,55 @@
 	form.setAttribute("method","get");
 	form.setAttribute("action",'searchMap');
 	form.setAttribute("target","shopResult");
-	
 
 	document.body.appendChild(form);
-		
 
 		window.open('searchMap.jsp','shopResult','top=10,left=10,width=600,height=600,status=no,menubar=no,toolbar=no,resizable=no');
-		
-
-	
-
-
 		 
 		 form.submit();
-			
 	}
 	
 
 	function checkshop(){
-//		let name = document.getElementsByName("shName").value;
-//		let addrs = document.getElementsByName("shAddr").value;
-//		let number = document.getElementsByName("shBusinessLi").value;
-//		let phone = document.getElementsByName("shTel").value;
-//		let kind = document.getElementsByName("shType").value;
-//		let img = document.getElementsByName("imgresult").value;
-//		let form =document.getElementsByName("form");
-//		form.method="post";
-//		document.body.appendChild(form);
-//		form.submit();
-
-		document.file.submit();
 		
-//		window.close();
+		let shName = document.getElementsByName("shName")[0];
+		let shAddr = document.getElementsByName("shAddr")[0];
+		let shBusinessLi = document.getElementsByName("shBusinessLi")[0];
+		let shTel = document.getElementsByName("shTel")[0];
+		let shType = document.getElementsByName("shType")[0];
+		let shImg = document.getElementsByName("shImg")[0];
+		
+		var form = document.createElement("form");
+		form.method="POST";
+		form.action="AddWorkZoneComplete";
+		
+		let mCode= document.createElement("input");
+		mCode.type="hidden";
+		mCode.name="mnCode";
+		mCode.value="${mnCode}";
+		
+		form.appendChild(mCode);
+		form.appendChild(shName);
+		form.appendChild(shAddr);
+		form.appendChild(shBusinessLi);
+		form.appendChild(shTel);
+		form.appendChild(shType);
+		form.appendChild(shImg);
+		
+		
+		document.body.appendChild(form);
+		
+		form.submit();
+
+//		document.file.submit(); 파일업로드 관련
 	}
 
-function imgadd(){
-	var fname = document.getElementsByName('shImage')[0];
-	var tt = document.getElementById('addimg2').value;
-	var ab = tt.split("\\");
-	fname.value += ab[2];
-}
+	function imgadd(){
+		var fname = document.getElementsByName('shImage')[0];
+		var tt = document.getElementById('addimg2').value;
+		var ab = tt.split("\\");
+		fname.value += ab[2];
+	}
 
 
 </script>

@@ -85,6 +85,8 @@ public interface ManageMapper {
 	
 	public ArrayList<ManageBean> getSearchWork(ManageBean mBean);
 	
+	public String maxShCode(ManageBean mBean);
+	
 	//   Enroll       ( 등록 )
 
 	public int inspaylist1(ManageBean mBean);
@@ -149,6 +151,8 @@ public interface ManageMapper {
 	
 	// 구인중? 구인안함?
 	public int updateApplyCode(ManageBean mBean);
+	
+	public int workZoneInsert(ManageBean mBean);
 	
 
 

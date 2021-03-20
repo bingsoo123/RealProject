@@ -13,7 +13,7 @@
 	
 		
 		<div class="two">
-			<img src="/resources/img/main.png" style="width:80px;height:80px;margin-left:8px;">
+			<img src="/resources/img/Main_logo.png" style="width:80px;height:80px;margin-left:8px;">
 			<a id="paName"></a>
 			<div style="width:430px;height:10px;background-color:#FEE300;"></div>
 		</div>

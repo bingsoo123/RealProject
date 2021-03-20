@@ -43,6 +43,9 @@ public class ManagementEnroll {
 		case "addWorkZone":
 			mav = this.addWorkZoneCtl(mBean);
 			break;
+		case "AddWorkZoneComplete" :
+			mav = this.addWorkZoneCompleteCtl(mBean);
+			break;
 		case "laborAdd":
 			// [추가] -> [계약서 작성] 후 완료버튼 눌렀을때.
 			mav = this.laborAddCtl(mBean);
@@ -69,6 +72,22 @@ public class ManagementEnroll {
 		return mav;
 	}
 	
+	// 매장추가 버튼 >> 데이터를 집어 넣는과정
+	private ModelAndView addWorkZoneCompleteCtl(ManageBean mBean) {
+		
+		mav = new ModelAndView();
+		
+		//mBean.setShCode(this.maxShCode(mBean));
+	
+		//this.workZoneInsert(mBean);
+		
+		return mav;
+	}
+
+	private String maxShCode(ManageBean mBean) {
+		return mapperM.maxShCode(mBean);
+	}
+
 	private ModelAndView albaManagementAddCompleteCtl(ManageBean mBean) {
 		mav = new ModelAndView();
 		int insertState = -1;
@@ -212,14 +231,23 @@ public class ManagementEnroll {
 	private ModelAndView addWorkZoneCtl(ManageBean mBean) {
 	
 		ModelAndView mav = new ModelAndView();
-	
+		
 		mav.addObject("Road", mBean.getRoad());
 		mav.addObject("detail", mBean.getDetail());
-
+		
+		System.out.println(mBean.getMnCode() + "::" + mBean.getShType());
+		
+		mav.addObject("mnCode", mBean.getMnCode());
+		
 		mav.setViewName("addWorkZone");
+		
 		return mav;
 	}
 	
+	private boolean workZoneInsert(ManageBean mBean) {
+		return this.convertToBoolean(mapperM.workZoneInsert(mBean));
+	}
+
 	// 업무 추가 버튼 누르면 작동하는 메소드
 	private ModelAndView workAddCtl(ManageBean mBean) {
 		

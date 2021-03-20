@@ -16,7 +16,7 @@
 	<div class="all" id="all">
 	
 		<div class="imgdiv">
-			<img src="/resources/img/main.png" style="width:115px;height:115px;">
+			<img src="/resources/img/Main_logo.png" style="width:115px;height:115px;">
 		</div>
 		
 		<input type="hidden" id="hiddenBox" value="0"/>
@@ -147,7 +147,7 @@
 	    request.onreadystatechange = function() {
 	       if (this.readyState == 4 && this.status == 200) {
 	    	   let jsondata = decodeURIComponent(request.response);
-		    	if(jsonData=="noSession"){
+		    	if(jsondata=="noSession"){
 		    		 location.href="/LogInForm?lCode=manage";
 		        }		
 			   let test = JSON.parse(jsondata);

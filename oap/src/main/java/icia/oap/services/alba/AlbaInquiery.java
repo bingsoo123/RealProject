@@ -307,7 +307,7 @@ public class AlbaInquiery {
 		
 		ArrayList<AlbaBean> list = new ArrayList<AlbaBean>();
 		
-		aBean.setAbCode("100000000");
+		System.out.println("알바생 누구니?" + aBean.getAbCode());
 		
 		String myAlbaList = gson.toJson(this.myAlbaZone(aBean));
 		

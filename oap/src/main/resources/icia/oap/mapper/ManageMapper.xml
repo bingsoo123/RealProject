@@ -264,7 +264,8 @@
 		SELECT SH_CODE AS "SHCODE",
 		       SH_MNCODE AS "MNCODE",
 		       SH_NAME AS "SHNAME",
-		       MN_NAME AS "MNNAME"
+		       MN_NAME AS "MNNAME",
+		       SH_IMG AS shImg
 		FROM SH INNER JOIN MN ON SH.SH_MNCODE = MN.MN_CODE
 		WHERE MN_CODE= #{mnCode}
 	]]>
@@ -618,8 +619,17 @@
 	   WHERE MTD_MTSHCODE = #{shCode} AND MTD_ABCODE = #{abCode}
    ]]>
    </delete>
+   
+    <!-- 업무추가 최종 insert 하기 -->
+	<insert id="workZoneInsert">SELECT MAX(AB_CODE)+1 FROM AB
+		INSERT INTO(SH_CODE,SH_MNCODE,SH_BUSINESSLI, SH_TYPE, SH_NAME, SH_ADDR, SH_TEL, SH_IMG) VALUES(#{shCode},#{mnCode},#{shBusinessLi},#{shType},#{shName},#{shAddr},#{shTel},#{shImg})
+	</insert>
 	
-
+   <select id="maxShCode" resultType="String">
+		SELECT MAX(SH_CODE)+1 FROM SH
+   </select>
+	
+	
 </mapper>	
 
 

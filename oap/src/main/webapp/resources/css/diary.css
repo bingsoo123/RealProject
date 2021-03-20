@@ -1,1 +1,155 @@
 @charset "UTF-8";
+
+.all{
+	text-align:center;
+	margin-top:1.8%;
+	margin-left:16%;
+	box-shadow:10px 10px 30px #BBBBBB;
+	border-radius:15px;
+}
+
+.one{
+	
+}
+
+.one-1{
+	
+}
+
+.one-11{
+	width:100%;
+	height:10px;
+	background-color:#FEE300;
+	border-left:1px solid #FEE300;
+}
+
+.bar{
+	border-left:1px solid #FEE300;
+}
+
+#btn-prev{
+	width:150px;
+	height:110px;
+	font-size:20px;
+	font-weight:bolder;
+	cursor:pointer;
+}
+
+#calendar-year{
+	height:110px;
+	font-size:24px;
+	font-weight:bolder;
+}
+
+#calendar-month{
+	height:110px;
+	font-size:24px;
+	font-weight:bolder;
+}
+
+#btn-next{
+	width:150px;
+	height:110px;
+	font-size:20px;
+	font-weight:bolder;
+	cursor:pointer;
+}
+
+.one-2{
+	
+}
+
+.small-0{
+	width:110px;
+	height:70px;
+	color:red;
+	font-size:18px;
+	font-weight:bold;
+}
+
+.small-1{
+	width:110px;
+	height:70px;
+	font-size:18px;
+	font-weight:bold;
+}
+
+.small-2{
+	width:110px;
+	height:70px;
+	color:blue;
+	font-size:18px;
+	font-weight:bold;
+}
+
+#btn-day0{
+	width:115px;
+	height:115px;
+	color:red;
+	font-size:17px;
+}
+
+#btn-day0:hover{
+	background-color:#ffffe0;
+}
+
+#btn-day1{
+	width:115px;
+	height:115px;
+	font-size:17px;
+}
+
+#btn-day1:hover{
+	background-color:#ffffe0;
+}
+
+#btn-day2{
+	width:115px;
+	height:115px;
+	font-size:17px;
+}
+
+#btn-day2:hover{
+	background-color:#ffffe0;
+}
+
+#btn-day3{
+	width:115px;
+	height:115px;
+	font-size:17px;
+}
+
+#btn-day3:hover{
+	background-color:#ffffe0;
+}
+
+#btn-day4{
+	width:115px;
+	height:115px;
+	font-size:17px;
+}
+
+#btn-day4:hover{
+	background-color:#ffffe0;
+}
+
+#btn-day5{
+	width:115px;
+	height:115px;
+	font-size:17px;
+}
+
+#btn-day5:hover{
+	background-color:#ffffe0;
+}
+
+#btn-day6{
+	width:115px;
+	height:115px;
+	color:blue;
+	font-size:17px;
+}
+
+#btn-day6:hover{
+	background-color:#ffffe0;
+}

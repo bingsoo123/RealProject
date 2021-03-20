@@ -35,11 +35,12 @@
         </div>
 
         <div class="info">
-                <div class="detail_info_img"><img alt="detail_logo" src="/resources/img/manager_logo.png"></div>
+                <div class="detail_info_img" id="detail_info_img"><img alt="detail_logo" src="/resources/img/manager_logo.png"></div>
                 <div class="detail_if" id="mangerName"></div>
                 <div id="shopSelect"></div>
                 <div class="detail_logOut" onClick="logOut()">로그아웃</div>
                 <input type="hidden" id="shopCode" value="0">
+                <input type="hidden" id="shNumberInfo" value="0">
         </div>
 
         <div id="test3" class="test3">
@@ -504,8 +505,11 @@
 	      // 로그인하고나서 선택을 해야하나..? 암튼 기본 선택값 (input hidden 에다가 넣어서 그걸 받아올거임.)   
 	      let shopHiddenInput = document.getElementById('shopCode');
 	      let mangerName = document.getElementById('mangerName');
-	      
 	      // let shCode = '100000000';
+	      let photo = document.getElementById("detail_info_img");
+	      let num = document.getElementById("shNumberInfo");
+	      
+	      photo.innerHTML = " <img src='/resources/workZoneImg/" + manageData[0].shImg + "' width='125px' height='125px'/>";
 	      
 	      mangerName.innerHTML = manageData[0].mnName + " 사장님        <img src='/resources/img/work_check.png' width='25px' height='25px'/>";
 	      
@@ -518,13 +522,6 @@
 	      shopSelectBox.addEventListener('change', function() {
 	         manaOnchangeTest(this);
 	      });
-		
-//	 	let shopSelectOption = document.createElement("option");
-//	 	shopSelectOption.value = " "; //
-//	 	shopSelectOption.text = "매장 선택"; //
-//	 	shopSelectBox.appendChild(shopSelectOption);
-
-		// 서버에서 로그인 한사람의 shop 코드를 가져온다. (사장님의 매장이 여러개 일 수 있으니..)
 		
 		for(index = 0; index < manageData.length; index++){
 			let shopOptionIn = document.createElement("option");
@@ -547,6 +544,8 @@
 		shopHiddenInput.value = obj.value;
 		alert("shCode HiddenInput :: " + shopName + "("+ obj.value +")로 매장 변경 및 test3 영역 초기화. manaOnchageTest 부분");
 		$('#test3').empty();
+		
+	    let photo = document.getElementById("detail_info_img");
 		
 		if(menuIndex == "albaManagement"){
 			albaManagement();

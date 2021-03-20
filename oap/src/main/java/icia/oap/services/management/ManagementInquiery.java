@@ -130,7 +130,6 @@ public class ManagementInquiery {
 				    mav = this.goManageCodeCtl(mBean);
 					break; 
 		        case "manageStore":
-		        	System.out.println("case 도착");
 					mav = this.manageStore(mBean);
 					break; 	
 		        case "DayWork":
@@ -416,7 +415,6 @@ public class ManagementInquiery {
 	private ModelAndView manageStore(ManageBean mBean) {
 		
 		mav = new ModelAndView();
-		System.out.println("manage 222222222");
 		String sh = gson.toJson(this.getShname(mBean));
 		System.out.println(">>>>나왓당" + sh);
 		mav.addObject("sh", sh);

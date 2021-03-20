@@ -94,7 +94,7 @@
 	
 	function inquiery(){
 		menuIndex = "inquiery";
-		ajax("/AlbaList");
+		ajax("/AlbaList?abCode=" + abCode);
 		
 	}
 	
