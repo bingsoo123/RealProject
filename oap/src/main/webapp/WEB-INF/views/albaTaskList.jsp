@@ -12,9 +12,6 @@
 </head>
 
 <body onLoad="init()">
-	<select id="selectShCode" onChange="selectShCode()">
-	
-	</select>
 	
 	<div id="taskBoxDiv">
 		
@@ -29,16 +26,7 @@
 			
 			let albaShopList= JSON.parse('${albaShopList}');
 			//console.log(albaShopList);
-			
-				for(i = 0; i < albaShopList.length; i++){
-					let selectShCode = document.getElementById("selectShCode");
-					
-					let option = document.createElement('option');
-					option.value = albaShopList[i].shCode;
-					option.text = albaShopList[i].shName;
-					
-					selectShCode.appendChild(option);
-				}
+
 			
 			// 페이지 onLoad 했을 때 전체리스트 지우기
 			// body의 잡힌 div

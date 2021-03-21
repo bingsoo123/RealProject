@@ -61,6 +61,7 @@ public class AlbaBean {
     private String keyWord;
     private String category;
     private String stComment;
+    private String stCode;
  
 	public String abId;
 	public String abPw;

@@ -41,15 +41,11 @@
 			var text2 = document.createTextNode(list[i].shType);
 			h2.className="oname";
 			h2.appendChild(text2);
-			var h3 = document.createElement('div');
-			var text3 = document.createTextNode("근무시간 : " + list[i].startTime + " ~ " + list[i].endTime);
-			h3.className="omember";
-			h3.appendChild(text3);
 			
-			
-			img.src="/resources/img/mac.jpg";
+			img.src="/resources/workZoneImg/" + list[i].shImg;
 			img.style.cursor = "pointer";
 			img.style.width = "100px";
+			img.style.height = "100px";
 			img.style.marginTop = "20px";
 			serDiv.appendChild(img);
 			serDiv.className="offimg";
@@ -59,7 +55,6 @@
 			mainDiv.appendChild(serDiv);
 			mainDiv.appendChild(h1);
 			mainDiv.appendChild(h2);
-			mainDiv.appendChild(h3);
 			md.appendChild(mainDiv);
 			//document.body.appendChild(mainDiv);
 			document.body.appendChild(br);

@@ -28,16 +28,14 @@
 	
 	<select id="myAlbaZone" resultType="icia.oap.beans.AlbaBean">
 		SELECT  SIA_SHCODE AS SHCODE,
-        SH_NAME AS SHNAME,
-        SH_TYPE AS SHTYPE,
-        SIA_ABCODE AS ABCODE,
-        AB_NAME AS ABNAME,
-        SC_STARTTIME AS STARTTIME,
-        SC_ENDTIME AS ENDTIME
+       		    SH_NAME AS SHNAME,
+       		    SH_IMG AS SHIMG,
+        		SH_TYPE AS SHTYPE,
+       		    SIA_ABCODE AS ABCODE,
+       		    AB_NAME AS ABNAME
 		FROM SIA INNER JOIN SH ON SIA_SHCODE = SH_CODE
-         INNER JOIN AB ON SIA_ABCODE = AB_CODE
-         INNER JOIN SC ON SIA_ABCODE = SC_SIAABCODE AND SIA_SHCODE = SC_SIASHCODE
-		WHERE SIA_ABCODE = #{abCode}
+         		 INNER JOIN AB ON SIA_ABCODE = AB_CODE
+		WHERE SIA_ABCODE=#{abCode}
 	</select>	
 	
 	<select id="getPayCheck" resultType="icia.oap.beans.AlbaBean">
@@ -323,6 +321,26 @@
 	 	update AB set AB_PW =#{abPw} where AB_CODE =#{abCode}
 	]]> 
 	</update>	
+	
+	
+	<select id="getAlbaScheduleList" resultType="icia.oap.beans.AlbaBean">
+		SELECT  SC_SIASHCODE AS SHCODE,
+		        SH_NAME AS SHNAME,
+		        SC_SIAABCODE AS ABCODE,
+		        AB_NAME AS ABNAME,
+		        SC_STARTTIME AS STARTTIME,
+		        SC_ENDTIME AS ENDTIOME,
+		        SC_STCODE AS STCODE,
+		        ST_COMMENT AS STCOMMENT
+		FROM SC INNER JOIN SH ON SC_SIASHCODE=SH_CODE
+		        INNER JOIN AB ON SC_SIAABCODE=AB_CODE
+		        INNER JOIN ST ON SC_STCODE=ST_CODE
+		WHERE SC_SIAABCODE=#{abCode} AND SC_STCODE=#{stCode}
+	</select>			
+	
+	<select id="countAlbaSchedule" resultType="int">
+		SELECT COUNT(*) FROM SC WHERE SC_STCODE=#{stCode} AND SC_SIAABCODE=#{abCode}
+	</select>		
 			
 </mapper>	
 

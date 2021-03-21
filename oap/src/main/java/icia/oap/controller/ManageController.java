@@ -98,14 +98,14 @@ public class ManageController {
 	@RequestMapping(value = "/searchMap", method = RequestMethod.GET)
 	public ModelAndView searchMape(@ModelAttribute ManageBean mBean) throws Exception {
 		mBean.setSCode("searchMap");
-		return (pu.getAttribute("idCode")!=null) ? mInquiery.entrance(mBean) : this.mavSessionCheck();
+		return mInquiery.entrance(mBean);
 	}
 
 	// 지도 조회 - 회원가입
 	@RequestMapping(value = "/searchMapJoin", method = RequestMethod.GET)
 	public ModelAndView searchMapJoin(@ModelAttribute ManageBean mBean) throws Exception {
 		mBean.setSCode("searchMapJoin");
-		return (pu.getAttribute("idCode")!=null) ? mInquiery.entrance(mBean) : this.mavSessionCheck();
+		return mInquiery.entrance(mBean);
 	}
 
 	//////// 진주 20210315

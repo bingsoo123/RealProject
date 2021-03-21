@@ -82,6 +82,10 @@ public interface AlbaMapper {
 	
 	// 매장에 포함된 알바의 계좌가 있는지 확인
 	public int countSiaAccount(AlbaBean aBean);
+
+	public ArrayList<AlbaBean> getAlbaScheduleList(AlbaBean aBean);
+	
+	public int countAlbaSchedule(AlbaBean aBean);
 }
 
 

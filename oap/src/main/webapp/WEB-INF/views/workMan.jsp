@@ -18,11 +18,11 @@
             <div class="serve">
                 <div class="list" onclick="inquiery()"><img alt="알바 조회" src="/resources/img/alba_nav1.png"> <img alt="알바 조회" src="/resources/img/alba_nav1_hover.png"></div>
                 <div class="list" onClick="pay()"><img alt="급여 조회" src="/resources/img/alba_nav2.png"><img alt="급여 조회" src="/resources/img/alba_nav2_hover.png"></div>
-                <div class="list" onClick=""><img alt="일정조회등록" src="/resources/img/alba_nav3.png"><img alt="일정조회등록" src="/resources/img/alba_nav3_hover.png"></div>
+                <div class="list" onClick="schedule()"><img alt="일정조회등록" src="/resources/img/alba_nav3.png"><img alt="일정조회등록" src="/resources/img/alba_nav3_hover.png"></div>
             </div>
             <div class="serve2">
                 <div class="list" onClick="loadAlbaTaskList()"><img alt="업무리스트" src="/resources/img/alba_nav4.png"><img alt="업무리스트" src="/resources/img/alba_nav4_hover.png"></div>
-                <div class="list" onClick=""><img alt="이력서 관리" src="/resources/img/alba_nav5.png"><img alt="이력서 관리" src="/resources/img/alba_nav5_hover.png"></div>
+<!--                 <div class="list" onClick=""><img alt="이력서 관리" src="/resources/img/alba_nav5.png"><img alt="이력서 관리" src="/resources/img/alba_nav5_hover.png"></div> -->
                 <div class="list" onClick="albaApply()"><img alt="알바 지원" src="/resources/img/alba_nav7.png"><img alt="알바 지원" src="/resources/img/alba_nav7_hover.png"></div>
                 <div class="list" onClick="albaInfoModify()"><img alt="정보 수정" src="/resources/img/alba_nav6.png"><img alt="정보 수정" src="/resources/img/alba_nav6_hover.png"></div>
             </div>
@@ -117,6 +117,23 @@
 	function albaInfoModify() {
 		menuIndex = "albaInfoModify";
 		ajax("/Modify");
+	}
+	
+	function schedule(){
+		
+		menuIndex = "schedule";
+		var shCode=$("#shop_select_box option:selected").val();
+		
+	    $.ajax({
+	        type:"POST",
+	        url:"/AlbaSchedule?shCode=" + shCode + "&abCode=" + abCode,
+	        dataType : "html",
+	        success: function(data){
+	            $(".test3").html(data);
+	            Loader();
+	        }
+	    });      
+		
 	}
 	
 	function albaInclueShopInfo() {

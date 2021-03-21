@@ -182,6 +182,20 @@ public class AlbaController {
 		return (pu.getAttribute("idCode")!=null) ? URLEncoder.encode(mav.getModel().get("albaApplyShopInfo").toString(),"UTF-8") : this.SessionCheck();
 	}
 	
+	// 알바지원, 눌렀을때 그 회사 디테일 정보 
+	@RequestMapping(value = "/AlbaSchedule", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView albaSchedule(@ModelAttribute AlbaBean aBean,HttpServletRequest req) throws Exception {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		return (pu.getAttribute("idCode")!=null) ? aInquiery.entrance(aBean) : this.mavSessionCheck();
+	}
+	
+	// 알바지원, 눌렀을때 그 회사 디테일 정보 
+	@RequestMapping(value = "/AlbaScheduleCheck", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView albaScheduleCheck(@ModelAttribute AlbaBean aBean,HttpServletRequest req) throws Exception {
+		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
+		return (pu.getAttribute("idCode")!=null) ? aInquiery.entrance(aBean) : this.mavSessionCheck();
+	}
+	
 	
 	/* ---------------------------------- 알바생 - 등록  ---------------------------------- */
 	

@@ -82,11 +82,70 @@ public class AlbaInquiery {
 		case "albaApplySearch":
 			mav = this.albaApplySearchCtl(aBean);
 			break;	
-		//
+		// 알바생 일정 ( 달력 ) 보여주기
+		case "AlbaSchedule" :
+			mav = this.albaScheduleView(aBean);
+			break;
+		case "AlbaScheduleCheck" :
+			mav = this.albaScheduleCheck(aBean);
+			break;
 		}
 		return mav;
 	}
 	
+	private ModelAndView albaScheduleCheck(AlbaBean aBean) {
+		
+		mav = new ModelAndView();
+		
+		System.out.println("전달된 st코드" + aBean.getStCode() + "매장" + aBean.getShCode() + "알바" + aBean.getAbCode());
+		
+		System.out.println("스케쥴 몇개잇어 ?" + this.countAlbaSchedule(aBean));
+		
+		if(!this.convertToBoolean(this.countAlbaSchedule(aBean))){
+			
+			mav.addObject("albaScheduleCheck", gson.toJson(this.getAlbaScheduleList(aBean)));
+			
+		}else {
+			
+			mav.addObject("albaScheduleCheck", "nothing");
+		}
+		
+		// 스케쥴이 있다면 ? 언제있는지 ? 
+		System.out.println(gson.toJson(this.getAlbaScheduleList(aBean)));
+		
+		return mav;
+	}
+
+
+
+	private int countAlbaSchedule(AlbaBean aBean) {
+		return mapperW.countAlbaSchedule(aBean);
+	}
+
+
+
+	private ArrayList<AlbaBean> getAlbaScheduleList(AlbaBean aBean) {
+		return mapperW.getAlbaScheduleList(aBean);
+	}
+
+
+
+	private ModelAndView albaScheduleView(AlbaBean aBean) {
+		
+		mav = new ModelAndView();
+		
+		System.out.println("매장코드 >" + aBean.getShCode() + "알바코드 >" + aBean.getAbCode());
+		
+		mav.addObject("shCode", aBean.getShCode());
+		mav.addObject("abCode", aBean.getAbCode());
+		
+		mav.setViewName("albaSchedule");
+		
+		return mav;
+	}
+
+
+
 	// 알바지원, 계좌 수정하려고..
 	
 	private ModelAndView albaApplyShopMyInfoCtl(AlbaBean aBean) {
@@ -305,25 +364,12 @@ public class AlbaInquiery {
 		
 		mav = new ModelAndView();
 		
-		ArrayList<AlbaBean> list = new ArrayList<AlbaBean>();
 		
 		System.out.println("알바생 누구니?" + aBean.getAbCode());
 		
 		String myAlbaList = gson.toJson(this.myAlbaZone(aBean));
 		
 		System.out.println(myAlbaList);
-		
-		for(int index=0 ; index < this.myAlbaZone(aBean).size() ; index++) {
-			
-			aBean.setShCode(this.myAlbaZone(aBean).get(index).getShCode());
-			
-			// 최대값 가져오는거 진입 해서 가져온뒤 가져온값을 따로 저장
-			
-			// 가져온값을 쪼개서 보냄
-			list.add(aBean);
-		}
-		
-		
 		
 		mav.addObject("myAlbaList", myAlbaList);
 		mav.setViewName("albaList");
@@ -344,6 +390,10 @@ public class AlbaInquiery {
 	private ArrayList<AlbaBean> getAlbaTaskListSelect(AlbaBean aBean) {
 		
 		return mapperW.getAlbaTaskListSelect(aBean);
+	}
+	
+	private boolean convertToBoolean(int data) {
+		return (data==1)?true:false;
 	}
 	
 	
