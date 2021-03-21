@@ -101,12 +101,12 @@ public class AlbaInquiery {
 		
 		System.out.println("스케쥴 몇개잇어 ?" + this.countAlbaSchedule(aBean));
 		
-		if(!this.convertToBoolean(this.countAlbaSchedule(aBean))){
-			
+		if(this.convertToBoolean(this.countAlbaSchedule(aBean))){
+			System.out.println("스케쥴잇어");
 			mav.addObject("albaScheduleCheck", gson.toJson(this.getAlbaScheduleList(aBean)));
 			
-		}else {
-			
+		}else{
+			System.out.println("스케줄 없어");
 			mav.addObject("albaScheduleCheck", "nothing");
 		}
 		
@@ -393,7 +393,7 @@ public class AlbaInquiery {
 	}
 	
 	private boolean convertToBoolean(int data) {
-		return (data==1)?true:false;
+		return (data>=1)?true:false;
 	}
 	
 	

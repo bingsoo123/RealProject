@@ -116,7 +116,7 @@
 	// 알바생이 자신이 회원가입시 등록한 정보를 조회
 	function albaInfoModify() {
 		menuIndex = "albaInfoModify";
-		ajax("/Modify");
+		ajax("/Modify?abCode=" + abCode);
 	}
 	
 	function schedule(){

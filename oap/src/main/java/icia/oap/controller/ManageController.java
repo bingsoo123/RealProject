@@ -214,6 +214,15 @@ public class ManageController {
 		mav = mInquiery.entrance(mBean);
 		return (pu.getAttribute("idCode")!=null) ? URLEncoder.encode(mav.getModel().get("typeDetail").toString(),"UTF-8") : this.SessionCheck();
 	}
+	
+	// 업무 관리  - 등록되어있는 업무리스트 확인 ( 알바생이 해야할 일 )
+	@RequestMapping(value = "/WorkCountList", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String workCountList(@ModelAttribute ManageBean mBean) throws Exception {
+		mBean.setSCode("WorkCountList");
+		mav = mInquiery.entrance(mBean);
+		return (pu.getAttribute("idCode")!=null) ? URLEncoder.encode(mav.getModel().get("typeDetail").toString(),"UTF-8") : this.SessionCheck();
+	}
 
 	// 급여 관리 - 나의 매장 식구들의 급여리스트를 보여줌 
 	@RequestMapping(value = "/pay", method = {RequestMethod.POST, RequestMethod.GET})

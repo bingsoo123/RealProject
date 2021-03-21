@@ -156,6 +156,8 @@ display: inline-block;
 
 position: relative;
 
+margin-bottom : 16px;
+
 cusor: pointer;
 
 -webkit-user-select: none;

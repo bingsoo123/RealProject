@@ -129,7 +129,8 @@
 						imageBox.className="content-image";
 						imageBox.style.cursor="pointer";
 						imageBox.addEventListener('click', function() {
-							albaInfoOpen(shCode,albaD[num].abCode);
+							//albaInfoOpen(shCode,albaD[num].abCode);
+							albaWorkCount(shCode,albaD[num].abCode)
 						});
 						let image = document.createElement("Img");
 						image.src="/resources/img/"+albaD[i].abGender + ".png";
@@ -189,6 +190,21 @@
 		form.submit();
 		
 
+	}
+	
+	function albaWorkCount(abCode){
+		
+		var shCode = $("#shopSelect option:selected").val();
+		
+		let today = new Date();   
+
+		let year = today.getFullYear(); // 년도
+		let month = (today.getMonth()+1) >= 10 ? (today.getMonth()+1) : '0' + (today.getMonth()+1);  // 월
+		let date = today.getDate() >= 10 ? today.getDate() : '0' + today.getDate();  // 날짜
+		let day = today.getDay();  // 요일
+		
+		alert(year + "" + month + "" + date);
+		
 	}
 
 	

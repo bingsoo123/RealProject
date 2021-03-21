@@ -157,9 +157,11 @@
 				let json = decodeURIComponent(request.response);
 		    	if(json=="noSession"){
 		    		 location.href="/LogInForm?lCode=alba";
-		        }		
+		        }else if(json=="nothing"){
+		        	alert("오늘은 일정이 없어요 !!");
+		        }
 				let albaScheduleList = JSON.parse(json);
-				albaApplyShopInfo(shopData);
+				alert(albaScheduleList);
 			}
 		};
 		request.open("POST", "AlbaScheduleCheck", true);

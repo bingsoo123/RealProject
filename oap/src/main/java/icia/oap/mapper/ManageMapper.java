@@ -44,6 +44,8 @@ public interface ManageMapper {
 	public ArrayList<ManageBean> getPayInsert(ManageBean mBean);
 
 	public ArrayList<ManageBean> getScheduleList(ManageBean mBean);
+	
+	public int getCountCheckList(ManageBean mBean);
 
 	public ArrayList<ManageBean> getLogList(ManageBean mBean);
 

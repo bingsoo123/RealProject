@@ -38,38 +38,7 @@
         </div>
         
         
-       </div>
-      
-   <!--   <div class="jb-table-row">
-      
-        <div class="jb-table-cell1">
-          <h3>1</h3>
-        </div>
-        
-        <div class="jb-table-cell">
-          <h4>다이소</h4>
-        </div>
-        
-        <div class="jb-table-cell">
-          <h4>숙박 및 음식점업</h4>
-        </div>
-        
-        <div class="jb-table-cell">
-          <h4>2021년01월명세서</h4>
-        </div>
-        
-        <div class="jb-table-cell">
-          <h4>20210109~20210119</h4>
-        </div>
-        
-        <div class="jb-table-cell">
-          <h4>138000원</h4>
-        </div>
-        
-        
-      </div> -->
-      
-      
+      </div>
       
     </div>
       
@@ -87,7 +56,7 @@
 		for(i=0 ; i< pay.length ; i++){
 			
 			var tb = document.createElement('Div');
-			tb.className = "jb-table-row"
+			tb.className = "jb-table-row";
 			
 			// 넘버링
 			var dv = document.createElement('Div');

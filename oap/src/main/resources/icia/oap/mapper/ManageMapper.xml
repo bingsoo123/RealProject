@@ -629,6 +629,15 @@
 		SELECT MAX(SH_CODE)+1 FROM SH
    </select>
 	
+	<select id="getScheduleList" resultType="icia.oap.beans.ManageBean">
+		SELECT  MTD_MTSHCODE AS SHCODE,
+        MTD_ABCODE AS ABCODEM,
+        AB_NAME AS ABNAME,
+       	MTD_MTTLNUMBER AS TLNUMBER,
+        MTD_MTDETAIL AS MTDETAIL
+		FROM MTD INNER JOIN AB ON MTD_ABCODE = AB_CODE
+		WHERE MTD_MTSHCODE=#{shCode} AND MTD_ABCODE=#{abCode}
+	</select>			
 	
 </mapper>	
 

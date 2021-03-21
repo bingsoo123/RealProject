@@ -165,6 +165,7 @@ public class AlbaModify {
 		String jsonData = gson.toJson(this.getAlbaInfo(aBean));
 
 		mav.addObject("memInfo", jsonData);
+		mav.addObject("abCode", aBean.getAbCode());
 		mav.setViewName("modify");
 		return mav;
 	}

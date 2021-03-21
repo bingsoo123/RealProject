@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 
 import icia.oap.beans.AlbaBean;
 import icia.oap.beans.ManageBean;
+import icia.oap.mapper.AlbaMapper;
 import icia.oap.mapper.ManageMapper;
 import icia.oap.utils.ProjectUtils;
 
@@ -19,6 +20,8 @@ public class ManagementInquiery {
 	
 	@Autowired
 	private ManageMapper mapperM;
+	@Autowired
+	private AlbaMapper mapperW;
 	@Autowired
 	private Gson gson;
 	@Autowired
@@ -144,11 +147,44 @@ public class ManagementInquiery {
 		        case "SerachWorkList" :
 		        	mav = this.searchWorkListCtl(mBean);
 		        	break;
+		        case "WorkCountList" :
+		        	mav = this.getCountWorkList(mBean);
+		        	break;
 				}
 		
 		return mav;
 	}
 	
+	private ModelAndView getCountWorkList(ManageBean mBean) {
+		
+		mav = new ModelAndView();
+		
+		String tList="";
+		
+		String fList="";
+		
+		ArrayList<ManageBean> countList = new ArrayList<ManageBean>();
+		
+		for(int index=0 ; index < this.myAlbaWorkList(mBean).size() ; index++) {
+			
+			mBean.setMtDetail(this.myAlbaWorkList(mBean).get(index).getMtDetail());
+			
+			for(int i = 0 ; i < this.myAlbaWorkList(mBean).size() ; i++) {
+				
+				//Integer.toString(this.myAlbaWorkList(mBean).get(index).getTCount());
+				
+			}
+			
+		}
+		this.myAlbaWorkList(mBean);
+		
+		return mav;
+	}
+
+	private ArrayList<ManageBean> myAlbaWorkList(ManageBean mBean) {
+		return mapperM.getScheduleList(mBean);
+	}
+
 	private ModelAndView searchWorkListCtl(ManageBean mBean) {
 		
 		mav = new ModelAndView();

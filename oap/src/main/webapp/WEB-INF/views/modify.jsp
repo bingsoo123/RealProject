@@ -316,7 +316,7 @@
 		let codeInfo = pwEdit.value;
 
 		let form = document.createElement('form');
-		form.action = "ModifyComplete?abCode=" + codeInfo + "&abPw=" + pwInfo;
+		form.action = "ModifyComplete?abCode=" + codeInfo + "&abPw=" + pwInfo + "&abCode=" + abCode;
 		form.method = "POST";
 		document.body.appendChild(form);
 		form.appendChild(accountEdit);
@@ -336,7 +336,7 @@
 		let codeInfo = nameEdit.value;
 
 		let form = document.createElement('form');
-		form.action = "ModifyComplete2?abCode=" + codeInfo + "&abName=" + nameInfo;
+		form.action = "ModifyComplete2?abCode=" + codeInfo + "&abName=" + nameInfo + "&abCode=" + abCode;
 		form.method = "POST";
 		document.body.appendChild(form);
 		form.appendChild(nameEdit);

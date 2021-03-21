@@ -191,9 +191,10 @@ public class AlbaController {
 	
 	// 알바지원, 눌렀을때 그 회사 디테일 정보 
 	@RequestMapping(value = "/AlbaScheduleCheck", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView albaScheduleCheck(@ModelAttribute AlbaBean aBean,HttpServletRequest req) throws Exception {
+	@ResponseBody
+	public String albaScheduleCheck(@ModelAttribute AlbaBean aBean,HttpServletRequest req) throws Exception {
 		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
-		return (pu.getAttribute("idCode")!=null) ? aInquiery.entrance(aBean) : this.mavSessionCheck();
+		return (pu.getAttribute("idCode")!=null) ? URLEncoder.encode(aInquiery.entrance(aBean).getModel().get("albaScheduleCheck").toString(),"UTF-8") : this.SessionCheck();
 	}
 	
 	
@@ -288,7 +289,7 @@ public class AlbaController {
 	public ModelAndView modify(@ModelAttribute AlbaBean aBean,HttpServletRequest req) throws Exception {
 		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		aBean.setSCode("Modify");
-		aBean.setAbCode("100000112");
+		System.out.println("abcode ?" + aBean.getAbCode());
 		return (pu.getAttribute("idCode")!=null) ? aModify.entrance(aBean) : this.mavSessionCheck();
 	}
 	
@@ -297,8 +298,6 @@ public class AlbaController {
 	public ModelAndView modifyComplete(@ModelAttribute AlbaBean aBean,HttpServletRequest req) throws Exception {
 		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		aBean.setSCode("ModifyComplete");
-		aBean.setAbCode("100000112");
-		
 		return (pu.getAttribute("idCode")!=null) ? aModify.entrance(aBean) : this.mavSessionCheck();
 	}
 	
@@ -307,8 +306,6 @@ public class AlbaController {
 	public ModelAndView modifyComplete2(@ModelAttribute AlbaBean aBean,HttpServletRequest req) throws Exception {
 		aBean.setAction(req.getRequestURI().substring(req.getContextPath().length() + 1));
 		aBean.setSCode("ModifyComplete2");
-		aBean.setAbCode("100000112");
-		
 		return (pu.getAttribute("idCode")!=null) ? aModify.entrance(aBean) : this.mavSessionCheck();
 	}
 	
