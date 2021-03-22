@@ -67,6 +67,9 @@
 			let div = document.createElement('Div');
 			div.className = "workzone";
 			div.style.margin = "40px 0px";
+			div.addEventListener('click', function() {
+				selShop(work[index].shCode);
+			});
 			section.appendChild(div);
 			let shName = document.createElement('h3');
 			shName.textContent = work[i].shName + "[" + work[i].stComment + "]";
@@ -113,5 +116,14 @@
 
 		form.submit();
 	}
+	
+   function selShop(shCode) {
+
+	   window.open('/myWorkZoneAlba?shCode=' + shCode + '&sCode=myWorkZoneAlba','알바생목록','top=100,left=100,width=1000,height=300,status=no,menubar=no,toolbar=no,resizable=no');
+	   
+   }
+	
 </script>
 </html>
+
+

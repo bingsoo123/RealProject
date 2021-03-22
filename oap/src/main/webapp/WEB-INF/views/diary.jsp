@@ -146,10 +146,33 @@
 
     // 일(day) 버튼 클릭했을때 콜백함수
     function ClickedDay(){
-        var year = document.getElementById("calendar-year").value;
-        var month = document.getElementById("calendar-month").value;
+    	
+    	var shCode = $("#shopSelect option:selected").val();
+    	
         var day = this.innerText;
-        alert(year+"년"+(month + 1)+"월"+day+"일")
+        var year = document.getElementById("calendar-year").value
+        var month = document.getElementById("calendar-month").value;
+        var dDay = year+""+ ((month + 1)>= 10 ? (month+1) : "0" + (month+1)) + "" + (day >=10 ? day : ("0" + day));
+        
+        let form = document.createElement("form");
+        let inp = document.createElement('input');
+        inp.name = "rtTime";
+        inp.type = "hidden";
+        inp.value = dDay;
+        
+        form.setAttribute("method", "post");
+        form.setAttribute("action", 'goLog?shCode='+shCode);
+        form.setAttribute("target", "정산상세보기")
+        form.appendChild(inp);
+        
+        document.body.appendChild(form);
+
+        window.open('','정산상세보기','top=10,left=10,width=800,height=600,status=no,menubar=no,toolbar=no,resizable=no');
+
+        form.submit();
+
+        
+        alert(dDay);
     }
 
 

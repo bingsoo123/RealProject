@@ -24,14 +24,12 @@
 				</div>
 				
 				
-				
-				<button class="albaAdd_btn" onClick="transffer()">지원하기</button>
-				
 			</div>
+		
 		
 		</div>
 		
-
+			<button class="albaAdd_btn" onClick="transffer()">등록하기</button>
 
 </body>
 

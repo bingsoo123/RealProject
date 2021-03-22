@@ -6,18 +6,18 @@ import lombok.Data;
 public class ManageBean {
 
 	// 원진
-	public String sCode;
-	public String shName;
-	public String shCode;
-	public String shMnCode;
-	public String shBusinessLi;
-	public String shType;
-	public String shAddr;
-	public String shTel;
-	public String shImage;
-	public int workman;
-	public String road;
-	public String detail;
+	private String sCode;
+	private String shName;
+	private String shCode;
+	private String shMnCode;
+	private String shBusinessLi;
+	private String shType;
+	private String shAddr;
+	private String shTel;
+	private String shImage;
+	private int workman;
+	private String road;
+	private String detail;
 	
 	// 진주
 	private String abCode;
@@ -40,6 +40,7 @@ public class ManageBean {
 	private String siaDate; // 입사 날짜.
 	private String abEmail;
 	private String ssBankName;
+	private String wlTime;
 	private String ssAccount;
 	private String mrGrade; // 등급
 	private String workCmTime; // 출근 시간
@@ -98,7 +99,10 @@ public class ManageBean {
 	
 	//일정 추가 쪽에서 쓰는 컬럼
 	private String startDay;
+	private int dDay;
+	private int endDay;
 	private String selectData;
+	private String tf;
 	
 
 	

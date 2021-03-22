@@ -39,6 +39,9 @@ public class ManagementInquiery {
 				case "myWorkZone":
 					mav = this.workZoneManagementCtl(mBean);
 					break;
+				case "myWorkZoneAlba":
+					mav = this.workZoneAlbaCtl(mBean);
+					break;
 				
 				//// 15일 추가
 				
@@ -143,12 +146,15 @@ public class ManagementInquiery {
 		        	break;
 		        case "ChangeAlbaList" :
 		        	mav=this.changeAlbaListCtl(mBean);
-		        	break;	
+		        	break;
 		        case "SerachWorkList" :
 		        	mav = this.searchWorkListCtl(mBean);
 		        	break;
 		        case "WorkCountList" :
 		        	mav = this.getCountWorkList(mBean);
+		        	break;
+		        case "goLog" :
+		        	mav = this.goLogDetailCtl(mBean);
 		        	break;
 				}
 		
@@ -159,6 +165,13 @@ public class ManagementInquiery {
 		
 		mav = new ModelAndView();
 		
+		mBean.setDDay(Integer.parseInt(mBean.getStartDay()));
+		mBean.setEndDay(Integer.parseInt(mBean.getStartDay())+7);
+		
+		System.out.println("start >" + mBean.getDDay() + "::" + mBean.getEndDay() + "::" + mBean.getMtDetail());
+		
+		System.out.println("size =" + this.myAlbaWorkList(mBean).size());
+		
 		String tList="";
 		
 		String fList="";
@@ -167,18 +180,34 @@ public class ManagementInquiery {
 		
 		for(int index=0 ; index < this.myAlbaWorkList(mBean).size() ; index++) {
 			
-			mBean.setMtDetail(this.myAlbaWorkList(mBean).get(index).getMtDetail());
+			System.out.println("1차진입");
 			
-			for(int i = 0 ; i < this.myAlbaWorkList(mBean).size() ; i++) {
+			mBean.setMtDetail(this.myAlbaWorkList(mBean).get(index).getMtDetail());
 				
-				//Integer.toString(this.myAlbaWorkList(mBean).get(index).getTCount());
-				
-			}
+			mBean.setTf("T");
+			System.out.println("true ?" + Integer.toString(this.dbCountWorkList(mBean)));
+			tList += Integer.toString(this.dbCountWorkList(mBean)) + ( (index==this.myAlbaWorkList(mBean).size()-1) ? "" : "-");
+			mBean.setTf("F");
+			System.out.println("false ?" + Integer.toString(this.dbCountWorkList(mBean)));
+			fList += Integer.toString(this.dbCountWorkList(mBean)) + ( (index==this.myAlbaWorkList(mBean).size()-1) ? "" : "-");
 			
 		}
-		this.myAlbaWorkList(mBean);
+		
+		System.out.println(tList + " ---- " + fList);
+		
+		mav.addObject("workList", gson.toJson(this.myAlbaWorkList(mBean)));
+		
+		mav.addObject("trueList", tList);
+		
+		mav.addObject("falseList", fList);
+		
+		mav.setViewName("albaWorkCheck");
 		
 		return mav;
+	}
+
+	private int dbCountWorkList(ManageBean mBean) {
+		return mapperM.getCountWorkList(mBean);
 	}
 
 	private ArrayList<ManageBean> myAlbaWorkList(ManageBean mBean) {
@@ -199,6 +228,25 @@ public class ManagementInquiery {
 		
 		return mav;
 	}
+	
+	
+	//알바생정보 보기
+	private ModelAndView workZoneAlbaCtl(ManageBean mBean) {
+		System.out.println("진입");
+		mav = new ModelAndView();
+		String jsonAlba = gson.toJson(this.getShopAlba(mBean));
+		System.out.println("getSelectShopList:: " + jsonAlba);
+		mav.addObject("shopAlba",jsonAlba);
+		
+		mav.setViewName("myWorkZoneAlba");
+		return mav;
+	}
+	
+	
+	private ArrayList<ManageBean> getShopAlba(ManageBean mBean){
+		return mapperM.getShopAlba(mBean);
+	}
+	
 
 	private ArrayList<ManageBean> serarchWorkList(ManageBean mBean) {
 		return mapperM.getSearchWork(mBean);
@@ -682,6 +730,12 @@ public class ManagementInquiery {
 	private ArrayList<ManageBean> getLogList(ManageBean mBean){
 		return mapperM.getLogList(mBean);
 	}
+	private ArrayList<ManageBean> getLogList2(ManageBean mBean){
+		return mapperM.getLogList2(mBean);
+	}
+	private ArrayList<ManageBean> getNote(ManageBean mBean){
+		return mapperM.getNote(mBean);
+	}
 	
 	private ModelAndView logDetailCtl(ManageBean mBean) {
 		
@@ -697,6 +751,30 @@ public class ManagementInquiery {
 		
 		
 		mav.setViewName("workDiary");
+		return mav;
+	}
+	
+	private ModelAndView goLogDetailCtl(ManageBean mBean) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println("넘어온날자 >" + mBean.getRtTime() + "매장>" + mBean.getShCode());
+		
+		String jsonData = gson.toJson(this.getLogList(mBean));
+		String jsonData2 = gson.toJson(this.getLogList2(mBean));
+		String jsonData3 = gson.toJson(this.getNote(mBean));
+		
+		
+
+		mav.addObject("insu", jsonData);
+		mav.addObject("ingye", jsonData2);
+		mav.addObject("note", jsonData3);
+		System.out.println("인수" + jsonData);
+		System.out.println("인계" + jsonData2);
+		System.out.println("특이사항" + jsonData3);
+		
+		
+		mav.setViewName("workDiaryDetail");
 		return mav;
 	}
 	

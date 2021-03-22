@@ -36,6 +36,16 @@
 		WHERE SH_CODE = #{shCode}
 	]]> 
 	</update>
+	
+	<select id="getShopAlba" resultType="icia.oap.beans.ManageBean">
+	
+		<![CDATA[
+		SELECT AB_NAME AS abName, AB_GENDER AS abGender FROM SIA
+		INNER JOIN AB ON AB.AB_CODE = SIA.SIA_ABCODE  WHERE  SIA_SHCODE=#{shCode}
+		GROUP BY AB.AB_NAME,AB.AB_GENDER
+		]]>
+
+	</select>
 
 	<!-- 진주 -->
 
@@ -326,21 +336,44 @@
 
 
 
-	<!-- 	근무일지 특정 날짜의 근무자,데이터 출력  -->
+	<select id="getNote" resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+		SELECT WL_SCSTARTTIME AS workTime, AB_NAME AS abName, WL_SPECIALNOTE AS note ,
+		WL_TIME AS wlTime
+		FROM WL 
+		INNER JOIN AB ON WL_SCABCODE = AB.AB_CODE
+		WHERE TO_CHAR(WL_TIME,'YYYYMMDD')=#{rtTime}
+		ORDER BY WL_SCSTARTTIME ASC
+	]]>
+	</select>
+
+
+	<!-- 근무일지 인수현황 칸 만들기 -->
 	<select id="getLogList" resultType="icia.oap.beans.ManageBean">
 	<![CDATA[
- 	select rd_rtshcode as SHCODE, rd_rtabcode as abCode, AB_NAME AS ABNAME, wl_scstarttime as workTime,
- 	rt_type as rtType,wl.wl_specialnote AS NOTE,
- 	rd_rttime as rtTime , rd_moneytype as moneyt,
- 	rd_moneycount as mCount FROM RD
- 	INNER JOIN rt ON rt.rt_siaabcode = rd.rd_rtabcode AND rt.rt_siashcode = rd.rd_rtshcode
- 	AND rt.rt_time = RD.RD_RTTIME
- 	INNER JOIN AB ON ab.ab_code = RD.RD_RTABCODE
- 	INNER JOIN WL ON rd.rd_rtshcode = WL.WL_scshcode AND RD.RD_RTABCODE = wl.wl_scabcode
- 	WHERE rt.rt_type ='2' AND TO_CHAR(RD.RD_RTTIME, 'YYYYMMDD') = '20210304'
- 	GROUP BY RD.RD_RTSHCODE,rd.rd_rtabcode,ab.ab_name,
- 	rt.rt_type,rd.rd_rttime,rd.rd_moneytype,rd.rd_moneycount,WL.WL_SPECIALNOTE,wl.wl_scstarttime
- 	ORDER BY wl.wl_specialnote,to_number(rd_moneytype)  desc
+		SELECT  RT_SIASHCODE AS shCode,
+	        RT_SIAABCODE AS abCode,
+	        RT_TIME AS rtTime,
+	        RD_MONEYTYPE AS moneyt,
+	        RD_MONEYCOUNT AS mCount
+		FROM RT INNER JOIN RD ON RT_SIASHCODE = RD_RTSHCODE AND RT_SIAABCODE = RD_RTABCODE AND RT_TIME = RD_RTTIME 
+		WHERE RT_SIASHCODE=#{shCode} AND TO_CHAR(RT_TIME,'YYYYMMDD')= #{rtTime} AND RT_TYPE='1'
+		ORDER BY RT_TIME ASC,TO_NUMBER(RD_MONEYTYPE) DESC
+	]]>
+	</select>
+
+
+	<!-- 근무일지 인계현황 칸 만들기 -->
+	<select id="getLogList2" resultType="icia.oap.beans.ManageBean">
+	<![CDATA[
+		SELECT  RT_SIASHCODE AS shCode,
+	        RT_SIAABCODE AS abCode,
+	        RT_TIME AS rtTIme,
+	        RD_MONEYTYPE AS moneyt,
+	        RD_MONEYCOUNT AS mCount
+		FROM RT INNER JOIN RD ON RT_SIASHCODE = RD_RTSHCODE AND RT_SIAABCODE = RD_RTABCODE AND RT_TIME = RD_RTTIME 
+		WHERE RT_SIASHCODE=#{shCode} AND TO_CHAR(RT_TIME,'YYYYMMDD')= #{rtTime} AND RT_TYPE='2'
+		ORDER BY RT_TIME ASC,TO_NUMBER(RD_MONEYTYPE) DESC
 	]]>
 	</select>
 
@@ -637,8 +670,19 @@
         MTD_MTDETAIL AS MTDETAIL
 		FROM MTD INNER JOIN AB ON MTD_ABCODE = AB_CODE
 		WHERE MTD_MTSHCODE=#{shCode} AND MTD_ABCODE=#{abCode}
-	</select>			
+	</select>
 	
+	
+   <select id="getCountWorkList" resultType="int">
+     <![CDATA[
+		SELECT COUNT(*) FROM TFCOUNT
+		WHERE TO_NUMBER(TO_CHAR(CLTIME,'YYYYMMDD'))>=#{dDay} AND
+		TO_NUMBER(TO_CHAR(CLTIME,'YYYYMMDD'))<=#{endDay}+7 AND TF=#{tf} AND
+		MTDETAIL=#{mtDetail} AND SHCODE=#{shCode} AND
+		ABCODE=#{abCode}
+     ]]>
+   </select>	
+
 </mapper>	
 
 

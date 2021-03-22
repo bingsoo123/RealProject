@@ -13,14 +13,22 @@ public interface ManageMapper {
 	
 	// 해당 알바생의 계정에 등록된 계좌 정보 가져오기
 	public ArrayList<ManageBean> getAccountInfo(ManageBean mBean);
+	
 	public int accountInfoUpdate(ManageBean mBean);
+	
 	public ManageBean getCommuteTime(ManageBean mBean); // type은 cmType으로 설정.
+	
 	public int albaManagementAddDelete(ManageBean mBean);
+	
 	public int albaManagementAddComplete(ManageBean mBean);
+	
 	public ArrayList<ManageBean> albaManagementAddList(ManageBean mBean);
+	
 	public ManageBean albaManagementAddSelect(ManageBean mBean);
+	
 	public ManageBean getAlbaDetailSearch(ManageBean mBean);
 	
+	public ArrayList<ManageBean> getShopAlba(ManageBean mBean);
 	
 	public int isLabor(ManageBean mBean);
 	
@@ -48,6 +56,10 @@ public interface ManageMapper {
 	public int getCountCheckList(ManageBean mBean);
 
 	public ArrayList<ManageBean> getLogList(ManageBean mBean);
+	
+	public ArrayList<ManageBean> getLogList2(ManageBean mBean);
+	
+	public ArrayList<ManageBean> getNote(ManageBean mBean);
 
 	public ModelAndView logDetailSelect(ManageBean mBean);
 
@@ -88,6 +100,8 @@ public interface ManageMapper {
 	public ArrayList<ManageBean> getSearchWork(ManageBean mBean);
 	
 	public String maxShCode(ManageBean mBean);
+	
+	public int getCountWorkList(ManageBean mBean);
 	
 	//   Enroll       ( 등록 )
 
@@ -155,6 +169,8 @@ public interface ManageMapper {
 	public int updateApplyCode(ManageBean mBean);
 	
 	public int workZoneInsert(ManageBean mBean);
+	
+
 	
 
 

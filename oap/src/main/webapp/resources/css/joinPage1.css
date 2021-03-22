@@ -26,9 +26,8 @@
 	position:absolute;
 	font-size:18px;
 	font-weight:bold;
-	bottom: 5%;
-    width: 99%;
-    left: 0%;
+	bottom:-17%;
+	width:99%;
 	height:50px;
 	background-color:#FEE300;
 	border: 1px solid #BBBBBB;
@@ -64,20 +63,23 @@
 }
 
 .regist_info_addr_btn{
+	border: 1px solid white;
 	position : relative;
 	left : -2px;
 	top : 1px;
 	width: 129px;
 	height: 41.7px;
-	background-color:#FEE300;
-	border: 1px solid #BBBBBB;
 	border-radius:5px 5px 5px 5px;
 }
 
-.regist_info:focus{
-	outline: none !important;
-    border:1px solid #FEE300;
+.regist_info_addr_btn:hover{
+    background: #FEE300;
 }
+.regist_info_addr_btn:focus{
+	border: none;
+}
+
+
 
 .regist_info_birth{
 	width: 110px;

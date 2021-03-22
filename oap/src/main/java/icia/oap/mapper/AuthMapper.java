@@ -36,5 +36,12 @@ public interface AuthMapper {
 	public String getManageCode(AuthBean auBean);
 
 	public String getDbPw(AuthBean auBean);
+	
+	// mnCode 카운트+1 추가 mnCode set하는거
+	public String maxCodeManage();
+
+	// 관리자 정보 insert 추가
+	public int joinInsertManage(AuthBean auBean);	
+	
 
 }

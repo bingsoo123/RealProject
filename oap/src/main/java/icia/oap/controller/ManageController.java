@@ -81,6 +81,14 @@ public class ManageController {
 		return (pu.getAttribute("idCode")!=null) ? mInquiery.entrance(mBean) : this.mavSessionCheck();
 	}
 	
+	// 매장안에 알바생리스트 출력
+	@RequestMapping(value = "/myWorkZoneAlba", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView myWorkZoneAlba(@ModelAttribute ManageBean mBean) throws UnsupportedEncodingException {
+		System.out.println("매장의 알바생은"+mBean.getSCode());
+		System.out.println("매장코드는" + mBean.getShCode()+"다");
+		return mInquiery.entrance(mBean);
+	}
+	
 	// 관리자 코드 보내기
 	@RequestMapping(value = "/goManageCode", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView goManageCode(@ModelAttribute ManageBean mBean) throws Exception {
@@ -215,13 +223,11 @@ public class ManageController {
 		return (pu.getAttribute("idCode")!=null) ? URLEncoder.encode(mav.getModel().get("typeDetail").toString(),"UTF-8") : this.SessionCheck();
 	}
 	
-	// 업무 관리  - 등록되어있는 업무리스트 확인 ( 알바생이 해야할 일 )
+	// 업무 관리  - 일주일간 몇번 수행햇고 몇번 안햇는지
 	@RequestMapping(value = "/WorkCountList", method = {RequestMethod.GET, RequestMethod.POST})
-	@ResponseBody
-	public String workCountList(@ModelAttribute ManageBean mBean) throws Exception {
+	public ModelAndView workCountList(@ModelAttribute ManageBean mBean) throws Exception {
 		mBean.setSCode("WorkCountList");
-		mav = mInquiery.entrance(mBean);
-		return (pu.getAttribute("idCode")!=null) ? URLEncoder.encode(mav.getModel().get("typeDetail").toString(),"UTF-8") : this.SessionCheck();
+		return mInquiery.entrance(mBean);
 	}
 
 	// 급여 관리 - 나의 매장 식구들의 급여리스트를 보여줌 
@@ -289,6 +295,15 @@ public class ManageController {
 	public ModelAndView log(@ModelAttribute ManageBean mBean) throws Exception {
 		mBean.setSCode("Log");
 		return (pu.getAttribute("idCode")!=null) ? mInquiery.entrance(mBean) : this.mavSessionCheck();
+	}
+	
+	// 근무 일지 - 근무일지에 무슨일이 잇엇는지 확인하기위해 상세정보를 보기위한 요청
+	@RequestMapping(value = "/goLog", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView golog(@ModelAttribute ManageBean mBean) {
+		mBean.setSCode("goLog");
+		System.out.println("매장코드 ?" + mBean.getShCode());
+		System.out.println("근무일자는" + mBean.getRtTime()+"다");
+		return mInquiery.entrance(mBean);
 	}
 
 	// 근로 계약서 - 해당 매장에 잇는 알바생들의 근로 계약서 리스트 보여짐

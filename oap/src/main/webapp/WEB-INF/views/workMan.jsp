@@ -307,7 +307,7 @@
 	
 			let albaGender = document.createElement("img");
 			albaGender.className = "albaAddImg1";
-			albaGender.src = "/resources/img/alba_nav7_hover.png";
+			albaGender.src = "/resources/workZoneImg/" + applyInfo[i].shImg;
 			albaRow.appendChild(albaGender);
 			let abName = document.createElement('p');
 			abName.className = "albaAdd_name1";

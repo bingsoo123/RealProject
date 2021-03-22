@@ -49,4 +49,19 @@
 		SELECT AB_PW FROM AB WHERE AB_ID=#{sId}
 	</select>
 	
+	<!-- max codeManage 추가 -->
+	<select id="maxCodeManage" resultType="String">
+		SELECT MAX(MN_CODE)+1 FROM MN
+	</select>	
+	
+
+	<!-- join 관리자 추가 -->
+	<insert id="joinInsertManage">
+		INSERT INTO MN (MN_CODE, MN_PW, MN_NAME, MN_PHONE, MN_GENDER, MN_EMAIL, MN_BIRTH, MN_ID)
+		VALUES(#{mnCode}, #{sPw}, #{sName}, #{sPhone}, #{sGender}, #{sEmail}, ${sBirth}, #{sId})
+	</insert>	
+	
 </mapper>
+
+
+

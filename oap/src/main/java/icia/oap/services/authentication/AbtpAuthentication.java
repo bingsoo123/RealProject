@@ -152,6 +152,8 @@ public class AbtpAuthentication {
 		TransactionStatus status = tran.getTransaction(new DefaultTransactionDefinition());
 		
 		auBean.setAbCode(mapperA.maxCode());
+		// mnCode 추가
+		auBean.setMnCode(mapperA.maxCodeManage());
 		
 		if(auBean.getSCode().equals("alba")) {
 			
@@ -172,7 +174,18 @@ public class AbtpAuthentication {
 			}
 			
 		}else if(auBean.getSCode().equals("manage")) {
-			
+			if(!this.isMemberManage(auBean)) {
+				System.out.println("ID없음 >> 회원가입 진행");
+				if(this.joinInsertManage(auBean)) {
+					System.out.println("회원정보 들어감");
+					System.out.println("최종 INSERT 확인하기");
+					tran.commit(status);
+					page = "joinSuccess";
+					message = null;
+						
+				}
+				
+			}
 		}
 		
 		mav.addObject("message", message);
@@ -194,6 +207,11 @@ public class AbtpAuthentication {
 
 	private boolean joinInsert(AuthBean auBean) {
 		return this.converToBoolean(mapperA.joinInsert(auBean));
+	}
+	
+	// insert interface 연결
+	private boolean joinInsertManage(AuthBean auBean) {
+		return this.converToBoolean(mapperA.joinInsertManage(auBean));
 	}
 
 	private ModelAndView logInCtl(AuthBean auBean) throws Exception {

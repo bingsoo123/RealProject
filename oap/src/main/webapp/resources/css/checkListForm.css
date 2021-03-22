@@ -73,8 +73,8 @@ body{
 
 .detail-content{
 	
-	padding-top : 20px;
-	padding-left: 65px;
+	padding-top : 32px;
+	padding-left: 7px;
 	
 }
 
@@ -110,8 +110,8 @@ body{
     width: 100px;
     height: 41px;
     position: absolute;
-    right: 45px;
-    bottom: 30px;
+    right: 39%;
+    margin-top: 3%;
 }
 
 .albaAdd_btn:hover {
@@ -184,7 +184,7 @@ height: 18px;
 
 line-height: 18px;
 
-margin: 21px 8px 0 0;
+margin: 23px 8px 0 0;
 
 text-align: center;
 

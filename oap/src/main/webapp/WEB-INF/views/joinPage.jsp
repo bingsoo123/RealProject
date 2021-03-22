@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>알바생님 환영합니다 !</title>
-<link href="/resources/css/joinPage2.css" rel="stylesheet"/> 
+<link href="/resources/css/joinPage1.css" rel="stylesheet"/> 
 </head>
 <body>
 

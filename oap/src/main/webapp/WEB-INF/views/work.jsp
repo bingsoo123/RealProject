@@ -130,7 +130,7 @@
 						imageBox.style.cursor="pointer";
 						imageBox.addEventListener('click', function() {
 							//albaInfoOpen(shCode,albaD[num].abCode);
-							albaWorkCount(shCode,albaD[num].abCode)
+							albaWorkCount(shCode,albaD[num].abCode,mtDetail)
 						});
 						let image = document.createElement("Img");
 						image.src="/resources/img/"+albaD[i].abGender + ".png";
@@ -192,18 +192,36 @@
 
 	}
 	
-	function albaWorkCount(abCode){
+	function albaWorkCount(shCode,abCode,mtDetail){
 		
-		var shCode = $("#shopSelect option:selected").val();
+		var popupWidth = 750;
+		var popupHeight = 590;
+
+		var popupX = (window.screen.width / 2) - (popupWidth / 2);
+		// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height / 2) - (popupHeight / 2) - 100;
+		// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
 		
 		let today = new Date();   
-
 		let year = today.getFullYear(); // 년도
 		let month = (today.getMonth()+1) >= 10 ? (today.getMonth()+1) : '0' + (today.getMonth()+1);  // 월
 		let date = today.getDate() >= 10 ? today.getDate() : '0' + today.getDate();  // 날짜
 		let day = today.getDay();  // 요일
 		
-		alert(year + "" + month + "" + date);
+		let dDay = year + "" + month + "" + date;
+		
+		alert(dDay);
+		
+		window.open("","pop",'status=no , height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+		
+		let form = document.createElement("form");
+		form.method="post";
+		form.action="WorkCountList?startDay=" + dDay + "&shCode=" + shCode + "&abCode=" + abCode + "&mtDetail=" + mtDetail;
+		form.target="pop"
+		
+		document.body.appendChild(form);
+		form.submit();
 		
 	}
 

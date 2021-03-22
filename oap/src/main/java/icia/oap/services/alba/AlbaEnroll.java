@@ -200,9 +200,9 @@ public class AlbaEnroll {
 //				aBean.getOchun(), aBean.getMan(), aBean.getOman() };
 //		TransactionStatus status = tran.getTransaction(new DefaultTransactionDefinition());
 //		String message = "등록도중 오류가 발생하였습니다 . 다시시도 해주세요";
+//		
+//		System.out.println("출근 알바" + aBean.getAbCode()  +"매장" + aBean.getShCode());
 //
-//		aBean.setAbCode("100000000");
-//		aBean.setShCode("100000000");
 //		aBean.setRtType((aBean.getTCode().equals("start")) ? 1 : 2);
 //
 //		// insert 는 시제테이블에만 특이사항은 그저 무슨일이 있엇는지 확인용

@@ -1,7 +1,12 @@
 @charset "UTF-8";
 
-body{
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap')
+	;
 
+body {
+	font-family: 'Noto Sans KR', sans-serif;
+	margin: 0;
 }
 
 .all{
@@ -43,7 +48,7 @@ body{
 	display:table-cell;
 	border-bottom:1px solid #DDDDDD;
 	border-right:1px solid #DDDDDD;
-	background-color:yellow;
+	background-color:#FEE300;
 	width:400px;
 	height:8px;
 }
@@ -51,7 +56,7 @@ body{
 .table-cell2{
 	display:table-cell;
 	border-bottom:1px solid #DDDDDD;
-	background-color:green;
+	background-color:#5CAD55;
 	width:400px;
 	height:8px;
 }
@@ -110,7 +115,7 @@ body{
 }
 
 .albainput{
-	background-color:#FFFF99;
+	background-color:#FEE300;
 	width:90px;
 	height:45px;
 	border:1px solid #AAAAAA;
@@ -139,7 +144,7 @@ body{
 }
 
 .managerinput{
-	background-color:green;
+	background-color:#5CAD55;
 	width:90px;
 	height:45px;
 	border:1px solid #AAAAAA;

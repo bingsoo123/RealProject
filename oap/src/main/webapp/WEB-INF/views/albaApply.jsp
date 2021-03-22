@@ -411,7 +411,7 @@
 
 			let shopImg = document.createElement("img");
 			shopImg.className = "albaAddImg";
-			shopImg.src = "/resources/img/alba_nav7_hover.png"; // shopData.shImg // 샵 이미지 추가 후.
+			shopImg.src = "/resources/workZoneImg/"+ shopData.shImg; // shopData.shImg // 샵 이미지 추가 후.
 
 			// 	let albaAddName = document.createElement("p");
 			// 	albaAddName.className = "albaAdd_name";
